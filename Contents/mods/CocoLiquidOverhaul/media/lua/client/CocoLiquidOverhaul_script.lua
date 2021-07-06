@@ -1,6 +1,6 @@
 
--- TakeFuelRunAction
-local function TakeFuelRunAction(worldobjects, playerObj, square, petrolCan, pumpObject)
+-- CocoLiquidOverhaul_TakeFuelRunAction
+local function CocoLiquidOverhaul_TakeFuelRunAction(worldobjects, playerObj, square, petrolCan, pumpObject)
 	-- let's equip it
 	if playerObj:getPrimaryHandItem() ~= petrolCan and playerObj:getSecondaryHandItem() ~= petrolCan then
 		ISInventoryPaneContextMenu.equipWeapon(petrolCan, true, true, playerObj:getPlayerNum());
@@ -10,8 +10,8 @@ local function TakeFuelRunAction(worldobjects, playerObj, square, petrolCan, pum
 	ISTimedActionQueue.add(CocoLiquidOverhaulActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, 5000));
 end;
 
--- PourIntoRunAction
-local function PourIntoRunAction(playerObj, itemFrom, itemTo)
+-- CocoLiquidOverhaul_PourIntoRunAction
+local function CocoLiquidOverhaul_PourIntoRunAction(playerObj, itemFrom, itemTo)
 	local inventory = playerObj:getInventory();
 	
 	if itemTo:getType() == "Coco_WaterGallonEmpty" then
@@ -50,7 +50,7 @@ local function PourIntoRunAction(playerObj, itemFrom, itemTo)
 end;
 
 -- CocoLiquidOverhaul_TakeFuelContext
-function CocoLiquidOverhaul_TakeFuelContext(playerNum, context, worldobjects, test)
+local function CocoLiquidOverhaul_TakeFuelContext(playerNum, context, worldobjects, test)
 	if test == true then return true end;
 	
 	local playerObj = getSpecificPlayer(playerNum);
@@ -100,7 +100,7 @@ function CocoLiquidOverhaul_TakeFuelContext(playerNum, context, worldobjects, te
 							end;
 							
 							if petrolCan then
-								context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, TakeFuelRunAction, playerObj, square, petrolCan, pumpObject);
+								context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, CocoLiquidOverhaul_TakeFuelRunAction, playerObj, square, petrolCan, pumpObject);
 							end;
 							
 							pumpFound = true;
@@ -118,7 +118,7 @@ function CocoLiquidOverhaul_TakeFuelContext(playerNum, context, worldobjects, te
 end;
 
 -- CocoLiquidOverhaul_GetLiquidContainerInfoContext
-function CocoLiquidOverhaul_GetLiquidContainerInfoContext(playerNum, context, items)
+local function CocoLiquidOverhaul_GetLiquidContainerInfoContext(playerNum, context, items)
 	local playerObj = getSpecificPlayer(playerNum);
 	local inventory = playerObj:getInventory();
 	local mainContainer = nil;
@@ -134,7 +134,7 @@ function CocoLiquidOverhaul_GetLiquidContainerInfoContext(playerNum, context, it
 				mainContainer = item;
 				break;
 				
-			elseif item:getType() == "Coco_WaterGallonFull" or item:getType() == "WaterBleachBottle" or item:getType() == "WaterBowl" or item:getType() == "BucketWaterFull" or item:getType() == "WaterPot" or item:getType() == "WaterMug" or item:getType() == "WaterPaintbucket" or item:getType() == "WaterSaucepan" or item:getType() == "BeerWaterFull" or item:getType() == "WaterPopBottle" or item:getType() == "WineWaterFull" or item:getType() == "WhiskeyWaterFull" or item:getType() == "WaterBottleFull" or item:getType() == "GardeningSprayFull" or item:getType() == "WateredCanFull" or item:getType() == "MayonnaiseWaterFull" or item:getType() == "RemouladeWaterFull" then
+			elseif item:getType() == "Coco_WaterGallonFull" or item:getType() == "WaterBleachBottle" or item:getType() == "WaterBowl" or item:getType() == "BucketWaterFull" or item:getType() == "WaterPot" or item:getType() == "WaterMug" or item:getType() == "WaterPaintbucket" or item:getType() == "WaterSaucepan" or item:getType() == "BeerWaterFull" or item:getType() == "WaterPopBottle" or item:getType() == "WineWaterFull" or item:getType() == "WhiskeyWaterFull" or item:getType() == "WaterBottleFull" or item:getType() == "GardeningSprayFull" or item:getType() == "WateredCanFull" or item:getType() == "MayonnaiseWaterFull" or item:getType() == "RemouladeWaterFull" or item:getType() == "FullKettle" then
 				mainContainer = item;
 				isWater = true
 				break;
@@ -160,7 +160,7 @@ function CocoLiquidOverhaul_GetLiquidContainerInfoContext(playerNum, context, it
 end;
 
 -- CocoLiquidOverhaul_PourIntoContext
-function CocoLiquidOverhaul_PourIntoContext(playerNum, context, items)
+local function CocoLiquidOverhaul_PourIntoContext(playerNum, context, items)
 	local playerObj = getSpecificPlayer(playerNum);
 	local inventory = playerObj:getInventory();
 	local mainContainer = nil;
@@ -213,7 +213,7 @@ function CocoLiquidOverhaul_PourIntoContext(playerNum, context, items)
 				if instanceof(item, "DrainableComboItem") then
 					usedPercent = " (" .. tostring(math.floor(item:getUsedDelta() * 100)) .. "%)";
 				end;
-				subMenu:addOption(itemName .. usedPercent, playerObj, PourIntoRunAction, mainContainer, item);
+				subMenu:addOption(itemName .. usedPercent, playerObj, CocoLiquidOverhaul_PourIntoRunAction, mainContainer, item);
 			end;
 		end;
 	end;

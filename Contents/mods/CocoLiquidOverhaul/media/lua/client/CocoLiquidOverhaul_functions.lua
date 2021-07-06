@@ -4,7 +4,7 @@ function CocoLiquidOverhaul_Round(x)
 	return x + 0.5 - (x + 0.5) % 1;
 end;
 
--- CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonPetrol
+-- CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonPetrol (petrol)
 function CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	local result = nil;
 	local items = inventory:getItems();
@@ -18,7 +18,7 @@ function CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	return result;
 end;
 
--- CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonFull
+-- CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonFull (water)
 function CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonFull(inventory)
 	local result = nil;
 	local items = inventory:getItems();
@@ -32,7 +32,7 @@ function CocoLiquidOverhaul_GetFirstNotEmpty_WaterGallonFull(inventory)
 	return result;
 end;
 
--- CocoLiquidOverhaul_GetAllWaterGallonEmpty
+-- CocoLiquidOverhaul_GetAllWaterGallonEmpty (empty)
 function CocoLiquidOverhaul_GetNotEmptyBigGallonWater(inventory)
 	local result = {};
 	local items = inventory:getItems();
@@ -45,7 +45,7 @@ function CocoLiquidOverhaul_GetNotEmptyBigGallonWater(inventory)
 	return result;
 end;
 
--- CocoLiquidOverhaul_GetAllPetrolPourableContainer
+-- CocoLiquidOverhaul_GetAllPetrolPourableContainer (petrol containers)
 function CocoLiquidOverhaul_GetAllPetrolPourableContainer(inventory)
 	local result = {};
 	local items = inventory:getItems();
