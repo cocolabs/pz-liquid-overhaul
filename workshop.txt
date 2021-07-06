@@ -1,5 +1,6 @@
 version=1
+id=2539452952
 title=[B41] Coco Liquid Overhaul
-description=
+description=Under testing by Coco Labs team.
 tags=
-visibility=public
+visibility=friendsOnly
