@@ -1,0 +1,5 @@
+version=1
+title=[B41] Coco Liquid Overhaul
+description=
+tags=
+visibility=public

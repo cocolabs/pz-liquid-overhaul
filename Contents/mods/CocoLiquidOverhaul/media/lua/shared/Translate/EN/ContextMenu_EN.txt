@@ -1,0 +1,8 @@
+ContextMenu_EN = {
+	ContextMenu_TakeGasFromPumpWithBigWaterBottle = "Take Fuel (Big Water Bottle)",
+	ContextMenu_Pour_petrol_into = "Pour gas into",
+	ContextMenu_Liquid_container_info = "Check content",
+	ContextMenu_Liquid_water_name = "Water"
+	ContextMenu_Liquid_alcohol_name = "Alcohol",
+	ContextMenu_Liquid_petrol_name = "Gas",
+}
