@@ -123,18 +123,21 @@ local function CocoLiquidOverhaul_GetLiquidContainerInfoContext(playerNum, conte
 	local inventory = playerObj:getInventory();
 	local mainContainer = nil;
 	local isWater = false;
+	local isTainted = false;
 	
 	if #items == 1 then
 		for i,v in ipairs(items) do
 			item = v;
 			if not instanceof(v, "InventoryItem") then item = v.items[1]; end;
 			
+			local itemType = item:getType();
+
 			-- We right clicked the WaterGallonPetrol
-			if item:getType() == "Coco_WaterGallonPetrol" or item:getType() == "PetrolCan" then
+			if itemType == "Coco_WaterGallonPetrol" or itemType == "PetrolCan" then
 				mainContainer = item;
 				break;
 				
-			elseif item:getType() == "Coco_WaterGallonFull" or item:getType() == "WaterBleachBottle" or item:getType() == "WaterBowl" or item:getType() == "BucketWaterFull" or item:getType() == "WaterPot" or item:getType() == "WaterMug" or item:getType() == "WaterPaintbucket" or item:getType() == "WaterSaucepan" or item:getType() == "BeerWaterFull" or item:getType() == "WaterPopBottle" or item:getType() == "WineWaterFull" or item:getType() == "WhiskeyWaterFull" or item:getType() == "WaterBottleFull" or item:getType() == "GardeningSprayFull" or item:getType() == "WateredCanFull" or item:getType() == "MayonnaiseWaterFull" or item:getType() == "RemouladeWaterFull" or item:getType() == "FullKettle" then
+			elseif itemType == "Coco_WaterGallonFull" or itemType == "WaterBleachBottle" or itemType == "WaterBowl" or itemType == "BucketWaterFull" or itemType == "WaterPot" or itemType == "WaterMug" or itemType == "WaterPaintbucket" or itemType == "WaterSaucepan" or itemType == "BeerWaterFull" or itemType == "WaterPopBottle" or itemType == "WineWaterFull" or itemType == "WhiskeyWaterFull" or itemType == "WaterBottleFull" or itemType == "GardeningSprayFull" or itemType == "WateredCanFull" or itemType == "MayonnaiseWaterFull" or itemType == "RemouladeWaterFull" or itemType == "FullKettle" then
 				mainContainer = item;
 				isWater = true
 				break;
@@ -189,7 +192,7 @@ local function CocoLiquidOverhaul_PourIntoContext(playerNum, context, items)
 			if not instanceof(v, "InventoryItem") then item = v.items[1]; end;
 			
 			if item ~= mainContainer then
-				if instanceof(item, "DrainableComboItem") and item:getUsedDelta() < 1 then
+				if item:IsDrainable() and item:getUsedDelta() < 1 then
 					table.insert(availableContainers, item);
 				else
 					table.insert(availableContainers, item);
@@ -209,11 +212,18 @@ local function CocoLiquidOverhaul_PourIntoContext(playerNum, context, items)
 				if not instanceof(v, "InventoryItem") then item = v.items[1]; end;
 				
 				local itemName = item:getDisplayName();
-				local usedPercent = " (0%)";
-				if instanceof(item, "DrainableComboItem") then
-					usedPercent = " (" .. tostring(math.floor(item:getUsedDelta() * 100)) .. "%)";
+				if item:IsDrainable() then
+					local storageAvailable = CocoLiquidOverhaul_Round(1 / item:getUseDelta());
+					local storageContain = CocoLiquidOverhaul_Round(storageAvailable * item:getUsedDelta());
+					local option = subMenu:addOption(itemName, playerObj, CocoLiquidOverhaul_PourIntoRunAction, mainContainer, item);
+					local tooltip = ISWorldObjectContextMenu.addToolTip();
+					tooltip.description = getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable);
+					option.toolTip = tooltip;
+					-- itemName = item:getDisplayName() .. " (" .. tostring(math.floor(item:getUsedDelta() * 100)) .. "%)";
+				else
+					subMenu:addOption(itemName, playerObj, CocoLiquidOverhaul_PourIntoRunAction, mainContainer, item);
+					--itemName = item:getDisplayName() .. " (0%)";
 				end;
-				subMenu:addOption(itemName .. usedPercent, playerObj, CocoLiquidOverhaul_PourIntoRunAction, mainContainer, item);
 			end;
 		end;
 	end;

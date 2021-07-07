@@ -1,12 +1,20 @@
-if getActivatedMods():contains("ItemTweakerAPI") then
-	require("ItemTweaker_Core");
-else return end;
+-- TO-DO: Need to find a way to set custom category on existing world objects
 
--- Coco_WaterGallonEmpty
-TweakItem("CocoLiquidOverhaulItems.Coco_WaterGallonEmpty","DisplayCategory","Coco_Liquid_Container");
+local items = {
+	Coco_WaterGallonEmpty = { "CocoLiquidOverhaulItems.Coco_WaterGallonEmpty", "Coco_Liquid_Container" },
+	Coco_WaterGallonFull = { "CocoLiquidOverhaulItems.Coco_WaterGallonFull", "Coco_Liquid_Container" },
+	Coco_WaterGallonPetrol = { "CocoLiquidOverhaulItems.Coco_WaterGallonPetrol", "Coco_Liquid_Container" },
+};
 
--- Coco_WaterGallonFull
-TweakItem("CocoLiquidOverhaulItems.Coco_WaterGallonFull","DisplayCategory","Coco_Liquid_Container");
+local function TweakItems()
+	
+	for k, v in pairs(items) do
+		local item = ScriptManager.instance:getItem(v[1]);
+		if item ~= nil then
+			item:DoParam("displaycategory".." = " .. v[2]);
+		end;
+	end;
+	
+end;
 
--- Coco_WaterGallonPetrol
-TweakItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol","DisplayCategory","Coco_Liquid_Container");
+Events.OnLoad.Add(TweakItems);
