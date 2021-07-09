@@ -1,10 +1,12 @@
--- CLO_Round
-function CLO_Round(x)
+CLO_Funcs = {}
+
+-- CLO_Funcs.Round
+function CLO_Funcs.Round(x)
 	return x + 0.5 - (x + 0.5) % 1
 end
 
--- CLO_GetFirstNotEmpty_WaterGallonPetrol (petrol)
-function CLO_GetFirstNotEmpty_WaterGallonPetrol(inventory)
+-- CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol
+function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	local result = nil
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
@@ -17,8 +19,8 @@ function CLO_GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	return result
 end
 
--- CLO_GetFirstNotEmpty_WaterGallonFull (water)
-function CLO_GetFirstNotEmpty_WaterGallonFull(inventory)
+-- CLO_Funcs.GetFirstNotEmpty_WaterGallonFull
+function CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
 	local result = nil
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
@@ -31,8 +33,8 @@ function CLO_GetFirstNotEmpty_WaterGallonFull(inventory)
 	return result
 end
 
--- CLO_GetAllWaterGallonEmpty (empty)
-function CLO_GetNotEmptyBigGallonWater(inventory)
+-- CLO_Funcs.GetNotEmptyBigGallonWater
+function CLO_Funcs.GetNotEmptyBigGallonWater(inventory)
 	local result = {}
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
@@ -44,8 +46,8 @@ function CLO_GetNotEmptyBigGallonWater(inventory)
 	return result
 end
 
--- CLO_GetAllPetrolPourableContainer (petrol containers)
-function CLO_GetAllPetrolPourableContainer(inventory)
+-- CLO_Funcs.GetAllPetrolPourableContainer
+function CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 	local result = {}
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
@@ -61,50 +63,46 @@ function CLO_GetAllPetrolPourableContainer(inventory)
 	return result
 end
 
--- CLO_FixWaterDispenser
-function CLO_FixWaterDispenser(obj)
+-- CLO_Funcs.FixWaterDispenser
+function CLO_Funcs.FixWaterDispenser(obj)
 	local modData = obj:getModData()
-	local objProps = obj:getProperties()
 
-	modData.name = "Empty Dispenser"
-	modData.spriteName = obj:getSpriteName()
-	modData.waterMax = tonumber(ModSettings.WaterDispenserWaterMax)
-	if modData.waterAmount then
-		modData.waterAmount = tonumber(modData.waterAmount)
-	else
-		modData.waterAmount = ZombRand(1, modData.waterMax)
-	end
-	if modData.waterAmount > modData.waterMax then
-		modData.waterAmount = modData.waterMax
+	if modData.dispenserType ~= "empty" then
+		modData.waterMax = tonumber(CLO_ModSettings.WaterDispenserWaterMax)
+		if modData.waterAmount then
+			modData.waterAmount = tonumber(modData.waterAmount)
+		else
+			modData.waterAmount = ZombRand(1, modData.waterMax)
+		end
+		if modData.waterAmount > modData.waterMax then
+			modData.waterAmount = modData.waterMax
+		end
 	end
 
 	if modData.dispenserType == nil then
-		modData.dispenserType = "water" -- none, water, gas
+		modData.name = "Water Dispenser"
+		modData.dispenserType = "water"
 	end
-	if modData.dispenserType == "none" then
-	end
-
-	--objProps:Set("CustomName", nil);
 end
 
--- CLO_CreateWaterDispenser
-function CLO_CreateWaterDispenser(playerObj, square, spriteName)
+-- CLO_Funcs.CreateWaterDispenser
+function CLO_Funcs.CreateWaterDispenser(playerObj, square, spriteName)
 	local x, y, z = square:getX(), square:getY(), square:getZ()
 
 	--local obj = IsoObject.new(square, spriteName, "WaterDispenser");
 	local obj = IsoThumpable.new(getCell(), square, spriteName, true, nil)
 	square:AddSpecialObject(obj)
-	CLO_FixWaterDispenser(obj)
+	CLO_Funcs.FixWaterDispenser(obj)
 
 	return obj
 end
 
--- CLO_HasDispenserOnSquare
-function CLO_HasDispenserOnSquare(square)
+-- CLO_Funcs.HasDispenserOnSquare
+function CLO_Funcs.HasDispenserOnSquare(square)
 	local result = false
 	for i = 0, square:getObjects():size() - 1 do
 		local obj = square:getObjects():get(i)
-		if CLO_IsObjectWaterDispenser(obj) then
+		if CLO_Funcs.IsObjectWaterDispenser(obj) then
 			result = true
 			break
 		end
@@ -112,8 +110,8 @@ function CLO_HasDispenserOnSquare(square)
 	return result
 end
 
--- CLO_IsObjectWaterDispenser
-function CLO_IsObjectWaterDispenser(obj)
+-- CLO_Funcs.IsObjectWaterDispenser
+function CLO_Funcs.IsObjectWaterDispenser(obj)
 	local modData = obj:getModData()
 	if obj:getProperties():Val("CustomName") == "Dispenser" or modData.dispenserType then
 		return true
@@ -121,19 +119,31 @@ function CLO_IsObjectWaterDispenser(obj)
 	return false
 end
 
--- CLO_HasDispenserBigWaterBottle
-function CLO_HasDispenserBigWaterBottle(obj)
+-- CLO_Funcs.HasDispenserBigWaterBottle
+function CLO_Funcs.HasDispenserBigWaterBottle(obj)
 	local modData = obj:getModData()
-	if CLO_IsObjectWaterDispenser(obj) and modData.dispenserType ~= "none" then
+	if CLO_Funcs.IsObjectWaterDispenser(obj) and modData.dispenserType ~= "none" then
 		return true
 	end
 	return false
 end
 
--- CLO_RemoveBigWaterBottleFromDispenser
-function CLO_RemoveBigWaterBottleFromDispenser()
+-- CLO_Funcs.RemoveBigWaterBottleFromDispenser
+function CLO_Funcs.RemoveBigWaterBottleFromDispenser(obj)
+	local modData = obj:getModData()
+	modData.name = "Empty Dispenser"
+	modData.dispenserType = "empty"
+	modData.waterAmount = 0
+	modData.waterMax = 0
+	-- TO-DO: change sprite
 end
 
--- CLO_AddBigWaterBottleFromDispenser
-function CLO_AddBigWaterBottleFromDispenser()
+-- CLO_Funcs.AddBigWaterBottleFromDispenser
+function CLO_Funcs.AddBigWaterBottleFromDispenser(obj)
+	local modData = obj:getModData()
+	modData.name = "Water Dispenser"
+	modData.dispenserType = "water"
+	-- TO-DO: change sprite
+	-- TO-DO: get the bottle water amount
+	-- TO-DO: set max and amount
 end

@@ -1,17 +1,22 @@
--- TakeFuel_DoAction
-local function TakeFuel_DoAction(worldobjects, playerObj, square, petrolCan, pumpObject)
+-- TakeFuelBigWaterBottle_DoAction
+local function TakeFuelBigWaterBottle_DoAction(worldobjects, playerObj, square, petrolCan)
+	
+	playerObj:StopAllActionQueue()
+
 	-- let's equip it
 	if playerObj:getPrimaryHandItem() ~= petrolCan and playerObj:getSecondaryHandItem() ~= petrolCan then
 		ISInventoryPaneContextMenu.equipWeapon(petrolCan, true, true, playerObj:getPlayerNum())
 	end
 
 	-- let's start the timed action
-	ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, 5000))
+	ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, 5000))
 end
 
--- PourInto_DoAction
-local function PourInto_DoAction(playerObj, itemFrom, itemTo)
+-- PourGasInto_DoAction
+local function PourGasInto_DoAction(playerObj, itemFrom, itemTo)
 	local inventory = playerObj:getInventory()
+
+	playerObj:StopAllActionQueue()
 
 	-- transform empty big water bottle
 	if itemTo:getType() == "Coco_WaterGallonEmpty" then
@@ -50,11 +55,9 @@ local function PourInto_DoAction(playerObj, itemFrom, itemTo)
 	ISTimedActionQueue.add(CLO_ActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta))
 end
 
--- TakeFuel_Context
-local function TakeFuel_Context(playerNum, context, worldobjects, test)
-	if test == true then
-		return true
-	end
+-- TakeFuelBigWaterBottle_Context
+local function TakeFuelBigWaterBottle_Context(playerNum, context, worldobjects, test)
+	if test == true then return true end
 
 	local playerObj = getSpecificPlayer(playerNum)
 	local inventory = playerObj:getInventory()
@@ -62,63 +65,51 @@ local function TakeFuel_Context(playerNum, context, worldobjects, test)
 
 	local fuelAmount = 0
 	local petrolCan = nil
+	local pumpFound = false
 
 	-- Get square around player
 	for y = square:getY() - 1, square:getY() + 1 do
+		if pumpFound then break end
 		for x = square:getX() - 1, square:getX() + 1 do
+			if pumpFound then break end
+
 			local sq = getCell():getGridSquare(x, y, square:getZ())
-			if not (sq) then
-				break
-			end
+			if not sq then break end
 
 			-- Check if there is fuel on that square
 			if sq:getProperties():Is("fuelAmount") then
+
 				-- Store the fuel amount
 				fuelAmount = tonumber(sq:getProperties():Val("fuelAmount"))
 
 				-- If there is fuel let's continue
 				if fuelAmount > 0 then
-					square = sq
 
-					-- Let's find a gas pump object
-					local pumpFound = false
-					for i = 0, sq:getObjects():size() - 1 do
-						local pumpObject = sq:getObjects():get(i)
-						local objName = pumpObject:getSprite():getName()
-						if objName == "location_shop_fossoil_01_14" or objName == "location_shop_fossoil_01_15" then
-							-- Let's find an not empty petrol can first
-							local notEmptyPetrolCan = CLO_GetFirstNotEmpty_WaterGallonPetrol(inventory)
-							if notEmptyPetrolCan then
-								-- We didnt find any let's find an empty one
-								petrolCan = notEmptyPetrolCan
-							else
-								local emptyPetrolCan = inventory:getFirstTypeRecurse("Coco_WaterGallonEmpty")
-								if emptyPetrolCan then
-									petrolCan = emptyPetrolCan
-								end
-							end
-
-							if petrolCan then
-								context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, TakeFuel_DoAction, playerObj, square, petrolCan, pumpObject)
-							end
-
-							pumpFound = true
-							break
+					-- Let's find an not empty petrol can first
+					local notEmptyPetrolCan = CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
+					if notEmptyPetrolCan then
+						-- We didnt find any let's find an empty one
+						petrolCan = notEmptyPetrolCan
+					else
+						local emptyPetrolCan = inventory:getFirstTypeRecurse("Coco_WaterGallonEmpty")
+						if emptyPetrolCan then
+							petrolCan = emptyPetrolCan
 						end
 					end
 
-					-- We found the pump already
-					if pumpFound then
-						break
+					if petrolCan ~= nil then
+						context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, TakeFuelBigWaterBottle_DoAction, playerObj, sq, petrolCan)
 					end
+
+					pumpFound = true
 				end
 			end
 		end
 	end
 end
 
--- GetLiquidContainerInfo_Context
-local function GetLiquidContainerInfo_Context(playerNum, context, items)
+-- CheckLiquidContainerContent_Context
+local function CheckLiquidContainerContent_Context(playerNum, context, items)
 	local playerObj = getSpecificPlayer(playerNum)
 	local inventory = playerObj:getInventory()
 	local mainContainer = nil
@@ -160,8 +151,8 @@ local function GetLiquidContainerInfo_Context(playerNum, context, items)
 	end
 
 	if mainContainer then
-		local storageAvailable = CLO_Round(1 / mainContainer:getUseDelta())
-		local storageContain = CLO_Round(storageAvailable * mainContainer:getUsedDelta())
+		local storageAvailable = CLO_Funcs.Round(1 / mainContainer:getUseDelta())
+		local storageContain = CLO_Funcs.Round(storageAvailable * mainContainer:getUsedDelta())
 
 		local option = context:addOption(getText("ContextMenu_Liquid_container_info"))
 		local tooltip = ISWorldObjectContextMenu.addToolTip()
@@ -202,7 +193,7 @@ local function PouGasInto_Context(playerNum, context, items)
 
 	if mainContainer then
 		-- Do we have a container to pour in
-		local pourableContainers = CLO_GetAllPetrolPourableContainer(inventory)
+		local pourableContainers = CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 
 		-- Let's filter to remove current container
 		local availableContainers = {}
@@ -236,16 +227,14 @@ local function PouGasInto_Context(playerNum, context, items)
 
 				local itemName = item:getDisplayName()
 				if item:IsDrainable() then
-					-- itemName = item:getDisplayName() .. " (" .. tostring(math.floor(item:getUsedDelta() * 100)) .. "%)";
-					local storageAvailable = CLO_Round(1 / item:getUseDelta())
-					local storageContain = CLO_Round(storageAvailable * item:getUsedDelta())
-					local option = subMenu:addOption(itemName, playerObj, PourInto_DoAction, mainContainer, item)
+					local storageAvailable = CLO_Funcs.Round(1 / item:getUseDelta())
+					local storageContain = CLO_Funcs.Round(storageAvailable * item:getUsedDelta())
+					local option = subMenu:addOption(itemName, playerObj, PourGasInto_DoAction, mainContainer, item)
 					local tooltip = ISWorldObjectContextMenu.addToolTip()
 					tooltip.description = getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
 					option.toolTip = tooltip
 				else
-					--itemName = item:getDisplayName() .. " (0%)";
-					subMenu:addOption(itemName, playerObj, PourInto_DoAction, mainContainer, item)
+					subMenu:addOption(itemName, playerObj, PourGasInto_DoAction, mainContainer, item)
 				end
 			end
 		end
@@ -276,8 +265,8 @@ local function InteractWaterDispenser_Context(playerNum, context, worldobjects, 
 			for i = 0, sq:getObjects():size() - 1 do
 				local obj = sq:getObjects():get(i)
 
-				if (luautils.walkAdj(playerObj, sq) and CLO_IsObjectWaterDispenser(obj)) then
-					CLO_FixWaterDispenser(obj)
+				if (luautils.walkAdj(playerObj, sq) and CLO_Funcs.IsObjectWaterDispenser(obj)) then
+					CLO_Funcs.FixWaterDispenser(obj)
 
 					context:addOption("Dispenser Options", nil)
 
@@ -300,20 +289,20 @@ end
 
 -- Debug_Context
 local function Debug_Context(playerNum, context, worldobjects, test)
-	if not ModSettings.Debug then
+	if not CLO_ModSettings.Debug then
 		return false
 	end
 
 	local playerObj = getSpecificPlayer(playerNum)
 	local square = playerObj:getCurrentSquare()
 
-	if not CLO_HasDispenserOnSquare(square) then
-		context:addOption("Create Dispenser Here", playerObj, CLO_CreateWaterDispenser, square, "location_business_office_generic_01_49_empty_0")
+	if not CLO_Funcs.HasDispenserOnSquare(square) then
+		context:addOption("Create Dispenser Here", playerObj, CLO_Funcs.CreateWaterDispenser, square, "location_business_office_generic_01_49_water_0")
 	end
 end
 
-Events.OnPreFillWorldObjectContextMenu.Add(TakeFuel_Context)
-Events.OnPreFillInventoryObjectContextMenu.Add(GetLiquidContainerInfo_Context)
+Events.OnPreFillWorldObjectContextMenu.Add(TakeFuelBigWaterBottle_Context)
+Events.OnPreFillInventoryObjectContextMenu.Add(CheckLiquidContainerContent_Context)
 Events.OnPreFillInventoryObjectContextMenu.Add(PouGasInto_Context)
 Events.OnPreFillWorldObjectContextMenu.Add(InteractWaterDispenser_Context)
 Events.OnPreFillWorldObjectContextMenu.Add(Debug_Context)

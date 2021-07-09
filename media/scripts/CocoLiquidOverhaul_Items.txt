@@ -19,11 +19,11 @@ module CocoLiquidOverhaulItems
 	item Coco_WaterGallonFull
 	{
 		IsWaterSource			= TRUE,
-		Weight						= 25,
+		Weight						= 30,
 		CanStoreWater			= TRUE,
 		Type							= Drainable,
 		UseWhileEquipped	= FALSE,
-		UseDelta					= 0.004,
+		UseDelta					= 0.01,
 		DisplayName				= Big Water Bottle,
 		ReplaceOnDeplete	= Coco_WaterGallonEmpty,
 		ReplaceOnUseOn		= WaterSource-Coco_WaterGallonFull,
@@ -36,10 +36,10 @@ module CocoLiquidOverhaulItems
 	
 	item Coco_WaterGallonPetrol
 	{
-		Weight						= 25,
+		Weight						= 30,
 		Type							= Drainable,
 		UseWhileEquipped	= FALSE,
-		UseDelta					= 0.004,
+		UseDelta					= 0.01,
 		DisplayName				= Big Water Bottle (Gas),
 		Icon							= Coco_WaterGallonPetrol,
 		StaticModel 			= WaterBottle,

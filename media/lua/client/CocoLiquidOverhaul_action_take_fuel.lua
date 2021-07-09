@@ -10,7 +10,7 @@ end
 
 -- waitToStart
 function CLO_ActionTakeFuel:waitToStart()
-	self.character:faceThisObject(self.pumpObject)
+	self.character:faceLocation(self.square:getX(), self.square:getY())
 	return self.character:shouldBeTurning()
 end
 
@@ -22,7 +22,7 @@ function CLO_ActionTakeFuel:start()
 	-- let's transform an empty can into an empty petrol can
 	if self.petrolCan:getType() == "Coco_WaterGallonEmpty" then
 		local emptyCan = self.petrolCan
-		self.petrolCan = self.character:getInventory():AddItem("CLO_Items.Coco_WaterGallonPetrol")
+		self.petrolCan = self.character:getInventory():AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
 		self.petrolCan:setUsedDelta(0)
 		self.character:setPrimaryHandItem(self.petrolCan)
 		self.character:setSecondaryHandItem(self.petrolCan)
@@ -50,7 +50,7 @@ end
 -- update
 function CLO_ActionTakeFuel:update()
 	self.petrolCan:setJobDelta(self:getJobDelta())
-	self.character:faceThisObject(self.pumpObject)
+	--self.character:faceLocation(self.square:getX(), self.square:getY())
 
 	local actionCurrent = math.floor(self.itemStart + (self.itemTarget - self.itemStart) * self:getJobDelta() + 0.001)
 	local itemCurrent = math.floor(self.petrolCan:getUsedDelta() / self.petrolCan:getUseDelta() + 0.001)
@@ -81,14 +81,13 @@ function CLO_ActionTakeFuel:perform()
 end
 
 -- new
-function CLO_ActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, maxTime)
+function CLO_ActionTakeFuel:new(playerObj, square, petrolCan, maxTime)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = playerObj
 	o.square = square
 	o.petrolCan = petrolCan
-	o.pumpObject = pumpObject
 	o.stopOnWalk = true
 	o.stopOnRun = true
 	o.maxTime = maxTime
