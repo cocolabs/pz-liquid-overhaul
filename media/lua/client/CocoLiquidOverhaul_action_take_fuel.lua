@@ -1,28 +1,28 @@
 require "TimedActions/ISBaseTimedAction"
 
-CocoLiquidOverhaulActionTakeFuel = ISBaseTimedAction:derive("ISTakeFuel")
+CLO_ActionTakeFuel = ISBaseTimedAction:derive("ISTakeFuel")
 
 -- isValid
-function CocoLiquidOverhaulActionTakeFuel:isValid()
+function CLO_ActionTakeFuel:isValid()
 	local pumpCurrent = tonumber(self.square:getProperties():Val("fuelAmount"))
 	return pumpCurrent > 0
 end
 
 -- waitToStart
-function CocoLiquidOverhaulActionTakeFuel:waitToStart()
+function CLO_ActionTakeFuel:waitToStart()
 	self.character:faceThisObject(self.pumpObject)
 	return self.character:shouldBeTurning()
 end
 
 -- start
-function CocoLiquidOverhaulActionTakeFuel:start()
+function CLO_ActionTakeFuel:start()
 	self.petrolCan:setJobType(getText("ContextMenu_TakeGasFromPump"))
 	self.petrolCan:setJobDelta(0.0)
 
 	-- let's transform an empty can into an empty petrol can
 	if self.petrolCan:getType() == "Coco_WaterGallonEmpty" then
 		local emptyCan = self.petrolCan
-		self.petrolCan = self.character:getInventory():AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
+		self.petrolCan = self.character:getInventory():AddItem("CLO_Items.Coco_WaterGallonPetrol")
 		self.petrolCan:setUsedDelta(0)
 		self.character:setPrimaryHandItem(self.petrolCan)
 		self.character:setSecondaryHandItem(self.petrolCan)
@@ -42,13 +42,13 @@ function CocoLiquidOverhaulActionTakeFuel:start()
 end
 
 -- stop
-function CocoLiquidOverhaulActionTakeFuel:stop()
+function CLO_ActionTakeFuel:stop()
 	self.petrolCan:setJobDelta(0.0)
 	ISBaseTimedAction.stop(self)
 end
 
 -- update
-function CocoLiquidOverhaulActionTakeFuel:update()
+function CLO_ActionTakeFuel:update()
 	self.petrolCan:setJobDelta(self:getJobDelta())
 	self.character:faceThisObject(self.pumpObject)
 
@@ -66,7 +66,7 @@ function CocoLiquidOverhaulActionTakeFuel:update()
 end
 
 -- perform
-function CocoLiquidOverhaulActionTakeFuel:perform()
+function CLO_ActionTakeFuel:perform()
 	self.petrolCan:setJobDelta(0.0)
 
 	local itemCurrent = math.floor(self.petrolCan:getUsedDelta() / self.petrolCan:getUseDelta() + 0.001)
@@ -81,7 +81,7 @@ function CocoLiquidOverhaulActionTakeFuel:perform()
 end
 
 -- new
-function CocoLiquidOverhaulActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, maxTime)
+function CLO_ActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, maxTime)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self

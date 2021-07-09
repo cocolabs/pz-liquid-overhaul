@@ -1,14 +1,14 @@
 require "TimedActions/ISBaseTimedAction"
 
-CocoLiquidOverhaulActionPourInto = ISBaseTimedAction:derive("ISTransferWaterAction")
+CLO_ActionPourInto = ISBaseTimedAction:derive("ISTransferWaterAction")
 
 -- isValid
-function CocoLiquidOverhaulActionPourInto:isValid()
+function CLO_ActionPourInto:isValid()
 	return true
 end
 
 -- start
-function CocoLiquidOverhaulActionPourInto:start()
+function CLO_ActionPourInto:start()
 	self.itemFrom:setJobType(getText("IGUI_JobType_PourOut"))
 	self.itemTo:setJobType(getText("IGUI_JobType_PourIn"))
 
@@ -20,7 +20,7 @@ function CocoLiquidOverhaulActionPourInto:start()
 end
 
 -- stop
-function CocoLiquidOverhaulActionPourInto:stop()
+function CLO_ActionPourInto:stop()
 	ISBaseTimedAction.stop(self)
 	if self.itemFrom ~= nil then
 		self.itemFrom:setJobDelta(0.0)
@@ -31,22 +31,18 @@ function CocoLiquidOverhaulActionPourInto:stop()
 end
 
 -- update
-function CocoLiquidOverhaulActionPourInto:update()
+function CLO_ActionPourInto:update()
 	if self.itemFrom ~= nil and self.itemTo ~= nil then
 		self.itemFrom:setJobDelta(self:getJobDelta())
-		self.itemFrom:setUsedDelta(
-			self.itemFromBeginDelta + ((self.itemFromEndingDelta - self.itemFromBeginDelta) * self:getJobDelta())
-		)
+		self.itemFrom:setUsedDelta(self.itemFromBeginDelta + ((self.itemFromEndingDelta - self.itemFromBeginDelta) * self:getJobDelta()))
 
 		self.itemTo:setJobDelta(self:getJobDelta())
-		self.itemTo:setUsedDelta(
-			self.itemToBeginDelta + ((self.itemToEndingDelta - self.itemToBeginDelta) * self:getJobDelta())
-		)
+		self.itemTo:setUsedDelta(self.itemToBeginDelta + ((self.itemToEndingDelta - self.itemToBeginDelta) * self:getJobDelta()))
 	end
 end
 
 -- perform
-function CocoLiquidOverhaulActionPourInto:perform()
+function CLO_ActionPourInto:perform()
 	if self.itemFrom ~= nil and self.itemTo ~= nil then
 		self.itemFrom:getContainer():setDrawDirty(true)
 		self.itemFrom:setJobDelta(0.0)
@@ -71,7 +67,7 @@ function CocoLiquidOverhaulActionPourInto:perform()
 end
 
 -- new
-function CocoLiquidOverhaulActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta)
+function CLO_ActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self

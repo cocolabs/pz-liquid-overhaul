@@ -6,14 +6,16 @@ local function TakeFuel_DoAction(worldobjects, playerObj, square, petrolCan, pum
 	end
 
 	-- let's start the timed action
-	ISTimedActionQueue.add(CocoLiquidOverhaulActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, 5000))
+	ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, pumpObject, 5000))
 end
 
 -- PourInto_DoAction
 local function PourInto_DoAction(playerObj, itemFrom, itemTo)
 	local inventory = playerObj:getInventory()
 
+	-- transform empty big water bottle
 	if itemTo:getType() == "Coco_WaterGallonEmpty" then
+		-- transform empty gas can
 		inventory:Remove(itemTo)
 		itemTo = inventory:AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
 		itemTo:setUsedDelta(0)
@@ -45,9 +47,7 @@ local function PourInto_DoAction(playerObj, itemFrom, itemTo)
 	end
 
 	-- let's start the timed action
-	ISTimedActionQueue.add(
-		CocoLiquidOverhaulActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta)
-	)
+	ISTimedActionQueue.add(CLO_ActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta))
 end
 
 -- TakeFuel_Context
@@ -99,15 +99,7 @@ local function TakeFuel_Context(playerNum, context, worldobjects, test)
 							end
 
 							if petrolCan then
-								context:addOption(
-									getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"),
-									worldobjects,
-									TakeFuel_DoAction,
-									playerObj,
-									square,
-									petrolCan,
-									pumpObject
-								)
+								context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, TakeFuel_DoAction, playerObj, square, petrolCan, pumpObject)
 							end
 
 							pumpFound = true
@@ -131,6 +123,8 @@ local function GetLiquidContainerInfo_Context(playerNum, context, items)
 	local inventory = playerObj:getInventory()
 	local mainContainer = nil
 	local isWater = false
+	local isMilk = false
+	local isAlcohol = false
 	local isTainted = false
 
 	if #items == 1 then
@@ -147,13 +141,7 @@ local function GetLiquidContainerInfo_Context(playerNum, context, items)
 				mainContainer = item
 				break
 			elseif
-				itemType == "Coco_WaterGallonFull" or itemType == "WaterBleachBottle" or itemType == "WaterBowl" or
-					itemType == "BucketWaterFull" or
-					itemType == "WaterPot" or
-					itemType == "WaterMug" or
-					itemType == "WaterPaintbucket" or
-					itemType == "WaterSaucepan" or
-					itemType == "BeerWaterFull" or
+				itemType == "Coco_WaterGallonFull" or itemType == "WaterBleachBottle" or itemType == "WaterBowl" or itemType == "BucketWaterFull" or itemType == "WaterPot" or itemType == "WaterMug" or itemType == "WaterPaintbucket" or itemType == "WaterSaucepan" or itemType == "BeerWaterFull" or
 					itemType == "WaterPopBottle" or
 					itemType == "WineWaterFull" or
 					itemType == "WhiskeyWaterFull" or
@@ -178,15 +166,15 @@ local function GetLiquidContainerInfo_Context(playerNum, context, items)
 		local option = context:addOption(getText("ContextMenu_Liquid_container_info"))
 		local tooltip = ISWorldObjectContextMenu.addToolTip()
 		if isWater then
-			tooltip.description =
-				getText("ContextMenu_Liquid_water_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
+			tooltip.description = getText("ContextMenu_Liquid_water_name")
+		elseif isMilk then
+			tooltip.description = getText("ContextMenu_Liquid_milk_name")
 		elseif isAlcohol then
-			tooltip.description =
-				getText("ContextMenu_Liquid_alcohol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
+			tooltip.description = getText("ContextMenu_Liquid_alcohol_name")
 		else
-			tooltip.description =
-				getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
+			tooltip.description = getText("ContextMenu_Liquid_petrol_name")
 		end
+		tooltip.description = tooltip.description .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
 		option.toolTip = tooltip
 	end
 end
@@ -253,8 +241,7 @@ local function PouGasInto_Context(playerNum, context, items)
 					local storageContain = CLO_Round(storageAvailable * item:getUsedDelta())
 					local option = subMenu:addOption(itemName, playerObj, PourInto_DoAction, mainContainer, item)
 					local tooltip = ISWorldObjectContextMenu.addToolTip()
-					tooltip.description =
-						getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
+					tooltip.description = getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
 					option.toolTip = tooltip
 				else
 					--itemName = item:getDisplayName() .. " (0%)";
@@ -321,13 +308,7 @@ local function Debug_Context(playerNum, context, worldobjects, test)
 	local square = playerObj:getCurrentSquare()
 
 	if not CLO_HasDispenserOnSquare(square) then
-		context:addOption(
-			"Create Dispenser Here",
-			playerObj,
-			CLO_CreateWaterDispenser,
-			square,
-			"location_business_office_generic_01_49_empty_0"
-		)
+		context:addOption("Create Dispenser Here", playerObj, CLO_CreateWaterDispenser, square, "location_business_office_generic_01_49_empty_0")
 	end
 end
 
