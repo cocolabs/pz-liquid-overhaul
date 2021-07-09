@@ -13,7 +13,8 @@ New right-click option to see liquid contained and max container capacity.
 - **Gas Can** can now be **poured into** the big water bottle & the other way around.
 
 ## Water Dispenser Bottle
-- Capacity of 250 unit of liquid.
+- Weight 30 when full. (Not 25)
+- Capacity of 100 unit of liquid. (Changed from 250 to 100 for balance)
 - Can be filled with Water, Tainted Water & Gas.
 - Can pour it's content on the ground.
 - Can pour into other liquid container such as cooking pot, gas can & more.
