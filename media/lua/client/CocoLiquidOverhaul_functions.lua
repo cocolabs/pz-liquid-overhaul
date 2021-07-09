@@ -89,9 +89,8 @@ end
 function CLO_Funcs.CreateWaterDispenser(playerObj, square, spriteName)
 	local x, y, z = square:getX(), square:getY(), square:getZ()
 
-	--local obj = IsoObject.new(square, spriteName, "WaterDispenser");
-	local obj = IsoThumpable.new(getCell(), square, spriteName, true, nil)
-	square:AddSpecialObject(obj)
+	local obj = IsoObject.new(square, spriteName, "")
+	square:AddTileObject(obj)
 	CLO_Funcs.FixWaterDispenser(obj)
 
 	return obj

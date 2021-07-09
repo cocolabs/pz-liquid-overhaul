@@ -2,4 +2,5 @@ name=[B41] Coco Liquid Overhaul
 id=CocoLiquidOverhaul
 description=
 poster=poster.png
-pack=CocoLiquidOverhaul
+pack=coco_liquid_overhaul
+tiledef=coco_liquid_overhaul 853

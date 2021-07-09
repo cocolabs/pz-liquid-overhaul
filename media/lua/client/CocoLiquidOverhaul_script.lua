@@ -297,7 +297,33 @@ local function Debug_Context(playerNum, context, worldobjects, test)
 	local square = playerObj:getCurrentSquare()
 
 	if not CLO_Funcs.HasDispenserOnSquare(square) then
-		context:addOption("Create Dispenser Here", playerObj, CLO_Funcs.CreateWaterDispenser, square, "location_business_office_generic_01_49_water_0")
+		local option = context:addOption("DEBUG Dispenser")
+		local subMenu = context:getNew(context)
+		context:addSubMenu(option, subMenu)
+
+		local option1 = context:addOption("Create Empty Dispenser")
+		local subMenu1 = context:getNew(context)
+		subMenu:addSubMenu(option1, subMenu1)
+		subMenu1:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.N)
+		subMenu1:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.E)
+		subMenu1:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.S)
+		subMenu1:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.W)
+
+		local option2 = context:addOption("Create Water Dispenser")
+		local subMenu2 = context:getNew(context)
+		subMenu:addSubMenu(option2, subMenu2)
+		subMenu2:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.N)
+		subMenu2:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.E)
+		subMenu2:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.S)
+		subMenu2:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.W)
+
+		local option3 = context:addOption("Create Gas Dispenser")
+		local subMenu3 = context:getNew(context)
+		subMenu:addSubMenu(option3, subMenu3)
+		subMenu3:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.N)
+		subMenu3:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.E)
+		subMenu3:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.S)
+		subMenu3:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.W)
 	end
 end
 
