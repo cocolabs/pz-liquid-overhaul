@@ -1,6 +1,10 @@
 name=[B41] Coco Liquid Overhaul
-id=CocoLiquidOverhaul
-description=
 poster=poster.png
+description=
+author=Konijima
+id=CocoLiquidOverhaul
+url=https://github.com/cocolabs/pz-liquid-overhaul
+modversion=0.1.0
+pzversion=41.50-IWBUMS
 pack=coco_liquid_overhaul
 tiledef=coco_liquid_overhaul 853

@@ -32,7 +32,7 @@ New right-click option to see liquid contained and max container capacity.
 - Action Queue Running at the same time (fixed)
 - Not all gas pump let take gas (fixed)
 
-**Location to find a Big Water Bottle:**
+## Location to find a Big Water Bottle:
 - burgerkitchen
 - grocerystorage
 - grocery
@@ -49,5 +49,17 @@ New right-click option to see liquid contained and max container capacity.
 - theatrekitchen
 - cornerstore
 
+## Workshop
+
 Workshop ID: 2539452952  
 Mod ID: CocoLiquidOverhaul
+
+## Credits
+
+Yooks - For everything he does to help make modding easier & organized.  
+Coco Labs Community - For being awesome and supportive.  
+Tchernobill - For helping fix item categories.  
+
+## License
+
+MIT © Coco Labs (https://github.com/cocolabs)

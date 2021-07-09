@@ -1,0 +1,26 @@
+---@class ZombieIdleState : zombie.ai.states.ZombieIdleState
+---@field private _instance ZombieIdleState
+ZombieIdleState = {}
+
+---@private
+---@return float
+function ZombieIdleState:pickRandomWanderInterval() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function ZombieIdleState:enter(arg0) end
+
+---@public
+---@return ZombieIdleState
+function ZombieIdleState:instance() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function ZombieIdleState:execute(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function ZombieIdleState:exit(arg0) end
