@@ -28,6 +28,8 @@ New right-click option to see liquid contained and max container capacity.
 
 ## Known Bugs:
 - Categories (fixed)
+- Action Queue Running at the same time (fixed)
+- Not all gas pump let take gas (fixed)
 
 **Location to find a Big Water Bottle:**
 - burgerkitchen
