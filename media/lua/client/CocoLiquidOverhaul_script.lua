@@ -69,12 +69,11 @@ local function TakeFuelBigWaterBottle_Context(playerNum, context, _, test)
 	local inventory = playerObj:getInventory()
 	---@type IsoGridSquare
 	local square = clickedSquare
-
+	---@type InventoryItem
 	local petrolCan
-	local fuelAmount = 0
 
-	-- Get square around player
-	if square then
+	-- Check if the square is adjacent to the player
+	if square and AdjacentFreeTileFinder.isTileOrAdjacent(playerObj:getCurrentSquare(), square) then
 
 		-- Check if there is fuel on that square
 		if CLO_Funcs.IsPetrolAvailableOnSquare(square) then
@@ -88,7 +87,7 @@ local function TakeFuelBigWaterBottle_Context(playerNum, context, _, test)
 					petrolCan = CLO_Funcs.GetFirstObjectOfType(inventory, "Coco_WaterGallonEmpty")
 				end
 
-				if petrolCan then
+				if petrolCan and instanceof(petrolCan, "InventoryItem") then
 					context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), playerObj, TakeFuelBigWaterBottle_DoAction, square, petrolCan)
 				end
 			end
