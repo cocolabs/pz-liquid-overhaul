@@ -266,11 +266,25 @@ local function Debug_Context(playerNum, context, _, test)
 	local square = clickedSquare
 
 	if CLO_Funcs.HasDispenserOnSquare(square) then
+		local dispenserObj = CLO_Funcs.GetDispenserObjectOnSquare(square)
+		local customName = dispenserObj:getProperties():Val("CustomName")
+		print("Selected dispenser type: " .. customName)
 		local mainOption = context:addOption("[DEBUG] Dispenser")
-		local subMenu = context:getNew(context)
-		subMenu:addOption("Delete Dispenser", square, CLO_Funcs.DeleteDispenserObjectOnSquare)
+		local mainSubMenu = context:getNew(context)
 
-		context:addSubMenu(mainOption, subMenu)
+		if CLO_Funcs.IsDispenserEmpty(dispenserObj) then
+			local addBottleOption = mainSubMenu:addOption("Add Bottle")
+			local addBottleSubMenu = mainSubMenu:getNew(mainSubMenu)
+			mainSubMenu:addSubMenu(addBottleOption, addBottleSubMenu)
+			addBottleSubMenu:addOption("Empty", playerObj, CLO_Funcs.AddBigWaterBottleFromDispenser, dispenserObj, CLO_CustomDispenser.Bottle.type)
+			addBottleSubMenu:addOption("Water", playerObj, CLO_Funcs.AddBigWaterBottleFromDispenser, dispenserObj, CLO_CustomDispenser.Water.type)
+			addBottleSubMenu:addOption("Gas", playerObj, CLO_Funcs.AddBigWaterBottleFromDispenser, dispenserObj, CLO_CustomDispenser.Petrol.type)
+
+		else mainSubMenu:addOption("Remove Bottle", playerObj, CLO_Funcs.RemoveBigWaterBottleFromDispenser, dispenserObj) end
+
+		mainSubMenu:addOption("Delete Dispenser", square, CLO_Funcs.DeleteDispenserObjectOnSquare)
+
+		context:addSubMenu(mainOption, mainSubMenu)
 
 	else
 		local mainOption = context:addOption("[DEBUG] Dispenser")
