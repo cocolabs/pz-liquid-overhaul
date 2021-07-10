@@ -21,6 +21,40 @@ function CLO_Funcs.GetFirstObjectOfType(inventory, type)
 	return result
 end
 
+-- CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType
+---@param inventory InventoryContainer
+---@param type string
+function CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, type)
+	local result
+	local items = inventory:getItems()
+	for i = 0, items:size() - 1 do
+		---@type InventoryItem
+		local item = items:get(i)
+		if item:getType() == type and item:IsDrainable() and item:getUsedDelta() > 0 then
+			result = item
+			break
+		end
+	end
+	return result
+end
+
+-- CLO_Funcs.GetFirstNotFull_DrainableItemOfType
+---@param inventory InventoryContainer
+---@param type string
+function CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, type)
+	local result
+	local items = inventory:getItems()
+	for i = 0, items:size() - 1 do
+		---@type InventoryItem
+		local item = items:get(i)
+		if item:getType() == type and item:IsDrainable() and item:getUsedDelta() < 1 then
+			result = item
+			break
+		end
+	end
+	return result
+end
+
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
