@@ -5,6 +5,22 @@ function CLO_Funcs.Round(x)
 	return x + 0.5 - (x + 0.5) % 1
 end
 
+-- CLO_Funcs.GetFirstObjectOfType
+---@param inventory InventoryContainer
+---@param type string
+function CLO_Funcs.GetFirstObjectOfType(inventory, type)
+	local result
+	local items = inventory:getItems()
+	for i = 0, items:size() - 1 do
+		local item = items:get(i)
+		if item:getType() == type then
+			result = item
+			break
+		end
+	end
+	return result
+end
+
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
@@ -12,7 +28,7 @@ function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
 		local item = items:get(i)
-		if item:getType() == "Coco_WaterGallonPetrol" and item:getUsedDelta() < 1 then
+		if item:getType() == "Coco_WaterGallonPetrol" and item:getUsedDelta() > 0 then
 			result = item
 			break
 		end
@@ -27,7 +43,7 @@ function CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
 		local item = items:get(i)
-		if item:getType() == "Coco_WaterGallonFull" and item:getUsedDelta() < 1 then
+		if item:getType() == "Coco_WaterGallonFull" and item:getUsedDelta() > 0 then
 			result = item
 			break
 		end
@@ -35,9 +51,9 @@ function CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
 	return result
 end
 
--- CLO_Funcs.GetNotEmptyBigGallonWater
+-- CLO_Funcs.GetAllNotEmptyBigGallonWater
 ---@param inventory InventoryContainer
-function CLO_Funcs.GetNotEmptyBigGallonWater(inventory)
+function CLO_Funcs.GetAllNotEmptyBigGallonWater(inventory)
 	local result = {}
 	local items = inventory:getItems()
 	for i = 0, items:size() - 1 do
@@ -90,6 +106,8 @@ end
 ---@param square IsoGridSquare
 ---@param spriteName string
 function CLO_Funcs.CreateWaterDispenser(square, spriteName)
+	if not square then return end
+
 	local obj = IsoObject.new(square, spriteName, "")
 	square:AddTileObject(obj)
 	CLO_Funcs.FixWaterDispenser(obj)
@@ -99,7 +117,7 @@ end
 -- CLO_Funcs.DeleteDispenserObjectOnSquare
 ---@param square IsoGridSquare
 function CLO_Funcs.DeleteDispenserObjectOnSquare(square)
-	if not square then return nil end
+	if not square then return end
 
 	local obj = CLO_Funcs.GetDispenserObjectOnSquare(square)
 	if obj then
@@ -112,7 +130,7 @@ end
 -- CLO_Funcs.GetDispenserObjectOnSquare
 ---@param square IsoGridSquare
 function CLO_Funcs.GetDispenserObjectOnSquare(square)
-	if not square then return nil end
+	if not square then return end
 
 	local result = false
 	for i = 0, square:getObjects():size() - 1 do
@@ -128,7 +146,7 @@ end
 -- CLO_Funcs.HasDispenserOnSquare
 ---@param square IsoGridSquare
 function CLO_Funcs.HasDispenserOnSquare(square)
-	if not square then return nil end
+	if not square then return end
 
 	local result = false
 	for i = 0, square:getObjects():size() - 1 do
@@ -144,7 +162,7 @@ end
 -- CLO_Funcs.IsObjectWaterDispenser
 ---@param obj IsoObject
 function CLO_Funcs.IsObjectWaterDispenser(obj)
-	if not obj then return false end
+	if not obj then return end
 
 	local customName = obj:getProperties():Val("CustomName")
 	if customName == "Dispenser" or
@@ -154,33 +172,133 @@ function CLO_Funcs.IsObjectWaterDispenser(obj)
 			customName == CLO_CustomDispenser.Water.type then
 		return true
 	end
-	return false
 end
 
--- CLO_Funcs.HasDispenserBigWaterBottle
----@param obj IsoObject
-function CLO_Funcs.HasDispenserBigWaterBottle(obj)
+-- CLO_Funcs.IsDispenserEmpty
+-- Check if the dispenser has a bottle or not
+---@param obj IsoObject the dispenser object
+function CLO_Funcs.IsDispenserEmpty(obj)
+	if not obj then return end
+
 	local customName = obj:getProperties():Val("CustomName")
-	if CLO_Funcs.IsObjectWaterDispenser(obj) and customName ~= CLO_CustomDispenser.Empty.type then
+	if CLO_Funcs.IsObjectWaterDispenser(obj) and customName == CLO_CustomDispenser.Empty.type then
 		return true
 	end
-	return false
+end
+
+-- CLO_Funcs.IsDispenserBottleEmpty
+-- Check if the dispenser bottle is empty of liquid
+---@param obj IsoObject the dispenser object
+function CLO_Funcs.IsDispenserBottleEmpty(obj)
+	if not obj then return end
+
+	local customName = obj:getProperties():Val("CustomName")
+	if CLO_Funcs.IsObjectWaterDispenser(obj) and customName ~= CLO_CustomDispenser.Empty.type then
+		return false
+	end
 end
 
 -- CLO_Funcs.RemoveBigWaterBottleFromDispenser
----@param obj IsoObject
-function CLO_Funcs.RemoveBigWaterBottleFromDispenser(obj)
-	local modData = obj:getModData()
-	modData.waterAmount = 0
-	modData.waterMax = 0
-	-- TO-DO: change sprite
+---@param playerObj IsoPlayer the player
+---@param obj IsoObject the dispenser to remove the bottle
+function CLO_Funcs.RemoveBigWaterBottleFromDispenser(playerObj, obj)
+	if not playerObj or not obj then return end
+
+	---@type InventoryContainer
+	local inventory = playerObj:getInventory()
+
+	if CLO_Funcs.IsObjectWaterDispenser(obj) and not CLO_Funcs.IsDispenserEmpty(obj) then
+		local type
+		local modData = obj:getModData()
+		local objProps = obj:getProperties()
+
+		local customName = objProps:Val("CustomName")
+
+		if customName == CLO_CustomDispenser.Bottle.type then type = "Coco_WaterGallonEmpty"
+		elseif customName == CLO_CustomDispenser.Water.type then type = "Coco_WaterGallonFull"
+		elseif customName == CLO_CustomDispenser.Petrol.type then type = "Coco_WaterGallonPetrol" end
+
+		if type ~= nil then
+
+			local square = obj:getSquare()
+			local facing = objProps:Val("Facing")
+
+			CLO_Funcs.DeleteDispenserObjectOnSquare(square)
+			if facing == "N" then
+				CLO_Funcs.CreateWaterDispenser(square, CLO_CustomDispenser.Empty.N)
+			elseif facing == "W" then
+				CLO_Funcs.CreateWaterDispenser(square, CLO_CustomDispenser.Empty.W)
+			elseif facing == "S" then
+				CLO_Funcs.CreateWaterDispenser(square, CLO_CustomDispenser.Empty.S)
+			elseif facing == "E" then
+				CLO_Funcs.CreateWaterDispenser(square, CLO_CustomDispenser.Empty.E)
+			end
+
+			local itemName = "CocoLiquidOverhaulItems." .. type
+			local addedItem = inventory:AddItem(itemName)
+		end
+
+		-- remove liquid
+		--modData.waterAmount = 0
+		--modData.waterMax = 0
+		--modData.petrolAmount = 0
+		--modData.petrolMax = 0
+	end
 end
 
 -- CLO_Funcs.AddBigWaterBottleFromDispenser
----@param obj IsoObject
-function CLO_Funcs.AddBigWaterBottleFromDispenser(obj)
-	--local modData = obj:getModData()
-	-- TO-DO: change sprite
-	-- TO-DO: get the bottle water amount
-	-- TO-DO: set max and amount
+---@param playerObj IsoPlayer the player
+---@param obj IsoObject the dispenser to add the bottle to
+---@param item InventoryItem the bottle to add
+function CLO_Funcs.AddBigWaterBottleFromDispenser(playerObj, obj, item)
+	if not playerObj or not obj then return end
+
+	---@type InventoryContainer
+	local inventory = playerObj:getInventory()
+	local bottleItem = item
+
+	if not instanceof(item, "InventoryItem") and CLO_ModSettings.Debug then
+		-- let find an item
+		if item == CLO_CustomDispenser.Bottle.type then
+			item = CLO_Funcs.GetFirstObjectOfType(inventory, "Coco_WaterGallonEmpty")
+		elseif item == CLO_CustomDispenser.Water.type then
+			item = CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
+		elseif item == CLO_CustomDispenser.Petrol.type then
+			item = CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
+		end
+
+		if item then
+			bottleItem = inventory:AddItem(item)
+		end
+	end
+
+	if bottleItem and instanceof(bottleItem, "InventoryItem") and CLO_Funcs.IsObjectWaterDispenser(obj) and CLO_Funcs.IsDispenserEmpty(obj) then
+		local type
+		local itemType = bottleItem:getType()
+		local modData = obj:getModData()
+		local objProps = obj:getProperties()
+
+		if itemType == "Coco_WaterGallonEmpty" then type = CLO_CustomDispenser.Bottle
+		elseif itemType == "Coco_WaterGallonFull" then type = CLO_CustomDispenser.Water
+		elseif itemType == "Coco_WaterGallonPetrol" then type = CLO_CustomDispenser.Petrol end
+
+		if type ~= nil then
+
+			local square = obj:getSquare()
+			local facing = objProps:Val("Facing")
+
+			CLO_Funcs.DeleteDispenserObjectOnSquare(square)
+			if facing == "N" then
+				CLO_Funcs.CreateWaterDispenser(square, type.N)
+			elseif facing == "W" then
+				CLO_Funcs.CreateWaterDispenser(square, type.W)
+			elseif facing == "S" then
+				CLO_Funcs.CreateWaterDispenser(square, type.S)
+			elseif facing == "E" then
+				CLO_Funcs.CreateWaterDispenser(square, type.E)
+			end
+
+			inventory:Remove(bottleItem)
+		end
+	end
 end
