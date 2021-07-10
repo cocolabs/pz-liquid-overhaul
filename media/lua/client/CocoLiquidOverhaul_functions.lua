@@ -104,6 +104,25 @@ function CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 	return result
 end
 
+-- CLO_Funcs.IsPetrolAvailableOnSquare
+-- Check if a square contains fuel
+---@param square IsoGridSquare
+function CLO_Funcs.IsPetrolAvailableOnSquare(square)
+	if not square then return end
+	return square:getProperties():Is("fuelAmount")
+end
+
+-- CLO_Funcs.GetPetrolAvailableOnSquare
+-- Get the amount of fuel available on a square
+---@param square IsoGridSquare
+function CLO_Funcs.GetPetrolAvailableOnSquare(square)
+	if not square then return end
+	if CLO_Funcs.IsPetrolAvailableOnSquare(square) then
+		return tonumber(square:getProperties():Val("fuelAmount"))
+	end
+	return 0
+end
+
 -- CLO_Funcs.FixWaterDispenser
 -- Fix any default and custom dispenser
 -- Change the max water amount and transform default dispenser into custom
