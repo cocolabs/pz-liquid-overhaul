@@ -7,42 +7,42 @@ module CocoLiquidOverhaulItems
 	
 	item Coco_WaterGallonEmpty
 	{
-		Weight					= 0.5,
+		Weight              = 0.5,
 		CanStoreWater		= TRUE,
-		Type						= Normal,
+		Type			    = Normal,
 		DisplayName			= Empty Big Water Bottle,
-		ReplaceOnUseOn	= WaterSource-Coco_WaterGallonFull,
+		ReplaceOnUseOn	    = WaterSource-Coco_WaterGallonFull,
 		StaticModel 		= WaterBottle,
-		Icon						= Coco_WaterGallonEmpty,
+		Icon			    = Coco_WaterGallonEmpty,
 	}
 	
 	item Coco_WaterGallonFull
 	{
-		IsWaterSource			= TRUE,
-		Weight						= 30,
-		CanStoreWater			= TRUE,
-		Type							= Drainable,
+		IsWaterSource       = TRUE,
+		Weight              = 30,
+		CanStoreWater       = TRUE,
+		Type                = Drainable,
 		UseWhileEquipped	= FALSE,
-		UseDelta					= 0.01,
-		DisplayName				= Big Water Bottle,
+		UseDelta            = 0.01,
+		DisplayName         = Big Water Bottle,
 		ReplaceOnDeplete	= Coco_WaterGallonEmpty,
 		ReplaceOnUseOn		= WaterSource-Coco_WaterGallonFull,
-		StaticModel 			= WaterBottle,
-		Icon							= Coco_WaterGallonFull,
-		IsCookable				= FALSE,
+		StaticModel         = WaterBottle,
+		Icon                = Coco_WaterGallonFull,
+		IsCookable          = FALSE,
 		CustomContextMenu	= Drink,
 		CustomEatSound 		= DrinkingFromBottle,
 	}
 	
 	item Coco_WaterGallonPetrol
 	{
-		Weight						= 30,
-		Type							= Drainable,
+		Weight              = 30,
+		Type                = Drainable,
 		UseWhileEquipped	= FALSE,
-		UseDelta					= 0.01,
-		DisplayName				= Big Water Bottle (Gas),
-		Icon							= Coco_WaterGallonPetrol,
-		StaticModel 			= WaterBottle,
+		UseDelta            = 0.01,
+		DisplayName         = Big Water Bottle (Gas),
+		Icon                = Coco_WaterGallonPetrol,
+		StaticModel         = WaterBottle,
 		ReplaceOnDeplete	= Coco_WaterGallonEmpty,
 	}
 }
