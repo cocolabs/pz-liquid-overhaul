@@ -88,10 +88,8 @@ function CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 		local item = items:get(i)
 		if item:getType() == "Coco_WaterGallonEmpty" or item:getType() == "EmptyPetrolCan" then
 			table.insert(result, item)
-		elseif item:getType() == "Coco_WaterGallonPetrol" or item:getType() == "PetrolCan" then
-			if item:getUsedDelta() < 1 then
-				table.insert(result, item)
-			end
+		elseif (item:getType() == "Coco_WaterGallonPetrol" or item:getType() == "PetrolCan") and item:getUsedDelta() < 1 then
+			table.insert(result, item)
 		end
 	end
 	return result
