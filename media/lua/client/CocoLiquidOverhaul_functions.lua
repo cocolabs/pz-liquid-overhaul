@@ -6,6 +6,32 @@ function CLO_Funcs.Round(x)
 	return x + 0.5 - (x + 0.5) % 1
 end
 
+-- CLO_Funcs.Hypo
+-- Return hypotenuse
+function CLO_Funcs.Hypo(x, y)
+	return math.sqrt(x^2 + y^2)
+end
+
+-- CLO_Funcs.GetDistanceBetween
+---@param squareA IsoGridSquare
+---@param squareB IsoGridSquare
+function CLO_Funcs.GetDistanceBetween(squareA, squareB)
+	if not squareA or not squareB then return end
+
+	if squareA:getZ() == squareB:getZ() then
+		return CLO_Funcs.Hypo(squareB:getX() - squareA:getX(), squareB:getY() - squareA:getY())
+	end
+end
+
+-- CLO_Funcs.IsPlayerNextToSquare
+---@param playerObj IsoPlayer
+---@param squareB IsoGridSquare
+function CLO_Funcs.IsPlayerNextToSquare(playerObj, square, distance)
+	if not playerObj or not square then return end
+	if not distance then distance = 1.5 end
+	return CLO_Funcs.GetDistanceBetween(playerObj:getCurrentSquare(), square) < distance
+end
+
 -- CLO_Funcs.GetFirstObjectOfType
 -- Get the first item of a type from an inventory
 ---@param inventory InventoryContainer
