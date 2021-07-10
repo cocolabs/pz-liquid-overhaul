@@ -235,7 +235,7 @@ local function InteractWaterDispenser_Context(playerNum, context, _, test)
 	local playerObj = getSpecificPlayer(playerNum)
 	local square = clickedSquare
 
-	if square and AdjacentFreeTileFinder.isTileOrAdjacent(playerObj:getCurrentSquare(), square) and CLO_Funcs.HasDispenserOnSquare(square) then
+	if square and CLO_Funcs.IsPlayerNextToSquare(playerObj, square) and CLO_Funcs.HasDispenserOnSquare(square) then
 		local obj = CLO_Funcs.GetDispenserObjectOnSquare(square)
 		CLO_Funcs.FixWaterDispenser(obj)
 		context:addOption("Dispenser Options", nil)
