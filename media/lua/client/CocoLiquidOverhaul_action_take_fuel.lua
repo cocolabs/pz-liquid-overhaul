@@ -81,6 +81,9 @@ function CLO_ActionTakeFuel:perform()
 end
 
 -- new
+---@param playerObj IsoPlayer
+---@param square IsoGridSquare
+---@param petrolCan InventoryItem
 function CLO_ActionTakeFuel:new(playerObj, square, petrolCan, maxTime)
 	local o = {}
 	setmetatable(o, self)

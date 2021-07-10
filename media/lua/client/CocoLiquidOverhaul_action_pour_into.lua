@@ -67,6 +67,9 @@ function CLO_ActionPourInto:perform()
 end
 
 -- new
+---@param playerObj IsoPlayer
+---@param itemFrom InventoryItem
+---@param itemTo InventoryItem
 function CLO_ActionPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta)
 	local o = {}
 	setmetatable(o, self)

@@ -59,6 +59,7 @@ Mod ID: CocoLiquidOverhaul
 Yooks - For everything he does to help make modding easier & organized.  
 Coco Labs Community - For being awesome and supportive.  
 Tchernobill - For helping fix item categories.  
+Dylan123 - For the amazing 3D models.
 
 ## License
 

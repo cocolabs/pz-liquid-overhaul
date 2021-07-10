@@ -1,22 +1,27 @@
 -- TakeFuelBigWaterBottle_DoAction
-local function TakeFuelBigWaterBottle_DoAction(worldobjects, playerObj, square, petrolCan)
-	
-	playerObj:StopAllActionQueue()
+---@param playerObj IsoPlayer
+---@param square IsoGridSquare
+---@param petrolCan InventoryItem
+local function TakeFuelBigWaterBottle_DoAction(playerObj, square, petrolCan)
+	if playerObj:isPerformingAnAction() then return end
 
 	-- let's equip it
 	if playerObj:getPrimaryHandItem() ~= petrolCan and playerObj:getSecondaryHandItem() ~= petrolCan then
 		ISInventoryPaneContextMenu.equipWeapon(petrolCan, true, true, playerObj:getPlayerNum())
 	end
 
-	-- let's start the timed action
+	-- let's queue the timed action
 	ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, 5000))
 end
 
 -- PourGasInto_DoAction
+---@param playerObj IsoPlayer
+---@param itemFrom InventoryItem
+---@param itemTo InventoryItem
 local function PourGasInto_DoAction(playerObj, itemFrom, itemTo)
-	local inventory = playerObj:getInventory()
+	if playerObj:isPerformingAnAction() then return end
 
-	playerObj:StopAllActionQueue()
+	local inventory = playerObj:getInventory()
 
 	-- transform empty big water bottle
 	if itemTo:getType() == "Coco_WaterGallonEmpty" then
@@ -33,8 +38,7 @@ local function PourGasInto_DoAction(playerObj, itemFrom, itemTo)
 	local petrolStorageAvailable = (1 - itemTo:getUsedDelta()) / itemTo:getUseDelta()
 	local petrolStorageNeeded = itemFrom:getUsedDelta() / itemFrom:getUseDelta()
 
-	local itemFromEndingDelta = 0
-	local itemToEndingDelta = nil
+	local itemFromEndingDelta, itemToEndingDelta = 0, 0
 
 	if petrolStorageAvailable >= petrolStorageNeeded then
 		local petrolInA = itemTo:getUsedDelta() / itemTo:getUseDelta()
@@ -56,15 +60,15 @@ local function PourGasInto_DoAction(playerObj, itemFrom, itemTo)
 end
 
 -- TakeFuelBigWaterBottle_Context
-local function TakeFuelBigWaterBottle_Context(playerNum, context, worldobjects, test)
+local function TakeFuelBigWaterBottle_Context(playerNum, context, _, test)
 	if test == true then return true end
 
 	local playerObj = getSpecificPlayer(playerNum)
 	local inventory = playerObj:getInventory()
 	local square = playerObj:getCurrentSquare()
 
+	local petrolCan
 	local fuelAmount = 0
-	local petrolCan = nil
 	local pumpFound = false
 
 	-- Get square around player
@@ -98,7 +102,7 @@ local function TakeFuelBigWaterBottle_Context(playerNum, context, worldobjects, 
 					end
 
 					if petrolCan ~= nil then
-						context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), worldobjects, TakeFuelBigWaterBottle_DoAction, playerObj, sq, petrolCan)
+						context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), playerObj, TakeFuelBigWaterBottle_DoAction, sq, petrolCan)
 					end
 
 					pumpFound = true
@@ -111,12 +115,11 @@ end
 -- CheckLiquidContainerContent_Context
 local function CheckLiquidContainerContent_Context(playerNum, context, items)
 	local playerObj = getSpecificPlayer(playerNum)
-	local inventory = playerObj:getInventory()
-	local mainContainer = nil
+	local mainContainer
 	local isWater = false
 	local isMilk = false
 	local isAlcohol = false
-	local isTainted = false
+	--local isTainted = false
 
 	if #items == 1 then
 		for i, v in ipairs(items) do
@@ -174,7 +177,7 @@ end
 local function PouGasInto_Context(playerNum, context, items)
 	local playerObj = getSpecificPlayer(playerNum)
 	local inventory = playerObj:getInventory()
-	local mainContainer = nil
+	local mainContainer
 
 	if #items == 1 then
 		for i, v in ipairs(items) do
@@ -229,10 +232,10 @@ local function PouGasInto_Context(playerNum, context, items)
 				if item:IsDrainable() then
 					local storageAvailable = CLO_Funcs.Round(1 / item:getUseDelta())
 					local storageContain = CLO_Funcs.Round(storageAvailable * item:getUsedDelta())
-					local option = subMenu:addOption(itemName, playerObj, PourGasInto_DoAction, mainContainer, item)
+					local checkOtion = subMenu:addOption(itemName, playerObj, PourGasInto_DoAction, mainContainer, item)
 					local tooltip = ISWorldObjectContextMenu.addToolTip()
 					tooltip.description = getText("ContextMenu_Liquid_petrol_name") .. ": " .. tostring(storageContain) .. "/" .. tostring(storageAvailable)
-					option.toolTip = tooltip
+					checkOtion.toolTip = tooltip
 				else
 					subMenu:addOption(itemName, playerObj, PourGasInto_DoAction, mainContainer, item)
 				end
@@ -242,88 +245,70 @@ local function PouGasInto_Context(playerNum, context, items)
 end
 
 -- InteractWaterDispenser_Context
-local function InteractWaterDispenser_Context(playerNum, context, worldobjects, test)
-	if test == true then
-		return true
-	end
+local function InteractWaterDispenser_Context(playerNum, context, _, test)
+	if test then return end
 
 	local playerObj = getSpecificPlayer(playerNum)
-	local inventory = playerObj:getInventory()
-	local square = playerObj:getCurrentSquare()
+	local square = clickedSquare
 
-	local dispenserFound = false
-
-	-- Get square around player
-	for y = square:getY() - 0.5, square:getY() + 0.5 do
-		for x = square:getX() - 0.5, square:getX() + 0.5 do
-			local sq = getCell():getGridSquare(x, y, square:getZ())
-			if not (sq) then
-				break
-			end
-
-			-- check square objects
-			for i = 0, sq:getObjects():size() - 1 do
-				local obj = sq:getObjects():get(i)
-
-				if (luautils.walkAdj(playerObj, sq) and CLO_Funcs.IsObjectWaterDispenser(obj)) then
-					CLO_Funcs.FixWaterDispenser(obj)
-
-					context:addOption("Dispenser Options", nil)
-
-					dispenserFound = true
-					break
-				end
-				if dispenserFound then
-					break
-				end
-			end
-			if dispenserFound then
-				break
-			end
-		end
-		if dispenserFound then
-			break
-		end
+	if square and AdjacentFreeTileFinder.isTileOrAdjacent(playerObj:getCurrentSquare(), square) and CLO_Funcs.HasDispenserOnSquare(square) then
+		local obj = CLO_Funcs.GetDispenserObjectOnSquare(square)
+		CLO_Funcs.FixWaterDispenser(obj)
+		context:addOption("Dispenser Options", nil)
 	end
 end
 
 -- Debug_Context
-local function Debug_Context(playerNum, context, worldobjects, test)
-	if not CLO_ModSettings.Debug then
-		return false
-	end
+local function Debug_Context(playerNum, context, _, test)
+	if test or not CLO_ModSettings.Debug then return end
 
 	local playerObj = getSpecificPlayer(playerNum)
-	local square = playerObj:getCurrentSquare()
+	local square = clickedSquare
 
-	if not CLO_Funcs.HasDispenserOnSquare(square) then
-		local option = context:addOption("DEBUG Dispenser")
+	if CLO_Funcs.HasDispenserOnSquare(square) then
+		local mainOption = context:addOption("[DEBUG] Dispenser")
 		local subMenu = context:getNew(context)
-		context:addSubMenu(option, subMenu)
+		subMenu:addOption("Delete Dispenser", square, CLO_Funcs.DeleteDispenserObjectOnSquare)
 
-		local option1 = context:addOption("Create Empty Dispenser")
-		local subMenu1 = context:getNew(context)
-		subMenu:addSubMenu(option1, subMenu1)
-		subMenu1:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.N)
-		subMenu1:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.E)
-		subMenu1:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.S)
-		subMenu1:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Empty.W)
+		context:addSubMenu(mainOption, subMenu)
 
-		local option2 = context:addOption("Create Water Dispenser")
-		local subMenu2 = context:getNew(context)
-		subMenu:addSubMenu(option2, subMenu2)
-		subMenu2:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.N)
-		subMenu2:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.E)
-		subMenu2:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.S)
-		subMenu2:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Water.W)
+	else
+		local mainOption = context:addOption("[DEBUG] Dispenser")
+		local mainSubMenu = context:getNew(context)
 
-		local option3 = context:addOption("Create Gas Dispenser")
-		local subMenu3 = context:getNew(context)
-		subMenu:addSubMenu(option3, subMenu3)
-		subMenu3:addOption("Facing North", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.N)
-		subMenu3:addOption("Facing East", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.E)
-		subMenu3:addOption("Facing South", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.S)
-		subMenu3:addOption("Facing West", playerObj, CLO_Funcs.CreateWaterDispenser, square, CLO_CustomDispenser.Petrol.W)
+		local option1 = mainSubMenu:addOption("Create Empty Dispenser")
+		local subMenu1 = mainSubMenu:getNew(mainSubMenu)
+		subMenu1:addOption("Facing North", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Empty.N)
+		subMenu1:addOption("Facing East", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Empty.E)
+		subMenu1:addOption("Facing South", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Empty.S)
+		subMenu1:addOption("Facing West", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Empty.W)
+
+		local option2 = mainSubMenu:addOption("Create Water Dispenser")
+		local subMenu2 = mainSubMenu:getNew(mainSubMenu)
+		subMenu2:addOption("Facing North", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Water.N)
+		subMenu2:addOption("Facing East", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Water.E)
+		subMenu2:addOption("Facing South", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Water.S)
+		subMenu2:addOption("Facing West", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Water.W)
+
+		local option3 = mainSubMenu:addOption("Create Gas Dispenser")
+		local subMenu3 = mainSubMenu:getNew(mainSubMenu)
+		subMenu3:addOption("Facing North", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Petrol.N)
+		subMenu3:addOption("Facing East", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Petrol.E)
+		subMenu3:addOption("Facing South", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Petrol.S)
+		subMenu3:addOption("Facing West", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Petrol.W)
+
+		local option4 = mainSubMenu:addOption("Create Empty Bottle Dispenser")
+		local subMenu4 = mainSubMenu:getNew(mainSubMenu)
+		subMenu4:addOption("Facing North", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Bottle.N)
+		subMenu4:addOption("Facing East", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Bottle.E)
+		subMenu4:addOption("Facing South", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Bottle.S)
+		subMenu4:addOption("Facing West", square, CLO_Funcs.CreateWaterDispenser, CLO_CustomDispenser.Bottle.W)
+
+		context:addSubMenu(mainOption, mainSubMenu)
+		mainSubMenu:addSubMenu(option1, subMenu1)
+		mainSubMenu:addSubMenu(option2, subMenu2)
+		mainSubMenu:addSubMenu(option3, subMenu3)
+		mainSubMenu:addSubMenu(option4, subMenu4)
 	end
 end
 
