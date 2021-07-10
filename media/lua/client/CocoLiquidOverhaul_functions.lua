@@ -1,11 +1,13 @@
 CLO_Funcs = {}
 
 -- CLO_Funcs.Round
+-- Round a number
 function CLO_Funcs.Round(x)
 	return x + 0.5 - (x + 0.5) % 1
 end
 
 -- CLO_Funcs.GetFirstObjectOfType
+-- Get the first item of a type from an inventory
 ---@param inventory InventoryContainer
 ---@param type string
 function CLO_Funcs.GetFirstObjectOfType(inventory, type)
@@ -22,6 +24,7 @@ function CLO_Funcs.GetFirstObjectOfType(inventory, type)
 end
 
 -- CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType
+-- Get the first not empty drainable item of a type from an inventory
 ---@param inventory InventoryContainer
 ---@param type string
 function CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, type)
@@ -39,6 +42,7 @@ function CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, type)
 end
 
 -- CLO_Funcs.GetFirstNotFull_DrainableItemOfType
+-- Get the first not full drainable item of a type from an inventory
 ---@param inventory InventoryContainer
 ---@param type string
 function CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, type)
@@ -56,30 +60,35 @@ function CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, type)
 end
 
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol
+-- Get the first not empty big water bottle (petrol) from an inventory
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
 	return CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, "Coco_WaterGallonPetrol")
 end
 
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonFull
+-- Get the first not empty big water bottle (water) from an inventory
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
 	return CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, "Coco_WaterGallonFull")
 end
 
 -- CLO_Funcs.GetFirstNotFull_WaterGallonPetrol
+-- Get the first not full big water bottle (petrol) from an inventory
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotFull_WaterGallonPetrol(inventory)
 	return CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, "Coco_WaterGallonPetrol")
 end
 
 -- CLO_Funcs.GetFirstNotFull_WaterGallonFull
+-- Get the first not full big water bottle (water) from an inventory
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotFull_WaterGallonFull(inventory)
 	return CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, "Coco_WaterGallonFull")
 end
 
 -- CLO_Funcs.GetAllPetrolPourableContainer
+-- Get an array of all empty and not full petrol containers from an inventory
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 	local result = {}
@@ -96,6 +105,8 @@ function CLO_Funcs.GetAllPetrolPourableContainer(inventory)
 end
 
 -- CLO_Funcs.FixWaterDispenser
+-- Fix any default and custom dispenser
+-- Change the max water amount and transform default dispenser into custom
 ---@param obj IsoObject
 function CLO_Funcs.FixWaterDispenser(obj)
 	--local modData = obj:getModData()
@@ -115,6 +126,8 @@ function CLO_Funcs.FixWaterDispenser(obj)
 end
 
 -- CLO_Funcs.CreateWaterDispenser
+-- Create a dispenser object on a square
+-- Use CLO_CustomDispenser.[type].[direction] from the proper sprite image
 ---@param square IsoGridSquare
 ---@param spriteName string
 function CLO_Funcs.CreateWaterDispenser(square, spriteName)
@@ -127,6 +140,7 @@ function CLO_Funcs.CreateWaterDispenser(square, spriteName)
 end
 
 -- CLO_Funcs.DeleteDispenserObjectOnSquare
+-- Delete a dispenser object from a square
 ---@param square IsoGridSquare
 function CLO_Funcs.DeleteDispenserObjectOnSquare(square)
 	if not square then return end
@@ -140,6 +154,7 @@ function CLO_Funcs.DeleteDispenserObjectOnSquare(square)
 end
 
 -- CLO_Funcs.GetDispenserObjectOnSquare
+-- Get a dispenser object if any found on the square
 ---@param square IsoGridSquare
 function CLO_Funcs.GetDispenserObjectOnSquare(square)
 	if not square then return end
@@ -156,6 +171,7 @@ function CLO_Funcs.GetDispenserObjectOnSquare(square)
 end
 
 -- CLO_Funcs.HasDispenserOnSquare
+-- Check if a dispenser is on that square
 ---@param square IsoGridSquare
 function CLO_Funcs.HasDispenserOnSquare(square)
 	if not square then return end
@@ -172,6 +188,7 @@ function CLO_Funcs.HasDispenserOnSquare(square)
 end
 
 -- CLO_Funcs.IsObjectWaterDispenser
+-- Check if the object is a default and custom dispenser
 ---@param obj IsoObject
 function CLO_Funcs.IsObjectWaterDispenser(obj)
 	if not obj then return end
@@ -211,6 +228,8 @@ function CLO_Funcs.IsDispenserBottleEmpty(obj)
 end
 
 -- CLO_Funcs.RemoveBigWaterBottleFromDispenser
+-- Remove the big water bottle of any type from an empty dispenser
+-- Add the bottle to inventory
 ---@param playerObj IsoPlayer the player
 ---@param obj IsoObject the dispenser to remove the bottle
 function CLO_Funcs.RemoveBigWaterBottleFromDispenser(playerObj, obj)
@@ -259,6 +278,8 @@ function CLO_Funcs.RemoveBigWaterBottleFromDispenser(playerObj, obj)
 end
 
 -- CLO_Funcs.AddBigWaterBottleFromDispenser
+-- Add a big water bottle of any type to an empty dispenser
+-- Take the bottle from inventory
 ---@param playerObj IsoPlayer the player
 ---@param obj IsoObject the dispenser to add the bottle to
 ---@param item InventoryItem the bottle to add
