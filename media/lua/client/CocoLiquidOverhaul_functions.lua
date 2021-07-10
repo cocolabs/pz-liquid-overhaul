@@ -58,45 +58,25 @@ end
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
-	local result
-	local items = inventory:getItems()
-	for i = 0, items:size() - 1 do
-		local item = items:get(i)
-		if item:getType() == "Coco_WaterGallonPetrol" and item:getUsedDelta() > 0 then
-			result = item
-			break
-		end
-	end
-	return result
+	return CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, "Coco_WaterGallonPetrol")
 end
 
 -- CLO_Funcs.GetFirstNotEmpty_WaterGallonFull
 ---@param inventory InventoryContainer
 function CLO_Funcs.GetFirstNotEmpty_WaterGallonFull(inventory)
-	local result
-	local items = inventory:getItems()
-	for i = 0, items:size() - 1 do
-		local item = items:get(i)
-		if item:getType() == "Coco_WaterGallonFull" and item:getUsedDelta() > 0 then
-			result = item
-			break
-		end
-	end
-	return result
+	return CLO_Funcs.GetFirstNotEmpty_DrainableItemOfType(inventory, "Coco_WaterGallonFull")
 end
 
--- CLO_Funcs.GetAllNotEmptyBigGallonWater
+-- CLO_Funcs.GetFirstNotFull_WaterGallonPetrol
 ---@param inventory InventoryContainer
-function CLO_Funcs.GetAllNotEmptyBigGallonWater(inventory)
-	local result = {}
-	local items = inventory:getItems()
-	for i = 0, items:size() - 1 do
-		local item = items:get(i)
-		if item:getType() == "Coco_WaterGallonEmpty" then
-			table.insert(result, item)
-		end
-	end
-	return result
+function CLO_Funcs.GetFirstNotFull_WaterGallonPetrol(inventory)
+	return CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, "Coco_WaterGallonPetrol")
+end
+
+-- CLO_Funcs.GetFirstNotFull_WaterGallonFull
+---@param inventory InventoryContainer
+function CLO_Funcs.GetFirstNotFull_WaterGallonFull(inventory)
+	return CLO_Funcs.GetFirstNotFull_DrainableItemOfType(inventory, "Coco_WaterGallonFull")
 end
 
 -- CLO_Funcs.GetAllPetrolPourableContainer
