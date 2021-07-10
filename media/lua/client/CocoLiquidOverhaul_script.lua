@@ -5,13 +5,12 @@
 local function TakeFuelBigWaterBottle_DoAction(playerObj, square, petrolCan)
 	if playerObj:isPerformingAnAction() then return end
 
-	-- let's equip it
-	if playerObj:getPrimaryHandItem() ~= petrolCan and playerObj:getSecondaryHandItem() ~= petrolCan then
-		ISInventoryPaneContextMenu.equipWeapon(petrolCan, true, true, playerObj:getPlayerNum())
+	if luautils.walkAdj(playerObj, square) then
+		if playerObj:getPrimaryHandItem() ~= petrolCan and playerObj:getSecondaryHandItem() ~= petrolCan then
+			ISInventoryPaneContextMenu.equipWeapon(petrolCan, false, false, playerObj:getPlayerNum())
+		end
+		ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, 5000))
 	end
-
-	-- let's queue the timed action
-	ISTimedActionQueue.add(CLO_ActionTakeFuel:new(playerObj, square, petrolCan, 5000))
 end
 
 -- PourGasInto_DoAction
@@ -73,7 +72,7 @@ local function TakeFuelBigWaterBottle_Context(playerNum, context, _, test)
 	local petrolCan
 
 	-- Check if the square is adjacent to the player
-	if square and AdjacentFreeTileFinder.isTileOrAdjacent(playerObj:getCurrentSquare(), square) then
+	if square then
 
 		-- Check if there is fuel on that square
 		if CLO_Funcs.IsPetrolAvailableOnSquare(square) then
