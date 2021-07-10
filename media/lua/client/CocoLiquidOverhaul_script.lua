@@ -61,54 +61,39 @@ end
 
 -- TakeFuelBigWaterBottle_Context
 local function TakeFuelBigWaterBottle_Context(playerNum, context, _, test)
-	if test == true then return true end
+	if test then return end
 
+	---@type IsoPlayer
 	local playerObj = getSpecificPlayer(playerNum)
+	---@type InventoryContainer
 	local inventory = playerObj:getInventory()
-	local square = playerObj:getCurrentSquare()
+	---@type IsoGridSquare
+	local square = clickedSquare
 
 	local petrolCan
 	local fuelAmount = 0
-	local pumpFound = false
 
 	-- Get square around player
-	for y = square:getY() - 1, square:getY() + 1 do
-		if pumpFound then break end
-		for x = square:getX() - 1, square:getX() + 1 do
-			if pumpFound then break end
+	if square then
 
-			local sq = getCell():getGridSquare(x, y, square:getZ())
-			if not sq then break end
+		-- Check if there is fuel on that square
+		if CLO_Funcs.IsPetrolAvailableOnSquare(square) then
 
-			-- Check if there is fuel on that square
-			if sq:getProperties():Is("fuelAmount") then
+			-- If there is fuel let's continue
+			if CLO_Funcs.GetPetrolAvailableOnSquare(square) > 0 then
 
-				-- Store the fuel amount
-				fuelAmount = tonumber(sq:getProperties():Val("fuelAmount"))
+				-- Let's find an not empty and not full petrol can first
+				petrolCan = CLO_Funcs.GetFirstNotFull_WaterGallonPetrol(inventory)
+				if not petrolCan then
+					petrolCan = CLO_Funcs.GetFirstObjectOfType(inventory, "Coco_WaterGallonEmpty")
+				end
 
-				-- If there is fuel let's continue
-				if fuelAmount > 0 then
-
-					-- Let's find an not empty petrol can first
-					local notEmptyPetrolCan = CLO_Funcs.GetFirstNotEmpty_WaterGallonPetrol(inventory)
-					if notEmptyPetrolCan then
-						-- We didnt find any let's find an empty one
-						petrolCan = notEmptyPetrolCan
-					else
-						local emptyPetrolCan = inventory:getFirstTypeRecurse("Coco_WaterGallonEmpty")
-						if emptyPetrolCan then
-							petrolCan = emptyPetrolCan
-						end
-					end
-
-					if petrolCan ~= nil then
-						context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), playerObj, TakeFuelBigWaterBottle_DoAction, sq, petrolCan)
-					end
-
-					pumpFound = true
+				if petrolCan then
+					context:addOption(getText("ContextMenu_TakeGasFromPumpWithBigWaterBottle"), playerObj, TakeFuelBigWaterBottle_DoAction, square, petrolCan)
 				end
 			end
 		end
+
 	end
 end
 
