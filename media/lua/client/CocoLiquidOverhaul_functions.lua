@@ -197,8 +197,7 @@ function CLO_Funcs.DeleteDispenserObjectOnSquare(square)
 
 	local obj = CLO_Funcs.GetDispenserObjectOnSquare(square)
 	if obj then
-		square:transmitRemoveItemFromSquare(obj)
-		square:RecalcProperties()
+		CLO_Funcs.DeleteObject(obj)
 		print("Deleting dispenser on square")
 	end
 end
@@ -237,7 +236,7 @@ end
 function CLO_Funcs.GetDispenserObjectOnSquare(square)
 	if not square then return end
 
-	local result = false
+	local result
 	for i = 0, square:getObjects():size() - 1 do
 		local obj = square:getObjects():get(i)
 		if CLO_Funcs.IsObjectWaterDispenser(obj) then
