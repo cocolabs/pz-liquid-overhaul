@@ -203,6 +203,34 @@ function CLO_Funcs.DeleteDispenserObjectOnSquare(square)
 	end
 end
 
+-- CLO_Funcs.DeleteObject
+-- Delete an object
+---@param obj IsoObject
+function CLO_Funcs.DeleteObject(obj)
+	if not obj then return end
+
+	local square = obj:getSquare()
+	if square then
+		square:transmitRemoveItemFromSquare(obj)
+		square:RecalcProperties()
+	end
+end
+
+-- CLO_Funcs.ReplaceDispenserObjectOnSquare
+---@param obj IsoObject
+---@param type table use the CLO_CustomDispenser variable
+function CLO_Funcs.ReplaceDispenserObjectOnSquare(obj, customDispenser)
+	if not obj or not customDispenser then return end
+
+	---@type IsoGridSquare
+	local square = obj:getSquare()
+	if obj and square then
+		local facing = obj:getProperties():Val("Facing")
+		CLO_Funcs.CreateWaterDispenser(square, customDispenser[facing])
+		CLO_Funcs.DeleteObject(obj)
+	end
+end
+
 -- CLO_Funcs.GetDispenserObjectOnSquare
 -- Get a dispenser object if any found on the square
 ---@param square IsoGridSquare
