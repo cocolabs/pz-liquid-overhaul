@@ -154,8 +154,13 @@ end
 -- Change the max water amount and transform default dispenser into custom
 ---@param obj IsoObject
 function CLO_Funcs.FixWaterDispenser(obj)
-	--local modData = obj:getModData()
-	--local objProps = obj:getProperties()
+	local modData = obj:getModData()
+	local objProps = obj:getProperties()
+	local customName = objProps:Val("CustomName")
+
+	if customName == "Dispenser" then
+		CLO_Funcs.ReplaceDispenserObjectOnSquare(obj, CLO_CustomDispenser.Water)
+	end
 
 	--if objProps:Get("CustomName") ~= "empty" then
 	--	modData.waterMax = tonumber(CLO_ModSettings.WaterDispenserWaterMax)
