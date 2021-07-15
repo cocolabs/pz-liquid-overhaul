@@ -9,9 +9,11 @@ local function DoTakeFuelFromPump(playerObject, square, petrolCan)
     if playerObject:isPerformingAnAction() then return end
 
     if luautils.walkAdj(playerObject, square) then
-        if playerObject:getPrimaryHandItem() ~= petrolCan and playerObject:getSecondaryHandItem() ~= petrolCan then
+
+        if playerObject:getPrimaryHandItem() ~= petrolCan or playerObject:getSecondaryHandItem() ~= petrolCan then
             ISInventoryPaneContextMenu.equipWeapon(petrolCan, false, false, playerObject:getPlayerNum())
         end
+
         ISTimedActionQueue.add(CLO_Actions.ISTakeFuelFromPump:new(playerObject, square, petrolCan, 5000))
     end
 

@@ -23,13 +23,20 @@ function ISTakeFuelFromPump:start()
 	-- let's transform an empty can into an empty petrol can
 	if self.petrolCan:getType() == "EmptyPetrolCan" or self.petrolCan:getType() == "Coco_WaterGallonEmpty" then
 		local emptyCan = self.petrolCan
-		if self.petrolCan:getType() == "EmptyPetrolCan" then
+		if emptyCan:getType() == "EmptyPetrolCan" then
 			self.petrolCan = self.character:getInventory():AddItem("Base.PetrolCan")
 		else
 			self.petrolCan = self.character:getInventory():AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
 		end
 		self.petrolCan:setUsedDelta(0)
-		self.character:setSecondaryHandItem(self.petrolCan)
+
+		if self.character:getPrimaryHandItem() == emptyCan then
+			self.character:setPrimaryHandItem(nil)
+		end
+		if self.character:getSecondaryHandItem() == emptyCan then
+			self.character:setSecondaryHandItem(self.petrolCan)
+		end
+
 		self.character:getInventory():Remove(emptyCan)
 	end
 
