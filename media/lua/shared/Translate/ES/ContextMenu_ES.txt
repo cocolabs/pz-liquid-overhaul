@@ -1,14 +1,14 @@
 ContextMenu_ES = {
-	ContextMenu_TakeGasFromPumpWithBigWaterBottle = "Take Fuel (Big Water Bottle)",
-	ContextMenu_Pour_petrol_into = "Pour gas into",
-	ContextMenu_Liquid_container_info = "Check content",
-	ContextMenu_Liquid_water_name = "Water"
-	ContextMenu_Liquid_tainted_water_name = "Tainted Water"
-	ContextMenu_Liquid_petrol_name = "Gas",
-	ContextMenu_Liquid_whiskey_name = "Whiskey",
-	ContextMenu_Liquid_whitewine_name = "White Wine",
-	ContextMenu_Liquid_redwine_name = "Red Wine",
-	ContextMenu_Liquid_milk_name = "Milk",
-	ContextMenu_Liquid_chocolate_milk_name = "Chocolate Milk",
-	ContextMenu_Liquid_strawberry_milk_name = "Strawberry Milk",
+	ContextMenu_TakeGasFromPumpWithBigWaterBottle = "Take Fuel into Big Water Bottle",
+	ContextMenu_PourFuelInto = "Pour fuel into",
+	ContextMenu_WaterName = "Water",
+	ContextMenu_FuelName = "Fuel",
+	ContextMenu_PlaceBottle = "Place Bottle",
+	ContextMenu_TakeBottle = "Take Bottle",
+	ContextMenu_NoBottle = "No Bottle",
+	ContextMenu_EmptyBottle = "Empty Bottle",
+	ContextMenu_EmptyDispenser = "Dispenser",
+	ContextMenu_EmptyBottleDispenser = "Empty Dispenser",
+	ContextMenu_WaterDispenser = "Water Dispenser",
+	ContextMenu_FuelDispenser = "Fuel Dispenser",
 }
