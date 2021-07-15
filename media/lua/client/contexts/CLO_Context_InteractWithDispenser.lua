@@ -240,7 +240,7 @@ local function menu_place_bottle(_playerNum, _dispenserObject, _context)
             if CLO_Inventory.GetDrainableItemContent(item) > 0 then
                 tooltip.description = toolTipPrefix .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
             else
-                tooltip.description = "Empty"
+                tooltip.description = getText("ContextMenu_IsEmpty")
             end
             if waterTainted then
                 tooltip.description = tooltip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
@@ -401,7 +401,7 @@ local function menu_fill_water(_playerNum, _dispenserObject, _context)
             if CLO_Inventory.GetDrainableItemContent(item) > 0 then
                 tooltip.description = getText("ContextMenu_WaterName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
             else
-                tooltip.description = "Empty"
+                tooltip.description = getText("ContextMenu_IsEmpty")
             end
             if item:isTaintedWater() then
                 tooltip.description = tooltip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
@@ -461,7 +461,7 @@ local function menu_fill_fuel(_playerNum, _dispenserObject, _context)
             if CLO_Inventory.GetDrainableItemContent(item) > 0 then
                 tooltip.description = getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
             else
-                tooltip.description = "Empty"
+                tooltip.description = getText("ContextMenu_IsEmpty")
             end
         end
     end

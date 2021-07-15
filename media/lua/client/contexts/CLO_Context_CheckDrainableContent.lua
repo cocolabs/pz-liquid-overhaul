@@ -18,18 +18,18 @@ local function Context_CheckDrainableContent(_playerNum, _context, _items)
 
             if item:IsDrainable() and item:isWaterSource() then
                 local option = _context:addOption(item:getName())
-                local toolTip = CLO_Context.CreateOptionTooltip(option, "Water: " .. CLO_Inventory.GetDrainableItemContentString(item))
+                local toolTip = CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_WaterName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item))
                 if item:isTaintedWater() then
                     toolTip.description = toolTip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
                 end
 
             elseif item:IsDrainable() and (type == "PetrolCan" or type == "Coco_WaterGallonPetrol") then
                 local option = _context:addOption(item:getName())
-                CLO_Context.CreateOptionTooltip(option, "Fuel: " .. CLO_Inventory.GetDrainableItemContentString(item))
+                CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item))
 
             elseif not item:IsDrainable() and item:canStoreWater() then
                 local option = _context:addOption(item:getName())
-                CLO_Context.CreateOptionTooltip(option, "Empty")
+                CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_IsEmpty"))
             end
         end
     end
