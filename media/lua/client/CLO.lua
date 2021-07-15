@@ -5,7 +5,7 @@ CLO_ModSettings = {
 	Version = 1.0,
 	DispenserAmountMax = 100,
 	Config = {
-		Debug = true,
+		Debug = false,
 		Verbose = true,
 	}
 }
