@@ -1,5 +1,4 @@
 ContextMenu_EN = {
-	ContextMenu_TakeGasFromPumpWithBigWaterBottle = "Take Fuel into Big Water Bottle",
 	ContextMenu_WaterName = "Water",
 	ContextMenu_FuelName = "Fuel",
 	ContextMenu_PlaceBottle = "Place Bottle",
@@ -10,4 +9,5 @@ ContextMenu_EN = {
 	ContextMenu_EmptyBottleDispenser = "Empty Dispenser",
 	ContextMenu_WaterDispenser = "Water Dispenser",
 	ContextMenu_FuelDispenser = "Fuel Dispenser",
+	ContextMenu_IsEmpty = "Empty",
 }
