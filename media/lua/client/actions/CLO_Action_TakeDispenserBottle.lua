@@ -46,7 +46,9 @@ function ISTakeDispenserBottle:perform()
         liquidAmount = CLO_Object.GetObjectWaterAmount(self.dispenserObj)
         liquidMax = CLO_Object.GetObjectWaterMax(self.dispenserObj)
         item = inventory:AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonFull")
-        item:setTaintedWater(taintedWater)
+        if taintedWater then
+            item:setTaintedWater(true)
+        end
         item:setUsedDelta(liquidAmount / liquidMax)
     elseif dispenserType == CLO_DispenserTypes.FuelDispenser then
         liquidAmount = CLO_Object.GetObjectFuelAmount(self.dispenserObj)
