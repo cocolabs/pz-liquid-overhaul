@@ -1,6 +1,6 @@
 # Coco Liquid Overhaul 1.0
 
-A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store drinking water in big water bottler taken from a water dispenser and fill it with fuel or water. Take and Place big water bottle on any dispenser to refill them.
+A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store drinking water in big water bottle taken from a water dispenser and fill it with fuel or water. Take and Place big water bottle on any dispenser to refill them.
 
 ## New Feature:
 - Complete re-design of the Big Water Bottle and Dispensers.
@@ -27,6 +27,7 @@ A new mod presented by the Coco Labs community focusing on increasing the possib
 - Can be found in most groceries in fridges and on water dispensers.
 
 ## Planned:
+- To add gasoline to vehicle from a Big Water Bottle.
 - To pour alcohol & milk from liquid container to other liquid container such as mug, bottles...
 
 ## Known Bugs:
@@ -37,6 +38,8 @@ A new mod presented by the Coco Labs community focusing on increasing the possib
 - Categories name resetting.
 - Action Queue Running at the same time.
 - Not all gas pump let take gas.
+- Equipped bottle stay in hand after refuelling.
+- Small error when first removing water bottle from a vanilla dispenser.
 
 ## Location to find a Big Water Bottle:
 - burgerkitchen
