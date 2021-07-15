@@ -1,19 +1,26 @@
-# Coco Liquid Overhaul
+# Coco Liquid Overhaul 1.0
 
 A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store drinking water in big water bottler taken from a water dispenser and fill it with fuel or water. Take and Place big water bottle on any dispenser to refill them.
 
 ## New Feature:
+- Complete re-design of the Big Water Bottle and Dispensers.
 - 3D Models for Big Water Bottles.
+- Visible Big Water Bottle during animation.  
+- Visible Big Water Bottle while equipped.
 - Dispensers removable/replaceable bottles.
-- New Dispenser appearence.
+- New Dispenser appearance.
 - Pourable Gas Can and fillable with Water.
+- Big Water Bottle can collect rain water slowly.
 
 ## Context Menu Addition
-- All water and fuel container show the amount of unit of liquid it's containing.
+- Submenu for mass item selection.
+- More vanilla looking context menu options.
+- All water and fuel container show the amount of unit of liquid contained.
 - Gas Can may be poured out and poured into other gas container.
 - Gas Can may now contain water.
 
 ## Water Dispenser Bottle
+- Visible 3D model.
 - Weight 30 when full.
 - Capacity of 100 unit of liquid. (Changed from 250 to 100 for balance)
 - Can be filled with Water, Tainted Water & Fuel.
