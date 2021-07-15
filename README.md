@@ -1,4 +1,4 @@
-# Coco Liquid Overhaul 1.0
+# Coco Liquid Overhaul 1.1
 
 A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store drinking water in big water bottle taken from a water dispenser and fill it with fuel or water. Take and Place big water bottle on any dispenser to refill them.
 
