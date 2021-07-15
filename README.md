@@ -1,38 +1,35 @@
-# Coco Liquid Overhaul 1.1
+# Coco Liquid Overhaul 1.2
 
-A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store drinking water in big water bottle taken from a water dispenser and fill it with fuel or water. Take and Place big water bottle on any dispenser to refill them.
+A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug". Take and Place Water Jugs on any dispenser to refill them.
 
 ## New Feature:
-- Complete re-design of the Big Water Bottle and Dispensers.
-- 3D Models for Big Water Bottles.
-- Visible Big Water Bottle during animation.  
-- Visible Big Water Bottle while equipped.
+- Renamed Big Water Bottle to Water Jug.
+- Complete re-design of the Water Jug and Dispenser.
+- 3D Water Jug for animations and equipped item.
 - Dispensers removable/replaceable bottles.
-- New Dispenser appearance.
+- Water/Fue Dispensers become Empty Dispensers when depleted.
 - Pourable Gas Can and fillable with Water.
-- Big Water Bottle can collect rain water slowly.
+- Water Jug can now collect rain water.
 
 ## Context Menu Addition
-- Submenu for mass item selection.
 - More vanilla looking context menu options.
 - All water and fuel container show the amount of unit of liquid contained.
-- Gas Can may be poured out and poured into other gas container.
-- Gas Can may now contain water.
+- Pourable Gas Can and can now contain water too.
 
 ## Water Dispenser Bottle
-- Visible 3D model.
 - Weight 30 when full.
 - Capacity of 100 unit of liquid. (Changed from 250 to 100 for balance)
 - Can be filled with Water, Tainted Water & Fuel.
 - Can be found in most groceries in fridges and on water dispensers.
 
 ## Planned:
-- To add gasoline to vehicle from a Big Water Bottle.
-- To pour alcohol & milk from liquid container to other liquid container such as mug, bottles...
+- To make initial water amount random in water dispensers.
+- To add gasoline to vehicle from a "Water Jug with Fuel".
+- To rework fake liquid items such as Milk and Alcohol.
 
 ## Known Bugs:
-- Default water dispenser appearance before first click.
-- Drinking from big water bottle animation is broken.
+- Vanilla dispenser appearance change after the first click only.
+- Drinking from "Water Jug" animation is broken.
 
 ## Fixed Bugs:
 - Categories name resetting.
@@ -41,7 +38,12 @@ A new mod presented by the Coco Labs community focusing on increasing the possib
 - Equipped bottle stay in hand after refuelling.
 - Small error when first removing water bottle from a vanilla dispenser.
 
-## Location to find a Big Water Bottle:
+## Available Languages
+- English
+- French
+- Polish
+
+## Location to find a Water Jug:
 - burgerkitchen
 - grocerystorage
 - grocery
@@ -68,7 +70,8 @@ Mod ID: CocoLiquidOverhaul
 Yooks - For everything he does to help make modding easier & organized.  
 Coco Labs Community - For being awesome and supportive.  
 Tchernobill - For helping fix item categories.  
-Dylan123 - For the big water bottle 3D model.
+Dylan123 - For the Water Jug 3D model.
+Corporal - For the Polish Translation.
 
 ## License
 
