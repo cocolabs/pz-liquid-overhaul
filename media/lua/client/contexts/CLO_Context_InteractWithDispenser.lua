@@ -226,10 +226,10 @@ local function menu_place_bottle(_playerNum, _dispenserObject, _context)
             local waterTainted = item:isTaintedWater()
             local toolTipPrefix = ""
             if item:getType() == "Coco_WaterGallonFull" then
-                toolTipPrefix = getText("ContextMenu_WaterName") .. ": "
+                toolTipPrefix = getText("ContextMenu_WaterName")
                 dispenserNewType = CLO_DispenserTypes.WaterDispenser
             elseif item:getType() == "Coco_WaterGallonPetrol" then
-                toolTipPrefix = getText("ContextMenu_FuelName") .. ": "
+                toolTipPrefix = getText("ContextMenu_FuelName")
                 dispenserNewType = CLO_DispenserTypes.FuelDispenser
             else
                 dispenserNewType = CLO_DispenserTypes.EmptyBottleDispenser
