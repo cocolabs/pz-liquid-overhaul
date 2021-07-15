@@ -2,7 +2,7 @@
 CLO_ModSettings = {
 	ModID = "CocoLiquidOverhaul",
 	Name = "[B41] Coco Liquid Overhaul",
-	Version = 1.0,
+	Version = 1.2,
 	DispenserAmountMax = 100,
 	Config = {
 		Debug = false,
