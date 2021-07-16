@@ -72,6 +72,7 @@ Coco Labs Community - For being awesome and supportive.
 Tchernobill - For helping fix item categories.  
 Dylan123 - For the Water Jug 3D model.
 Corporal - For the Polish Translation.
+TehaGP - For the Brazilian Portuguese Translation.
 
 ## License
 
