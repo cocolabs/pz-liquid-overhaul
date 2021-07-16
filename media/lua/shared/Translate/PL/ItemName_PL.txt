@@ -1,0 +1,6 @@
+ItemName_PL = {
+    ItemName_Base.PetrolCanWater = "Kanister z wodą",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonEmpty = "Pusty dzbanek z wodą",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonFull = "Dzbanek z wodą",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonPetrol = "Dzbanek z benzyną",
+}
