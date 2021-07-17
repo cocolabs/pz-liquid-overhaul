@@ -1,5 +1,5 @@
 # Coco Liquid Overhaul 1.3
-A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug". Take and Place Water Jugs on any dispenser to refill them.
+A mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug" and "Large Gas Can". Take and Place Water Jugs on any dispenser to refill them.
   
 ## New Features:
 - New Large Gas Can.
@@ -26,11 +26,12 @@ A new mod presented by the Coco Labs community focusing on increasing the possib
 - Can Add/Siphon Gasoline on vehicles.
 - Can be found at the same locations as the vanilla gas can.
   
-## Water Dispenser Bottle
+## Water Jug
 - Weight 30 when full.
 - Capacity of 100 unit of liquid. (Changed from 250 to 100 for balance)
 - Can be filled with Water, Tainted Water & Fuel.
 - Can be found in most groceries in fridges and on water dispensers.
+- Can collect rain water.
   
 ## Planned:
 - To re-balance all liquid container capacity and weights.
