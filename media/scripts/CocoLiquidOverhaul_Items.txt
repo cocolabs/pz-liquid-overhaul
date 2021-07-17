@@ -69,6 +69,20 @@ module CocoLiquidOverhaulItems
         ReplaceInPrimaryHand    = Bag_LargePetrolCan_RHand holdingbagright,
     }
 
+    item Coco_LargePetrolCan
+	{
+		Weight	                = 15,
+		Type	                = Drainable,
+		UseWhileEquipped	    = FALSE,
+		UseDelta	            = 0.05,
+		DisplayName	            = Large Gas Can,
+		Icon	                = Coco_LargePetrolCan,
+		ReplaceOnDeplete	    = Coco_LargeEmptyPetrolCan,
+		StaticModel             = LargePetrolCan,
+		ReplaceInSecondHand     = Bag_LargePetrolCan_LHand holdingbagleft,
+        ReplaceInPrimaryHand    = Bag_LargePetrolCan_RHand holdingbagright,
+	}
+
     item Coco_LargePetrolCanWater
     {
         Weight	                = 15,
@@ -81,7 +95,6 @@ module CocoLiquidOverhaulItems
         DisplayName 	        = Large Gas Can with Water,
         Icon	                = Coco_LargePetrolCan,
         StaticModel             = LargePetrolCan,
-        SurvivalGear            = TRUE,
         IsCookable              = FALSE,
         ReplaceOnDeplete	    = Coco_LargeEmptyPetrolCan,
         ReplaceOnUseOn		    = WaterSource-Coco_LargePetrolCanWater,
