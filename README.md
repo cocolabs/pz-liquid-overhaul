@@ -1,4 +1,4 @@
-# Coco Liquid Overhaul 1.2
+# Coco Liquid Overhaul 1.3
 A new mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug". Take and Place Water Jugs on any dispenser to refill them.
   
 ## New Feature:
@@ -63,6 +63,14 @@ A new mod presented by the Coco Labs community focusing on increasing the possib
 - generalstorestorage
 - theatrekitchen
 - cornerstore
+  
+## Compatibility  
+This mod overrides the following functions:
+- ISTakeGasolineFromVehicle:start()  
+- ISVehicleMenu.FillMenuOutsideVehicle  
+- ISVehicleMenu.FillPartMenu  
+- ISVehiclePartMenu.getGasCanNotEmpty  
+- ISVehiclePartMenu.getGasCanNotFull  
   
 ## Workshop
   
