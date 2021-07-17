@@ -11,14 +11,18 @@ local function doPourInto(playerObj, itemFrom, itemTo)
     local inventory = playerObj:getInventory()
 
     -- transform empty big water bottle
-    if itemTo:getType() == "Coco_WaterGallonEmpty" then
+    if itemTo:getType() == "EmptyPetrolCan" then
+        inventory:Remove(itemTo)
+        itemTo = inventory:AddItem("Base.PetrolCan")
+        itemTo:setUsedDelta(0)
+    elseif itemTo:getType() == "Coco_WaterGallonEmpty" then
         -- transform empty gas can
         inventory:Remove(itemTo)
         itemTo = inventory:AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
         itemTo:setUsedDelta(0)
-    elseif itemTo:getType() == "EmptyPetrolCan" then
+    elseif itemTo:getType() == "Coco_LargeEmptyPetrolCan" then
         inventory:Remove(itemTo)
-        itemTo = inventory:AddItem("Base.PetrolCan")
+        itemTo = inventory:AddItem("CocoLiquidOverhaulItems.Coco_LargePetrolCan")
         itemTo:setUsedDelta(0)
     end
 
@@ -69,17 +73,23 @@ local function Context_PourGasInto(_playerNum, _context, _items)
 
         local item = items[1]
 
-        if (item:getType() == "PetrolCan" or item:getType() == "Coco_WaterGallonPetrol") and item:getUsedDelta() > 0 then
+        if (item:getType() == "PetrolCan" or item:getType() == "Coco_WaterGallonPetrol" or item:getType() == "Coco_LargePetrolCan") and item:getUsedDelta() > 0 then
 
             local drainables = {}
             local petrolCans = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "EmptyPetrolCan", "PetrolCan")
             local petrolCans2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
+            local petrolCans3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
             for _,v in ipairs(petrolCans) do
                 if v ~= item then
                     table.insert(drainables, v)
                 end
             end
             for _,v in ipairs(petrolCans2) do
+                if v ~= item then
+                    table.insert(drainables, v)
+                end
+            end
+            for _,v in ipairs(petrolCans3) do
                 if v ~= item then
                     table.insert(drainables, v)
                 end

@@ -21,22 +21,24 @@ function ISTakeFuelFromPump:start()
 	self.petrolCan:setJobDelta(0.0)
 
 	-- let's transform an empty can into an empty petrol can
-	if self.petrolCan:getType() == "EmptyPetrolCan" or self.petrolCan:getType() == "Coco_WaterGallonEmpty" then
+	local itemType = self.petrolCan:getType()
+	if itemType == "EmptyPetrolCan" or itemType == "Coco_WaterGallonEmpty" or itemType == "Coco_LargeEmptyPetrolCan" then
+		local isPrimary = self.petrolCan == self.character:getPrimaryHandItem()
 		local emptyCan = self.petrolCan
-		if emptyCan:getType() == "EmptyPetrolCan" then
+		if itemType == "EmptyPetrolCan" then
 			self.petrolCan = self.character:getInventory():AddItem("Base.PetrolCan")
-		else
+		elseif itemType == "Coco_WaterGallonEmpty" then
 			self.petrolCan = self.character:getInventory():AddItem("CocoLiquidOverhaulItems.Coco_WaterGallonPetrol")
+		elseif itemType == "Coco_LargeEmptyPetrolCan" then
+			self.petrolCan = self.character:getInventory():AddItem("CocoLiquidOverhaulItems.Coco_LargePetrolCan")
 		end
 		self.petrolCan:setUsedDelta(0)
 
-		if self.character:getPrimaryHandItem() == emptyCan then
-			self.character:setPrimaryHandItem(nil)
-		end
-		if self.character:getSecondaryHandItem() == emptyCan then
+		if isPrimary then
+			self.character:setPrimaryHandItem(self.petrolCan)
+		else
 			self.character:setSecondaryHandItem(self.petrolCan)
 		end
-
 		self.character:getInventory():Remove(emptyCan)
 	end
 

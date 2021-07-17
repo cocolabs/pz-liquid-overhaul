@@ -101,4 +101,6 @@ module CocoLiquidOverhaulItems
         ReplaceInSecondHand     = Bag_LargePetrolCan_LHand holdingbagleft,
         ReplaceInPrimaryHand    = Bag_LargePetrolCan_RHand holdingbagright,
     }
+
 }
+

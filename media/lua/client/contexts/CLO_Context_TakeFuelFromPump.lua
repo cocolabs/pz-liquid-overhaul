@@ -43,7 +43,11 @@ local function Context_TakeFuelFromPump(_playerNum, _context, _, test)
 
             local petrolCans = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "EmptyPetrolCan", "PetrolCan")
             local petrolCans2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
+            local petrolCans3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
             for _,v in ipairs(petrolCans2) do
+                table.insert(petrolCans, v)
+            end
+            for _,v in ipairs(petrolCans3) do
                 table.insert(petrolCans, v)
             end
             if #petrolCans > 0 then

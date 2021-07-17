@@ -446,7 +446,11 @@ local function menu_fill_fuel(_playerNum, _dispenserObject, _context)
 
     local fillableBottles = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(playerInv, "EmptyPetrolCan", "PetrolCan")
     local fillableBottles2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(playerInv, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
+    local fillableBottles3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(playerInv, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
     for _,v in ipairs(fillableBottles2) do
+        table.insert(fillableBottles, v)
+    end
+    for _,v in ipairs(fillableBottles3) do
         table.insert(fillableBottles, v)
     end
     if #fillableBottles > 0 then
