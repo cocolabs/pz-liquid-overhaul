@@ -4,7 +4,12 @@ local CLO_Funcs = {}
 ---@param _message string
 function CLO_Print(_message)
     if CLO_ModSettings.Config.Verbose then
-        print(CLO_ModSettings.Name .. ": " .. _message)
+        local message = "CLO: " .. _message
+        if CLO_ModSettings.Loaded then
+            print(message)
+        else
+            table.insert(CLO_ModSettings.PreloadLogs, message)
+        end
     end
 end
 

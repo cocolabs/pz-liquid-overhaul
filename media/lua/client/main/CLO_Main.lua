@@ -1,6 +1,12 @@
 ---OnLoad
 local function OnLoad()
     print(CLO_ModSettings.Name .. " v" .. tostring(CLO_ModSettings.Version) .. " has loaded!")
+
+    for i = 1, #CLO_ModSettings.PreloadLogs do
+        print(CLO_ModSettings.PreloadLogs[i])
+    end
+
+    CLO_ModSettings.Loaded = true
 end
 
 ---Game Events
