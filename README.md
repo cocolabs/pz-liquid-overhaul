@@ -34,6 +34,7 @@ A mod presented by the Coco Labs community focusing on increasing the possibilit
 - Can collect rain water.
   
 ## Planned:
+- To add Water Tank to store huge amount of water.
 - To re-balance all liquid container capacity and weights.
 - To make initial water amount random in water dispensers.
 - To add gasoline to vehicle from a "Water Jug with Fuel".

@@ -60,6 +60,7 @@ description=
 description=[hr]
 description=
 description=[h1]Planned:[/h1]
+description=- To add Water Tank to store huge amount of water.
 description=- To re-balance all liquid container capacity and weights.
 description=- To make initial water amount random in water dispensers.
 description=- To add gasoline to vehicle from a "Water Jug with Fuel".
