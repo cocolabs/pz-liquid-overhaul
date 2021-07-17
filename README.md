@@ -77,6 +77,7 @@ Mod ID: CocoLiquidOverhaul
 **Dylan123** - For the Water Jug 3D model.  
 **Corporal** - For the Polish Translation.  
 **TehaGP** - For the Brazilian Portuguese Translation.  
+**Path** - For the liquid capacity and re-balance.  
   
 ## License
   
