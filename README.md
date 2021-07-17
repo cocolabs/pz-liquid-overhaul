@@ -78,6 +78,7 @@ Mod ID: CocoLiquidOverhaul
 **Corporal** - For the Polish Translation.  
 **TehaGP** - For the Brazilian Portuguese Translation.  
 **Path** - For the liquid capacity and re-balance.  
+**Slash** - For the Spanish Translation.  
   
 ## License
   

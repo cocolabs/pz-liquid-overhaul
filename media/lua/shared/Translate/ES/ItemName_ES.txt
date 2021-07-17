@@ -1,0 +1,6 @@
+ItemName_ES = {
+    ItemName_Base.PetrolCanWater = "Garrafa de gasolina con agua",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonEmpty = "Garrafa de agua vacía",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonFull = "Garrafa de agua",
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterGallonPetrol = "Garrafa de agua con gasolina",
+}
