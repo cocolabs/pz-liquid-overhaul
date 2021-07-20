@@ -17,12 +17,13 @@ local function doPlaceBottleOnDispenser(_dispenserObject, _bigBottleItem)
 
         if (luautils.walkAdj(playerObject, square, false)) then
 
-            if playerObject:getPrimaryHandItem() ~= _bigBottleItem and playerObject:getSecondaryHandItem() ~= _bigBottleItem then
-                ISInventoryPaneContextMenu.equipWeapon(_bigBottleItem, false, false, playerObject:getPlayerNum())
+            if CLO_Dispenser.GetDispenserType(_dispenserObject) == CLO_DispenserTypes.EmptyDispenser then
+                if playerObject:getPrimaryHandItem() ~= _bigBottleItem and playerObject:getSecondaryHandItem() ~= _bigBottleItem then
+                    ISInventoryPaneContextMenu.equipWeapon(_bigBottleItem, false, false, playerObject:getPlayerNum())
+                end
+
+                ISTimedActionQueue.add(CLO_Actions.ISPlaceDispenserBottle:new(playerObject, _dispenserObject, _bigBottleItem, 200))
             end
-
-            ISTimedActionQueue.add(CLO_Actions.ISPlaceDispenserBottle:new(playerObject, _dispenserObject, _bigBottleItem, 200))
-
         end
     end
 end
@@ -39,9 +40,9 @@ local function doTakeBottleFromDispenser(_dispenserObject)
         local square = _dispenserObject:getSquare()
 
         if (luautils.walkAdj(playerObject, square, false)) then
-
-            ISTimedActionQueue.add(CLO_Actions.ISTakeDispenserBottle:new(playerObject, _dispenserObject, 200))
-
+            if CLO_Dispenser.GetDispenserType(_dispenserObject) ~= CLO_DispenserTypes.EmptyDispenser then
+                ISTimedActionQueue.add(CLO_Actions.ISTakeDispenserBottle:new(playerObject, _dispenserObject, 200))
+            end
         end
     end
 end
@@ -57,7 +58,7 @@ local function doDrinkWaterFromDispenser(_dispenserObject)
         ---@type IsoGridSquare
         local square = _dispenserObject:getSquare()
 
-        if (luautils.walkAdj(playerObject, square, false)) then
+        if (luautils.walkAdj(playerObject, square, true)) then
 
             ISTimedActionQueue.add(CLO_Actions.ISDrinkFromDispenser:new(playerObject, _dispenserObject, 120))
 
@@ -89,9 +90,10 @@ local function doFillWaterFromDispenser(_dispenserObject, _drainableItems, _drai
         end
 
         for _,item in ipairs(_drainableItems) do
-            print(item:getName())
             if item:canStoreWater() and not item:isWaterSource() then
                 if (luautils.walkAdj(playerObject, square, true)) then
+                    waterAvailable = CLO_Object.GetObjectWaterAmount(_dispenserObject)
+                    if waterAvailable <= 0 then return end
                     -- we create the item which contain our water
                     local newItemType = item:getReplaceOnUseOn()
                     newItemType = string.sub(newItemType,13)
@@ -110,6 +112,8 @@ local function doFillWaterFromDispenser(_dispenserObject, _drainableItems, _drai
                 end
             elseif item:canStoreWater() and item:isWaterSource() then
                 if (luautils.walkAdj(playerObject, square, true)) then
+                    waterAvailable = CLO_Object.GetObjectWaterAmount(_dispenserObject)
+                    if waterAvailable <= 0 then return end
                     local returnToContainer = item:getContainer():isInCharacterInventory(playerObject) and item:getContainer()
                     if playerObject:getPrimaryHandItem() ~= item and playerObject:getSecondaryHandItem() ~= item then
                     end
@@ -139,7 +143,7 @@ local function doFillFuelFromDispenser(_dispenserObject, _drainableItem)
         local square = _dispenserObject:getSquare()
 
         -- Prefer an equipped EmptyPetrolCan/PetrolCan, then the fullest PetrolCan, then any EmptyPetrolCan.
-        if _drainableItem and luautils.walkAdj(playerObject, square) then
+        if _drainableItem and luautils.walkAdj(playerObject, square, false) then
             ISInventoryPaneContextMenu.equipWeapon(_drainableItem, false, false, playerObject:getPlayerNum())
             ISTimedActionQueue.add(CLO_Actions.ISTakeFuelFromDispenser:new(playerObject, _dispenserObject, _drainableItem, 100))
         end
@@ -156,7 +160,7 @@ local function doWashYourselfFromDispenser(_playerObject, _dispenserObject, _soa
         ---@type IsoGridSquare
         local square = _dispenserObject:getSquare()
 
-        if (luautils.walkAdj(_playerObject, square, false)) then
+        if (luautils.walkAdj(_playerObject, square, true)) then
 
             ISTimedActionQueue.add(CLO_Actions.ISWashYourselfFromDispenser:new(_playerObject, _dispenserObject, _soapList))
 
@@ -176,7 +180,7 @@ local function doWashClothing(_playerObject, _dispenserObject, soapList, washLis
         ---@type IsoGridSquare
         local square = _dispenserObject:getSquare()
 
-        if (luautils.walkAdj(_playerObject, square, false)) then
+        if (luautils.walkAdj(_playerObject, square, true)) then
 
             if not washList then
                 washList = {};
