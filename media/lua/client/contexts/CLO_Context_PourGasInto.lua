@@ -50,7 +50,7 @@ local function doPourInto(playerObj, itemFrom, itemTo)
     ISInventoryPaneContextMenu.transferIfNeeded(playerObj, itemFrom)
 
     -- let's start the timed action
-    ISTimedActionQueue.add(CLO_Actions.ISPourInto:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta))
+    ISTimedActionQueue.add(ISTransferWaterAction:new(playerObj, itemFrom, itemTo, itemFromEndingDelta, itemToEndingDelta))
 
 end
 
@@ -104,7 +104,7 @@ local function Context_PourGasInto(_playerNum, _context, _items)
                     if CLO_Inventory.GetDrainableItemContent(drainable) > 0 then
                         tooltip.description = getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(drainable)
                     else
-                        tooltip.description = "Empty"
+                        tooltip.description = getText("ContextMenu_IsEmpty")
                     end
                 end
             end
