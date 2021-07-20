@@ -12,7 +12,7 @@ module CocoLiquidOverhaulItems
 		Type			        = Normal,
 		DisplayName			    = Empty Water Jug,
 		ReplaceOnUseOn	        = WaterSource-Coco_WaterGallonFull,
-		RainFactor              = 0.25,
+		RainFactor              = 0.01,
 		Icon			        = Coco_WaterGallonEmpty,
 		Tooltip                 = Tooltip_item_RainFromGround,
 		StaticModel 		    = BigWaterBottleEmpty,
@@ -33,7 +33,7 @@ module CocoLiquidOverhaulItems
 		ReplaceOnUseOn		    = WaterSource-Coco_WaterGallonFull,
 		Icon                    = Coco_WaterGallonFull,
 		IsCookable              = FALSE,
-		RainFactor              = 0.25,
+		RainFactor              = 0.01,
 		Tooltip                 = Tooltip_item_RainFromGround,
 		StaticModel 		    = BigWaterBottle,
 		ReplaceInSecondHand     = Bag_BigWaterBottle_LHand holdingbagleft,
@@ -71,10 +71,10 @@ module CocoLiquidOverhaulItems
 
     item Coco_LargePetrolCan
 	{
-		Weight	                = 15,
+		Weight	                = 13,
 		Type	                = Drainable,
 		UseWhileEquipped	    = FALSE,
-		UseDelta	            = 0.05,
+		UseDelta	            = 0.04,
 		DisplayName	            = Large Gas Can,
 		Icon	                = Coco_LargePetrolCan,
 		ReplaceOnDeplete	    = Coco_LargeEmptyPetrolCan,
@@ -85,12 +85,12 @@ module CocoLiquidOverhaulItems
 
     item Coco_LargePetrolCanWater
     {
-        Weight	                = 15,
+        Weight	                = 13,
         CanStoreWater	        = TRUE,
         IsWaterSource           = TRUE,
         CanStoreWater           = TRUE,
 		UseWhileEquipped	    = FALSE,
-        UseDelta	            = 0.05,
+        UseDelta	            = 0.04,
         Type	                = Drainable,
         DisplayName 	        = Large Gas Can with Water,
         Icon	                = Coco_LargePetrolCan,
