@@ -8,4 +8,6 @@ ItemName_EN = {
     ItemName_CocoLiquidOverhaulItems.Coco_LargeEmptyPetrolCan = "Empty Large Gas Can",
     ItemName_CocoLiquidOverhaulItems.Coco_LargePetrolCan = "Large Gas Can",
     ItemName_CocoLiquidOverhaulItems.Coco_LargePetrolCanWater = "Large Gas Can with Water",
+
+    ItemName_CocoLiquidOverhaulItems.Coco_WaterTank = "Water Tank",
 }
