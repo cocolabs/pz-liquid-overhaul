@@ -1,5 +1,3 @@
-local CLO_Funcs = {}
-
 ---CLO_Print
 ---@param _message string
 function CLO_Print(_message)
@@ -12,6 +10,19 @@ function CLO_Print(_message)
         end
     end
 end
+
+---CLO_AddNewFuelItem
+---@param moduleName string
+---@param emptyItemName string
+---@param fullItemName string
+function CLO_AddNewFuelItem(moduleName, emptyItemName, fullItemName)
+    CLO_Print("Add new gas can item:\n- " .. moduleName .. "." .. emptyItemName .. "\n- " .. moduleName .. "." .. fullItemName)
+    table.insert(CLO_ModSettings.CustomFuelItems, { module = moduleName, empty = emptyItemName, full = fullItemName })
+end
+
+-------------------------------------------------------------------------
+
+local CLO_Funcs = {}
 
 -------------------------------------------------------------------------
 --- # MATH
