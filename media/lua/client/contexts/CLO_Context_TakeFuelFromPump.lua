@@ -14,7 +14,7 @@ local function DoTakeFuelFromPump(playerObject, square, petrolCan)
             ISInventoryPaneContextMenu.equipWeapon(petrolCan, false, false, playerObject:getPlayerNum())
         end
 
-        ISTimedActionQueue.add(CLO_Actions.ISTakeFuelFromPump:new(playerObject, square, petrolCan, 5000))
+        ISTimedActionQueue.add(ISTakeFuel:new(playerObject, square, petrolCan, 5000))
     end
 
 end
