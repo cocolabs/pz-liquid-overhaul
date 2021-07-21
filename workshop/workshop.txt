@@ -34,10 +34,9 @@ description=- View any liquid container's content in the Context menu.
 description=
 description=[hr]
 description=
-description=[h1]Items:[/h1]
+description=[h1]Items/Objects:[/h1]
 description=[img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_LargePetrolCan.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonEmpty.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonFull.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonPetrol.png?raw=true[/img]
 description=
-description=[h1]Objects:[/h1]
 description=[img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_empty.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_bottle.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_water.png?raw=true[/img] [img]https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_fuel.png?raw=true[/img]
 description=
 description=[hr]

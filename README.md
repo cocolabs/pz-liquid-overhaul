@@ -21,13 +21,12 @@ A mod presented by the Coco Labs community focusing on increasing the possibilit
 - Add/Siphon Fuel with any fuel container.  
 - View any liquid container's content in the Context menu.  
 
-## Items:
+## Items/Objects:
 ![Large Gas Can](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_LargePetrolCan.png?raw=true)
 ![Empty Water Jug](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonEmpty.png?raw=true)
 ![Water Jug](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonFull.png?raw=true)
 ![Water Jug with fuel](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonPetrol.png?raw=true)
   
-## Objects:
 ![Empty Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_empty.png?raw=true)
 ![Empty Bottle Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_bottle.png?raw=true)
 ![Water Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_water.png?raw=true)
