@@ -2,14 +2,6 @@ function CLO_Override_ISAddGasolineToVehicle()
 
     CLO_Print("Overriding: 'ISAddGasolineToVehicle:start'")
     function ISAddGasolineToVehicle:start()
-        --self.tankStart = self.part:getContainerContentAmount()
-        --self.itemStart = self.item:getUsedDelta()
-        --local add = self.part:getContainerCapacity() - self.tankStart
-        --local take = math.min(add, self.itemStart * Vehicles.JerryCanLitres)
-        --self.tankTarget = self.tankStart + take
-        --self.itemTarget = self.itemStart - take / Vehicles.JerryCanLitres
-        --self.amountSent = self.tankStart
-
         local tankCurrent = self.part:getContainerContentAmount()
         local tankMax = self.part:getContainerCapacity()
         local itemCurrent = math.floor(self.item:getUsedDelta() / self.item:getUseDelta() + 0.001)
@@ -34,12 +26,12 @@ function CLO_Override_ISAddGasolineToVehicle()
         local itemCurrent = math.floor(self.item:getUsedDelta() / self.item:getUseDelta() + 0.001)
 
         if actionCurrent < itemCurrent then
-            local tankCurrent = self.part:getContainerContentAmount() + (itemCurrent - actionCurrent)
+            local tankCurrent = math.floor(self.part:getContainerContentAmount() + (itemCurrent - actionCurrent))
             local args = { vehicle = self.vehicle:getId(), part = self.part:getId(), amount = tankCurrent }
             sendClientCommand(self.character, 'vehicle', 'setContainerContentAmount', args)
 
             self.item:setUsedDelta(actionCurrent * self.item:getUseDelta())
-            if self.item:getUsedDelta() == 0 then self.item:Use() end
+            if self.item:getUsedDelta() <= 0 then self.item:Use() end
         end
 
         self.character:setMetabolicTarget(Metabolics.HeavyDomestic);

@@ -54,7 +54,7 @@ function CLO_Override_ISTakeGasolineFromVehicle()
         local itemCurrent = math.floor(self.item:getUsedDelta() / self.item:getUseDelta() + 0.001)
 
         if actionCurrent > itemCurrent then
-            local tankCurrent = self.part:getContainerContentAmount() - (actionCurrent - itemCurrent)
+            local tankCurrent = math.floor(self.part:getContainerContentAmount() - (actionCurrent - itemCurrent))
             local args = { vehicle = self.vehicle:getId(), part = self.part:getId(), amount = tankCurrent }
             sendClientCommand(self.character, 'vehicle', 'setContainerContentAmount', args)
 
