@@ -6,17 +6,20 @@ CLO_Contexts = CLO_Contexts or {}
 ---@param petrolCan InventoryItem
 local function DoTakeFuelFromPump(playerObject, square, petrolCan)
 
-    if playerObject:isPerformingAnAction() then return end
+    ---@type IsoObject
+    local fuelStation = CLO_World.GetFuelStationOnSquare(square)
+    if fuelStation then
+        if playerObject:isPerformingAnAction() then return end
 
-    if luautils.walkAdj(playerObject, square) then
+        if luautils.walkAdj(playerObject, square) then
 
-        if playerObject:getPrimaryHandItem() ~= petrolCan or playerObject:getSecondaryHandItem() ~= petrolCan then
-            ISInventoryPaneContextMenu.equipWeapon(petrolCan, false, false, playerObject:getPlayerNum())
+            if playerObject:getPrimaryHandItem() ~= petrolCan or playerObject:getSecondaryHandItem() ~= petrolCan then
+                ISInventoryPaneContextMenu.equipWeapon(petrolCan, false, false, playerObject:getPlayerNum())
+            end
+
+            ISTimedActionQueue.add(ISTakeFuel:new(playerObject, fuelStation, petrolCan, 5000))
         end
-
-        ISTimedActionQueue.add(ISTakeFuel:new(playerObject, square, petrolCan, 5000))
     end
-
 end
 
 ---Context_TakeFuelFromPump
@@ -36,11 +39,10 @@ local function Context_TakeFuelFromPump(_playerNum, _context, _, test)
 
     -- Check if the square is adjacent to the player
     if square then
+        haveFuel = nil
 
         local availableFuel = CLO_World.GetAvailableFuelOnSquare(square)
-
         if availableFuel > 0 and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
-
             local petrolCans = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "EmptyPetrolCan", "PetrolCan")
             local petrolCans2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
             local petrolCans3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
@@ -51,8 +53,6 @@ local function Context_TakeFuelFromPump(_playerNum, _context, _, test)
                 table.insert(petrolCans, v)
             end
             if #petrolCans > 0 then
-                haveFuel = nil
-
                 local pourSubMenu = CLO_Context.CreateSubMenu(_context, getText("ContextMenu_TakeGasFromPump"))
                 for i = 1, #petrolCans do
                     local drainable = petrolCans[i]
@@ -61,7 +61,7 @@ local function Context_TakeFuelFromPump(_playerNum, _context, _, test)
                     if CLO_Inventory.GetDrainableItemContent(drainable) > 0 then
                         tooltip.description = getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(drainable)
                     else
-                        tooltip.description = "Empty"
+                        tooltip.description = getText("ContextMenu_IsEmpty")
                     end
                 end
             end
