@@ -395,6 +395,8 @@ local function menu_fill_water(_playerNum, _dispenserObject, _context)
     local playerObj = getSpecificPlayer(_playerNum)
     local playerInv = playerObj:getInventory()
 
+    local waterTainted = CLO_Object.GetObjectWaterTainted(_dispenserObject)
+
     local fillableBottles = CLO_Inventory.GetAllFillableWaterItemInInventory(playerInv)
     if #fillableBottles > 0 then
         local fillSubMenu = CLO_Context.CreateSubMenu(_context, getText("ContextMenu_Fill"))
@@ -411,14 +413,14 @@ local function menu_fill_water(_playerNum, _dispenserObject, _context)
             else
                 tooltip.description = tooltip.description .. getText("ContextMenu_IsEmpty")
             end
-            if item:isTaintedWater() then
+            if waterTainted then
                 tooltip.description = tooltip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
             end
         end
     end
 end
 
----menu_place_bottle
+---menu_drink
 ---@param _playerNum number
 ---@param _dispenserObject IsoObject
 ---@param _context ISContextMenu
