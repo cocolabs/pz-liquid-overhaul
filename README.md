@@ -2,55 +2,48 @@
 A mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug" and "Large Gas Can". Take and Place Water Jugs on any dispenser to refill them.
   
 ## New Features:
-- New Large Gas Can.
-- Multiple translation now available.
+- Updated for beta 41.51 IWBUMS.  
+- Added Large Gas Can.  
+- Added Generator Add Fuel submenu.  
+- Add/Siphon gasoline to/from vehicle with any fuel containers.  
+- Multiple translation now available.  
   
 ## Features:
-- Renamed Big Water Bottle to Water Jug.
-- Complete re-design of the Water Jug and Dispenser.
-- 3D Water Jug for animations and equipped item.
-- Dispensers removable/replaceable bottles.
-- Water/Fue Dispensers become Empty Dispensers when depleted.
-- Pourable Gas Can and fillable with Water.
-- Water Jug can now collect rain water.
+- 3D Models.  
+- Pour fuel on the ground.  
+- Vanilla Gas Can (Store Fuel/Water).  
+- Large Gas Can (Store Fuel/Water).  
+- Water Jug (Take/Place on dispenser & store water/fuel).  
+- Replaceable Water Dispenser Bottles (Water/Fuel/Empty).  
+- Dynamic Water Dispenser (Change to empty bottle when depleted).  
+- Choose fuel container in Gas Pump Context menu.  
+- Choose fuel container in Generator Context menu.  
+- Add/Siphon Fuel with any fuel container.  
+- View any liquid container's content in the Context menu.  
+
+## Items:
+![Large Gas Can](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_LargePetrolCan.png?raw=true)
+![Empty Water Jug](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonEmpty.png?raw=true)
+![Water Jug](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonFull.png?raw=true)
+![Water Jug with fuel](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/media/textures/Item_Coco_WaterGallonPetrol.png?raw=true)
   
-## Context Menu Addition
-- More vanilla looking context menu options.
-- All water and fuel container show the amount of unit of liquid contained.
-- Pourable Gas Can and can now contain water too.
-  
-## Large Gas Can
-- Weight 15 when full.
-- Capacity of 20 unit of liquid. (Twice as the vanilla gas can)
-- Can be filled with Water, Tainted Water & Fuel.
-- Can Add/Siphon Gasoline on vehicles.
-- Can be found at the same locations as the vanilla gas can.
-  
-## Water Jug
-- Weight 30 when full.
-- Capacity of 100 unit of liquid. (Changed from 250 to 100 for balance)
-- Can be filled with Water, Tainted Water & Fuel.
-- Can be found in most groceries in fridges and on water dispensers.
-- Can collect rain water.
+## Objects:
+![Empty Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_empty.png?raw=true)
+![Empty Bottle Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_bottle.png?raw=true)
+![Water Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_water.png?raw=true)
+![Fuel Dispenser](https://github.com/cocolabs/pz-liquid-overhaul/blob/master/resources/BigWaterBottle/Dispenser/New3D/location_business_office_generic_01_48_fuel.png?raw=true)
   
 ## Planned:
-- To add Water Tank to store huge amount of water.
-- To re-balance all liquid container capacity and weights.
-- To make initial water amount random in water dispensers.
-- To add gasoline to vehicle from a "Water Jug with Fuel".
-- To rework fake liquid items such as Milk and Alcohol.
+- To add a submenu for gas pump "Take Fuel" context option with available fuel containers.
+- To add a Water Tank IsoObject to store huge amount of water or fuel.  
+- To re-balance all liquid container capacity and weights.  
+- To make initial water amount random in water dispensers.  
+- To rework fake liquid items such as Milk and Alcohol.  
   
 ## Known Bugs:
-- Vanilla dispenser appearance change after the first click only.
-- Drinking from "Water Jug" animation is broken.
-  
-## Fixed Bugs:
-- Fixed the Gas Can with water emptying itself while equipped.
-- Categories name resetting.
-- Action Queue Running at the same time.
-- Not all gas pump let take gas.
-- Equipped bottle stay in hand after refuelling.
-- Small error when first removing water bottle from a vanilla dispenser.
+- Dispenser context menu is difficult to open using Controller.
+- Vanilla dispenser appearance change after the first click only.  
+- Drinking from "Water Jug" animation is broken.  
   
 ## Available Languages
 - English
@@ -62,41 +55,23 @@ A mod presented by the Coco Labs community focusing on increasing the possibilit
 ## Planned Languages
 - Russian
   
-## Location to find a Water Jug:
-- burgerkitchen
-- grocerystorage
-- grocery
-- gigamartkitchen
-- gigamart
-- spiffoskitchen
-- kitchen_crepe
-- barkitchen
-- pizzakitchen
-- dinnerkitchen
-- restaurantkitchen
-- jayschicken
-- generalstorestorage
-- theatrekitchen
-- cornerstore
-
-## Location to find a Large Gas Can:
-- Same as the vanilla Gas Can.  
-  
 ## Compatibility  
-This mod overrides the following functions:
-- ISTakeGasolineFromVehicle:start()  
-- ISVehicleMenu.FillMenuOutsideVehicle  
+This mod overrides the following features/functions:  
+- Generator Context Menu  
+- Gas Pump Context Menu  
+- ISAddGasolineToVehicle:start  
+- ISAddGasolineToVehicle:update  
+- ISTakeGasolineFromVehicle:start  
+- ISTakeGasolineFromVehicle:update  
 - ISVehicleMenu.FillPartMenu  
 - ISVehiclePartMenu.getGasCanNotEmpty  
 - ISVehiclePartMenu.getGasCanNotFull  
   
 ## Workshop
-  
 Workshop ID: 2539452952  
-Mod ID: CocoLiquidOverhaul
+Mod ID: CocoLiquidOverhaul  
   
-## Credits
-  
+## Credits  
 **Yooks** - For everything he does to help make modding easier & organized.  
 **Coco Labs Community** - For being awesome and supportive.  
 **Tchernobill** - For helping fix item categories.  
