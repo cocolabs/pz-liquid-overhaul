@@ -68,21 +68,48 @@ function CLO_Funcs.DistanceBetweenSquares(_squareA, _squareB)
     return CLO_Funcs.Distance(x1, y1, x2, y2)
 end
 
+---GetFuelStationOnSquare
+---@param _square IsoGridSquare
+function CLO_Funcs.GetFuelStationOnSquare(_square)
+    if not instanceof(_square, "IsoGridSquare") then return end
+
+    local fuelStation = nil
+    local objects = _square:getObjects()
+    for i = 0, objects:size() - 1 do
+        ---@type IsoObject
+        local object = objects:get(i)
+        if object:getPipedFuelAmount() > 0 then
+            fuelStation = object
+        end
+    end
+    return fuelStation
+end
+
 ---GetAvailableFuelOnSquare
 ---@param _square IsoGridSquare
 ---@return number
 function CLO_Funcs.GetAvailableFuelOnSquare(_square)
     if not instanceof(_square, "IsoGridSquare") then return 0 end
-    local fuelAvailable = tonumber(_square:getProperties():Val("fuelAmount"))
-    return fuelAvailable or 0
+
+    local fuelAvailable = 0
+    local fuelStation = CLO_Funcs.GetFuelStationOnSquare(_square)
+    if fuelStation then
+        fuelAvailable = fuelStation:getPipedFuelAmount()
+    end
+
+    return fuelAvailable
 end
 
 ---SetAvailableFuelOnSquare
 ---@param _square IsoGridSquare
 ---@param _fuelAmount number
 function CLO_Funcs.SetAvailableFuelOnSquare(_square, _fuelAmount)
-    if not instanceof(_square, "IsoGridSquare") then return 0 end
-    _square:getProperties():Set("fuelAmount", _fuelAmount)
+    if not instanceof(_square, "IsoGridSquare") then return end
+
+    local fuelStation = CLO_Funcs.GetFuelStationOnSquare(_square)
+    if fuelStation then
+        fuelStation:setPipedFuelAmount(tonumber(_fuelAmount))
+    end
 end
 
 ---GetFirstObjectWithCustomNameOnSquare
@@ -724,6 +751,7 @@ CLO_Math = {
 
 CLO_World = {
     DistanceBetweenSquares = CLO_Funcs.DistanceBetweenSquares,
+    GetFuelStationOnSquare = CLO_Funcs.GetFuelStationOnSquare,
     GetAvailableFuelOnSquare = CLO_Funcs.GetAvailableFuelOnSquare,
     SetAvailableFuelOnSquare = CLO_Funcs.SetAvailableFuelOnSquare,
     GetFirstObjectWithCustomNameOnSquare = CLO_Funcs.GetFirstObjectWithCustomNameOnSquare,
