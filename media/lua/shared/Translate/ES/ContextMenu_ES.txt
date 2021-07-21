@@ -10,4 +10,5 @@ ContextMenu_ES = {
 	ContextMenu_WaterDispenser = "Dispensador de agua",
 	ContextMenu_FuelDispenser = "Dispensador de gasolina",
 	ContextMenu_IsEmpty = "Vacío",
+	ContextMenu_FuelSource = "Fuel source",
 }

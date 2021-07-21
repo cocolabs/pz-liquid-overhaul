@@ -10,4 +10,5 @@ ContextMenu_PTBR = {
 	ContextMenu_WaterDispenser = "Bebedouro",
 	ContextMenu_FuelDispenser = "Bomba de Gasolina",
 	ContextMenu_IsEmpty = "Vazio",
+	ContextMenu_FuelSource = "Fuel source",
 }

@@ -10,4 +10,5 @@ ContextMenu_FR = {
 	ContextMenu_WaterDispenser = "Distributeur d'eau",
 	ContextMenu_FuelDispenser = "Distributeur d'essence",
 	ContextMenu_IsEmpty = "Vide",
+	ContextMenu_FuelSource = "Fuel source",
 }
