@@ -39,10 +39,8 @@ local function Context_InteractWithGenerator(player, context, worldobjects, test
             else
                 local option = context:addOption(getText("ContextMenu_GeneratorPlug"), worldobjects, ISWorldObjectContextMenu.onPlugGenerator, generator, player, true);
                 if not playerObj:isRecipeKnown("Generator") then
-                    local tooltip = ISWorldObjectContextMenu.addToolTip();
+                    CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_GeneratorPlugTT"));
                     option.notAvailable = true;
-                    tooltip.description = getText("ContextMenu_GeneratorPlugTT");
-                    option.toolTip = tooltip;
                 end
             end
             if not generator:isActivated() and generator:getFuel() < 100 then
@@ -65,16 +63,12 @@ local function Context_InteractWithGenerator(player, context, worldobjects, test
             if not generator:isActivated() and generator:getCondition() < 100 then
                 local option = context:addOption(getText("ContextMenu_GeneratorFix"), worldobjects, ISWorldObjectContextMenu.onFixGenerator, generator, player);
                 if not playerObj:isRecipeKnown("Generator") then
-                    local tooltip = ISWorldObjectContextMenu.addToolTip();
+                    CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_GeneratorPlugTT"))
                     option.notAvailable = true;
-                    tooltip.description = getText("ContextMenu_GeneratorPlugTT");
-                    option.toolTip = tooltip;
                 end
                 if not playerInv:containsTypeRecurse("ElectronicsScrap") then
-                    local tooltip = ISWorldObjectContextMenu.addToolTip();
+                    CLO_Context.CreateOptionTooltip(option, getText("ContextMenu_GeneratorFixTT"))
                     option.notAvailable = true;
-                    tooltip.description = getText("ContextMenu_GeneratorFixTT");
-                    option.toolTip = tooltip;
                 end
             end
             if not generator:isConnected() then
