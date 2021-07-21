@@ -327,10 +327,11 @@ local function menu_wash(_playerNum, _dispenserObject, _context)
             local waterRequired = CLO_Actions.ISWashYourselfFromDispenser.GetRequiredWater(playerObj)
             local option = mainSubMenu:addOption(getText("ContextMenu_Yourself"), playerObj, doWashYourselfFromDispenser, _dispenserObject, soapList)
             local tooltip = CLO_Context.CreateOptionTooltip(option, "")
+            tooltip.description = getText("ContextMenu_WaterSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
             if soapRemaining < soapRequired then
-                tooltip.description = getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
+                tooltip.description = tooltip.description .. getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
             else
-                tooltip.description = getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
+                tooltip.description = tooltip.description .. getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
             end
             tooltip.description = tooltip.description .. getText("ContextMenu_WaterName") .. ": " .. tostring(math.min(waterRemaining, waterRequired)) .. " / " .. tostring(waterRequired)
             option.toolTip = tooltip
@@ -348,11 +349,12 @@ local function menu_wash(_playerNum, _dispenserObject, _context)
                     waterRequired = waterRequired + CLO_Actions.ISWashClothingFromDispenser.GetRequiredWater(item)
                 end
                 local tooltip = ISToolTip:new()
+                tooltip.description = getText("ContextMenu_WaterSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
                 if (soapRemaining < soapRequired) then
-                    tooltip.description = getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
+                    tooltip.description = tooltip.description .. getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
                     noSoap = true
                 else
-                    tooltip.description = getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
+                    tooltip.description = tooltip.description .. getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
                     noSoap = false
                 end
                 tooltip.description = tooltip.description .. getText("ContextMenu_WaterName") .. ": " .. tostring(math.min(waterRemaining, waterRequired)) .. " / " .. tostring(waterRequired)
@@ -366,11 +368,12 @@ local function menu_wash(_playerNum, _dispenserObject, _context)
                 local soapRequired = CLO_Actions.ISWashClothingFromDispenser.GetRequiredSoap(item)
                 local waterRequired = CLO_Actions.ISWashClothingFromDispenser.GetRequiredWater(item)
                 local tooltip = ISToolTip:new()
+                tooltip.description = getText("ContextMenu_WaterSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
                 if (soapRemaining < soapRequired) then
-                    tooltip.description = getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
+                    tooltip.description = tooltip.description .. getText("IGUI_Washing_WithoutSoap") .. " <LINE> "
                     noSoap = true
                 else
-                    tooltip.description = getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
+                    tooltip.description = tooltip.description .. getText("IGUI_Washing_Soap") .. ": " .. tostring(math.min(soapRemaining, soapRequired)) .. " / " .. tostring(soapRequired) .. " <LINE> "
                     noSoap = false
                 end
                 tooltip.description = tooltip.description .. getText("ContextMenu_WaterName") .. ": " .. tostring(math.min(waterRemaining, waterRequired)) .. " / " .. tostring(waterRequired)
@@ -402,10 +405,11 @@ local function menu_fill_water(_playerNum, _dispenserObject, _context)
             local item = fillableBottles[i]
             local option = fillSubMenu:addOption(item:getName(), _dispenserObject, doFillWaterFromDispenser, nil, item)
             local tooltip = CLO_Context.CreateOptionTooltip(option, "")
+            tooltip.description = getText("ContextMenu_WaterSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
             if CLO_Inventory.GetDrainableItemContent(item) > 0 then
-                tooltip.description = getText("ContextMenu_WaterName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
+                tooltip.description = tooltip.description .. getText("ContextMenu_WaterName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
             else
-                tooltip.description = getText("ContextMenu_IsEmpty")
+                tooltip.description = tooltip.description .. getText("ContextMenu_IsEmpty")
             end
             if item:isTaintedWater() then
                 tooltip.description = tooltip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
@@ -433,7 +437,8 @@ local function menu_drink(_playerNum, _dispenserObject, _context)
         local tx1 = getTextManager():MeasureStringX(drinkTooltip.font, getText("Tooltip_food_Thirst") .. ":") + 20
         local tx2 = getTextManager():MeasureStringX(drinkTooltip.font, getText("ContextMenu_WaterName") .. ":") + 20
         local tx = math.max(tx1, tx2)
-        drinkTooltip.description = string.format("%s: <SETX:%d> -%d / %d <LINE> %s", getText("Tooltip_food_Thirst"), tx, math.min(units * 10, thirst * 100), thirst * 100, CLO_Inventory.FormatWaterAmount(tx, waterAmount, waterMax))
+        drinkTooltip.description = getText("ContextMenu_WaterSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
+        drinkTooltip.description = drinkTooltip.description .. string.format("%s: <SETX:%d> -%d / %d <LINE> %s", getText("Tooltip_food_Thirst"), tx, math.min(units * 10, thirst * 100), thirst * 100, CLO_Inventory.FormatWaterAmount(tx, waterAmount, waterMax))
         if waterTainted then
             drinkTooltip.description = drinkTooltip.description .. " <BR> <RGB:1,0.5,0.5> " .. getText("Tooltip_item_TaintedWater")
         end
@@ -459,17 +464,15 @@ local function menu_fill_fuel(_playerNum, _dispenserObject, _context)
     end
     if #fillableBottles > 0 then
         local fillSubMenu = CLO_Context.CreateSubMenu(_context, getText("ContextMenu_Fill"))
-        --if #fillableBottles > 1 then
-        --    fillSubMenu:addOption(getText("ContextMenu_FillAll"))
-        --end
         for i = 1, #fillableBottles do
             local item = fillableBottles[i]
             local option = fillSubMenu:addOption(item:getName(), _dispenserObject, doFillFuelFromDispenser, item)
             local tooltip = CLO_Context.CreateOptionTooltip(option, "")
+            tooltip.description = getText("ContextMenu_FuelSource")  .. ": " .. CLO_Context.GetMoveableDisplayName(_dispenserObject) .. " <LINE> "
             if CLO_Inventory.GetDrainableItemContent(item) > 0 then
-                tooltip.description = getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
+                tooltip.description = tooltip.description .. getText("ContextMenu_FuelName") .. ": " .. CLO_Inventory.GetDrainableItemContentString(item)
             else
-                tooltip.description = getText("ContextMenu_IsEmpty")
+                tooltip.description = tooltip.description .. getText("ContextMenu_IsEmpty")
             end
         end
     end
