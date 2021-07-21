@@ -95,9 +95,20 @@ function MainPanel:onGainJoypadFocus(joypadData)
 			if self.joypadIndex > #self.joypadButtons then
 				self.joypadIndex = #self.joypadButtons
 			end
-			self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
 		end
 	end
+	if self.joypadButtons and self.joypadButtons[self.joypadIndex] then
+		self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
+	end
+end
+
+function MainPanel:onLoseJoypadFocus(joypadData)
+	self:clearJoypadFocus()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function MainPanel:onJoypadBeforeDeactivate(joypadData)
+	self.parent.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 function MainPanel:onJoypadDown(button, joypadData)
@@ -355,6 +366,12 @@ function ISGameSounds:onGainJoypadFocus(joypadData)
 	local panel = self.tabs:getActiveView()
 	joypadData.focus = panel
 	updateJoypadFocus(joypadData)
+end
+
+function ISGameSounds:onJoypadBeforeDeactivate(joypadData)
+	-- The focus is actually in one of the tabs (MainPanel)
+	self.buttonClose:clearJoypadButton()
+	self.joyfocus = nil
 end
 
 function ISGameSounds:new(x, y, width, height)

@@ -29,13 +29,33 @@
 IsoFireManager = {}
 
 ---@public
+---@param FireSquare IsoGridSquare
+---@param TestSquare IsoGridSquare
+---@param playerIndex int
 ---@return void
-function IsoFireManager:Update() end
+function IsoFireManager:Fire_LightCalc(FireSquare, TestSquare, playerIndex) end
 
 ---@public
 ---@param BurningCharacter IsoGameCharacter
 ---@return void
 function IsoFireManager:RemoveBurningCharacter(BurningCharacter) end
+
+---@public
+---@param BurningCharacter IsoGameCharacter
+---@return void
+function IsoFireManager:AddBurningCharacter(BurningCharacter) end
+
+---@public
+---@param TestSquare IsoGridSquare
+---@return void
+function IsoFireManager:LightTileWithFire(TestSquare) end
+
+---@public
+---@param cell IsoCell
+---@param gridSquare IsoGridSquare
+---@param power int
+---@return void
+function IsoFireManager:explode(cell, gridSquare, power) end
 
 ---@public
 ---@param cell IsoCell
@@ -56,9 +76,15 @@ function IsoFireManager:StartFire(cell, gridSquare, IgniteOnAny, FireStartingEne
 function IsoFireManager:StartFire(cell, gridSquare, IgniteOnAny, FireStartingEnergy, Life) end
 
 ---@public
----@param TestSquare IsoGridSquare
+---@param NewFire IsoFire
 ---@return void
-function IsoFireManager:LightTileWithFire(TestSquare) end
+function IsoFireManager:Add(NewFire) end
+
+---@public
+---@param cell IsoCell
+---@param gridSquare IsoGridSquare
+---@return void
+function IsoFireManager:MolotovSmash(cell, gridSquare) end
 
 ---@public
 ---@param cell IsoCell
@@ -70,9 +96,13 @@ function IsoFireManager:LightTileWithFire(TestSquare) end
 function IsoFireManager:StartSmoke(cell, gridSquare, IgniteOnAny, FireStartingEnergy, Life) end
 
 ---@public
----@param BurningCharacter IsoGameCharacter
+---@param sq IsoGridSquare
 ---@return void
-function IsoFireManager:AddBurningCharacter(BurningCharacter) end
+function IsoFireManager:RemoveAllOn(sq) end
+
+---@public
+---@return void
+function IsoFireManager:Update() end
 
 ---@public
 ---@param DyingFire IsoFire
@@ -82,33 +112,3 @@ function IsoFireManager:Remove(DyingFire) end
 ---@public
 ---@return void
 function IsoFireManager:Reset() end
-
----@public
----@param sq IsoGridSquare
----@return void
-function IsoFireManager:RemoveAllOn(sq) end
-
----@public
----@param cell IsoCell
----@param gridSquare IsoGridSquare
----@return void
-function IsoFireManager:MolotovSmash(cell, gridSquare) end
-
----@public
----@param cell IsoCell
----@param gridSquare IsoGridSquare
----@param power int
----@return void
-function IsoFireManager:explode(cell, gridSquare, power) end
-
----@public
----@param NewFire IsoFire
----@return void
-function IsoFireManager:Add(NewFire) end
-
----@public
----@param FireSquare IsoGridSquare
----@param TestSquare IsoGridSquare
----@param playerIndex int
----@return void
-function IsoFireManager:Fire_LightCalc(FireSquare, TestSquare, playerIndex) end

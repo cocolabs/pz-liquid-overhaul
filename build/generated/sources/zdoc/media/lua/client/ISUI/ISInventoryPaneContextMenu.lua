@@ -688,7 +688,7 @@ ISInventoryPaneContextMenu.createMenu = function(player, isInPlayerInventory, it
             end
         end
     end
-    if alarmClock then
+    if alarmClock and alarmClock:isDigital() then
         if alarmClock:isRinging() then
             context:addOption(getText("ContextMenu_StopAlarm"), alarmClock, ISInventoryPaneContextMenu.onStopAlarm, player);
         end
@@ -1034,10 +1034,21 @@ ISInventoryPaneContextMenu.removePatch = function(player, clothing, part, needle
     ISTimedActionQueue.add(ISRemovePatch:new(player, clothing, part, needle));
 end
 
+ISInventoryPaneContextMenu.removeAllPatches = function(player, clothing, parts, needle)
+    for i=1, #parts do
+        local part = parts[i];
+        local patch = clothing:getPatchType(part);
+        if patch then
+            ISInventoryPaneContextMenu.removePatch(player, clothing, part, needle);
+        end
+    end
+end
+
 ISInventoryPaneContextMenu.repairClothing = function(player, clothing, part, fabric, thread, needle)
     -- if you piled up tailor job we ensure we get a correct fabric
-    fabric = player:getInventory():getItemFromType(fabric:getType(), true, true);
-    thread = player:getInventory():getItemFromType(thread:getType(), true, true);
+    if fabric == nil then fabric = player:getInventory():getItemFromType(fabric:getType(), true, true); end
+    if thread == nil then thread = player:getInventory():getItemFromType(thread:getType(), true, true); end
+
     if fabric == nil or thread == nil then return end
     if luautils.haveToBeTransfered(player, fabric) then
         ISTimedActionQueue.add(ISInventoryTransferAction:new(player, fabric, fabric:getContainer(), player:getInventory()))
@@ -1053,6 +1064,41 @@ ISInventoryPaneContextMenu.repairClothing = function(player, clothing, part, fab
     end
     
     ISTimedActionQueue.add(ISRepairClothing:new(player, clothing, part, fabric, thread, needle));
+end
+
+ISInventoryPaneContextMenu.repairAllClothing = function(player, clothing, parts, fabric, thread, needle, onlyHoles)
+
+    local fabricArray = player:getInventory():getItemsFromType(fabric:getType(), true);
+    local fabricCount = player:getInventory():getItemCount(fabric:getType(), true);
+    local threadArray = player:getInventory():getItemsFromType(thread:getType(), true);
+    local threadCount = player:getInventory():getItemCount(thread:getType(), true);
+
+    local successfulActionsAdded = 0;
+    local currentThreadUsed = 0;
+
+    for i=1, #parts do
+
+        local part = parts[i];
+        local hole = clothing:getVisual():getHole(part) > 0;
+        local patch = clothing:getPatchType(part);
+
+        -- Amendment to avoid error when the thread's uses are over
+        if (successfulActionsAdded > 0) and ((threadArray:get(currentThreadUsed):getUsedDelta() - (successfulActionsAdded * 0.1)) < 0.1) then
+            currentThreadUsed = currentThreadUsed + 1;
+            if(currentThreadUsed >= threadCount) then return; end
+        end
+
+        if hole and onlyHoles then -- Patch all holes
+            ISInventoryPaneContextMenu.repairClothing(player, clothing, part, fabricArray:get(successfulActionsAdded), threadArray:get(currentThreadUsed), needle);
+            successfulActionsAdded = successfulActionsAdded + 1;
+        elseif (not patch) and (not hole) and (not onlyHoles) then -- Pad every non-hole
+            ISInventoryPaneContextMenu.repairClothing(player, clothing, part, fabricArray:get(successfulActionsAdded), threadArray:get(currentThreadUsed), needle);
+            successfulActionsAdded = successfulActionsAdded + 1;
+        end
+
+        if(successfulActionsAdded >= fabricCount) then return; end
+    end
+
 end
 
 ISInventoryPaneContextMenu.doWearClothingTooltip = function(playerObj, newItem, currentItem, option)
@@ -1204,7 +1250,14 @@ ISInventoryPaneContextMenu.doReloadMenuForBullets = function(playerObj, bullet, 
                 if ammoCount > item:getMaxAmmo() - item:getCurrentAmmoCount() then
                     ammoCount = item:getMaxAmmo() - item:getCurrentAmmoCount()
                 end
-                context:addOption(getText("ContextMenu_InsertBulletsInMagazine", ammoCount), playerObj, ISInventoryPaneContextMenu.onLoadBulletsInMagazine, item, ammoCount)
+                local insertOption = context:addOption(getText("ContextMenu_InsertBulletsInMagazine", ammoCount), playerObj, ISInventoryPaneContextMenu.onLoadBulletsInMagazine, item, ammoCount)
+                local tooltip = ISInventoryPaneContextMenu.addToolTip();
+                local toolItem = InventoryItemFactory.CreateItem(item:getGunType());
+                tooltip.description =
+                        (getText("ContextMenu_Magazine") .. ": " .. getText(item:getDisplayName()) .. "\n"..
+                        getText("ContextMenu_GunType") .. ": " .. getText(toolItem:getDisplayName()) .. "\n" ..
+                        getText("Tooltip_weapon_AmmoCount") .. ": " .. item:getCurrentAmmoCount() .. "/" .. item:getMaxAmmo());
+                insertOption.toolTip = tooltip;
             end
         elseif instanceof(item, "HandWeapon") and not item:getMagazineType() and item:getAmmoType() == bullet:getFullType() then
             ISInventoryPaneContextMenu.doBulletMenu(playerObj, item, context)
@@ -1217,7 +1270,10 @@ ISInventoryPaneContextMenu.doReloadMenuForMagazine = function(playerObj, magazin
     for i=1,weapons:size() do
         local weapon = weapons:get(i-1)
         if weapon:getMagazineType() == magazine:getFullType() and not weapon:isContainsClip() then
-            context:addOption(getText("ContextMenu_InsertMagazine"), playerObj, ISInventoryPaneContextMenu.onInsertMagazine, weapon, magazine);
+            local insertOption = context:addOption(getText("ContextMenu_InsertMagazine"), playerObj, ISInventoryPaneContextMenu.onInsertMagazine, weapon, magazine);
+            local tooltip = ISInventoryPaneContextMenu.addToolTip();
+            tooltip.description = (getText("ContextMenu_GunType") .. ": " .. getText(weapon:getDisplayName()));
+            insertOption.toolTip = tooltip;
         end
     end
 end
@@ -1255,6 +1311,10 @@ ISInventoryPaneContextMenu.doReloadMenuForWeapon = function(playerObj, weapon, c
                 local tooltip = ISInventoryPaneContextMenu.addToolTip();
                 tooltip.description = getText("ContextMenu_NoMagazineFound", clip:getDisplayName());
                 insertOption.toolTip = tooltip;
+            else
+                local tooltip = ISInventoryPaneContextMenu.addToolTip();
+                tooltip.description = (getText("ContextMenu_Magazine") .. ": " .. getText(clip:getDisplayName()));
+                insertOption.toolTip = tooltip
             end
         end
     elseif weapon:getAmmoType() then
@@ -1906,17 +1966,10 @@ ISInventoryPaneContextMenu.onCheckMap = function(map, player)
 
     local mapUI = ISMap:new(0, 0, 0, 0, map, player);
     mapUI:initialise();
---    mapUI:addToUIManager();
-    local wrap = mapUI:wrapInCollapsableWindow(map:getName(), false);
+    local wrap = mapUI:wrapInCollapsableWindow(map:getName(), false, ISMapWrapper);
     wrap:setInfo(getText("IGUI_Map_Info"));
     wrap:setWantKeyEvents(true);
-    wrap.isKeyConsumed = function(self, key) return self.mapUI:isKeyConsumed(key) end;
-    wrap.onKeyRelease = function(self, key) self.mapUI:onKeyRelease(key) end;
     mapUI.wrap = wrap;
-    wrap.render = ISMap.renderWrap;
-    wrap.prerender = ISMap.prerenderWrap;
-    wrap.setVisible = ISMap.setWrapVisible;
-    wrap.close = ISMap.closeWrap;
     wrap.mapUI = mapUI;
     mapUI.render = ISMap.noRender;
     mapUI.prerender = ISMap.noRender;
@@ -2393,6 +2446,10 @@ function CraftTooltip:layoutContents(x, y)
 				item = ISInventoryPaneContextMenu.getItemInstance("Base.WaterDrop")
 			else
 				item = ISInventoryPaneContextMenu.getItemInstance(itemData.fullType)
+                --this reads the worldsprite so the generated item will have correct icon
+                if instanceof(item, "Moveable") and instanceof(self.recipe, "MovableRecipe") then
+                    item:ReadFromWorldSprite(self.recipe:getWorldSprite());
+                end
 			end
 			itemData.texture = ""
 			if item then
@@ -2639,6 +2696,20 @@ ISInventoryPaneContextMenu.OnCraft = function(selectedItem, recipe, player, all)
 			end
 		end
 	end
+
+    -- in case of movable dismantling equip tools:
+    if instanceof(recipe, "MovableRecipe") then
+        local primaryTool = RecipeManager.GetMovableRecipeTool(true, recipe, selectedItem, playerObj, containers);
+        if primaryTool then
+            ISWorldObjectContextMenu.equip(playerObj, playerObj:getPrimaryHandItem(), primaryTool, true)
+        end
+
+        local secondaryTool = RecipeManager.GetMovableRecipeTool(false, recipe, selectedItem, playerObj, containers);
+        if secondaryTool then
+            ISWorldObjectContextMenu.equip(playerObj, playerObj:getSecondaryHandItem(), secondaryTool, false)
+        end
+    end
+
 	local action = ISCraftAction:new(playerObj, selectedItem, recipe:getTimeToMake(), recipe, container, containers)
 	if all then
 		action:setOnComplete(ISInventoryPaneContextMenu.OnCraftComplete, action, recipe, playerObj, container, containers, selectedItem)
@@ -3292,6 +3363,19 @@ ISInventoryPaneContextMenu.doClothingItemExtraMenu = function(context, clothingI
 end
 
 ISInventoryPaneContextMenu.onClothingItemExtra = function(item, extra, playerObj)
+    if item:getBodyLocation() == "Hat" or item:getBodyLocation() == "FullHat" then
+        local wornItems = playerObj:getWornItems()
+        for j=1,wornItems:size() do
+            local wornItem = wornItems:get(j-1)
+            if (wornItem:getLocation() == "SweaterHat" or wornItem:getLocation() == "JacketHat") then
+                for i=0, wornItem:getItem():getClothingItemExtraOption():size()-1 do
+                    if wornItem:getItem():getClothingItemExtraOption():get(i) == "DownHoodie" then
+                        ISInventoryPaneContextMenu.onClothingItemExtra(wornItem:getItem(), wornItem:getItem():getClothingItemExtra():get(i), playerObj);
+                    end
+                end
+            end
+        end
+    end
     ISInventoryPaneContextMenu.transferIfNeeded(playerObj, item)
     ISTimedActionQueue.add(ISClothingExtraAction:new(playerObj, item, extra))
 end

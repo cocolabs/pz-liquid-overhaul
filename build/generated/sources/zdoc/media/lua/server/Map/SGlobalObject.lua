@@ -48,6 +48,14 @@ function SGlobalObject:removeIsoObject()
 	end
 end
 
+function SGlobalObject:aboutToRemoveFromSystem()
+end
+
+function SGlobalObject:OnIsoObjectChangedItself(isoObject)
+	-- A Java object changed it's state. Sync the global object.
+	-- For example, after a generator runs out of fuel and shuts itself off.
+end
+
 function SGlobalObject:new(luaSystem, globalObject)
 	-- NOTE: The table for this object is the *same* one the GlobalObject.class
 	-- object created in Java.  Doing it this way means we don't have to worry

@@ -52,155 +52,28 @@
 UITextBox2 = {}
 
 ---@public
----@return boolean
-function UITextBox2:isFocused() end
-
----@public
----@return void
-function UITextBox2:onPressUp() end
-
----@public
 ---@param b boolean
 ---@return void
-function UITextBox2:setMasked(b) end
-
----@public
----@return boolean
-function UITextBox2:getForceUpperCase() end
-
----@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function UITextBox2:onMouseDown(arg0, arg1) end
-
----@private
----@return void
-function UITextBox2:Paginate() end
-
----@public
----@param text String
----@return void
-function UITextBox2:SetText(text) end
+function UITextBox2:setEditable(b) end
 
 ---@public
 ---@return void
-function UITextBox2:onCommandEntered() end
-
----@public
----@param arg0 double
----@param arg1 double
----@return void
-function UITextBox2:onMouseMoveOutside(arg0, arg1) end
-
----@public
----@return String
-function UITextBox2:getText() end
-
----@public
----@param textOffset int
----@return int
-function UITextBox2:toDisplayLine(textOffset) end
-
----@public
----@return void
-function UITextBox2:onTextChange() end
-
----@public
----@return int
-function UITextBox2:getMaxTextLength() end
-
----Overrides:
----
----render in class UIElement
----@public
----@return void
-function UITextBox2:render() end
-
----@public
----@return void
-function UITextBox2:onPressDown() end
-
----@public
----@return void
-function UITextBox2:ClearHighlights() end
-
----@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function UITextBox2:onMouseMove(arg0, arg1) end
-
----@public
----@param maxLines int
----@return void
-function UITextBox2:setMaxLines(maxLines) end
-
----@public
----@param onlyNumbers boolean
----@return void
-function UITextBox2:setOnlyNumbers(onlyNumbers) end
-
----Overrides:
----
----onresize in class UIElement
----@public
----@return void
-function UITextBox2:onresize() end
-
----@public
----@return int
-function UITextBox2:getInset() end
-
----@public
----@return void
-function UITextBox2:resetBlink() end
-
----@public
----@return void
-function UITextBox2:unfocus() end
-
----@public
----@return boolean
-function UITextBox2:isOnlyNumbers() end
-
----@public
----@param key int
----@return void
-function UITextBox2:onOtherKey(key) end
-
----@public
----@return String
-function UITextBox2:getInternalText() end
-
----@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function UITextBox2:onMouseUp(arg0, arg1) end
+function UITextBox2:ignoreFirstInput() end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
 function UITextBox2:setSelectable(arg0) end
 
----@private
+---@public
+---@param line int
 ---@return void
-function UITextBox2:keepCursorVisible() end
+function UITextBox2:setCursorLine(line) end
 
 ---@public
----@return int
-function UITextBox2:getMaxLines() end
-
----@public
----@param multiple boolean
+---@param arg0 float
 ---@return void
-function UITextBox2:setMultipleLine(multiple) end
-
----@public
----@param arg0 boolean
----@return void
-function UITextBox2:setClearButton(arg0) end
+function UITextBox2:setFrameAlpha(arg0) end
 
 ---@public
 ---@param arg0 double
@@ -209,22 +82,116 @@ function UITextBox2:setClearButton(arg0) end
 function UITextBox2:onMouseUpOutside(arg0, arg1) end
 
 ---@public
----@param arg0 float
+---@param onlyNumbers boolean
 ---@return void
-function UITextBox2:setFrameAlpha(arg0) end
+function UITextBox2:setOnlyNumbers(onlyNumbers) end
+
+---@public
+---@param multiple boolean
+---@return void
+function UITextBox2:setMultipleLine(multiple) end
+
+---@public
+---@return boolean
+function UITextBox2:isOnlyNumbers() end
+
+---@private
+---@param arg0 int
+---@return int
+function UITextBox2:getCursorPosFromX(arg0) end
+
+---@public
+---@param maxLines int
+---@return void
+function UITextBox2:setMaxLines(maxLines) end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return void
+function UITextBox2:onMouseMoveOutside(arg0, arg1) end
+
+---@public
+---@param hasFrame boolean
+---@return void
+function UITextBox2:setHasFrame(hasFrame) end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return Boolean
+function UITextBox2:onMouseUp(arg0, arg1) end
+
+---@public
+---@param key int
+---@return void
+function UITextBox2:onOtherKey(key) end
+
+---@public
+---@param text String
+---@return void
+function UITextBox2:SetText(text) end
+
+---@public
+---@return String
+function UITextBox2:getText() end
 
 ---@public
 ---@return void
-function UITextBox2:updateText() end
+function UITextBox2:onPressUp() end
 
 ---@public
----@param line int
+---@param maxtextLength int
 ---@return void
-function UITextBox2:setCursorLine(line) end
+function UITextBox2:setMaxTextLength(maxtextLength) end
+
+---@public
+---@param textOffset int
+---@return int
+function UITextBox2:toDisplayLine(textOffset) end
+
+---@public
+---@param forceUpperCase boolean
+---@return void
+function UITextBox2:setForceUpperCase(forceUpperCase) end
+
+---@public
+---@return int
+function UITextBox2:getMaxTextLength() end
+
+---@public
+---@return int
+function UITextBox2:getMaxLines() end
 
 ---@public
 ---@return void
-function UITextBox2:ignoreFirstInput() end
+function UITextBox2:onTextChange() end
+
+---@public
+---@return boolean
+function UITextBox2:isFocused() end
+
+---@public
+---@return void
+function UITextBox2:resetBlink() end
+
+---@public
+---@return void
+function UITextBox2:focus() end
+
+---@private
+---@return void
+function UITextBox2:Paginate() end
+
+---@public
+---@return float
+function UITextBox2:getFrameAlpha() end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return Boolean
+function UITextBox2:onMouseDown(arg0, arg1) end
 
 ---Overrides:
 ---
@@ -234,36 +201,22 @@ function UITextBox2:ignoreFirstInput() end
 function UITextBox2:update() end
 
 ---@public
----@param hasFrame boolean
----@return void
-function UITextBox2:setHasFrame(hasFrame) end
-
----@public
----@param maxtextLength int
----@return void
-function UITextBox2:setMaxTextLength(maxtextLength) end
-
----@public
----@param b boolean
----@return void
-function UITextBox2:setEditable(b) end
-
----@public
----@return float
-function UITextBox2:getFrameAlpha() end
+---@param arg0 double
+---@param arg1 double
+---@return Boolean
+function UITextBox2:onMouseMove(arg0, arg1) end
 
 ---@public
 ---@return void
-function UITextBox2:focus() end
+function UITextBox2:ClearHighlights() end
 
 ---@public
 ---@return void
 function UITextBox2:clearInput() end
 
----@private
----@param arg0 int
----@return int
-function UITextBox2:getCursorPosFromX(arg0) end
+---@public
+---@return void
+function UITextBox2:updateText() end
 
 ---@public
 ---@param arg0 ColorInfo
@@ -271,6 +224,53 @@ function UITextBox2:getCursorPosFromX(arg0) end
 function UITextBox2:setTextColor(arg0) end
 
 ---@public
----@param forceUpperCase boolean
 ---@return void
-function UITextBox2:setForceUpperCase(forceUpperCase) end
+function UITextBox2:onCommandEntered() end
+
+---@public
+---@return String
+function UITextBox2:getInternalText() end
+
+---@public
+---@param b boolean
+---@return void
+function UITextBox2:setMasked(b) end
+
+---@private
+---@return void
+function UITextBox2:keepCursorVisible() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function UITextBox2:setClearButton(arg0) end
+
+---@public
+---@return void
+function UITextBox2:unfocus() end
+
+---@public
+---@return void
+function UITextBox2:onPressDown() end
+
+---@public
+---@return int
+function UITextBox2:getInset() end
+
+---Overrides:
+---
+---onresize in class UIElement
+---@public
+---@return void
+function UITextBox2:onresize() end
+
+---Overrides:
+---
+---render in class UIElement
+---@public
+---@return void
+function UITextBox2:render() end
+
+---@public
+---@return boolean
+function UITextBox2:getForceUpperCase() end

@@ -107,9 +107,9 @@ function ISWashVehicle:update()
 	self.character:setMetabolicTarget(Metabolics.HeavyDomestic)
 
 	self.accumulator = self.accumulator + getGameTime():getMultiplier()
-	local TICKS = 5
+	local TICKS = 15
 	if self.accumulator < TICKS then return end
-	local bloodRemoved = math.floor(self.accumulator / TICKS)
+	local bloodRemoved = math.floor(self.accumulator / (TICKS/3))
 
 	self.waterAccumulator = self.waterAccumulator + bloodRemoved
 	local waterUsed = math.floor(self.waterAccumulator / ISWashVehicle.BLOOD_PER_WATER)

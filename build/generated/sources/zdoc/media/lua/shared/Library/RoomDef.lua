@@ -21,17 +21,43 @@
 RoomDef = {}
 
 ---@public
----@return int
-function RoomDef:getY2() end
+---@return boolean
+function RoomDef:isExplored() end
 
 ---@public
 ---@return int
-function RoomDef:getY() end
+function RoomDef:getW() end
 
 ---@public
----@param arg0 Predicate|Unknown
----@return IsoGridSquare
-function RoomDef:getRandomSquare(arg0) end
+---@return IsoRoom
+function RoomDef:getIsoRoom() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function RoomDef:setExplored(arg0) end
+
+---@public
+---@return int
+function RoomDef:getX2() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return boolean
+function RoomDef:intersects(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function RoomDef:setRoofFixed(arg0) end
+
+---@public
+---@param arg0 BiConsumer|Unknown|Unknown
+---@return void
+function RoomDef:forEachChunk(arg0) end
 
 ---@public
 ---@param arg0 IsoChunk
@@ -48,6 +74,14 @@ function RoomDef:getAreaOverlapping(arg0) end
 function RoomDef:getAreaOverlapping(arg0, arg1, arg2, arg3) end
 
 ---@public
+---@return ArrayList|MetaObject
+function RoomDef:getMetaObjects() end
+
+---@public
+---@return BuildingDef
+function RoomDef:getBuilding() end
+
+---@public
 ---@return void
 function RoomDef:refreshSquares() end
 
@@ -60,8 +94,49 @@ function RoomDef:getX() end
 function RoomDef:getRects() end
 
 ---@public
+---@return String
+function RoomDef:getName() end
+
+---@public
+---@return int
+function RoomDef:getH() end
+
+---@public
+---@return int
+function RoomDef:getY() end
+
+---@public
+---@return boolean
+function RoomDef:isRoofFixed() end
+
+---@public
 ---@return IsoGridSquare
 function RoomDef:getFreeSquare() end
+
+---@public
+---@return boolean
+function RoomDef:isEmptyOutside() end
+
+---@public
+---@return int
+function RoomDef:getID() end
+
+---@public
+---@return int
+function RoomDef:getZ() end
+
+---@public
+---@param arg0 Predicate|Unknown
+---@return IsoGridSquare
+function RoomDef:getRandomSquare(arg0) end
+
+---@public
+---@return void
+function RoomDef:CalculateBounds() end
+
+---@public
+---@return HashMap|Unknown|Unknown
+function RoomDef:getProceduralSpawnedContainer() end
 
 ---@public
 ---@param def BuildingDef
@@ -69,46 +144,8 @@ function RoomDef:getFreeSquare() end
 function RoomDef:setBuilding(def) end
 
 ---@public
----@return boolean
-function RoomDef:isEmptyOutside() end
-
----@public
----@return ArrayList|MetaObject
-function RoomDef:getObjects() end
-
----@public
 ---@return int
-function RoomDef:getID() end
-
----@public
----@param arg0 boolean
----@return void
-function RoomDef:setRoofFixed(arg0) end
-
----@public
----@return int
-function RoomDef:getW() end
-
----@public
----@return ArrayList|MetaObject
-function RoomDef:getMetaObjects() end
-
----@public
----@return HashMap|Unknown|Unknown
-function RoomDef:getProceduralSpawnedContainer() end
-
----@public
----@param arg0 BiConsumer|Unknown|Unknown
----@return void
-function RoomDef:forEachChunk(arg0) end
-
----@public
----@return int
-function RoomDef:getH() end
-
----@public
----@return BuildingDef
-function RoomDef:getBuilding() end
+function RoomDef:getY2() end
 
 ---@public
 ---@param x int
@@ -118,46 +155,9 @@ function RoomDef:getBuilding() end
 function RoomDef:isInside(x, y, z) end
 
 ---@public
+---@return ArrayList|MetaObject
+function RoomDef:getObjects() end
+
+---@public
 ---@return int
 function RoomDef:getArea() end
-
----@public
----@return boolean
-function RoomDef:isRoofFixed() end
-
----@public
----@return IsoRoom
-function RoomDef:getIsoRoom() end
-
----@public
----@return void
-function RoomDef:CalculateBounds() end
-
----@public
----@param arg0 boolean
----@return void
-function RoomDef:setExplored(arg0) end
-
----@public
----@return int
-function RoomDef:getZ() end
-
----@public
----@return boolean
-function RoomDef:isExplored() end
-
----@public
----@return int
-function RoomDef:getX2() end
-
----@public
----@return String
-function RoomDef:getName() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return boolean
-function RoomDef:intersects(arg0, arg1, arg2, arg3) end

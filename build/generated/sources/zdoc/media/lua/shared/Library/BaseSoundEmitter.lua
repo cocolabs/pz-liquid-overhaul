@@ -2,82 +2,6 @@
 BaseSoundEmitter = {}
 
 ---@public
----@param arg0 float
----@return void
-function BaseSoundEmitter:setVolumeAll(arg0) end
-
----@public
----@param arg0 String
----@return boolean
----@overload fun(arg0:long)
-function BaseSoundEmitter:isPlaying(arg0) end
-
----@public
----@param arg0 long
----@return boolean
-function BaseSoundEmitter:isPlaying(arg0) end
-
----@public
----@param arg0 String
----@return long
----@overload fun(arg0:String, arg1:IsoGridSquare)
----@overload fun(arg0:String, arg1:IsoObject)
----@overload fun(arg0:String, arg1:boolean)
----@overload fun(arg0:String, arg1:int, arg2:int, arg3:int)
-function BaseSoundEmitter:playSound(arg0) end
-
----@public
----@param arg0 String
----@param arg1 IsoGridSquare
----@return long
-function BaseSoundEmitter:playSound(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 IsoObject
----@return long
-function BaseSoundEmitter:playSound(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@return long
-function BaseSoundEmitter:playSound(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return long
-function BaseSoundEmitter:playSound(arg0, arg1, arg2, arg3) end
-
----@public
----@param arg0 long
----@return int
-function BaseSoundEmitter:stopSound(arg0) end
-
----@public
----@param arg0 String
----@return long
-function BaseSoundEmitter:playSoundLooped(arg0) end
-
----@public
----@param arg0 GameSoundClip
----@param arg1 IsoObject
----@return long
-function BaseSoundEmitter:playClip(arg0, arg1) end
-
----@public
----@param arg0 String
----@return int
-function BaseSoundEmitter:stopSoundByName(arg0) end
-
----@public
----@return boolean
-function BaseSoundEmitter:hasSoundsToStart() end
-
----@public
 ---@param arg0 String
 ---@param arg1 IsoGridSquare
 ---@return long
@@ -99,16 +23,53 @@ function BaseSoundEmitter:playSoundImpl(arg0, arg1) end
 function BaseSoundEmitter:playSoundImpl(arg0, arg1, arg2) end
 
 ---@public
+---@param arg0 String
+---@return long
+---@overload fun(arg0:String, arg1:boolean)
+---@overload fun(arg0:String, arg1:IsoObject)
+---@overload fun(arg0:String, arg1:IsoGridSquare)
+---@overload fun(arg0:String, arg1:int, arg2:int, arg3:int)
+function BaseSoundEmitter:playSound(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@return long
+function BaseSoundEmitter:playSound(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 IsoObject
+---@return long
+function BaseSoundEmitter:playSound(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 IsoGridSquare
+---@return long
+function BaseSoundEmitter:playSound(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return long
+function BaseSoundEmitter:playSound(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseSoundEmitter:setVolumeAll(arg0) end
+
+---@public
 ---@return boolean
-function BaseSoundEmitter:isEmpty() end
+function BaseSoundEmitter:hasSoundsToStart() end
 
 ---@public
----@return void
-function BaseSoundEmitter:randomStart() end
-
----@public
----@return void
-function BaseSoundEmitter:stopAll() end
+---@param arg0 long
+---@return int
+function BaseSoundEmitter:stopSound(arg0) end
 
 ---@public
 ---@param arg0 String
@@ -117,8 +78,53 @@ function BaseSoundEmitter:playSoundLoopedImpl(arg0) end
 
 ---@public
 ---@param arg0 String
+---@return int
+function BaseSoundEmitter:stopSoundByName(arg0) end
+
+---@public
+---@param arg0 long
+---@return boolean
+---@overload fun(arg0:String)
+function BaseSoundEmitter:isPlaying(arg0) end
+
+---@public
+---@param arg0 String
+---@return boolean
+function BaseSoundEmitter:isPlaying(arg0) end
+
+---@public
+---@return boolean
+function BaseSoundEmitter:isEmpty() end
+
+---@public
+---@param arg0 GameSoundClip
+---@param arg1 IsoObject
+---@return long
+function BaseSoundEmitter:playClip(arg0, arg1) end
+
+---@public
+---@param arg0 long
+---@param arg1 float
+---@return void
+function BaseSoundEmitter:setVolume(arg0, arg1) end
+
+---@public
+---@return void
+function BaseSoundEmitter:stopAll() end
+
+---@public
+---@return void
+function BaseSoundEmitter:randomStart() end
+
+---@public
+---@param arg0 String
 ---@return long
 function BaseSoundEmitter:playAmbientSound(arg0) end
+
+---@public
+---@param arg0 String
+---@return long
+function BaseSoundEmitter:playSoundLooped(arg0) end
 
 ---@public
 ---@return void
@@ -135,7 +141,7 @@ function BaseSoundEmitter:setPos(arg0, arg1, arg2) end
 ---@param arg0 long
 ---@param arg1 float
 ---@return void
-function BaseSoundEmitter:setVolume(arg0, arg1) end
+function BaseSoundEmitter:setPitch(arg0, arg1) end
 
 ---@public
 ---@param arg0 long
@@ -147,9 +153,3 @@ function BaseSoundEmitter:set3D(arg0, arg1) end
 ---@param arg0 String
 ---@return long
 function BaseSoundEmitter:playAmbientLoopedImpl(arg0) end
-
----@public
----@param arg0 long
----@param arg1 float
----@return void
-function BaseSoundEmitter:setPitch(arg0, arg1) end

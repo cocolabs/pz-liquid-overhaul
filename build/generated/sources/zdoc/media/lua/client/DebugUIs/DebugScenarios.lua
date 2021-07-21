@@ -127,6 +127,13 @@ function doDebugScenarios()
     end
 end
 
+function DebugScenarios:onResolutionChange(oldw, oldh, neww, newh)
+	local x = neww / 2;
+    local y = newh / 2;
+    self:setX(x - 250);
+    self:setY(y - 250);
+end
+
 function DebugScenarios.onloadgs(sq)
     if selectedDebugScenario and selectedDebugScenario.onLoadGS then
         selectedDebugScenario.onLoadGS(sq);

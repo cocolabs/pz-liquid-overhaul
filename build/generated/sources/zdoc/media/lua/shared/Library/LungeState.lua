@@ -5,8 +5,17 @@
 LungeState = {}
 
 ---@public
----@return LungeState
-function LungeState:instance() end
+---@param arg0 IsoGameCharacter
+---@return void
+function LungeState:exit(arg0) end
+
+---Overrides:
+---
+---execute in class State
+---@public
+---@param owner IsoGameCharacter
+---@return void
+function LungeState:execute(owner) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -19,14 +28,5 @@ function LungeState:enter(arg0) end
 function LungeState:isMoving(arg0) end
 
 ---@public
----@param arg0 IsoGameCharacter
----@return void
-function LungeState:exit(arg0) end
-
----Overrides:
----
----execute in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function LungeState:execute(owner) end
+---@return LungeState
+function LungeState:instance() end

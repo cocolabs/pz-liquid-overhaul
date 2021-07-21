@@ -14,6 +14,11 @@ function ISComboBoxPopup:new(x, y, width, height)
 end
 
 function ISComboBoxPopup:prerender()
+    if not self.parentCombo:isReallyVisible() then
+        -- Hack for gamepad being disconnected
+        self:removeFromUIManager()
+        return
+    end
     self.tooWide = nil
     ISScrollingListBox.prerender(self)
 end

@@ -79,6 +79,8 @@ function ISBuildAction:start()
 	self.item.ghostSpriteZ = self.z;
 
 	self.item:onTimedActionStart(self)
+	
+--	self.character:reportEvent("EventCrafting");
 end
 
 function ISBuildAction:stop()

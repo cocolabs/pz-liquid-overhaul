@@ -97,6 +97,11 @@ function ISButton:setJoypadButton(texture)
     self.joypadTexture = texture;
 end
 
+function ISButton:clearJoypadButton()
+    self.isJoypad = false;
+    self.joypadTexture = nil;
+end
+
 --************************************************************************--
 --** ISButton:render
 --**
@@ -202,20 +207,23 @@ function ISButton:render()
             self:drawTextureScaledAspect(self.image, 0, 0, self.width, self.height, alpha, self.textureColor.r, self.textureColor.g, self.textureColor.b);
         end
 	end
+	local textW = getTextManager():MeasureStringX(self.font, self.title)
 	local height = getTextManager():MeasureStringY(self.font, self.title)
-    local x = self.width / 2;
-    if self.isJoypad and self.joypadTexture then
-        local texX = x - (getTextManager():MeasureStringX(UIFont.Small, self.title) / 2) - self.joypadTexture:getWidth()
-        local texY = self.height / 2 - 20 / 2
-        texX = math.max(0, texX)
-        self:drawTextureScaled(self.joypadTexture,texX,texY,20,20,1,1,1,1);
-    end
+	local x = self.width / 2 - textW / 2;
+	if self.isJoypad and self.joypadTexture then
+		local texWH = self.joypadTextureWH
+		local texX = x - 5 - texWH
+		local texY = self.height / 2 - 20 / 2
+		texX = math.max(5, texX)
+		x = texX + texWH + 5
+		self:drawTextureScaled(self.joypadTexture,texX,texY,texWH,texWH,1,1,1,1);
+	end
 	if self.enable then
-		self:drawTextCentre(self.title, x, (self.height / 2) - (height/2) + self.yoffset, self.textColor.r, self.textColor.g, self.textColor.b, self.textColor.a, self.font);
+		self:drawText(self.title, x, (self.height / 2) - (height/2) + self.yoffset, self.textColor.r, self.textColor.g, self.textColor.b, self.textColor.a, self.font);
 	elseif self.displayBackground and not self.isJoypad and self.joypadFocused then
-		self:drawTextCentre(self.title, x, (self.height / 2) - (height/2) + self.yoffset, 0, 0, 0, 1, self.font);
+		self:drawText(self.title, x, (self.height / 2) - (height/2) + self.yoffset, 0, 0, 0, 1, self.font);
 	else
-		self:drawTextCentre(self.title, x, (self.height / 2) - (height/2) + self.yoffset, 0.3, 0.3, 0.3, 1, self.font);
+		self:drawText(self.title, x, (self.height / 2) - (height/2) + self.yoffset, 0.3, 0.3, 0.3, 1, self.font);
 	end
 	if self.overlayText then
 		self:drawTextRight(self.overlayText, self.width, self.height - 10, 1, 1, 1, 0.5, UIFont.Small);
@@ -261,9 +269,6 @@ function ISButton:setDisplayBackground(background)
 end
 
 function ISButton:update()
-    breakpoint();
-
-
 	ISUIElement.update(self)
 	if self.enable and self.pressed and self.target and self.repeatWhilePressedFunc then
 		if not self.pressedTime then
@@ -367,8 +372,11 @@ function ISButton:setTooltip(tooltip)
     self.tooltip = tooltip;
 end
 
-function ISButton:setWidthToTitle(minWidth)
+function ISButton:setWidthToTitle(minWidth, isJoypad)
 	local width = getTextManager():MeasureStringX(self.font, self.title) + 10
+	if isJoypad then
+		width = width + 5 + self.joypadTextureWH
+	end
 	width = math.max(width, minWidth or 0)
 	if width ~= self.width then
 		self:setWidth(width)
@@ -421,5 +429,6 @@ function ISButton:new (x, y, width, height, title, clicktarget, onclick, onmouse
     o.allowMouseUpProcessing = allowMouseUpProcessing;
     o.yoffset = 0;
     o.fade = UITransition.new()
+    o.joypadTextureWH = 20
    return o
 end

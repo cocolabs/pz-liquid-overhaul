@@ -148,6 +148,9 @@ bird.baits = {};
 bird.baits["Base.Bread"] = 50;
 bird.baits["Base.BreadSlices"] = 50;
 bird.baits["Base.Worm"] = 50;
+bird.baits["Base.Grasshopper"] = 50;
+bird.baits["Base.Cockroach"] = 50;
+bird.baits["Base.Worm"] = 50;
 bird.baits["Base.Corn"] = 45;
 bird.baits["Base.Cereal"] = 45;
 

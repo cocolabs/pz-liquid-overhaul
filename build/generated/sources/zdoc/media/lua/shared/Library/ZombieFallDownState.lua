@@ -14,6 +14,10 @@ function ZombieFallDownState:animEvent(arg0, arg1) end
 function ZombieFallDownState:execute(arg0) end
 
 ---@public
+---@return ZombieFallDownState
+function ZombieFallDownState:instance() end
+
+---@public
 ---@param arg0 IsoGameCharacter
 ---@return void
 function ZombieFallDownState:enter(arg0) end
@@ -22,7 +26,3 @@ function ZombieFallDownState:enter(arg0) end
 ---@param arg0 IsoGameCharacter
 ---@return void
 function ZombieFallDownState:exit(arg0) end
-
----@public
----@return ZombieFallDownState
-function ZombieFallDownState:instance() end

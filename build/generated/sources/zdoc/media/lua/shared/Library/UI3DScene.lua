@@ -54,32 +54,20 @@
 ---@field SMALL_NUM float
 UI3DScene = {}
 
----@public
----@param arg0 String
----@return Object
-function UI3DScene:fromLua0(arg0) end
-
 ---@private
----@param arg0 int
+---@param arg0 JVector2
 ---@return void
-function UI3DScene:renderGridYZ(arg0) end
-
----@public
----@param arg0 String
----@param arg1 Object
----@param arg2 Object
----@param arg3 Object
----@return Object
-function UI3DScene:fromLua3(arg0, arg1, arg2, arg3) end
+function UI3DScene:releaseVector2(arg0) end
 
 ---@private
----@return Quaternionf
-function UI3DScene:allocQuaternionf() end
-
----@private
----@param arg0 Quaternionf
+---@param arg0 Vector3f
 ---@return void
-function UI3DScene:releaseQuaternionf(arg0) end
+function UI3DScene:releaseVector3f(arg0) end
+
+---@private
+---@param arg0 UI3DScene.Plane
+---@return void
+function UI3DScene:releasePlane(arg0) end
 
 ---@public
 ---@param arg0 String
@@ -87,14 +75,29 @@ function UI3DScene:releaseQuaternionf(arg0) end
 ---@param arg2 Object
 ---@param arg3 Object
 ---@param arg4 Object
+---@param arg5 Object
+---@param arg6 Object
 ---@return Object
-function UI3DScene:fromLua4(arg0, arg1, arg2, arg3, arg4) end
+function UI3DScene:fromLua6(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---@private
+---@param arg0 int
+---@return void
+function UI3DScene:renderGridYZ(arg0) end
 
 ---@param arg0 Vector3f
 ---@param arg1 Vector3f
 ---@param arg2 Vector3f
 ---@return Vector3f
 function UI3DScene:reject(arg0, arg1, arg2) end
+
+---@private
+---@return float
+function UI3DScene:zoomMult() end
+
+---@private
+---@return UI3DScene.Ray
+function UI3DScene:allocRay() end
 
 ---@param arg0 float
 ---@param arg1 float
@@ -111,19 +114,24 @@ function UI3DScene:getCameraRay(arg0, arg1, arg2) end
 ---@return UI3DScene.Ray
 function UI3DScene:getCameraRay(arg0, arg1, arg2, arg3, arg4) end
 
+---@param arg0 UI3DScene.Ray
+---@param arg1 UI3DScene.Circle
+---@param arg2 Vector3f
+---@return float
+function UI3DScene:closest_distance_line_circle(arg0, arg1, arg2) end
+
 ---@public
 ---@param arg0 String
 ---@param arg1 Object
 ---@param arg2 Object
 ---@param arg3 Object
 ---@param arg4 Object
----@param arg5 Object
----@param arg6 Object
----@param arg7 Object
----@param arg8 Object
----@param arg9 Object
 ---@return Object
-function UI3DScene:fromLua9(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
+function UI3DScene:fromLua4(arg0, arg1, arg2, arg3, arg4) end
+
+---@private
+---@return UI3DScene.Plane
+function UI3DScene:allocPlane() end
 
 ---@public
 ---@param arg0 float
@@ -143,16 +151,20 @@ function UI3DScene:uiToScene(arg0, arg1, arg2, arg3) end
 ---@return Vector3f
 function UI3DScene:uiToScene(arg0, arg1, arg2, arg3, arg4) end
 
+---@private
+---@return float
+function UI3DScene:gridMult() end
+
+---@public
+---@param arg0 String
+---@return Object
+function UI3DScene:fromLua0(arg0) end
+
 ---@public
 ---@param arg0 float
 ---@param arg1 float
----@param arg2 float
 ---@return float
-function UI3DScene:sceneToUIY(arg0, arg1, arg2) end
-
----@private
----@return UI3DScene.StateData
-function UI3DScene:stateDataRender() end
+function UI3DScene:uiToSceneY(arg0, arg1) end
 
 ---@param arg0 UI3DScene.PositionRotation
 ---@return void
@@ -165,69 +177,55 @@ function UI3DScene:renderAxis(arg0) end
 function UI3DScene:renderAxis(arg0, arg1) end
 
 ---@private
----@return JVector2
-function UI3DScene:allocVector2() end
+---@param arg0 Quaternionf
+---@return void
+function UI3DScene:releaseQuaternionf(arg0) end
 
 ---@private
----@param arg0 int
----@return void
-function UI3DScene:renderGridXZ(arg0) end
-
----@private
----@param arg0 int
----@return void
-function UI3DScene:renderGridXY(arg0) end
+---@return int
+function UI3DScene:screenHeight() end
 
 ---@public
 ---@param arg0 String
 ---@param arg1 Object
+---@param arg2 Object
 ---@return Object
-function UI3DScene:fromLua1(arg0, arg1) end
-
----@param arg0 UI3DScene.Ray
----@param arg1 UI3DScene.Ray
----@return float
-function UI3DScene:closest_distance_between_lines(arg0, arg1) end
+function UI3DScene:fromLua2(arg0, arg1, arg2) end
 
 ---@param arg0 Vector3f
----@param arg1 Vector3f
----@param arg2 Vector3f
----@return Vector3f
-function UI3DScene:project(arg0, arg1, arg2) end
+---@param arg1 UI3DScene.Ray
+---@return float
+function UI3DScene:distance_between_point_ray(arg0, arg1) end
 
----@private
----@return UI3DScene.Plane
-function UI3DScene:allocPlane() end
-
----@private
+---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
----@param arg3 float
----@param arg4 float
----@param arg5 float
----@param arg6 float
----@param arg7 float
----@param arg8 float
----@param arg9 float
----@param arg10 float
----@param arg11 float
----@return void
-function UI3DScene:renderBox3D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) end
-
----@private
----@return void
-function UI3DScene:renderGrid() end
-
----@private
----@return UI3DScene.Ray
-function UI3DScene:allocRay() end
+---@return float
+function UI3DScene:sceneToUIX(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@return float
-function UI3DScene:uiToSceneY(arg0, arg1) end
+function UI3DScene:uiToSceneX(arg0, arg1) end
+
+---@private
+---@return UI3DScene.StateData
+function UI3DScene:stateDataMain() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return float
+function UI3DScene:sceneToUIY(arg0, arg1, arg2) end
+
+---@param arg0 UI3DScene.Plane
+---@param arg1 UI3DScene.Ray
+---@param arg2 Vector3f
+---@return int
+function UI3DScene:intersect_ray_plane(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 float
@@ -243,31 +241,18 @@ function UI3DScene:uiToSceneY(arg0, arg1) end
 function UI3DScene:renderAABB(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
 ---@private
----@return UI3DScene.StateData
-function UI3DScene:stateDataMain() end
-
----@param arg0 UI3DScene.Plane
----@param arg1 UI3DScene.Ray
----@param arg2 Vector3f
----@return int
-function UI3DScene:intersect_ray_plane(arg0, arg1, arg2) end
+---@return Quaternionf
+function UI3DScene:allocQuaternionf() end
 
 ---@private
----@param arg0 JVector2
----@return void
-function UI3DScene:releaseVector2(arg0) end
-
----@private
----@param arg0 UI3DScene.Plane
----@return void
-function UI3DScene:releasePlane(arg0) end
+---@return Matrix4f
+function UI3DScene:allocMatrix4f() end
 
 ---@public
 ---@param arg0 String
 ---@param arg1 Object
----@param arg2 Object
 ---@return Object
-function UI3DScene:fromLua2(arg0, arg1, arg2) end
+function UI3DScene:fromLua1(arg0, arg1) end
 
 ---@param arg0 String
 ---@param arg1 boolean
@@ -287,50 +272,61 @@ function UI3DScene:getSceneObjectById(arg0, arg1, arg2) end
 ---@return void
 function UI3DScene:calcMatrices(arg0, arg1) end
 
----@public
----@param arg0 float
----@param arg1 float
----@return float
-function UI3DScene:uiToSceneX(arg0, arg1) end
-
 ---@private
----@return float
-function UI3DScene:gridMult() end
-
----@private
----@param arg0 Vector3f
----@return void
-function UI3DScene:releaseVector3f(arg0) end
-
----@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
----@return float
-function UI3DScene:sceneToUIX(arg0, arg1, arg2) end
-
----@public
+---@param arg3 float
+---@param arg4 float
+---@param arg5 float
+---@param arg6 float
+---@param arg7 float
+---@param arg8 float
+---@param arg9 float
+---@param arg10 float
+---@param arg11 float
 ---@return void
-function UI3DScene:render() end
+function UI3DScene:renderBox3D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) end
 
 ---@private
----@param arg0 Matrix4f
----@return void
-function UI3DScene:releaseMatrix4f(arg0) end
+---@return JVector2
+function UI3DScene:allocVector2() end
+
+---@private
+---@return UI3DScene.StateData
+function UI3DScene:stateDataRender() end
 
 ---@private
 ---@return int
 function UI3DScene:screenWidth() end
 
----@param arg0 UI3DScene.Ray
----@param arg1 UI3DScene.Circle
----@param arg2 Vector3f
----@return float
-function UI3DScene:closest_distance_line_circle(arg0, arg1, arg2) end
-
 ---@private
+---@param arg0 int
+---@return void
+function UI3DScene:renderGridXZ(arg0) end
+
+---@param arg0 Vector3f
+---@param arg1 Vector3f
+---@param arg2 Vector3f
+---@return Vector3f
+function UI3DScene:project(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function UI3DScene:render() end
+
+---@param arg0 UI3DScene.Ray
+---@param arg1 UI3DScene.Ray
 ---@return float
-function UI3DScene:zoomMult() end
+function UI3DScene:closest_distance_between_lines(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 Object
+---@param arg2 Object
+---@param arg3 Object
+---@return Object
+function UI3DScene:fromLua3(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@param arg0 String
@@ -340,27 +336,31 @@ function UI3DScene:zoomMult() end
 ---@param arg4 Object
 ---@param arg5 Object
 ---@param arg6 Object
+---@param arg7 Object
+---@param arg8 Object
+---@param arg9 Object
 ---@return Object
-function UI3DScene:fromLua6(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+function UI3DScene:fromLua9(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
 ---@private
----@return int
-function UI3DScene:screenHeight() end
-
----@private
----@return Matrix4f
-function UI3DScene:allocMatrix4f() end
-
----@private
----@param arg0 UI3DScene.Ray
 ---@return void
-function UI3DScene:releaseRay(arg0) end
+function UI3DScene:renderGrid() end
+
+---@private
+---@param arg0 int
+---@return void
+function UI3DScene:renderGridXY(arg0) end
+
+---@private
+---@param arg0 Matrix4f
+---@return void
+function UI3DScene:releaseMatrix4f(arg0) end
 
 ---@private
 ---@return Vector3f
 function UI3DScene:allocVector3f() end
 
----@param arg0 Vector3f
----@param arg1 UI3DScene.Ray
----@return float
-function UI3DScene:distance_between_point_ray(arg0, arg1) end
+---@private
+---@param arg0 UI3DScene.Ray
+---@return void
+function UI3DScene:releaseRay(arg0) end

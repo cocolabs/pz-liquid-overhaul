@@ -1,14 +1,16 @@
----@class DataCell : zombie.iso.areas.isoregion.DataCell
----@field private hashId int
----@field private cellX int
----@field private cellY int
+---@class DataCell : zombie.iso.areas.isoregion.data.DataCell
+---@field public dataRoot DataRoot
 ---@field protected dataChunks Map|Unknown|Unknown
 DataCell = {}
 
 ---@protected
----@param arg0 int
----@return DataChunk
-function DataCell:getChunk(arg0) end
+---@return DataRoot
+function DataCell:getDataRoot() end
+
+---@protected
+---@param arg0 List|Unknown
+---@return void
+function DataCell:getAllChunks(arg0) end
 
 ---@protected
 ---@param arg0 DataChunk
@@ -23,6 +25,6 @@ function DataCell:setChunk(arg0) end
 function DataCell:addChunk(arg0, arg1, arg2) end
 
 ---@protected
----@param arg0 List|Unknown
----@return void
-function DataCell:getAllChunks(arg0) end
+---@param arg0 int
+---@return DataChunk
+function DataCell:getChunk(arg0) end

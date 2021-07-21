@@ -8,11 +8,34 @@ WalkTowardState = {}
 
 ---Overrides:
 ---
+---enter in class State
+---@public
+---@param owner IsoGameCharacter
+---@return void
+function WalkTowardState:enter(owner) end
+
+---@public
+---@param arg0 IsoZombie
+---@param arg1 JVector2
+---@return boolean
+function WalkTowardState:calculateTargetLocation(arg0, arg1) end
+
+---@public
+---@return WalkTowardState
+function WalkTowardState:instance() end
+
+---Overrides:
+---
 ---execute in class State
 ---@public
 ---@param owner IsoGameCharacter
 ---@return void
 function WalkTowardState:execute(owner) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function WalkTowardState:exit(arg0) end
 
 ---@private
 ---@param arg0 IsoGameCharacter
@@ -22,30 +45,7 @@ function WalkTowardState:execute(owner) end
 ---@return boolean
 function WalkTowardState:isPathClear(arg0, arg1, arg2, arg3) end
 
----Overrides:
----
----enter in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function WalkTowardState:enter(owner) end
-
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@return boolean
 function WalkTowardState:isMoving(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
-function WalkTowardState:exit(arg0) end
-
----@public
----@return WalkTowardState
-function WalkTowardState:instance() end
-
----@public
----@param arg0 IsoZombie
----@param arg1 JVector2
----@return boolean
-function WalkTowardState:calculateTargetLocation(arg0, arg1) end

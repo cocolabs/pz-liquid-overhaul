@@ -16,6 +16,74 @@
 Coroutine = {}
 
 ---@public
+---@return int
+function Coroutine:getObjectStackSize() end
+
+---@public
+---@return LuaCallFrame
+function Coroutine:getParentCallframe() end
+
+---@public
+---@return LuaCallFrame
+function Coroutine:currentCallFrame() end
+
+---@private
+---@param arg0 int
+---@return void
+function Coroutine:ensureStacksize(arg0) end
+
+---@public
+---@param n int
+---@return Object
+function Coroutine:getObjectFromStack(n) end
+
+---@public
+---@param parent Coroutine
+---@return void
+function Coroutine:resume(parent) end
+
+---@public
+---@return int
+function Coroutine:getCallframeTop() end
+
+---@public
+---@param newTop int
+---@return void
+function Coroutine:setTop(newTop) end
+
+---@public
+---@return LuaCallFrame[]
+function Coroutine:getCallframeStack() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@return void
+function Coroutine:callFrameStackClear(arg0, arg1) end
+
+---@public
+---@param startIndex int
+---@param endIndex int
+---@return void
+function Coroutine:stackClear(startIndex, endIndex) end
+
+---@public
+---@param level int
+---@param count int
+---@param haltAt int
+---@return String
+function Coroutine:getCurrentStackTrace(level, count, haltAt) end
+
+---@public
+---@param closeIndex int
+---@return void
+function Coroutine:closeUpvalues(closeIndex) end
+
+---@public
+---@return boolean
+function Coroutine:atBottom() end
+
+---@public
 ---@return Coroutine
 ---@overload fun(level:int)
 function Coroutine:getParent() end
@@ -26,35 +94,9 @@ function Coroutine:getParent() end
 function Coroutine:getParent(level) end
 
 ---@public
----@return boolean
-function Coroutine:isDead() end
-
----@public
+---@param callerFrame LuaCallFrame
 ---@return void
-function Coroutine:destroy() end
-
----@public
----@return String
-function Coroutine:getStatus() end
-
----@public
----@param level int
----@return LuaCallFrame
-function Coroutine:getParentNoAssert(level) end
-
----@public
----@return int
-function Coroutine:getTop() end
-
----@private
----@param arg0 int
----@param arg1 int
----@return void
-function Coroutine:callFrameStackClear(arg0, arg1) end
-
----@public
----@return KahluaThread
-function Coroutine:getThread() end
+function Coroutine:cleanCallFrames(callerFrame) end
 
 ---@public
 ---@param closure LuaClosure
@@ -67,20 +109,25 @@ function Coroutine:getThread() end
 ---@return LuaCallFrame
 function Coroutine:pushNewCallFrame(closure, javaFunction, localBase, returnBase, nArguments, fromLua, insideCoroutine) end
 
----@private
----@param arg0 int
----@return void
-function Coroutine:ensureStacksize(arg0) end
+---@public
+---@param scanIndex int
+---@return UpValue
+function Coroutine:findUpvalue(scanIndex) end
 
 ---@public
 ---@param newTop int
 ---@return void
-function Coroutine:setTop(newTop) end
+function Coroutine:setCallFrameStackTop(newTop) end
 
 ---@public
----@param parent Coroutine
+---@param frame LuaCallFrame
 ---@return void
-function Coroutine:resume(parent) end
+function Coroutine:addStackTrace(frame) end
+
+---@private
+---@param arg0 LuaCallFrame
+---@return String
+function Coroutine:getStackTrace(arg0) end
 
 ---@public
 ---@param index int
@@ -88,24 +135,24 @@ function Coroutine:resume(parent) end
 function Coroutine:getCallFrame(index) end
 
 ---@public
----@param n int
----@return Object
-function Coroutine:getObjectFromStack(n) end
-
----@public
 ---@return void
 function Coroutine:popCallFrame() end
 
 ---@public
----@param startIndex int
----@param destIndex int
----@param len int
----@return void
-function Coroutine:stackCopy(startIndex, destIndex, len) end
+---@return String
+function Coroutine:getStatus() end
 
 ---@public
----@return LuaCallFrame[]
-function Coroutine:getCallframeStack() end
+---@return Platform
+function Coroutine:getPlatform() end
+
+---@public
+---@return boolean
+function Coroutine:isDead() end
+
+---@public
+---@return KahluaThread
+function Coroutine:getThread() end
 
 ---@public
 ---@param callFrame LuaCallFrame
@@ -115,73 +162,26 @@ function Coroutine:getCallframeStack() end
 function Coroutine:yieldHelper(callFrame, argsCallFrame, nArguments) end
 
 ---@public
----@return LuaCallFrame
-function Coroutine:getParentCallframe() end
-
----@public
 ---@return int
-function Coroutine:getObjectStackSize() end
+function Coroutine:getTop() end
 
 ---@public
----@return LuaCallFrame
-function Coroutine:currentCallFrame() end
-
----@public
----@param frame LuaCallFrame
+---@param startIndex int
+---@param destIndex int
+---@param len int
 ---@return void
-function Coroutine:addStackTrace(frame) end
+function Coroutine:stackCopy(startIndex, destIndex, len) end
 
 ---@public
----@return Platform
-function Coroutine:getPlatform() end
+---@param level int
+---@return LuaCallFrame
+function Coroutine:getParentNoAssert(level) end
+
+---@public
+---@return void
+function Coroutine:destroy() end
 
 ---@private
 ---@param arg0 int
 ---@return void
 function Coroutine:ensureCallFrameStackSize(arg0) end
-
----@public
----@return int
-function Coroutine:getCallframeTop() end
-
----@public
----@param closeIndex int
----@return void
-function Coroutine:closeUpvalues(closeIndex) end
-
----@private
----@param arg0 LuaCallFrame
----@return String
-function Coroutine:getStackTrace(arg0) end
-
----@public
----@param level int
----@param count int
----@param haltAt int
----@return String
-function Coroutine:getCurrentStackTrace(level, count, haltAt) end
-
----@public
----@param scanIndex int
----@return UpValue
-function Coroutine:findUpvalue(scanIndex) end
-
----@public
----@return boolean
-function Coroutine:atBottom() end
-
----@public
----@param callerFrame LuaCallFrame
----@return void
-function Coroutine:cleanCallFrames(callerFrame) end
-
----@public
----@param startIndex int
----@param endIndex int
----@return void
-function Coroutine:stackClear(startIndex, endIndex) end
-
----@public
----@param newTop int
----@return void
-function Coroutine:setCallFrameStackTop(newTop) end

@@ -7,11 +7,16 @@
 ---@field public trimChoices ArrayList|Unknown
 ---@field public growReference boolean
 ---@field public attachedHair boolean
+---@field public noChoose boolean
 HairStyle = {}
 
 ---@public
 ---@return boolean
-function HairStyle:isValid() end
+function HairStyle:isAttachedHair() end
+
+---@public
+---@return int
+function HairStyle:getLevel() end
 
 ---@public
 ---@param arg0 String
@@ -19,21 +24,21 @@ function HairStyle:isValid() end
 function HairStyle:getAlternate(arg0) end
 
 ---@public
----@return ArrayList|Unknown
-function HairStyle:getTrimChoices() end
+---@return String
+function HairStyle:getName() end
 
 ---@public
 ---@return boolean
-function HairStyle:isAttachedHair() end
+function HairStyle:isValid() end
+
+---@public
+---@return ArrayList|Unknown
+function HairStyle:getTrimChoices() end
 
 ---@public
 ---@return boolean
 function HairStyle:isGrowReference() end
 
 ---@public
----@return int
-function HairStyle:getLevel() end
-
----@public
----@return String
-function HairStyle:getName() end
+---@return boolean
+function HairStyle:isNoChoose() end

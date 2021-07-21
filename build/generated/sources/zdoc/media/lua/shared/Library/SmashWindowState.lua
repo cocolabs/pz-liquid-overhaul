@@ -3,13 +3,10 @@
 SmashWindowState = {}
 
 ---@public
----@return boolean
-function SmashWindowState:isDoingActionThatCanBeCancelled() end
-
----@public
 ---@param arg0 IsoGameCharacter
+---@param arg1 AnimEvent
 ---@return void
-function SmashWindowState:exit(arg0) end
+function SmashWindowState:animEvent(arg0, arg1) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -23,9 +20,12 @@ function SmashWindowState:enter(arg0) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
----@param arg1 AnimEvent
 ---@return void
-function SmashWindowState:animEvent(arg0, arg1) end
+function SmashWindowState:exit(arg0) end
+
+---@public
+---@return boolean
+function SmashWindowState:isDoingActionThatCanBeCancelled() end
 
 ---@public
 ---@return SmashWindowState

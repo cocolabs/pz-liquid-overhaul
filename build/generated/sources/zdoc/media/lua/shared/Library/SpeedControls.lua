@@ -12,13 +12,6 @@
 ---@field public Wait HUDButton
 SpeedControls = {}
 
----Overrides:
----
----update in class UIElement
----@public
----@return void
-function SpeedControls:update() end
-
 ---@public
 ---@param arg0 double
 ---@param arg1 double
@@ -26,10 +19,13 @@ function SpeedControls:update() end
 function SpeedControls:onMouseMoveOutside(arg0, arg1) end
 
 ---@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function SpeedControls:onMouseMove(arg0, arg1) end
+---@param NewSpeed int
+---@return void
+function SpeedControls:SetCurrentGameSpeed(NewSpeed) end
+
+---@public
+---@return int
+function SpeedControls:getCurrentGameSpeed() end
 
 ---Overrides:
 ---
@@ -43,18 +39,22 @@ function SpeedControls:ButtonClicked(name) end
 ---@return void
 function SpeedControls:SetCorrectIconStates() end
 
----@public
----@param NewSpeed int
----@return void
-function SpeedControls:SetCurrentGameSpeed(NewSpeed) end
-
----@public
----@return int
-function SpeedControls:getCurrentGameSpeed() end
-
 ---Overrides:
 ---
 ---render in class UIElement
 ---@public
 ---@return void
 function SpeedControls:render() end
+
+---Overrides:
+---
+---update in class UIElement
+---@public
+---@return void
+function SpeedControls:update() end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return Boolean
+function SpeedControls:onMouseMove(arg0, arg1) end

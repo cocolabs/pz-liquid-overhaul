@@ -90,7 +90,9 @@ function ISTakeWaterAction:start()
 	
 		self:setActionAnim("drink_tap")
 		self:setOverrideHandModels(nil, nil)
-    end
+	end
+	
+	self.character:reportEvent("EventTakeWater");
 end
 
 function ISTakeWaterAction:stop()

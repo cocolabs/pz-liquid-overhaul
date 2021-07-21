@@ -7,13 +7,13 @@
 ---@field private shoesItems ArrayList|Unknown
 RDSStudentNight = {}
 
+---@public
+---@param arg0 BuildingDef
+---@return void
+function RDSStudentNight:randomizeDeadSurvivor(arg0) end
+
 ---@private
 ---@param arg0 RoomDef
 ---@param arg1 boolean
 ---@return void
 function RDSStudentNight:addItemsOnGround(arg0, arg1) end
-
----@public
----@param arg0 BuildingDef
----@return void
-function RDSStudentNight:randomizeDeadSurvivor(arg0) end

@@ -13,12 +13,27 @@
 ---@field private doVehicleLowRider boolean
 ---@field public doEnableDetectOpenGLErrorsInTexture boolean
 ---@field public doVehiclesWithoutTextures boolean
+---@field private doMainLoopDealWithNetData boolean
 SystemDisabler = {}
+
+---@public
+---@param bDo boolean
+---@return void
+function SystemDisabler:setDoSurvivorCreation(bDo) end
+
+---@public
+---@return boolean
+function SystemDisabler:getOverrideServerConnectDebugCheck() end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
 function SystemDisabler:setVehiclesEverywhere(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function SystemDisabler:setObjectStateSyncEnable(arg0) end
 
 ---@public
 ---@param bDo boolean
@@ -28,25 +43,27 @@ function SystemDisabler:setDoCharacterStats(bDo) end
 ---@public
 ---@param arg0 boolean
 ---@return void
-function SystemDisabler:setObjectStateSyncEnable(arg0) end
+function SystemDisabler:setWorldSyncEnable(arg0) end
 
 ---@public
 ---@return boolean
 function SystemDisabler:getdoHighFriction() end
 
 ---@public
----@param bDo boolean
----@return void
-function SystemDisabler:setDoSurvivorCreation(bDo) end
+---@return boolean
+function SystemDisabler:getDoMainLoopDealWithNetData() end
 
 ---@public
----@param bDo boolean
----@return void
-function SystemDisabler:setOverridePOVCharacters(bDo) end
+---@return boolean
+function SystemDisabler:getAllowDebugConnections() end
 
 ---@public
 ---@return void
 function SystemDisabler:Reset() end
+
+---@public
+---@return boolean
+function SystemDisabler:getdoVehicleLowRider() end
 
 ---@public
 ---@param bDo boolean
@@ -54,23 +71,11 @@ function SystemDisabler:Reset() end
 function SystemDisabler:setDoZombieCreation(bDo) end
 
 ---@public
----@return boolean
-function SystemDisabler:getAllowDebugConnections() end
+---@param bDo boolean
+---@return void
+function SystemDisabler:setOverridePOVCharacters(bDo) end
 
 ---@public
 ---@param bDo boolean
 ---@return void
 function SystemDisabler:setDoPlayerCreation(bDo) end
-
----@public
----@return boolean
-function SystemDisabler:getdoVehicleLowRider() end
-
----@public
----@return boolean
-function SystemDisabler:getOverrideServerConnectDebugCheck() end
-
----@public
----@param arg0 boolean
----@return void
-function SystemDisabler:setWorldSyncEnable(arg0) end

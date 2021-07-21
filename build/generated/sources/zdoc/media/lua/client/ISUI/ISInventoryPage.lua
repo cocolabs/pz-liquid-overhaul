@@ -1,4 +1,3 @@
-
 --***********************************************************
 --**               LEMMY/ROBERT JOHNSON                    **
 --***********************************************************
@@ -9,6 +8,8 @@ require "ISUI/ISInventoryPane"
 require "ISUI/ISResizeWidget"
 require "ISUI/ISMouseDrag"
 require "ISUI/ISLayoutManager"
+
+require "Definitions/ContainerButtonIcons"
 
 require "defines"
 
@@ -328,6 +329,7 @@ end
 function ISInventoryPage:isRemoveButtonVisible()
 	if self.onCharacter then return false end
 	if self.inventory:isEmpty() then return false end
+	if isClient() and not getServerOptions():getBoolean("TrashDeleteAll") then return false end
 	local obj = self.inventory:getParent()
 	if not instanceof(obj, "IsoObject") then return false end
 	local sprite = obj:getSprite()
@@ -528,6 +530,8 @@ function ISInventoryPage:close()
 	ISPanel.close(self)
 	if JoypadState.players[self.player+1] then
 		setJoypadFocus(self.player, nil)
+		local playerObj = getSpecificPlayer(self.player)
+		playerObj:setBannedAttacking(false)
 	end
 end
 
@@ -546,6 +550,7 @@ function ISInventoryPage:onLoseJoypadFocus(joypadData)
         inv:setVisible(false);
         loot:setVisible(false);
         local playerObj = getSpecificPlayer(self.player)
+        playerObj:setBannedAttacking(false)
         if playerObj:getVehicle() and playerObj:getVehicle():isDriver(playerObj) then
             getPlayerVehicleDashboard(self.player):addToUIManager()
         end
@@ -1115,8 +1120,8 @@ function ISInventoryPage:addContainerButton(container, texture, name, tooltip)
 	if instanceof(texture, "Texture") then
 		button:setImage(texture)
     else
-		if self.containerIconMaps[container:getType()] ~= nil then
-			button:setImage(self.containerIconMaps[container:getType()])
+		if ContainerButtonIcons[container:getType()] ~= nil then
+			button:setImage(ContainerButtonIcons[container:getType()])
 		else
 			button:setImage(self.conDefault)
 		end
@@ -1327,7 +1332,7 @@ function ISInventoryPage:refreshBackpacks()
 		triggerEvent("OnRefreshInventoryWindowContainers", self, "beforeFloor")
 
 		local title = getTextOrNull("IGUI_ContainerTitle_floor") or ""
-		containerButton = self:addContainerButton(ISInventoryPage.floorContainer[self.player+1], self.conFloor, title, nil)
+		containerButton = self:addContainerButton(ISInventoryPage.floorContainer[self.player+1], ContainerButtonIcons.floor, title, nil)
 		containerButton.capacity = ISInventoryPage.floorContainer[self.player+1]:getMaxWeight()
 	end
 
@@ -1442,85 +1447,10 @@ function ISInventoryPage:new (x, y, width, height, inventory, onCharacter, zoom)
     o.collapsebutton = getTexture("media/ui/Panel_Icon_Collapse.png");
     o.pinbutton = getTexture("media/ui/Panel_Icon_Pin.png");
 
-    o.conFloor = getTexture("media/ui/Container_Floor.png");
-    o.conOven = getTexture("media/ui/Container_Oven.png");
-    o.conCabinet = getTexture("media/ui/Container_Cabinet.png");
-    o.conSack = getTexture("media/ui/Container_Sack.png");
-    o.conShelf = getTexture("media/ui/Container_Shelf.png");
-    o.conCounter = getTexture("media/ui/Container_Counter.png");
-    o.conMedicine = getTexture("media/ui/Container_Medicine.png");
-    o.conGarbage = getTexture("media/ui/Container_Garbage.png");
-    o.conFridge = getTexture("media/ui/Container_Fridge.png");
-    o.conFreezer = getTexture("media/ui/Container_Freezer.png");
-    o.conDrawer = getTexture("media/ui/Container_Drawer.png");
-    o.conCrate = getTexture("media/ui/Container_Crate.png");
-	o.conFemaleZombie = getTexture("media/ui/Container_DeadPerson_FemaleZombie.png");
-	o.conMaleZombie = getTexture("media/ui/Container_DeadPerson_MaleZombie.png");
-    o.conMicrowave = getTexture("media/ui/Container_Microwave.png");
-    o.conVending = getTexture("media/ui/Container_Vendingt.png");
-    o.logs = getTexture("media/ui/Item_Logs.png");
-    o.plant = getTexture("media/ui/Container_Plant.png");
-    o.conCampfire = getTexture("media/ui/Container_Campfire.png");
-    o.conglovebox = getTexture("media/ui/Container_GloveCompartment.png");
-    o.conseat = getTexture("media/ui/Container_Carseat.png");
-    o.contrunk = getTexture("media/ui/Container_TruckBed.png");
-    o.clothingdryer = getTexture("media/ui/Container_ClothingDryer.png")
-    o.clothingwasher = getTexture("media/ui/Container_ClothingWasher.png")
-    
-    o.conDefault = o.conShelf;
+    o.conDefault = getTexture("media/ui/Container_Shelf.png");
     o.highlightColors = {r=0.98,g=0.56,b=0.11};
 
-    o.containerIconMaps = {
-        floor=o.conFloor,
-        crate=o.conCrate,
-        officedrawers=o.conDrawer,
-        bin=o.conGarbage,
-        fridge=o.conFridge,
-        dresser = o.conDrawer,
-        sidetable=o.conDrawer,
-        wardrobe=o.conCabinet,
-        counter=o.conCounter,
-        medicine= o.conMedicine,
-        barbecue= o.conOven,
-        desk = o.conDrawer,
-        fireplace= o.conOven,
-        woodstove = o.conOven,
-        stove= o.conOven,
-        shelves= o.conShelf,
-        metal_shelves = o.conShelf,
-        filingcabinet= o.conDrawer,
-        garage_storage= o.conCrate,
-        smallcrate= o.conCrate,
-        smallbox= o.conCrate,
-		inventorymale = o.conMaleZombie;
-		inventoryfemale = o.conFemaleZombie;
-        microwave = o.conMicrowave;
-        vendingGt = o.conVending;
-        logs = o.logs;
-        fruitbusha = o.plant;
-        fruitbushb = o.plant;
-        fruitbushc = o.plant;
-        fruitbushd = o.plant;
-        fruitbushe = o.plant;
-        corn = o.plant;
-        vendingsnack = o.conVending;
-        vendingpop = o.conVending;
-        campfire = o.conCampfire;
-        freezer = o.conFreezer;
-        icecream = o.conFreezer;
-        GloveBox = o.conglovebox;
-        SeatRearLeft = o.conseat;
-        SeatMiddleRight = o.conseat;
-        SeatRearRight = o.conseat;
-        SeatMiddleLeft = o.conseat;
-        SeatFrontLeft = o.conseat;
-        SeatFrontRight = o.conseat;
-        TruckBed = o.contrunk;
-        TruckBedOpen = o.contrunk;
-        TrailerTrunk = o.contrunk;
-        clothingdryer = o.clothingdryer;
-        clothingwasher = o.clothingwasher;
-    }
+    o.containerIconMaps = ContainerButtonIcons
 
     o.pin = true;
     o.isCollapsed = false;

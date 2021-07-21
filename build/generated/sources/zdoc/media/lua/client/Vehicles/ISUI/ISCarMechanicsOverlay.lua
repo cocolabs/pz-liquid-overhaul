@@ -42,6 +42,82 @@ ISCarMechanicsOverlay.CarList["Base.StepVan"] = {imgPrefix = "van_", x=10,y=0};
 ISCarMechanicsOverlay.CarList["Base.StepVanMail"] = {imgPrefix = "van_", x=10,y=0};
 ISCarMechanicsOverlay.CarList["Base.VanSpecial"] = {imgPrefix = "van_", x=10,y=0};
 
+-- smashed cars just inherit their parent image
+ISCarMechanicsOverlay.CarList["Base.CarNormalSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.CarNormal"];
+ISCarMechanicsOverlay.CarList["Base.CarNormalSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.CarNormal"];
+ISCarMechanicsOverlay.CarList["Base.CarNormalSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.CarNormal"];
+ISCarMechanicsOverlay.CarList["Base.CarNormalSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.CarNormal"];
+
+ISCarMechanicsOverlay.CarList["Base.PickUpVanSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.PickUpVan"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.PickUpVan"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.PickUpVan"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.PickUpVan"];
+
+ISCarMechanicsOverlay.CarList["Base.CarLightsSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.CarLights"];
+ISCarMechanicsOverlay.CarList["Base.CarLightsSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.CarLights"];
+ISCarMechanicsOverlay.CarList["Base.CarLightsSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.CarLights"];
+ISCarMechanicsOverlay.CarList["Base.CarLightsSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.CarLights"];
+
+ISCarMechanicsOverlay.CarList["Base.ModernCarSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.ModernCar"];
+ISCarMechanicsOverlay.CarList["Base.ModernCarSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.ModernCar"];
+ISCarMechanicsOverlay.CarList["Base.ModernCarSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.ModernCar"];
+ISCarMechanicsOverlay.CarList["Base.ModernCarSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.ModernCar"];
+
+ISCarMechanicsOverlay.CarList["Base.CarStationWagonSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.CarStationWagon"];
+ISCarMechanicsOverlay.CarList["Base.CarStationWagonSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.CarStationWagon"];
+ISCarMechanicsOverlay.CarList["Base.CarStationWagonSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.CarStationWagon"];
+ISCarMechanicsOverlay.CarList["Base.CarStationWagonSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.CarStationWagon"];
+
+ISCarMechanicsOverlay.CarList["Base.CarLuxurySmashedFront"] = ISCarMechanicsOverlay.CarList["Base.CarLuxury"];
+ISCarMechanicsOverlay.CarList["Base.CarLuxurySmashedRear"] = ISCarMechanicsOverlay.CarList["Base.CarLuxury"];
+ISCarMechanicsOverlay.CarList["Base.CarLuxurySmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.CarLuxury"];
+ISCarMechanicsOverlay.CarList["Base.CarLuxurySmashedRight"] = ISCarMechanicsOverlay.CarList["Base.CarLuxury"];
+
+ISCarMechanicsOverlay.CarList["Base.OffRoadSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.OffRoad"];
+ISCarMechanicsOverlay.CarList["Base.OffRoadSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.OffRoad"];
+ISCarMechanicsOverlay.CarList["Base.OffRoadSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.OffRoad"];
+ISCarMechanicsOverlay.CarList["Base.OffRoadSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.OffRoad"];
+
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruck"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruck"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruck"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruck"];
+
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckLightsSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruckLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckLightsSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruckLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckLightsSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruckLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpTruckLightsSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.PickUpTruckLights"];
+
+ISCarMechanicsOverlay.CarList["Base.PickUpVanLightsSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.PickUpVanLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanLightsSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.PickUpVanLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanLightsSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.PickUpVanLights"];
+ISCarMechanicsOverlay.CarList["Base.PickUpVanLightsSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.PickUpVanLights"];
+
+ISCarMechanicsOverlay.CarList["Base.CarSmallSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.SmallCar"];
+ISCarMechanicsOverlay.CarList["Base.CarSmallSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.SmallCar"];
+ISCarMechanicsOverlay.CarList["Base.CarSmallSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.SmallCar"];
+ISCarMechanicsOverlay.CarList["Base.CarSmallSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.SmallCar"];
+
+ISCarMechanicsOverlay.CarList["Base.CarSmall02SmashedFront"] = ISCarMechanicsOverlay.CarList["Base.SmallCar02"];
+ISCarMechanicsOverlay.CarList["Base.CarSmall02SmashedRear"] = ISCarMechanicsOverlay.CarList["Base.SmallCar02"];
+ISCarMechanicsOverlay.CarList["Base.CarSmall02SmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.SmallCar02"];
+ISCarMechanicsOverlay.CarList["Base.CarSmall02SmashedRight"] = ISCarMechanicsOverlay.CarList["Base.SmallCar02"];
+
+ISCarMechanicsOverlay.CarList["Base.StepVanSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.StepVan"];
+ISCarMechanicsOverlay.CarList["Base.StepVanSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.StepVan"];
+ISCarMechanicsOverlay.CarList["Base.StepVanSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.StepVan"];
+ISCarMechanicsOverlay.CarList["Base.StepVanSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.StepVan"];
+
+ISCarMechanicsOverlay.CarList["Base.StepVanMailSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.StepVanMail"];
+ISCarMechanicsOverlay.CarList["Base.StepVanMailSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.StepVanMail"];
+ISCarMechanicsOverlay.CarList["Base.StepVanMailSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.StepVanMail"];
+ISCarMechanicsOverlay.CarList["Base.StepVanMailSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.StepVanMail"];
+
+ISCarMechanicsOverlay.CarList["Base.SUVSmashedFront"] = ISCarMechanicsOverlay.CarList["Base.SUV"];
+ISCarMechanicsOverlay.CarList["Base.SUVSmashedRear"] = ISCarMechanicsOverlay.CarList["Base.SUV"];
+ISCarMechanicsOverlay.CarList["Base.SUVSmashedLeft"] = ISCarMechanicsOverlay.CarList["Base.SUV"];
+ISCarMechanicsOverlay.CarList["Base.SUVSmashedRight"] = ISCarMechanicsOverlay.CarList["Base.SUV"];
+
 ISCarMechanicsOverlay.PartList = {};
 ISCarMechanicsOverlay.PartList["Battery"] = {img="battery", x=48,y=64,x2=92,y2=99, vehicles={}};
 ISCarMechanicsOverlay.PartList["Battery"].vehicles["4door_"] = {x=72,y=64,x2=118,y2=99};

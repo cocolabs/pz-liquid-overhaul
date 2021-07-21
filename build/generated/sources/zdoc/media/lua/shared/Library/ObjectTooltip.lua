@@ -17,89 +17,46 @@
 ---@field private freeLayouts Stack|Unknown
 ObjectTooltip = {}
 
----@public
----@param x int
----@param y int
----@param w int
----@param h int
----@param f float
----@param r double
----@param g double
----@param b double
----@param a double
+---@param arg0 InventoryItem
+---@param arg1 int
+---@param arg2 int
 ---@return void
-function ObjectTooltip:DrawProgressBar(x, y, w, h, f, r, g, b, a) end
-
----@public
----@param value float
----@param x int
----@param y int
----@return void
----@overload fun(value:int, x:int, y:int)
-function ObjectTooltip:DrawValueRightNoPlus(value, x, y) end
-
----@public
----@param value int
----@param x int
----@param y int
----@return void
-function ObjectTooltip:DrawValueRightNoPlus(value, x, y) end
-
----@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function ObjectTooltip:onMouseMove(arg0, arg1) end
-
----@public
----@return void
-function ObjectTooltip:hide() end
+---@overload fun(arg0:IsoObject, arg1:double, arg2:double)
+function ObjectTooltip:show(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 IsoObject
 ---@param arg1 double
 ---@param arg2 double
 ---@return void
----@overload fun(arg0:InventoryItem, arg1:int, arg2:int)
-function ObjectTooltip:show(arg0, arg1, arg2) end
-
----@param arg0 InventoryItem
----@param arg1 int
----@param arg2 int
----@return void
 function ObjectTooltip:show(arg0, arg1, arg2) end
 
 ---@public
+---@param value int
+---@param x int
+---@param y int
 ---@return void
-function ObjectTooltip:checkFont() end
+---@overload fun(value:float, x:int, y:int)
+function ObjectTooltip:DrawValueRightNoPlus(value, x, y) end
 
 ---@public
----@param arg0 UIFont
----@param arg1 String
----@param arg2 double
----@param arg3 double
----@param arg4 double
----@param arg5 double
----@param arg6 double
----@param arg7 double
+---@param value float
+---@param x int
+---@param y int
 ---@return void
-function ObjectTooltip:DrawTextCentre(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
+function ObjectTooltip:DrawValueRightNoPlus(value, x, y) end
 
 ---@public
----@return ObjectTooltip.Layout
-function ObjectTooltip:beginLayout() end
+---@return boolean
+function ObjectTooltip:isMeasureOnly() end
 
 ---@public
----@param arg0 UIFont
----@param arg1 String
----@param arg2 double
----@param arg3 double
----@param arg4 double
----@param arg5 double
----@param arg6 double
----@param arg7 double
+---@param value int
+---@param x int
+---@param y int
+---@param highGood boolean
 ---@return void
-function ObjectTooltip:DrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
+function ObjectTooltip:DrawValueRight(value, x, y, highGood) end
 
 ---@public
 ---@param arg0 UIFont
@@ -126,27 +83,28 @@ function ObjectTooltip:DrawTextRight(arg0, arg1, arg2, arg3, arg4, arg5, arg6, a
 ---@return void
 function ObjectTooltip:DrawTextureScaledAspect(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
+---Overrides:
+---
+---render in class UIElement
 ---@public
----@return int
-function ObjectTooltip:getLineSpacing() end
+---@return void
+function ObjectTooltip:render() end
 
 ---@public
----@param arg0 Texture
----@param arg1 double
+---@return IsoGameCharacter
+function ObjectTooltip:getCharacter() end
+
+---@public
+---@param arg0 UIFont
+---@param arg1 String
 ---@param arg2 double
 ---@param arg3 double
 ---@param arg4 double
 ---@param arg5 double
+---@param arg6 double
+---@param arg7 double
 ---@return void
-function ObjectTooltip:DrawTextureScaled(arg0, arg1, arg2, arg3, arg4, arg5) end
-
----@public
----@param value int
----@param x int
----@param y int
----@param highGood boolean
----@return void
-function ObjectTooltip:DrawValueRight(value, x, y, highGood) end
+function ObjectTooltip:DrawTextCentre(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
 
 ---@public
 ---@param arg0 double
@@ -155,31 +113,8 @@ function ObjectTooltip:DrawValueRight(value, x, y, highGood) end
 function ObjectTooltip:onMouseMoveOutside(arg0, arg1) end
 
 ---@public
----@param layout ObjectTooltip.Layout
----@return void
-function ObjectTooltip:endLayout(layout) end
-
----@public
 ---@return Texture
 function ObjectTooltip:getTexture() end
-
----@public
----@return boolean
-function ObjectTooltip:isMeasureOnly() end
-
----Overrides:
----
----render in class UIElement
----@public
----@return void
-function ObjectTooltip:render() end
-
----Overrides:
----
----update in class UIElement
----@public
----@return void
-function ObjectTooltip:update() end
 
 ---@public
 ---@return UIFont
@@ -196,11 +131,76 @@ function ObjectTooltip:setMeasureOnly(arg0) end
 function ObjectTooltip:setCharacter(chr) end
 
 ---@public
+---@param arg0 Texture
+---@param arg1 double
+---@param arg2 double
+---@param arg3 double
+---@param arg4 double
+---@param arg5 double
+---@return void
+function ObjectTooltip:DrawTextureScaled(arg0, arg1, arg2, arg3, arg4, arg5) end
+
+---@public
 ---@param textX int
 ---@param text String
 ---@return void
 function ObjectTooltip:adjustWidth(textX, text) end
 
 ---@public
----@return IsoGameCharacter
-function ObjectTooltip:getCharacter() end
+---@return void
+function ObjectTooltip:hide() end
+
+---@public
+---@param x int
+---@param y int
+---@param w int
+---@param h int
+---@param f float
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+function ObjectTooltip:DrawProgressBar(x, y, w, h, f, r, g, b, a) end
+
+---Overrides:
+---
+---update in class UIElement
+---@public
+---@return void
+function ObjectTooltip:update() end
+
+---@public
+---@return void
+function ObjectTooltip:checkFont() end
+
+---@public
+---@param layout ObjectTooltip.Layout
+---@return void
+function ObjectTooltip:endLayout(layout) end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return Boolean
+function ObjectTooltip:onMouseMove(arg0, arg1) end
+
+---@public
+---@return int
+function ObjectTooltip:getLineSpacing() end
+
+---@public
+---@return ObjectTooltip.Layout
+function ObjectTooltip:beginLayout() end
+
+---@public
+---@param arg0 UIFont
+---@param arg1 String
+---@param arg2 double
+---@param arg3 double
+---@param arg4 double
+---@param arg5 double
+---@param arg6 double
+---@param arg7 double
+---@return void
+function ObjectTooltip:DrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end

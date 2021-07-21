@@ -13,6 +13,9 @@ RainCollectorBarrel.smallWaterMax = 40 * RainCollectorBarrel.waterScale
 RainCollectorBarrel.largeWaterMax = 100 * RainCollectorBarrel.waterScale
 
 function RainCollectorBarrel:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -38,7 +41,7 @@ function RainCollectorBarrel:create(x, y, z, north, sprite)
 --~ 	print("add a barrel at : " .. x .. "," .. y);
 end
 
-function RainCollectorBarrel:new(player, sprite, waterMax)
+function RainCollectorBarrel:new(player, sprite, waterMax, openNailsBox)
 	-- OOP stuff
 	-- we create an item (o), and return it
 	local o = {};
@@ -58,6 +61,11 @@ function RainCollectorBarrel:new(player, sprite, waterMax)
 	o.canBarricade = false;
 	-- the item will block all the square where it placed (not like a wall for example)
 	o.blockAllTheSquare = true;
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

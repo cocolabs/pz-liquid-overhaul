@@ -8,6 +8,12 @@ require "TimedActions/ISBaseTimedAction"
 ISRemoveBush = ISBaseTimedAction:derive("ISRemoveBush")
 
 function ISRemoveBush:isValid()
+	if self.wallVine and not self:getWallVineObject(self.square) then
+		return false
+	end
+	if not self.wallVine and not self:getBushObject(self.square) then
+		return false
+	end
 	return (self.weapon and self.weapon:getCondition() > 0) or not self.weapon;
 end
 
@@ -69,8 +75,19 @@ function ISRemoveBush:animEvent(event, parameter)
 	end
 end
 
+function ISRemoveBush:getBushObject(square)
+	if not square then return nil end
+	for i=1,square:getObjects():size() do
+		local o = square:getObjects():get(i-1)
+		if o:getSprite() and o:getSprite():getProperties() and o:getSprite():getProperties():Is(IsoFlagType.canBeCut) then
+			return o
+		end
+	end
+	return nil
+end
+
 function ISRemoveBush:getWallVineObject(square)
-	if not square then return end
+	if not square then return nil end
 	for i=0,square:getObjects():size()-1 do
 		local object = square:getObjects():get(i);
 		local attached = object:getAttachedAnimSprite()
@@ -84,6 +101,7 @@ function ISRemoveBush:getWallVineObject(square)
 			end
 		end
 	end
+	return nil
 end
 
 function ISRemoveBush:perform()

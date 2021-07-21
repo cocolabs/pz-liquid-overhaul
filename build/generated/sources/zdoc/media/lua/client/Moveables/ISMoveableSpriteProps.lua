@@ -183,7 +183,12 @@ function ISMoveableSpriteProps:instanceItem(_spriteNameOverride)
         if self.customItem then
             item 	= instanceItem(self.customItem);
         else
-            item 	= instanceItem("Moveables.Moveable");
+            if self.isMultiSprite then
+                item 	= instanceItem("Moveables.Moveable");
+            else
+                item 	= instanceItem("Moveables."..self.spriteName);
+            end
+            --item 	= instanceItem("Moveables."..self.spriteName); --instanceItem("Moveables.Moveable");
         end
         local spriteName = _spriteNameOverride or self.spriteName;
         if self.type == "Window" then                                   -- Some corrections
@@ -548,31 +553,14 @@ end
 
 function ISMoveableSpriteProps:getToolString( _itemTypes, _itemNames )
     local toolString = {}
-    if true then
-        for k,v in ipairs(_itemTypes) do
+    local addedNames = {}
+    for k,v in ipairs(_itemTypes) do
+        if not addedNames[_itemNames[v]] then
+            addedNames[_itemNames[v]] = true
             table.insert(toolString, _itemNames[v])
         end
-        return toolString
     end
-    
-    local toolString = {}
-    local str = ""
-    local i = 0;
-    for k,v in ipairs(_itemTypes) do
-        str = str .. _itemNames[v]
-        if i<2 and k<#_itemTypes then
-            str = str..", "
-        end
-        i = i+1
-        if i>=3 then
-            table.insert(toolString, str)
-            i=0
-            str=""
-        end
-    end
-    if str~="" then
-        table.insert(toolString, str)
-    end
+    table.sort(toolString, function(a,b) return not string.sort(a, b) end)
     return toolString
 end
 
@@ -984,6 +972,11 @@ function ISMoveableSpriteProps:pickUpMoveableInternal( _character, _square, _obj
                 else
                     if _object:hasModData() and _object:getModData().movableData then
                         item:getModData().movableData = copyTable(_object:getModData().movableData)
+                    end
+
+                    if _object:hasModData() and _object:getModData().itemCondition then
+                        item:setConditionMax(_object:getModData().itemCondition.max);
+                        item:setCondition(_object:getModData().itemCondition.value);
                     end
                 end
                 if _createItem then
@@ -1760,6 +1753,11 @@ function ISMoveableSpriteProps:placeMoveableInternal( _square, _item, _spriteNam
             obj:getModData().movableData = copyTable(_item:getModData().movableData);
         end
 
+        --fix for radio vehicle parts having condition
+        if obj and _item and _item:getConditionMax()>0 then
+            obj:getModData().itemCondition = { value = _item:getCondition(), max = _item:getConditionMax() };
+        end
+
         if obj and doDestroyAble then
             if instanceof(obj,"IsoThumpable") then
                 obj:setMaxHealth(self:getObjectHealth());
@@ -2302,6 +2300,7 @@ function ISMoveableSpriteProps:scrapWalkToAndEquip( _character )
     end
 end
 
+--[[
 function ISMoveableSpriteProps:addScrapItemToSquare( _square, _item, _max, _chance, _skillMod, _doSizeMod )
     local added = 0;
     if _square and _item and _max and _chance then
@@ -2360,6 +2359,98 @@ function ISMoveableSpriteProps:spawnScrapItems( _square, _scrapDef, _skillChance
     ISInventoryPage.dirtyUI()
     return added;
 end
+--]]
+
+function ISMoveableSpriteProps:getScrapItemsList(_character)
+    local materials = {};
+    local items = { usable = {}, unusable = {} };
+    if self.material then table.insert(materials, self.material); end
+    if self.material2 then table.insert(materials, self.material2); end
+    if self.material3 then table.insert(materials, self.material3); end
+
+    if #materials<=0 then return end
+
+    local scrapDef, chance, addedAmount;
+    for k,mat in ipairs(materials) do
+        scrapDef = ISMoveableDefinitions:getInstance().getScrapDefinition( mat );
+        chance = self:getChanceByDef(scrapDef, _character);
+
+        addedAmount = 0;
+        if scrapDef and chance then
+            if scrapDef.returnItems and #scrapDef.returnItems > 0 then
+                for i,v in ipairs(scrapDef.returnItems) do
+                    addedAmount = addedAmount + self:addScrapItemToList( items.usable, v.returnItem, v.maxAmount, v.chancePerRoll, chance, true );
+                end
+            end
+            if scrapDef.returnItemsStatic and #scrapDef.returnItemsStatic > 0 then
+                for i,v in ipairs(scrapDef.returnItemsStatic) do
+                    addedAmount = addedAmount + self:addScrapItemToList( items.usable, v.returnItem, v.maxAmount, v.chancePerRoll, chance, false );
+                end
+            end
+
+            if addedAmount == 0 and scrapDef.unusableItem then
+                local rolls = ZombRand(1,3);
+                for i = 1,rolls do
+                    table.insert(items.unusable, scrapDef.unusableItem);
+                end
+            end
+        end
+    end
+
+    return items;
+end
+
+function ISMoveableSpriteProps:addScrapItemToList( _list, _item, _max, _chance, _skillMod, _doSizeMod )
+    local added = 0;
+    if _item and _max and _chance then
+        if _skillMod and _skillMod > 0 and _skillMod <= 100 then
+            _chance = (_chance/100)*_skillMod;
+        end
+        local amount = _max; --ZombRand(0,_max+1);
+        if _doSizeMod then
+            if self.scrapSize == "Small" then
+                amount = amount/2 >= 1 and amount/2 or 1;
+            elseif self.scrapSize == "Large" then
+                amount = amount*2;
+            end
+        end
+        if amount > 0 then
+            for i = 1, amount do
+                local randNum = ZombRandFloat(0,101);
+                if randNum < _chance then
+                    table.insert( _list, _item );
+                    added = added +1;
+                end
+            end
+        end
+    end
+    return added;
+end
+
+function ISMoveableSpriteProps:addAllScrapItemsToSquare( _square, _list )
+    local added = 0;
+    for k,v in ipairs(_list.usable) do
+        local item 	= instanceItem( v );
+        if item then
+            if self.keyId and self.keyId ~= -1 then
+                if item:getType() == "Doorknob" then
+                    item:setKeyId(self.keyId)
+                end
+            end
+            _square:AddWorldInventoryItem(item, ZombRandFloat(0.1,0.9), ZombRandFloat(0.1,0.9), 0);
+            added = added +1;
+        end
+    end
+    for k,v in ipairs(_list.unusable) do
+        local item 	= instanceItem( v );
+        if item then
+            _square:AddWorldInventoryItem(item, ZombRandFloat(0.1,0.9), ZombRandFloat(0.1,0.9), 0);
+            --added = added +1; unusable not counted for this
+        end
+    end
+    ISInventoryPage.dirtyUI();
+    return added;
+end
 
 function ISMoveableSpriteProps:scrapObject(_character)
     local added = 0;
@@ -2387,8 +2478,20 @@ function ISMoveableSpriteProps:scrapObject(_character)
         end
     end
 
+    --[[
     if added == 0 then
         _character:setHaloNote(getText("IGUI_Moveable_Fail"), 255,255,255,300);
+    end
+    --]]
+    self:scrapHaloNoteCheck(_character, added)
+end
+
+-- also used in recipecode.lua
+function ISMoveableSpriteProps:scrapHaloNoteCheck(_character, _itemsAdded)
+    if _character then
+        if _itemsAdded == 0 then
+            _character:setHaloNote(getText("IGUI_Moveable_Fail"), 255,255,255,300);
+        end
     end
 end
 
@@ -2450,7 +2553,8 @@ function ISMoveableSpriteProps:scrapObjectInternal( _character, _scrapDef, _squa
             end
         end
 
-        added = added + self:spawnScrapItems( square, scrapDef, chance );
+        --added = added + self:spawnScrapItems( square, scrapDef, chance );
+        --[[
         -- give XP
         local multiplier = 1;
         if self.scrapSize == "Medium" then
@@ -2459,7 +2563,14 @@ function ISMoveableSpriteProps:scrapObjectInternal( _character, _scrapDef, _squa
             multiplier = 3;
         end
         _character:getXp():AddXP(scrapDef.perk, 5 * multiplier)
+        --]]
+        local items = self:getScrapItemsList(_character);
 
+        added = self:addAllScrapItemsToSquare( _square, items );
+
+        self:scrapGiveXp(_character, scrapDef);
+
+        --[[
         if self.material2 then
             scrapDef = ISMoveableDefinitions:getInstance().getScrapDefinition( self.material2 );
             chance = self:getChanceByDef(scrapDef, _character);
@@ -2474,8 +2585,27 @@ function ISMoveableSpriteProps:scrapObjectInternal( _character, _scrapDef, _squa
                 added = added + self:spawnScrapItems( square, scrapDef, chance );
             end
         end
+        --]]
     end
     return added;
+end
+
+-- also used in recipecode.lua
+function ISMoveableSpriteProps:scrapGiveXp(_character, _scrapDef)
+    if not _scrapDef then
+        _scrapDef = ISMoveableDefinitions:getInstance().getScrapDefinition( self.material );
+    end
+
+    if _character and _scrapDef then
+        -- give XP
+        local multiplier = 1;
+        if self.scrapSize == "Medium" then
+            multiplier = 2;
+        elseif self.scrapSize == "Large" then
+            multiplier = 3;
+        end
+        _character:getXp():AddXP(_scrapDef.perk, 5 * multiplier)
+    end
 end
 
 function ISMoveableSpriteProps:getChanceByDef(scrapDef, chr)
@@ -2809,4 +2939,79 @@ function ISThumpableSpriteProps:canScrapObject(playerObj)
     end
     return result, chance, perkName
 end
+
+--[[
+-- Function that hooks to the creation dynamic recipes for movable inventory items
+--]]
+
+function ISMoveableSpriteProps.OnDynamicMovableRecipe(_sprite, _recipe, _item, _player)
+    local props = ISMoveableSpriteProps.new( _sprite );
+    --print("can scrap = "..tostring(props.canScrap))
+    --print("item = "..tostring(_item:getFullType()));
+    --[[
+    props.scrapToolUses
+    --]]
+    if props.canScrap and (not props.isMultiSprite) and props.material then
+        local scrapDef = ISMoveableDefinitions:getInstance().getScrapDefinition( props.material );
+
+        --_recipe:setSource(_item:getFullType());
+        _recipe:setTime( props:getScrapActionTime( _player ) );
+
+        local tools = "";
+        if scrapDef.tools and #scrapDef.tools>0 then
+            for k,v in ipairs(scrapDef.tools) do
+                tools = tools..v;
+                if k<#scrapDef.tools then
+                    tools = tools.."/";
+                end
+            end
+            --print("tools = "..tools);
+            _recipe:setTool(tools, true);
+        end
+
+        if scrapDef.tools2 and #scrapDef.tools2>0 then
+            tools = "";
+            for k,v in ipairs(scrapDef.tools2) do
+                tools = tools..v;
+                if k<#scrapDef.tools2 then
+                    tools = tools.."/";
+                end
+            end
+            --print("tools2 = "..tools);
+            _recipe:setTool(tools, false);
+        end
+
+        _recipe:setSource(_item:getFullType());
+
+        local items = scrapDef.returnItemsStatic or {}; --scrapDef.returnItems; --ISMoveableDefinitions:getInstance().getScrapItems( props.material );
+        if (not items) or #items<1 then
+            items = scrapDef.returnItems;
+        end
+
+        if items and #items>0 and items[1].returnItem then
+            --print("return item = "..tostring(items[1].returnItem))
+            _recipe:setResult(items[1].returnItem, 1);
+
+            if _recipe:getResult():getModule() then
+                local name = getText("IGUI_Scrap") .. " " .. _item:getDisplayName();
+                _recipe:setName(name);
+                _recipe:setWorldSprite(_item:getWorldSprite());
+                if scrapDef.perk then
+                    _recipe:setXpPerk(scrapDef.perk);
+                end
+
+                _recipe:setOnCreate("Recipe.OnCreate.DynamicMovable");
+                _recipe:setOnXP("Recipe.OnGiveXP.DynamicMovable");
+
+                --fixme, currently setting screwdriver as default prop, might leave it like that as there are many variations in tools and objects being dismantled?
+                _recipe:setProp1("Screwdriver");
+
+                --print("recipe is correct")
+                _recipe:setValid(true);
+            end
+        end
+    end
+end
+
+Events.OnDynamicMovableRecipe.Add(ISMoveableSpriteProps.OnDynamicMovableRecipe);
 

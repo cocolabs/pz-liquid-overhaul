@@ -1128,8 +1128,7 @@ end
 function SandboxOptionsScreen:onLoseJoypadFocus(joypadData)
     ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
     self.playButton.isJoypad = false
-    self.ISButtonB = nil
-    self.backButton.isJoypad = false
+    self.backButton:clearJoypadButton()
     self.ISButtonY = nil
 end
 

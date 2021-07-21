@@ -5,13 +5,13 @@
 Fixing_Fixer = {}
 
 ---@public
----@return LinkedList|Fixing.FixerSkill
-function Fixing_Fixer:getFixerSkills() end
-
----@public
 ---@return int
 function Fixing_Fixer:getNumberOfUse() end
 
 ---@public
 ---@return String
 function Fixing_Fixer:getFixerName() end
+
+---@public
+---@return LinkedList|Fixing.FixerSkill
+function Fixing_Fixer:getFixerSkills() end

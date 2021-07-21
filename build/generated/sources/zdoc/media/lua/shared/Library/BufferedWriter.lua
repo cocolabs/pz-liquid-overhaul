@@ -4,22 +4,14 @@
 ---@field private nChars int
 ---@field private nextChar int
 ---@field private defaultCharBufferSize int
----@field private lineSeparator String
 BufferedWriter = {}
 
 ---@public
 ---@param arg0 int
 ---@return void
----@overload fun(arg0:String, arg1:int, arg2:int)
 ---@overload fun(arg0:char[], arg1:int, arg2:int)
+---@overload fun(arg0:String, arg1:int, arg2:int)
 function BufferedWriter:write(arg0) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@return void
-function BufferedWriter:write(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 char[]
@@ -28,9 +20,12 @@ function BufferedWriter:write(arg0, arg1, arg2) end
 ---@return void
 function BufferedWriter:write(arg0, arg1, arg2) end
 
----@private
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
 ---@return void
-function BufferedWriter:ensureOpen() end
+function BufferedWriter:write(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 int
@@ -38,12 +33,16 @@ function BufferedWriter:ensureOpen() end
 ---@return int
 function BufferedWriter:min(arg0, arg1) end
 
----@public
----@return void
-function BufferedWriter:flush() end
-
 ---@return void
 function BufferedWriter:flushBuffer() end
+
+---@public
+---@return void
+function BufferedWriter:close() end
+
+---@private
+---@return void
+function BufferedWriter:ensureOpen() end
 
 ---@public
 ---@return void
@@ -51,4 +50,4 @@ function BufferedWriter:newLine() end
 
 ---@public
 ---@return void
-function BufferedWriter:close() end
+function BufferedWriter:flush() end

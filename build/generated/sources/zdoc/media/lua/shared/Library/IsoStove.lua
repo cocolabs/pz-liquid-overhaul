@@ -12,12 +12,105 @@
 ---@field private hasMetal boolean
 IsoStove = {}
 
+---@public
+---@param arg0 boolean
+---@param arg1 boolean
+---@return void
+function IsoStove:syncSpriteGridObjects(arg0, arg1) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function IsoStove:setBroken(arg0) end
+
+---@private
+---@return void
+function IsoStove:doOverlay() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoStove:save(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBufferWriter
+---@return void
+function IsoStove:syncIsoObjectSend(arg0) end
+
 ---Specified by:
 ---
----Activated in interface Activatable
+---getActivatableType in interface Activatable
+---@public
+---@return String
+function IsoStove:getActivatableType() end
+
+---@private
+---@return void
+function IsoStove:doSound() end
+
+---@public
+---@return int
+function IsoStove:getTimer() end
+
+---@public
+---@param arg0 boolean
+---@param arg1 byte
+---@param arg2 UdpConnection
+---@param arg3 ByteBuffer
+---@return void
+function IsoStove:syncIsoObject(arg0, arg1, arg2, arg3) end
+
 ---@public
 ---@return boolean
-function IsoStove:Activated() end
+function IsoStove:isBroken() end
+
+---Overrides:
+---
+---getObjectName in class IsoObject
+---@public
+---@return String
+function IsoStove:getObjectName() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoStove:load(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function IsoStove:isTemperatureChanging() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function IsoStove:setActivated(arg0) end
+
+---@public
+---@return float
+function IsoStove:getCurrentTemperature() end
+
+---@public
+---@return float
+function IsoStove:getMaxTemperature() end
+
+---@public
+---@return int
+function IsoStove:isRunningFor() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoStove:setTimer(arg0) end
+
+---Overrides:
+---
+---addToWorld in class IsoObject
+---@public
+---@return void
+function IsoStove:addToWorld() end
 
 ---Turn on or off the stove, if no electricity it won't work
 ---
@@ -28,127 +121,26 @@ function IsoStove:Activated() end
 ---@return void
 function IsoStove:Toggle() end
 
+---@private
+---@return boolean
+function IsoStove:hasMetal() end
+
 ---@public
 ---@return void
-function IsoStove:update() end
+function IsoStove:sync() end
 
----@public
----@return float
-function IsoStove:getMaxTemperature() end
-
----Overrides:
+---Specified by:
 ---
----getObjectName in class IsoObject
+---Activated in interface Activatable
 ---@public
----@return String
-function IsoStove:getObjectName() end
+---@return boolean
+function IsoStove:Activated() end
 
 ---@public
 ---@param arg0 float
 ---@return void
 function IsoStove:setMaxTemperature(arg0) end
 
----@private
----@return void
-function IsoStove:doSound() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoStove:load(input, WorldVersion) end
-
----@private
----@return void
-function IsoStove:doOverlay() end
-
----@private
----@return boolean
-function IsoStove:hasMetal() end
-
----@public
----@param arg0 boolean
----@return void
-function IsoStove:setBroken(arg0) end
-
----Specified by:
----
----getActivatableType in interface Activatable
----@public
----@return String
-function IsoStove:getActivatableType() end
-
 ---@public
 ---@return void
-function IsoStove:sync() end
-
----@public
----@return boolean
-function IsoStove:isTemperatureChanging() end
-
----@public
----@param arg0 int
----@return void
-function IsoStove:setTimer(arg0) end
-
----@public
----@param arg0 boolean
----@param arg1 boolean
----@return void
-function IsoStove:syncSpriteGridObjects(arg0, arg1) end
-
----@public
----@return int
-function IsoStove:getTimer() end
-
----@public
----@return int
-function IsoStove:isRunningFor() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoObject
----@public
----@param output ByteBuffer
----@return void
-function IsoStove:save(output) end
-
----Overrides:
----
----addToWorld in class IsoObject
----@public
----@return void
-function IsoStove:addToWorld() end
-
----@public
----@param arg0 boolean
----@return void
-function IsoStove:setActivated(arg0) end
-
----@public
----@param arg0 ByteBufferWriter
----@return void
-function IsoStove:syncIsoObjectSend(arg0) end
-
----@public
----@return float
-function IsoStove:getCurrentTemperature() end
-
----@public
----@return boolean
-function IsoStove:isBroken() end
-
----@public
----@param arg0 boolean
----@param arg1 byte
----@param arg2 UdpConnection
----@param arg3 ByteBuffer
----@return void
-function IsoStove:syncIsoObject(arg0, arg1, arg2, arg3) end
+function IsoStove:update() end

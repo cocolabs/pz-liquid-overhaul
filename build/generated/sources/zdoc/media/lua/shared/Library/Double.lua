@@ -15,62 +15,6 @@
 Double = {}
 
 ---@public
----@param arg0 double
----@return boolean
-function Double:isFinite(arg0) end
-
----@public
----@param arg0 double
----@return long
-function Double:doubleToLongBits(arg0) end
-
----@public
----@param arg0 double
----@return Double
----@overload fun(arg0:String)
-function Double:valueOf(arg0) end
-
----@public
----@param arg0 String
----@return Double
-function Double:valueOf(arg0) end
-
----@public
----@param arg0 double
----@return String
-function Double:toHexString(arg0) end
-
----@public
----@param arg0 Object
----@return boolean
-function Double:equals(arg0) end
-
----@public
----@param arg0 double
----@param arg1 double
----@return double
-function Double:min(arg0, arg1) end
-
----@public
----@return String
----@overload fun(arg0:double)
-function Double:toString() end
-
----@public
----@param arg0 double
----@return String
-function Double:toString(arg0) end
-
----@public
----@return short
-function Double:shortValue() end
-
----@public
----@param arg0 long
----@return double
-function Double:longBitsToDouble(arg0) end
-
----@public
 ---@return boolean
 ---@overload fun(arg0:double)
 function Double:isInfinite() end
@@ -81,9 +25,18 @@ function Double:isInfinite() end
 function Double:isInfinite(arg0) end
 
 ---@public
----@param arg0 String
 ---@return double
-function Double:parseDouble(arg0) end
+function Double:doubleValue() end
+
+---@public
+---@return float
+function Double:floatValue() end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return double
+function Double:sum(arg0, arg1) end
 
 ---@public
 ---@param arg0 double
@@ -92,14 +45,32 @@ function Double:parseDouble(arg0) end
 function Double:compare(arg0, arg1) end
 
 ---@public
----@return boolean
----@overload fun(arg0:double)
-function Double:isNaN() end
+---@return long
+function Double:longValue() end
+
+---@public
+---@return int
+function Double:intValue() end
+
+---@public
+---@param arg0 MethodHandles.Lookup
+---@return Double
+function Double:resolveConstantDesc(arg0) end
 
 ---@public
 ---@param arg0 double
----@return boolean
-function Double:isNaN(arg0) end
+---@return long
+function Double:doubleToRawLongBits(arg0) end
+
+---@public
+---@return byte
+function Double:byteValue() end
+
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return double
+function Double:min(arg0, arg1) end
 
 ---@public
 ---@return int
@@ -112,43 +83,81 @@ function Double:hashCode() end
 function Double:hashCode(arg0) end
 
 ---@public
+---@return String
+---@overload fun(arg0:double)
+function Double:toString() end
+
+---@public
+---@param arg0 double
+---@return String
+function Double:toString(arg0) end
+
+---@public
+---@return boolean
+---@overload fun(arg0:double)
+function Double:isNaN() end
+
+---@public
+---@param arg0 double
+---@return boolean
+function Double:isNaN(arg0) end
+
+---@public
+---@param arg0 Double
+---@return int
+function Double:compareTo(arg0) end
+
+---@public
+---@param arg0 Object
+---@return boolean
+function Double:equals(arg0) end
+
+---@public
+---@param arg0 double
+---@return long
+function Double:doubleToLongBits(arg0) end
+
+---@public
+---@return short
+function Double:shortValue() end
+
+---@public
+---@param arg0 String
+---@return Double
+---@overload fun(arg0:double)
+function Double:valueOf(arg0) end
+
+---@public
+---@param arg0 double
+---@return Double
+function Double:valueOf(arg0) end
+
+---@public
+---@param arg0 String
+---@return double
+function Double:parseDouble(arg0) end
+
+---@public
 ---@param arg0 double
 ---@param arg1 double
 ---@return double
 function Double:max(arg0, arg1) end
 
 ---@public
----@param arg0 double
----@param arg1 double
+---@return Optional|Unknown
+function Double:describeConstable() end
+
+---@public
+---@param arg0 long
 ---@return double
-function Double:sum(arg0, arg1) end
-
----@public
----@return long
-function Double:longValue() end
-
----@public
----@return double
-function Double:doubleValue() end
-
----@public
----@return float
-function Double:floatValue() end
+function Double:longBitsToDouble(arg0) end
 
 ---@public
 ---@param arg0 double
----@return long
-function Double:doubleToRawLongBits(arg0) end
+---@return String
+function Double:toHexString(arg0) end
 
 ---@public
----@return byte
-function Double:byteValue() end
-
----@public
----@return int
-function Double:intValue() end
-
----@public
----@param arg0 Double
----@return int
-function Double:compareTo(arg0) end
+---@param arg0 double
+---@return boolean
+function Double:isFinite(arg0) end

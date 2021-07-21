@@ -18,7 +18,7 @@ local Section = ISSectionedPanel_Section
 function Section:createChildren()
 	self.headerButton = ISButton:new(0, 0, self.width, FONT_HGT_SMALL, self.title, self, self.onHeaderClick)
 	self.headerButton:setFont(UIFont.Small)
-	self.headerButton.backgroundColor = {r=0, g=0, b=0, a=0.0}
+	self.headerButton.backgroundColor = {r=0.44, g=0.57, b=0.75, a=0.5}
 	self.headerButton.backgroundColorMouseOver = {r=1.0, g=1.0, b=1.0, a=0.1}
 	self.headerButton.borderColor = {r=1.0, g=1.0, b=1.0, a=0.3}
 	self:addChild(self.headerButton)
@@ -134,6 +134,12 @@ function ISSectionedPanel:render()
 end
 
 function ISSectionedPanel:onMouseWheel(del)
+	for _,section in ipairs(self.sections) do
+		if section.panel:isMouseOver() and section.panel:isVScrollBarVisible() then
+			return false
+		end
+	end
+
 	self:setYScroll(self:getYScroll() - (del*40))
     return true
 end

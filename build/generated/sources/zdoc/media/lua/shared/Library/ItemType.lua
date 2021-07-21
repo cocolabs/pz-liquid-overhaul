@@ -13,22 +13,6 @@
 ---@field private index int
 ItemType = {}
 
----@public
----@return int
-function ItemType:index() end
-
----Returns the enum constant of this type with the specified name.
----
----The string must match exactly an identifier used to declare an
----
----enum constant in this type.  (Extraneous whitespace characters are
----
----not permitted.)
----@public
----@param name String @the name of the enum constant to be returned.
----@return ItemType @the enum constant with the specified name
-function ItemType:valueOf(name) end
-
 ---Returns an array containing the constants of this enum type, in
 ---
 ---the order they are declared.  This method may be used to iterate
@@ -47,6 +31,22 @@ function ItemType:valueOf(name) end
 function ItemType:values() end
 
 ---@public
+---@return int
+function ItemType:index() end
+
+---@public
 ---@param arg0 int
 ---@return ItemType
 function ItemType:fromIndex(arg0) end
+
+---Returns the enum constant of this type with the specified name.
+---
+---The string must match exactly an identifier used to declare an
+---
+---enum constant in this type.  (Extraneous whitespace characters are
+---
+---not permitted.)
+---@public
+---@param name String @the name of the enum constant to be returned.
+---@return ItemType @the enum constant with the specified name
+function ItemType:valueOf(name) end

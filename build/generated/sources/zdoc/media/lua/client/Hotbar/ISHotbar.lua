@@ -16,7 +16,7 @@ local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 --************************************************************************--
 
 function ISHotbar:render()
-	if JoypadState.players[self.playerNum+1] then
+	if (self.playerNum > 0) or JoypadState.players[self.playerNum+1] then
 		self:setVisible(false);
 		-- Don't remove this from the screen, we need update() to call refresh().
 --		self:removeFromUIManager();
@@ -61,13 +61,13 @@ function ISHotbar:render()
 			local tex = item:getTexture()
 			self:drawTexture(tex, slotX + (tex:getWidth() / 2), (self.height - tex:getHeight()) / 2, 1, 1, 1, 1)
 			
-			local n = math.floor(((item:getCondition() / item:getConditionMax()) * 5));
+			--local n = math.floor(((item:getCondition() / item:getConditionMax()) * 5));
 			
-			if(item:getCondition() > 0 and n == 0) then
-				n = 1;
-			end
+			--if(item:getCondition() > 0 and n == 0) then
+			--	n = 1;
+			--end
 			
-			self:drawTexture(self.qualityStars[n], slotX + self.slotWidth - 15, self.margins + 3,1,1,1,1);
+			--self:drawTexture(self.qualityStars[n], slotX + self.slotWidth - 15, self.margins + 3,1,1,1,1);
 
 			if item:isEquipped() then
 				tex = self.equippedItemIcon
@@ -791,13 +791,13 @@ function ISHotbar:new(character)
 	o.font = UIFont.Small;
 	o.needsRefresh = false
 	o:refresh();
-	o.qualityStars = {};
-	o.qualityStars[0] = getTexture("media/ui/QualityStar_0.png");
-	o.qualityStars[1] = getTexture("media/ui/QualityStar_1.png");
-	o.qualityStars[2] = getTexture("media/ui/QualityStar_2.png");
-	o.qualityStars[3] = getTexture("media/ui/QualityStar_3.png");
-	o.qualityStars[4] = getTexture("media/ui/QualityStar_4.png");
-	o.qualityStars[5] = getTexture("media/ui/QualityStar_5.png");
+	--o.qualityStars = {};
+	--o.qualityStars[0] = getTexture("media/ui/QualityStar_0.png");
+	--o.qualityStars[1] = getTexture("media/ui/QualityStar_1.png");
+	--o.qualityStars[2] = getTexture("media/ui/QualityStar_2.png");
+	--o.qualityStars[3] = getTexture("media/ui/QualityStar_3.png");
+	--o.qualityStars[4] = getTexture("media/ui/QualityStar_4.png");
+	--o.qualityStars[5] = getTexture("media/ui/QualityStar_5.png");
 	o.equippedItemIcon = getTexture("media/ui/icon.png");
 	return o;
 end

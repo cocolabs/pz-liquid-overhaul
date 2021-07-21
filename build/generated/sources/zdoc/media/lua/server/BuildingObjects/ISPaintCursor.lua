@@ -181,23 +181,27 @@ function ISPaintCursor:getAPrompt()
 		if self.action == "paintThump" then return getText("ContextMenu_Paint") end
 		if self.action == "plaster" then return getText("ContextMenu_Plaster") end
 	end
+	return nil
 end
 
 function ISPaintCursor:getLBPrompt()
 	if #self:getObjectList() > 1 then
 		return "Previous Object"
 	end
+	return nil
 end
 
 function ISPaintCursor:getRBPrompt()
 	if #self:getObjectList() > 1 then
 		return "Next Object"
 	end
+	return nil
 end
 
 function ISPaintCursor:canPaint(object)
 	if not object or not object:getSquare() or not object:getSprite() then return false end
 	if not object:getSquare():isCouldSee(self.player) then return false end
+	if not self:hasItems() then return false end
 	local props = object:getProperties()
 	if self.action == "paintSign" then
 		if props:Is("WallN") or props:Is("WallW") then
@@ -225,6 +229,27 @@ function ISPaintCursor:canPaint(object)
 		end
 	end
 	return false
+end
+
+function ISPaintCursor:hasItems()
+	local playerObj = self.character
+	local playerInv = playerObj:getInventory()
+	if self.action == "paintSign" or self.action == "paintThump" then
+		if not ISBuildMenu.cheat then
+			local paintBrush = playerInv:getFirstTypeRecurse("Paintbrush")
+			local paintCan = playerInv:getFirstTypeRecurse(self.args.paintType)
+			return paintBrush ~= nil and paintCan ~= nil
+		end
+		return true
+	end
+	if self.action == "plaster" then
+		if not ISBuildMenu.cheat then
+			local plaster = playerInv:getFirstTypeRecurse("BucketPlasterFull")
+			return plaster ~= nil
+		end
+		return true
+	end
+	error "unhandled action in ISPaintCursor:hasItems()"
 end
 
 function ISPaintCursor:getObjectList()

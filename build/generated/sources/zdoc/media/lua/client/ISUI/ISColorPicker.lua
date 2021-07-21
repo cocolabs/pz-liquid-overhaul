@@ -20,6 +20,11 @@ function ISColorPicker:render()
 	local col = (self.index-1) % self.columns
 	local row = math.floor((self.index-1) / self.columns)
 	self:drawRectBorder(self.borderSize + col * self.buttonSize, self.borderSize + row * self.buttonSize, self.buttonSize + 1, self.buttonSize + 1, 1.0, 1.0, 1.0, 1.0)
+
+	if self.joyfocus then
+		self:drawRectBorder(0, -self:getYScroll(), self:getWidth(), self:getHeight(), 0.4, 0.2, 1.0, 1.0);
+		self:drawRectBorder(1, 1-self:getYScroll(), self:getWidth()-2, self:getHeight()-2, 0.4, 0.2, 1.0, 1.0);
+	end
 end
 
 function ISColorPicker:onMouseDown(x, y)

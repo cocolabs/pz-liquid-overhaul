@@ -114,7 +114,7 @@ end
 function Vehicles.Create.Door(vehicle, part)
 	local item = VehicleUtils.createPartInventoryItem(part);
 	if SandboxVars.VehicleEasyUse then
-		part:getDoor():setOpen(true);
+		part:getDoor():setOpen(false);
 		part:getDoor():setLocked(false);
 		part:getDoor():setLockBroken(false);
 		return;
@@ -158,7 +158,7 @@ end
 function Vehicles.Create.TrunkDoor(vehicle, part)
 	local item = VehicleUtils.createPartInventoryItem(part)
 	if SandboxVars.VehicleEasyUse then
-		part:getDoor():setOpen(true)
+		part:getDoor():setOpen(false)
 		part:getDoor():setLocked(false)
 		part:getDoor():setLockBroken(false)
 		return
@@ -315,20 +315,15 @@ function Vehicles.Create.Window(vehicle, part)
 end
 
 function Vehicles.Init.Door(vehicle, part)
-	if part:getInventoryItem() then
-		part:setModelVisible("Default", true)
-	end
 end
 
 function Vehicles.Init.Headlight(vehicle, part)
-	part:setModelVisible("test", true)
 end
 
 function Vehicles.Init.Tire(vehicle, part)
-	if part:getInventoryItem() then
-		part:setModelVisible("InflatedTirePlusWheel", true)
-		part:setModelVisible("test", true)
-	end
+end
+
+function Vehicles.Init.Window(vehicle, part)
 end
 
 function Vehicles.Update.EngineDoor(vehicle, part, elapsedMinutes)
@@ -822,7 +817,6 @@ function Vehicles.InstallComplete.Door(vehicle, part)
 	if not item then return end
 	part:getDoor():setLocked(false)
 	part:getDoor():setLockBroken(item:getModData().lockBroken or false)
-	part:setModelVisible("Default", true)
 	vehicle:transmitPartDoor(part)
 	vehicle:doDamageOverlay()
 end
@@ -830,7 +824,6 @@ end
 function Vehicles.UninstallComplete.Door(vehicle, part, item)
 	if not item then return end
 	item:getModData().lockBroken = part:getDoor():isLockBroken()
-	part:setModelVisible("Default", false)
 	vehicle:transmitPartDoor(part)
 	vehicle:doDamageOverlay()
 end
@@ -838,13 +831,11 @@ end
 function Vehicles.InstallComplete.Tire(vehicle, part)
 	local wheelIndex = part:getWheelIndex()
 	vehicle:setTireRemoved(wheelIndex, false)
-	part:setModelVisible("InflatedTirePlusWheel", true)
 end
 
 function Vehicles.UninstallComplete.Tire(vehicle, part, item)
 	local wheelIndex = part:getWheelIndex()
 	vehicle:setTireRemoved(wheelIndex, true)
-	part:setModelVisible("InflatedTirePlusWheel", false)
 end
 
 function Vehicles.InstallComplete.Window(vehicle, part)
@@ -887,6 +878,15 @@ function VehicleUtils.getItems(playerNum)
 			if item:getCondition() > 0 then
 				typeToItem[item:getFullType()] = typeToItem[item:getFullType()] or {}
 				table.insert(typeToItem[item:getFullType()], item)
+				-- This isn't needed for Radios any longer.  There was a bug setting
+				-- the item type to Radio.worldSprite, but that no longer happens.
+				if instanceof(item, "Moveable") and item:getWorldSprite() then
+					local fullType = item:getScriptItem():getFullName()
+					if fullType ~= item:getFullType() then
+						typeToItem[fullType] = typeToItem[fullType] or {}
+						table.insert(typeToItem[fullType], item)
+					end
+				end
 			end
 		end
 	end
@@ -957,7 +957,7 @@ function VehicleUtils.createPartInventoryItem(part)
 			-- we random the part quality depending on the engine quality
 			if not itemType then
 				for i=0, part:getItemType():size() - 1 do
-					if ZombRand(100) > v:getEngineQuality() or i == part:getItemType():size() - 1 then
+					if ZombRand(100) > (100 - (100/part:getItemType():size())) or i == part:getItemType():size() - 1 then
 						itemType = part:getItemType():get(i);
 						-- removed old brake
 						itemType = itemType:gsub("Base.OldBrake", "Base.NormalBrake");
@@ -1081,7 +1081,6 @@ function VehicleUtils.RemoveTire(part, explosion)
 	part:setInventoryItem(nil);
 	part:getVehicle():transmitPartItem(part);
 	part:setModelVisible("InflatedTirePlusWheel", false);
-	
 	part:getVehicle():setTireRemoved(part:getWheelIndex(), true);
 	if explosion then
 		part:getVehicle():playSound("VehicleTireExplode");

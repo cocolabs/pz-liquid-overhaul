@@ -31,6 +31,8 @@
 ---@field public IsoRegion DebugLogStream
 ---@field public UnitTests DebugLogStream
 ---@field public FileIO DebugLogStream
+---@field public Multiplayer DebugLogStream
+---@field public Statistic DebugLogStream
 ---@field public VERSION int
 DebugLog = {}
 
@@ -184,60 +186,29 @@ function DebugLog:formatString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, a
 function DebugLog:createDebugLogStream(arg0) end
 
 ---@public
----@param arg0 DebugType
----@param arg1 LogSeverity
----@param arg2 String
----@param arg3 Object
----@param arg4 String
----@param arg5 Object[]
----@return String
-function DebugLog:formatStringVarArgs(arg0, arg1, arg2, arg3, arg4, arg5) end
-
----@public
----@param arg0 DebugType
 ---@return void
-function DebugLog:enableLog(arg0) end
-
----@public
----@return void
-function DebugLog:load() end
-
----@public
----@param arg0 DebugType
----@return void
-function DebugLog:disableLog(arg0) end
-
----@public
----@param arg0 DebugType
----@return boolean
-function DebugLog:isEnabled(arg0) end
+function DebugLog:save() end
 
 ---@public
 ---@return void
 function DebugLog:init() end
 
 ---@public
----@param arg0 DebugType
----@param arg1 boolean
----@return void
-function DebugLog:setLogEnabled(arg0, arg1) end
-
----@public
 ---@param arg0 OutputStream
 ---@return void
-function DebugLog:setStdErr(arg0) end
-
----@public
----@param str String
----@return void
----@overload fun(o:Object)
----@overload fun(type:DebugType, str:String)
-function DebugLog:log(str) end
+function DebugLog:setStdOut(arg0) end
 
 ---@public
 ---@param o Object
 ---@return void
+---@overload fun(str:String)
+---@overload fun(type:DebugType, str:String)
 function DebugLog:log(o) end
+
+---@public
+---@param str String
+---@return void
+function DebugLog:log(str) end
 
 ---@public
 ---@param type DebugType
@@ -246,13 +217,14 @@ function DebugLog:log(o) end
 function DebugLog:log(type, str) end
 
 ---@public
----@return void
-function DebugLog:save() end
+---@param arg0 DebugType
+---@return boolean
+function DebugLog:isEnabled(arg0) end
 
 ---@public
----@param arg0 OutputStream
+---@param arg0 DebugType
 ---@return void
-function DebugLog:setStdOut(arg0) end
+function DebugLog:disableLog(arg0) end
 
 ---@public
 ---@param arg0 LogSeverity
@@ -260,11 +232,41 @@ function DebugLog:setStdOut(arg0) end
 ---@return boolean
 function DebugLog:isLogEnabled(arg0, arg1) end
 
+---@public
+---@return ArrayList|Unknown
+function DebugLog:getDebugTypes() end
+
+---@public
+---@param arg0 DebugType
+---@return void
+function DebugLog:enableLog(arg0) end
+
+---@public
+---@param arg0 OutputStream
+---@return void
+function DebugLog:setStdErr(arg0) end
+
+---@public
+---@return void
+function DebugLog:load() end
+
+---@public
+---@param arg0 DebugType
+---@param arg1 boolean
+---@return void
+function DebugLog:setLogEnabled(arg0, arg1) end
+
 ---@private
 ---@param arg0 String
 ---@return void
 function DebugLog:echoToLogFile(arg0) end
 
 ---@public
----@return ArrayList|Unknown
-function DebugLog:getDebugTypes() end
+---@param arg0 DebugType
+---@param arg1 LogSeverity
+---@param arg2 String
+---@param arg3 Object
+---@param arg4 String
+---@param arg5 Object[]
+---@return String
+function DebugLog:formatStringVarArgs(arg0, arg1, arg2, arg3, arg4, arg5) end

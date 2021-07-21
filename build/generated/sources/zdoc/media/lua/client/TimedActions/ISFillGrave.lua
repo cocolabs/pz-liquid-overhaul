@@ -79,6 +79,7 @@ function ISFillGrave:new(character, graves, time, shovel)
 	o.stopOnWalk = true
 	o.stopOnRun = true
 	o.maxTime = time
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
     o.caloriesModifier = 5;
 	return o
 end

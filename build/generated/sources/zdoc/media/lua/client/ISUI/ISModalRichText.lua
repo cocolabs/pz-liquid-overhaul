@@ -83,6 +83,9 @@ function ISModalRichText:destroy()
 	end
 	if self.player and JoypadState.players[self.player+1] then
 		setJoypadFocus(self.player, nil);
+	elseif self.joyfocus and self.joyfocus.focus == self then
+		self.joyfocus.focus = self.prevFocus
+		updateJoypadFocus(self.joyfocus)
 	end
 end
 
@@ -114,6 +117,16 @@ function ISModalRichText:onGainJoypadFocus(joypadData)
 	else
 		self:setISButtonForA(self.ok)
 		self.ok.mouseOver = true;
+	end
+end
+
+function ISModalRichText:onLoseJoypadFocus(joypadData)
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	if self.yesno then
+		self.yes:clearJoypadButton()
+		self.no:clearJoypadButton()
+	else
+		self.ok:clearJoypadButton()
 	end
 end
 

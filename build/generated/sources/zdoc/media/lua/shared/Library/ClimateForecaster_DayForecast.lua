@@ -28,32 +28,12 @@
 ClimateForecaster_DayForecast = {}
 
 ---@public
----@return ClimateForecaster.ForecastValue
-function ClimateForecaster_DayForecast:getCloudiness() end
+---@return ClimateForecaster.DayForecast
+function ClimateForecaster_DayForecast:getWeatherOverlap() end
 
 ---@public
 ---@return boolean
-function ClimateForecaster_DayForecast:isHasTropicalStorm() end
-
----@public
----@return float
-function ClimateForecaster_DayForecast:getDayLightHours() end
-
----@public
----@return String
-function ClimateForecaster_DayForecast:getAirFrontString() end
-
----@public
----@return float
-function ClimateForecaster_DayForecast:getDawn() end
-
----@public
----@return String
-function ClimateForecaster_DayForecast:getMeanWindAngleString() end
-
----@public
----@return boolean
-function ClimateForecaster_DayForecast:isHasStorm() end
+function ClimateForecaster_DayForecast:isHasBlizzard() end
 
 ---@public
 ---@return ClimateForecaster.ForecastValue
@@ -61,23 +41,7 @@ function ClimateForecaster_DayForecast:getWindDirection() end
 
 ---@public
 ---@return float
-function ClimateForecaster_DayForecast:getWeatherEndTime() end
-
----@public
----@return ClimateForecaster.ForecastValue
-function ClimateForecaster_DayForecast:getHumidity() end
-
----@public
----@return float
-function ClimateForecaster_DayForecast:getWeatherStartTime() end
-
----@public
----@return float
 function ClimateForecaster_DayForecast:getDusk() end
-
----@private
----@return void
-function ClimateForecaster_DayForecast:reset() end
 
 ---@public
 ---@return ClimateForecaster.ForecastValue
@@ -88,16 +52,68 @@ function ClimateForecaster_DayForecast:getWindPower() end
 function ClimateForecaster_DayForecast:isWeatherStarts() end
 
 ---@public
+---@return float
+function ClimateForecaster_DayForecast:getDayLightHours() end
+
+---@public
+---@return float
+function ClimateForecaster_DayForecast:getFogStrength() end
+
+---@public
+---@return boolean
+function ClimateForecaster_DayForecast:isChanceOnSnow() end
+
+---@public
+---@return String
+function ClimateForecaster_DayForecast:getAirFrontString() end
+
+---@public
+---@return String
+function ClimateForecaster_DayForecast:getName() end
+
+---@public
+---@return ClimateManager.AirFront
+function ClimateForecaster_DayForecast:getAirFront() end
+
+---@public
+---@return ClimateForecaster.ForecastValue
+function ClimateForecaster_DayForecast:getCloudiness() end
+
+---@public
+---@return int
+function ClimateForecaster_DayForecast:getIndexOffset() end
+
+---@private
+---@return void
+function ClimateForecaster_DayForecast:reset() end
+
+---@public
+---@return float
+function ClimateForecaster_DayForecast:getWeatherEndTime() end
+
+---@public
+---@return boolean
+function ClimateForecaster_DayForecast:isHasHeavyRain() end
+
+---@public
+---@return ClimateForecaster.ForecastValue
+function ClimateForecaster_DayForecast:getTemperature() end
+
+---@public
+---@return boolean
+function ClimateForecaster_DayForecast:isHasTropicalStorm() end
+
+---@public
 ---@return boolean
 function ClimateForecaster_DayForecast:isHasFog() end
 
 ---@public
----@return boolean
-function ClimateForecaster_DayForecast:isHasBlizzard() end
-
----@public
 ---@return WeatherPeriod
 function ClimateForecaster_DayForecast:getWeatherPeriod() end
+
+---@public
+---@return ClimateForecaster.ForecastValue
+function ClimateForecaster_DayForecast:getHumidity() end
 
 ---@public
 ---@return float
@@ -105,7 +121,7 @@ function ClimateForecaster_DayForecast:getFogDuration() end
 
 ---@public
 ---@return float
-function ClimateForecaster_DayForecast:getFogStrength() end
+function ClimateForecaster_DayForecast:getDawn() end
 
 ---@public
 ---@return ArrayList|Unknown
@@ -113,28 +129,12 @@ function ClimateForecaster_DayForecast:getWeatherStages() end
 
 ---@public
 ---@return boolean
-function ClimateForecaster_DayForecast:isChanceOnSnow() end
-
----@public
----@return boolean
-function ClimateForecaster_DayForecast:isHasHeavyRain() end
-
----@public
----@return ClimateForecaster.DayForecast
-function ClimateForecaster_DayForecast:getWeatherOverlap() end
-
----@public
----@return int
-function ClimateForecaster_DayForecast:getIndexOffset() end
-
----@public
----@return ClimateManager.AirFront
-function ClimateForecaster_DayForecast:getAirFront() end
+function ClimateForecaster_DayForecast:isHasStorm() end
 
 ---@public
 ---@return String
-function ClimateForecaster_DayForecast:getName() end
+function ClimateForecaster_DayForecast:getMeanWindAngleString() end
 
 ---@public
----@return ClimateForecaster.ForecastValue
-function ClimateForecaster_DayForecast:getTemperature() end
+---@return float
+function ClimateForecaster_DayForecast:getWeatherStartTime() end

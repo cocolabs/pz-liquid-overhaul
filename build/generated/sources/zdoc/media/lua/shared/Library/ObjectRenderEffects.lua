@@ -54,26 +54,34 @@
 ObjectRenderEffects = {}
 
 ---@public
----@return void
-function ObjectRenderEffects:updateStatic() end
+---@param arg0 int
+---@param arg1 boolean
+---@return ObjectRenderEffects
+function ObjectRenderEffects:getNextWindEffect(arg0, arg1) end
+
+---@private
+---@return ObjectRenderEffects
+function ObjectRenderEffects:reset() end
 
 ---@public
 ---@return void
 function ObjectRenderEffects:init() end
 
----@public
----@param arg0 ObjectRenderEffects
+---@private
+---@param arg0 float
+---@param arg1 float
 ---@return void
-function ObjectRenderEffects:copyMainFromOther(arg0) end
+function ObjectRenderEffects:updateOLD(arg0, arg1) end
 
 ---@public
 ---@param arg0 ObjectRenderEffects
 ---@return void
 function ObjectRenderEffects:release(arg0) end
 
----@private
----@return ObjectRenderEffects
-function ObjectRenderEffects:reset() end
+---@public
+---@param arg0 ObjectRenderEffects
+---@return void
+function ObjectRenderEffects:add(arg0) end
 
 ---@public
 ---@param arg0 IsoObject
@@ -92,24 +100,9 @@ function ObjectRenderEffects:getNew(arg0, arg1, arg2) end
 function ObjectRenderEffects:getNew(arg0, arg1, arg2, arg3) end
 
 ---@public
----@param arg0 int
----@param arg1 boolean
----@return ObjectRenderEffects
-function ObjectRenderEffects:getNextWindEffect(arg0, arg1) end
-
----@public
 ---@param arg0 ObjectRenderEffects
 ---@return void
-function ObjectRenderEffects:add(arg0) end
-
----@public
----@return ObjectRenderEffects
-function ObjectRenderEffects:alloc() end
-
----@private
----@param arg0 float
----@return void
-function ObjectRenderEffects:lerpAll(arg0) end
+function ObjectRenderEffects:copyMainFromOther(arg0) end
 
 ---@public
 ---@return boolean
@@ -126,8 +119,15 @@ function ObjectRenderEffects:update(arg0, arg1) end
 ---@return void
 function ObjectRenderEffects:swapTargetToLast() end
 
+---@public
+---@return void
+function ObjectRenderEffects:updateStatic() end
+
+---@public
+---@return ObjectRenderEffects
+function ObjectRenderEffects:alloc() end
+
 ---@private
 ---@param arg0 float
----@param arg1 float
 ---@return void
-function ObjectRenderEffects:updateOLD(arg0, arg1) end
+function ObjectRenderEffects:lerpAll(arg0) end

@@ -6,6 +6,20 @@
 ---@field invis boolean
 IsoZombieGiblets = {}
 
+---Overrides:
+---
+---Serialize in class IsoObject
+---@public
+---@return boolean
+function IsoZombieGiblets:Serialize() end
+
+---Overrides:
+---
+---update in class IsoPhysicsObject
+---@public
+---@return void
+function IsoZombieGiblets:update() end
+
 ---@public
 ---@param arg0 float
 ---@param arg1 float
@@ -19,21 +33,7 @@ function IsoZombieGiblets:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
 ---Overrides:
 ---
----update in class IsoPhysicsObject
----@public
----@return void
-function IsoZombieGiblets:update() end
-
----Overrides:
----
 ---getObjectName in class IsoMovingObject
 ---@public
 ---@return String
 function IsoZombieGiblets:getObjectName() end
-
----Overrides:
----
----Serialize in class IsoObject
----@public
----@return boolean
-function IsoZombieGiblets:Serialize() end

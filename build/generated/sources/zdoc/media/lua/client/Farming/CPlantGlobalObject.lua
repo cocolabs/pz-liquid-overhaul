@@ -7,8 +7,8 @@ require "Map/CGlobalObject"
 ---@class CPlantGlobalObject : CGlobalObject
 CPlantGlobalObject = CGlobalObject:derive("CPlantGlobalObject")
 
-function CPlantGlobalObject:new(luaSystem, isoObject)
-	local o = CGlobalObject.new(self, luaSystem, isoObject)
+function CPlantGlobalObject:new(luaSystem, globalObject)
+	local o = CGlobalObject.new(self, luaSystem, globalObject)
 	return o
 end
 

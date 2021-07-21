@@ -259,7 +259,7 @@ VehicleDistributions.NormalHeavy = {
 	
 	TruckBedOpen = VehicleDistributions.TrunkHeavy;
 	
-	Trailer = VehicleDistributions.TrunkHeavy;
+	TrailerTrunk = VehicleDistributions.TrunkHeavy;
 	
 	GloveBox = VehicleDistributions.GloveBox;
 	
@@ -1032,47 +1032,6 @@ VehicleDistributions.Hunter = {
 	SeatRearRight = VehicleDistributions.Seat;
 }
 
-VehicleDistributions.HunterTruckBed = {
-	rolls = 4,
-	items = {
-		"x2Scope", 4,
-		"x4Scope", 4,
-		"x8Scope", 4,
-		"IronSight", 4,
-		"Sling", 4,
-		"FiberglassStock", 4,
-		"RecoilPad", 4,
-		"RedDot", 4,
-		"ChokeTubeFull", 4,
-		"ChokeTubeImproved", 4,
-		"VarmintRifle", 4,
-		"223Box", 10,
-		"HuntingRifle", 4,
-		"308Box", 10,
-		"Shotgun", 4,
-		"ShotgunShellsBox", 10,
-		"DoubleBarrelShotgun", 4,
-		"AssaultRifle", 3,
-		"556Box", 10,
-		"DeadRabbit", 7,
-		"DeadBird", 7,
-		"DeadSquirrel", 7,
-	}
-}
-
-VehicleDistributions.Hunter = {
-	specificId = "Hunter",
-	
-	TruckBed = VehicleDistributions.HunterTruckBed;
-	
-	TruckBedOpen = VehicleDistributions.HunterTruckBed;
-	
-	GloveBox = VehicleDistributions.GloveBox;
-	
-	SeatRearLeft = VehicleDistributions.Seat;
-	SeatRearRight = VehicleDistributions.Seat;
-}
-
 VehicleDistributions.FossoilTruckBed = {
 	rolls = 5,
 	items = {
@@ -1298,6 +1257,11 @@ local distributionTable = {
 		Normal = VehicleDistributions.NormalHeavy,
 		Specific = { VehicleDistributions.Fisherman, VehicleDistributions.Carpenter, VehicleDistributions.Farmer, VehicleDistributions.Electrician, VehicleDistributions.MetalWelder, VehicleDistributions.Survivalist, VehicleDistributions.ConstructionWorker, VehicleDistributions.Painter },
 	},
+
+	TrailerCover = {
+		Normal = VehicleDistributions.NormalHeavy,
+		Specific = { VehicleDistributions.Fisherman, VehicleDistributions.Carpenter, VehicleDistributions.Farmer, VehicleDistributions.Electrician, VehicleDistributions.MetalWelder, VehicleDistributions.Survivalist, VehicleDistributions.ConstructionWorker, VehicleDistributions.Painter },
+	},
 		
 	-- Specific cars like police, fire, ranger... We simply add their skin index to the loot table's name if they have one.
 		
@@ -1341,5 +1305,91 @@ local distributionTable = {
 	-- Spiffo
 	VanSpiffo = { Normal = VehicleDistributions.Spiffo; },
 }
+
+-- define smashed car like their normal counterpart
+distributionTable.CarNormalSmashedRear = distributionTable.CarNormal;
+distributionTable.CarNormalSmashedFront = distributionTable.CarNormal;
+distributionTable.CarNormalSmashedLeft = distributionTable.CarNormal;
+distributionTable.CarNormalSmashedRight = distributionTable.CarNormal;
+
+distributionTable.CarLightsSmashedRear = distributionTable.CarLights;
+distributionTable.CarLightsSmashedFront = distributionTable.CarLights;
+distributionTable.CarLightsSmashedLeft = distributionTable.CarLights;
+distributionTable.CarLightsSmashedRight = distributionTable.CarLights;
+
+distributionTable.CarStationWagonSmashedRear = distributionTable.CarStationWagon;
+distributionTable.CarStationWagonSmashedFront = distributionTable.CarStationWagon;
+distributionTable.CarStationWagonSmashedLeft = distributionTable.CarStationWagon;
+distributionTable.CarStationWagonSmashedRight = distributionTable.CarStationWagon;
+
+distributionTable.CarStationWagon2SmashedRear = distributionTable.CarStationWagon2;
+distributionTable.CarStationWagon2SmashedFront = distributionTable.CarStationWagon2;
+distributionTable.CarStationWagon2SmashedLeft = distributionTable.CarStationWagon2;
+distributionTable.CarStationWagon2SmashedRight = distributionTable.CarStationWagon2;
+
+distributionTable.ModernCarSmashedRear = distributionTable.ModernCar;
+distributionTable.ModernCarSmashedFront = distributionTable.ModernCar;
+distributionTable.ModernCarSmashedLeft = distributionTable.ModernCar;
+distributionTable.ModernCarSmashedRight = distributionTable.ModernCar;
+
+distributionTable.ModernCar02SmashedRear = distributionTable.ModernCar02;
+distributionTable.ModernCar02SmashedFront = distributionTable.ModernCar02;
+distributionTable.ModernCar02SmashedLeft = distributionTable.ModernCar02;
+distributionTable.ModernCar02SmashedRight = distributionTable.ModernCar02;
+
+distributionTable.PickUpTruckSmashedRear = distributionTable.PickUpTruck;
+distributionTable.PickUpTruckSmashedFront = distributionTable.PickUpTruck;
+distributionTable.PickUpTruckSmashedLeft = distributionTable.PickUpTruck;
+distributionTable.PickUpTruckSmashedRight = distributionTable.PickUpTruck;
+
+distributionTable.CarLuxurySmashedRear = distributionTable.CarLuxury;
+distributionTable.CarLuxurySmashedFront = distributionTable.CarLuxury;
+distributionTable.CarLuxurySmashedLeft = distributionTable.CarLuxury;
+distributionTable.CarLuxurySmashedRight = distributionTable.CarLuxury;
+
+distributionTable.OffRoadSmashedRear = distributionTable.OffRoad;
+distributionTable.OffRoadSmashedFront = distributionTable.OffRoad;
+distributionTable.OffRoadSmashedLeft = distributionTable.OffRoad;
+distributionTable.OffRoadSmashedRight = distributionTable.OffRoad;
+
+distributionTable.PickUpTruckLightsSmashedRear = distributionTable.PickUpTruckLights;
+distributionTable.PickUpTruckLightsSmashedFront = distributionTable.PickUpTruckLights;
+distributionTable.PickUpTruckLightsSmashedLeft = distributionTable.PickUpTruckLights;
+distributionTable.PickUpTruckLightsSmashedRight = distributionTable.PickUpTruckLights;
+
+distributionTable.PickUpVanSmashedRear = distributionTable.PickUpVan;
+distributionTable.PickUpVanSmashedFront = distributionTable.PickUpVan;
+distributionTable.PickUpVanSmashedLeft = distributionTable.PickUpVan;
+distributionTable.PickUpVanSmashedRight = distributionTable.PickUpVan;
+
+distributionTable.PickUpVanLightsSmashedRear = distributionTable.PickUpVanLights;
+distributionTable.PickUpVanLightsSmashedFront = distributionTable.PickUpVanLights;
+distributionTable.PickUpVanLightsSmashedLeft = distributionTable.PickUpVanLights;
+distributionTable.PickUpVanLightsSmashedRight = distributionTable.PickUpVanLights;
+
+distributionTable.CarSmallSmashedRear = distributionTable.SmallCar;
+distributionTable.CarSmallSmashedFront = distributionTable.SmallCar;
+distributionTable.CarSmallSmashedLeft = distributionTable.SmallCar;
+distributionTable.CarSmallSmashedRight = distributionTable.SmallCar;
+
+distributionTable.CarSmall02SmashedRear = distributionTable.SmallCar02;
+distributionTable.CarSmall02SmashedFront = distributionTable.SmallCar02;
+distributionTable.CarSmall02SmashedLeft = distributionTable.SmallCar02;
+distributionTable.CarSmall02SmashedRight = distributionTable.SmallCar02;
+
+distributionTable.StepVanSmashedRear = distributionTable.StepVan;
+distributionTable.StepVanSmashedFront = distributionTable.StepVan;
+distributionTable.StepVanSmashedLeft = distributionTable.StepVan;
+distributionTable.StepVanSmashedRight = distributionTable.StepVan;
+
+distributionTable.StepVanMailSmashedRear = distributionTable.StepVanMail;
+distributionTable.StepVanMailSmashedFront = distributionTable.StepVanMail;
+distributionTable.StepVanMailSmashedLeft = distributionTable.StepVanMail;
+distributionTable.StepVanMailSmashedRight = distributionTable.StepVanMail;
+
+distributionTable.SUVSmashedRear = distributionTable.SUV;
+distributionTable.SUVSmashedFront = distributionTable.SUV;
+distributionTable.SUVSmashedLeft = distributionTable.SUV;
+distributionTable.SUVSmashedRight = distributionTable.SUV;
 
 table.insert(VehicleDistributions, 1, distributionTable);

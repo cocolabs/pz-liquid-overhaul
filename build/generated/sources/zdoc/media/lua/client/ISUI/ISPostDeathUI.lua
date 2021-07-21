@@ -97,6 +97,7 @@ function ISPostDeathUI:render()
 end
 
 function ISPostDeathUI:onQuitToDesktop()
+	if MainScreen.instance:isReallyVisible() then return end
 	if self.quitToDesktopDialog then
 		self.quitToDesktopDialog:destroy()
 	end
@@ -127,11 +128,13 @@ function ISPostDeathUI:onConfirmQuitToDesktop(button)
 end
 
 function ISPostDeathUI:onExit()
+	if MainScreen.instance:isReallyVisible() then return end
 	self:removeFromUIManager()
 	getCore():exitToMenu()
 end
 
 function ISPostDeathUI:onRespawn()
+	if MainScreen.instance:isReallyVisible() then return end
 	self:setVisible(false)
 	local joypadData = JoypadState.players[self.playerIndex+1]
 	if joypadData then
@@ -158,6 +161,18 @@ function ISPostDeathUI:onMouseWheel(del)
 end
 
 function ISPostDeathUI:onGainJoypadFocus(joypadData)
+	self:setISButtonForB(self.buttonQuit)
+	self:setISButtonForX(self.buttonExit)
+	self:setISButtonForA(self.buttonRespawn)
+end
+
+function ISPostDeathUI:onJoypadBeforeDeactivate(joypadData)
+	self.buttonQuit:clearJoypadButton()
+	self.buttonExit:clearJoypadButton()
+	self.buttonRespawn:clearJoypadButton()
+end
+
+function ISPostDeathUI:onJoypadReactivate(joypadData)
 	self:setISButtonForB(self.buttonQuit)
 	self:setISButtonForX(self.buttonExit)
 	self:setISButtonForA(self.buttonRespawn)

@@ -4,9 +4,9 @@
 Fixing_FixerSkill = {}
 
 ---@public
----@return int
-function Fixing_FixerSkill:getSkillLevel() end
-
----@public
 ---@return String
 function Fixing_FixerSkill:getSkillName() end
+
+---@public
+---@return int
+function Fixing_FixerSkill:getSkillLevel() end

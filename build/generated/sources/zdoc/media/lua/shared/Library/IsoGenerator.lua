@@ -13,61 +13,58 @@
 IsoGenerator = {}
 
 ---@public
----@param arg0 IsoChunk
 ---@return void
-function IsoGenerator:chunkLoaded(arg0) end
+function IsoGenerator:updateSurroundingNow() end
+
+---Overrides:
+---
+---update in class IsoObject
+---@public
+---@return void
+function IsoGenerator:update() end
+
+---@public
+---@param arg0 float
+---@param arg1 int
+---@param arg2 boolean
+---@param arg3 boolean
+---@return void
+function IsoGenerator:sync(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@return void
-function IsoGenerator:failToStart() end
+function IsoGenerator:Reset() end
 
 ---@public
----@return int
-function IsoGenerator:getCondition() end
-
----@public
----@param arg0 boolean
----@param arg1 byte
----@param arg2 UdpConnection
----@param arg3 ByteBuffer
+---@param activated boolean
 ---@return void
-function IsoGenerator:syncIsoObject(arg0, arg1, arg2, arg3) end
+function IsoGenerator:setActivated(activated) end
 
 ---@public
----@param condition int
+---@param arg0 ByteBufferWriter
 ---@return void
-function IsoGenerator:setCondition(condition) end
+function IsoGenerator:syncIsoObjectSend(arg0) end
 
 ---@public
 ---@return boolean
 function IsoGenerator:isActivated() end
 
----@private
----@param arg0 IsoChunk
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoGenerator:load(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoGenerator:save(arg0, arg1) end
+
+---@public
 ---@return boolean
-function IsoGenerator:touchesChunk(arg0) end
-
----@private
----@param arg0 IsoObject
----@param arg1 float
----@return void
-function IsoGenerator:addPoweredItem(arg0, arg1) end
-
----@public
----@return float
-function IsoGenerator:getTotalPowerUsing() end
-
----Overrides:
----
----addToWorld in class IsoObject
----@public
----@return void
-function IsoGenerator:addToWorld() end
-
----@public
----@param arg0 float
----@return void
-function IsoGenerator:setTotalPowerUsing(arg0) end
+function IsoGenerator:isConnected() end
 
 ---@private
 ---@return void
@@ -86,26 +83,84 @@ function IsoGenerator:updateFridgeFreezerItems(arg0) end
 function IsoGenerator:updateFridgeFreezerItems(arg0) end
 
 ---@public
+---@return ArrayList|Unknown
+function IsoGenerator:getItemsPowered() end
+
+---@private
+---@param arg0 IsoObject
+---@param arg1 float
 ---@return void
-function IsoGenerator:remove() end
+function IsoGenerator:addPoweredItem(arg0, arg1) end
 
 ---@public
----@return void
-function IsoGenerator:Reset() end
+---@return float
+function IsoGenerator:getFuel() end
 
----throws java.io.IOException
----
+---@public
+---@return float
+function IsoGenerator:getTotalPowerUsing() end
+
 ---Overrides:
 ---
----save in class IsoObject
+---addToWorld in class IsoObject
 ---@public
----@param output ByteBuffer
 ---@return void
-function IsoGenerator:save(output) end
+function IsoGenerator:addToWorld() end
+
+---@public
+---@param item InventoryItem
+---@return void
+function IsoGenerator:setInfoFromItem(item) end
 
 ---@public
 ---@return void
-function IsoGenerator:removeFromWorld() end
+function IsoGenerator:setSurroundingElectricity() end
+
+---@public
+---@param arg0 IsoGridSquare
+---@return void
+function IsoGenerator:updateGenerator(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoGenerator:setFuel(arg0) end
+
+---@public
+---@param connected boolean
+---@return void
+function IsoGenerator:setConnected(connected) end
+
+---@public
+---@param arg0 IsoChunk
+---@return void
+function IsoGenerator:chunkLoaded(arg0) end
+
+---@public
+---@return int
+function IsoGenerator:getCondition() end
+
+---@public
+---@param condition int
+---@return void
+function IsoGenerator:setCondition(condition) end
+
+---@public
+---@param arg0 boolean
+---@param arg1 byte
+---@param arg2 UdpConnection
+---@param arg3 ByteBuffer
+---@return void
+function IsoGenerator:syncIsoObject(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return void
+function IsoGenerator:failToStart() end
+
+---@private
+---@param arg0 IsoChunk
+---@return boolean
+function IsoGenerator:touchesChunk(arg0) end
 
 ---Overrides:
 ---
@@ -115,23 +170,8 @@ function IsoGenerator:removeFromWorld() end
 function IsoGenerator:getObjectName() end
 
 ---@public
----@param arg0 float
 ---@return void
-function IsoGenerator:setFuel(arg0) end
-
----@public
----@return boolean
-function IsoGenerator:isConnected() end
-
----@public
----@param arg0 ByteBufferWriter
----@return void
-function IsoGenerator:syncIsoObjectSend(arg0) end
-
----@public
----@param item InventoryItem
----@return void
-function IsoGenerator:setInfoFromItem(item) end
+function IsoGenerator:removeFromWorld() end
 
 ---@public
 ---@param arg0 int
@@ -144,58 +184,10 @@ function IsoGenerator:setInfoFromItem(item) end
 function IsoGenerator:isPoweringSquare(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@param arg0 IsoGridSquare
----@return void
-function IsoGenerator:updateGenerator(arg0) end
-
----@public
----@return ArrayList|Unknown
-function IsoGenerator:getItemsPowered() end
-
----@public
 ---@param arg0 float
----@param arg1 int
----@param arg2 boolean
----@param arg3 boolean
 ---@return void
-function IsoGenerator:sync(arg0, arg1, arg2, arg3) end
+function IsoGenerator:setTotalPowerUsing(arg0) end
 
 ---@public
 ---@return void
-function IsoGenerator:updateSurroundingNow() end
-
----@public
----@param connected boolean
----@return void
-function IsoGenerator:setConnected(connected) end
-
----@public
----@return void
-function IsoGenerator:setSurroundingElectricity() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoGenerator:load(input, WorldVersion) end
-
----@public
----@return float
-function IsoGenerator:getFuel() end
-
----Overrides:
----
----update in class IsoObject
----@public
----@return void
-function IsoGenerator:update() end
-
----@public
----@param activated boolean
----@return void
-function IsoGenerator:setActivated(activated) end
+function IsoGenerator:remove() end

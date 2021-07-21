@@ -8,22 +8,44 @@ ISGameLoadingUI = ISPanelJoypad:derive("ISGameLoadingUI")
 function ISGameLoadingUI:createChildren()
 	local buttonWid = 250
 	local buttonHgt = 40
+	
+	local buttonX = (self.width - buttonWid) / 2;
+	local buttonY = self.height - 70 - buttonHgt;
+	
+	
+	local buttonGapY = 12
+	
+--	local button = ISButton:new(buttonX, buttonY, buttonWid, buttonHgt, getText("IGUI_PostDeath_Exit"), self, self.onExit)
+--	self:configButton(button)
+--	self:addChild(button)
+--	self.buttonExit = button
+--	buttonY = buttonY + buttonHgt + buttonGapY
 
-	local button = ISButton:new((self.width - buttonWid) / 2, self.height - 40 - buttonHgt,
-		buttonWid, buttonHgt, getText("IGUI_PostDeath_Quit"), self, self.onExit)
-	button:setAnchorTop(false)
-	button:setAnchorLeft(false)
-	button:setAnchorBottom(true)
+	local button = ISButton:new(buttonX, buttonY, buttonWid, buttonHgt, getText("IGUI_PostDeath_Quit"), self, self.onExitToDesktop)
+	self:configButton(button)
 	self:addChild(button)
-	self.buttonExit = button
+	self.buttonQuit = button;
 end
 
-function ISGameLoadingUI:onExit()
+function ISGameLoadingUI:configButton(button)
+	button.anchorLeft = false
+	button.anchorTop = false
+	button.backgroundColor.a = 0.8
+	button.borderColor.a = 0.3
+end
+
+function ISGameLoadingUI:onExitToDesktop()
 	getCore():quit()
 end
 
+function ISGameLoadingUI:onExit()
+	self:removeFromUIManager()
+	getCore():exitToMenu()
+end
+
 function ISGameLoadingUI:onGainJoypadFocus(joypadData)
-	self:setISButtonForA(self.buttonExit)
+--	self:setISButtonForA(self.buttonExit)
+	self:setISButtonForA(self.buttonQuit)
 end
 
 function ISGameLoadingUI:onJoypadDown(button)
@@ -32,9 +54,7 @@ end
 
 function ISGameLoadingUI:new(status)
 	local x,y,w,h = 0,0,getCore():getScreenWidth(),getCore():getScreenHeight()
-	local o = ISPanelJoypad:new(x, y, w, h)
-	setmetatable(o, self)
-	self.__index = self
+	local o = ISPanelJoypad.new(self, x, y, w, h)
 	o.backgroundColor.a = 0.0
 	o.status = status
 	ISGameLoadingUI.instance = o
@@ -42,20 +62,10 @@ function ISGameLoadingUI:new(status)
 end
 
 function ISGameLoadingUI.OnJoypadActivateUI(id)
-	if JoypadState.joypads[id] then return end
-	local joypadData = {}
-	joypadData.id = id
-	joypadData.pressed = {}
-	joypadData.wasPressed = {}
-	for n = 1,getButtonCount(id) do
-		joypadData.pressed[n-1] = isJoypadPressed(id, n-1)
-	end
-	joypadData.timepressdown = 0
-	joypadData.timepressup = 0
-	JoypadState.joypads[id] = joypadData
-	JoypadState.count = JoypadState.count + 1
-	JoypadState[JoypadState.count] = joypadData
-	
+	local controller = JoypadState.controllers[id]
+	if controller.joypad ~= nil then return end
+	local joypadData = JoypadState.joypads[1]
+	controller:setJoypad(joypadData)
 	joypadData.focus = ISGameLoadingUI.instance
 end
 
@@ -73,11 +83,12 @@ function ISGameLoadingUI_OnGameLoadingUI(status)
 	LuaEventManager.AddEvent("OnRenderTick")
 	Events.OnRenderTick.Add(onJoypadRenderTick)
 
-	if JoypadState.forceActivate then
+    local joypadData = JoypadState.joypads[1]
+    local controller = joypadData.controller
+	if controller then
 		-- Controller was activated in the main menu.
-		ISGameLoadingUI.OnJoypadActivateUI(JoypadState.forceActivate)
-		JoypadState.forceActivate = nil
-		updateJoypadFocus(JoypadState[1])
+		ISGameLoadingUI.OnJoypadActivateUI(joypadData.id)
+		updateJoypadFocus(joypadData)
 	else
 		-- Controller wasn't activated yet.
 		Events.OnJoypadActivateUI.Add(ISGameLoadingUI.OnJoypadActivateUI)

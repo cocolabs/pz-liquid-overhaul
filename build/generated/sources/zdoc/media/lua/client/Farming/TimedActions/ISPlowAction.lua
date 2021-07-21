@@ -88,7 +88,10 @@ function ISPlowAction:new (character, square, item, time)
 	-- custom fields
     if not item then
         o.maxTime = time * 2;
-    end
+	end
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
 	o.item = item;
 	o.gridSquare = square
     o.caloriesModifier = 5;

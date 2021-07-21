@@ -5,20 +5,6 @@ LuaTimedAction = {}
 
 ---Overrides:
 ---
----perform in class BaseAction
----@public
----@return void
-function LuaTimedAction:perform() end
-
----Overrides:
----
----valid in class BaseAction
----@public
----@return boolean
-function LuaTimedAction:valid() end
-
----Overrides:
----
 ---update in class BaseAction
 ---@public
 ---@return void
@@ -37,3 +23,17 @@ function LuaTimedAction:start() end
 ---@public
 ---@return void
 function LuaTimedAction:stop() end
+
+---Overrides:
+---
+---perform in class BaseAction
+---@public
+---@return void
+function LuaTimedAction:perform() end
+
+---Overrides:
+---
+---valid in class BaseAction
+---@public
+---@return boolean
+function LuaTimedAction:valid() end

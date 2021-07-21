@@ -10,6 +10,10 @@ MapGroups = {}
 function MapGroups:handleMapDirectory(arg0, arg1) end
 
 ---@public
+---@return int
+function MapGroups:getNumberOfGroups() end
+
+---@public
 ---@return void
 ---@overload fun(arg0:ActiveMods, arg1:boolean)
 ---@overload fun(arg0:ActiveMods, arg1:boolean, arg2:boolean)
@@ -38,6 +42,11 @@ function MapGroups:checkMapConflicts() end
 function MapGroups:getLotDirectories(arg0) end
 
 ---@public
+---@param arg0 int
+---@return void
+function MapGroups:setWorld(arg0) end
+
+---@public
 ---@return ArrayList|Unknown
 function MapGroups:getAllMapsInOrder() end
 
@@ -46,15 +55,10 @@ function MapGroups:getAllMapsInOrder() end
 ---@return ArrayList|Unknown
 function MapGroups:getMapDirectoriesInGroup(arg0) end
 
----@private
----@param arg0 ArrayList|Unknown
----@return MapGroups.MapGroup
-function MapGroups:findGroupWithAnyOfTheseDirectories(arg0) end
-
 ---@public
----@param arg0 int
----@return void
-function MapGroups:setWorld(arg0) end
+---@param arg0 String
+---@return String
+function MapGroups:addMissingVanillaDirectories(arg0) end
 
 ---@private
 ---@param arg0 MapGroups.MapDirectory
@@ -62,21 +66,17 @@ function MapGroups:setWorld(arg0) end
 ---@return void
 function MapGroups:getDirsRecursively(arg0, arg1) end
 
----@public
----@param arg0 String
----@return ArrayList|Unknown
-function MapGroups:getMapConflicts(arg0) end
-
----@public
----@param arg0 String
----@return String
-function MapGroups:addMissingVanillaDirectories(arg0) end
-
 ---@private
 ---@param arg0 boolean
 ---@return ArrayList|Unknown
 function MapGroups:getVanillaMapDirectories(arg0) end
 
+---@private
+---@param arg0 ArrayList|Unknown
+---@return MapGroups.MapGroup
+function MapGroups:findGroupWithAnyOfTheseDirectories(arg0) end
+
 ---@public
----@return int
-function MapGroups:getNumberOfGroups() end
+---@param arg0 String
+---@return ArrayList|Unknown
+function MapGroups:getMapConflicts(arg0) end

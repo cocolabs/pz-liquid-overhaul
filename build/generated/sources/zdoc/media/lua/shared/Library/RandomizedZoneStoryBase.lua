@@ -10,41 +10,10 @@
 RandomizedZoneStoryBase = {}
 
 ---@private
----@return RandomizedZoneStoryBase
-function RandomizedZoneStoryBase:getRandomStory() end
-
----@private
 ---@param arg0 IsoMetaGrid.Zone
 ---@param arg1 boolean
 ---@return boolean
 function RandomizedZoneStoryBase:checkCanSpawnStory(arg0, arg1) end
-
----@public
----@param arg0 IsoMetaGrid.Zone
----@return void
-function RandomizedZoneStoryBase:initAllRZSMapChance(arg0) end
-
----@public
----@return boolean
----@overload fun(arg0:IsoMetaGrid.Zone, arg1:boolean)
-function RandomizedZoneStoryBase:isValid() end
-
----@public
----@param arg0 IsoMetaGrid.Zone
----@param arg1 boolean
----@return boolean
-function RandomizedZoneStoryBase:isValid(arg0, arg1) end
-
----@public
----@param arg0 RandomizedZoneStoryBase
----@param arg1 IsoMetaGrid.Zone
----@return void
-function RandomizedZoneStoryBase:cleanAreaForStory(arg0, arg1) end
-
----@private
----@param arg0 IsoMetaGrid.Zone
----@return boolean
-function RandomizedZoneStoryBase:doRandomStory(arg0) end
 
 ---@public
 ---@return int
@@ -63,10 +32,41 @@ function RandomizedZoneStoryBase:isValidForStory(arg0, arg1) end
 function RandomizedZoneStoryBase:getRandomFreeSquare(arg0, arg1) end
 
 ---@public
+---@param arg0 IsoMetaGrid.Zone
+---@return void
+function RandomizedZoneStoryBase:randomizeZoneStory(arg0) end
+
+---@public
 ---@return int
 function RandomizedZoneStoryBase:getMinimumWidth() end
+
+---@private
+---@param arg0 IsoMetaGrid.Zone
+---@return boolean
+function RandomizedZoneStoryBase:doRandomStory(arg0) end
+
+---@private
+---@return RandomizedZoneStoryBase
+function RandomizedZoneStoryBase:getRandomStory() end
+
+---@public
+---@return boolean
+---@overload fun(arg0:IsoMetaGrid.Zone, arg1:boolean)
+function RandomizedZoneStoryBase:isValid() end
+
+---@public
+---@param arg0 IsoMetaGrid.Zone
+---@param arg1 boolean
+---@return boolean
+function RandomizedZoneStoryBase:isValid(arg0, arg1) end
+
+---@public
+---@param arg0 RandomizedZoneStoryBase
+---@param arg1 IsoMetaGrid.Zone
+---@return void
+function RandomizedZoneStoryBase:cleanAreaForStory(arg0, arg1) end
 
 ---@public
 ---@param arg0 IsoMetaGrid.Zone
 ---@return void
-function RandomizedZoneStoryBase:randomizeZoneStory(arg0) end
+function RandomizedZoneStoryBase:initAllRZSMapChance(arg0) end

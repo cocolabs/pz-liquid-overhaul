@@ -86,23 +86,7 @@ function ISBaseTimedAction:setActionAnim(_action, _displayItemModels)
 end
 
 function ISBaseTimedAction:setOverrideHandModels(_primaryHand, _secondaryHand, _resetModel)
-    local isItem = _primaryHand~=nil and instanceof(_primaryHand, "InventoryItem");
-    if not isItem then
-        isItem = _secondaryHand~=nil and instanceof(_secondaryHand, "InventoryItem");
-    end
-    if _resetModel~=nil then
-        if isItem then
-            self.action:setOverrideHandModels(_primaryHand, _secondaryHand, _resetModel);
-        else
-            self.action:setOverrideHandModelsString(_primaryHand, _secondaryHand, _resetModel);
-        end
-    else
-        if isItem then
-            self.action:setOverrideHandModels(_primaryHand, _secondaryHand);
-        else
-            self.action:setOverrideHandModelsString(_primaryHand, _secondaryHand);
-        end
-    end
+	self.action:setOverrideHandModelsObject(_primaryHand, _secondaryHand, _resetModel or true)
 end
 
 function ISBaseTimedAction:setAnimVariable(_key, _val)

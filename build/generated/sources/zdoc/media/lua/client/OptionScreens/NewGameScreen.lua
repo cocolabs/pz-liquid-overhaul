@@ -743,6 +743,7 @@ function NewGameScreen:clickPlay()
                 MapSpawnSelect.instance.previousScreen = "NewGameScreen"
                 MapSpawnSelect.instance:setVisible(true, self.joyfocus);
             else
+                MapSpawnSelect.instance:useDefaultSpawnRegion()
                 MainScreen.instance.charCreationProfession.previousScreen = "NewGameScreen";
                 MainScreen.instance.charCreationProfession:setVisible(true, self.joyfocus);
             end
@@ -751,6 +752,7 @@ function NewGameScreen:clickPlay()
             MainScreen.instance.lastStandPlayerSelect:setVisible(true, self.joyfocus);
         else
             createWorld(worldName);
+            MapSpawnSelect.instance:useDefaultSpawnRegion()
             MainScreen.instance.charCreationProfession.previousScreen = "NewGameScreen"
             MainScreen.instance.charCreationProfession:setVisible(true, self.joyfocus);
         end
@@ -829,6 +831,7 @@ function NewGameScreen:clickPlay()
             MapSpawnSelect.instance.previousScreen = "NewGameScreen"
             MapSpawnSelect.instance:setVisible(true, self.joyfocus)
         else
+            MapSpawnSelect.instance:useDefaultSpawnRegion()
             MainScreen.instance.charCreationProfession.previousScreen = "NewGameScreen"
             MainScreen.instance.charCreationProfession:setVisible(true, self.joyfocus)
         end
@@ -849,7 +852,15 @@ function NewGameScreen:onGainJoypadFocus(joypadData)
     end
 end
 
-function NewGameScreen:Label_setJoypadFocused(focused)
+function NewGameScreen:onLoseJoypadFocus(joypadData)
+    ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+    self.backButton:clearJoypadButton()
+    self.newButton:clearJoypadButton()
+    self:clearJoypadFocus()
+end
+
+function NewGameScreen:Label_setJoypadFocused(focused, joypadData)
+    ISPanelJoypad.onGainJoypadFocus(self, joypadData)
     self.joypadFocused = focused
     self:onMouseDown(0, 0)
 end
@@ -882,6 +893,12 @@ function NewGameScreen:onResetLua(reason)
         self:setVisible(true)
         reactivateJoypadAfterResetLua()
     end
+end
+
+function NewGameScreen:onJoypadBeforeDeactivate(joypadData)
+--	self.backButton:clearJoypadButton()
+--	self.newButton:clearJoypadButton()
+	self:clearJoypadFocus()
 end
 
 function NewGameScreen:new (x, y, width, height)

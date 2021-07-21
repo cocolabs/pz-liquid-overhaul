@@ -52,6 +52,8 @@ function ISAddWaterFromItemAction:start()
 	else
 		self:setOverrideHandModels(self.itemFrom:getStaticModel(), nil)
 	end
+
+	self.character:reportEvent("EventTakeWater");
 end
 
 function ISAddWaterFromItemAction:stop()

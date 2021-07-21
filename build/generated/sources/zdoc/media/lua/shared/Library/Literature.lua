@@ -16,70 +16,9 @@
 Literature = {}
 
 ---@public
----@param skillTrained String
----@return void
-function Literature:setSkillTrained(skillTrained) end
-
----@public
----@return int
-function Literature:getLvlSkillTrained() end
-
----@public
----@return int
-function Literature:getMaxLevelTrained() end
-
----@public
----@return int
-function Literature:getSaveType() end
-
----@public
----@param customPages HashMap|Integer|String
----@return void
-function Literature:setCustomPages(customPages) end
-
----@public
----@param numLevelsTrained int
----@return void
-function Literature:setNumLevelsTrained(numLevelsTrained) end
-
----@public
----@return HashMap|Integer|String
-function Literature:getCustomPages() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class InventoryItem
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@param net boolean
----@return void
-function Literature:load(input, WorldVersion, net) end
-
----@public
----@return int
-function Literature:getNumberOfPages() end
-
----@public
+---@param index Integer
 ---@return String
-function Literature:getSkillTrained() end
-
----@public
----@return List|String
-function Literature:getTeachedRecipes() end
-
----@public
----@return int
-function Literature:getAlreadyReadPages() end
-
----Overrides:
----
----getStressChange in class InventoryItem
----@public
----@return float @the stressChange
-function Literature:getStressChange() end
+function Literature:seePage(index) end
 
 ---Overrides:
 ---
@@ -91,26 +30,28 @@ function Literature:getStressChange() end
 function Literature:DoTooltip(tooltipUI, layout) end
 
 ---@public
----@param teachedRecipes List|String
----@return void
-function Literature:setTeachedRecipes(teachedRecipes) end
+---@return String
+function Literature:getLockedBy() end
 
 ---Overrides:
 ---
----getCategory in class InventoryItem
+---update in class InventoryItem
 ---@public
----@return String
-function Literature:getCategory() end
-
----@public
----@param canBeWrite boolean
 ---@return void
-function Literature:setCanBeWrite(canBeWrite) end
+function Literature:update() end
 
 ---@public
 ---@param bookName String
 ---@return void
 function Literature:setBookName(bookName) end
+
+---@public
+---@return boolean
+function Literature:IsLiterature() end
+
+---@public
+---@return int
+function Literature:getLvlSkillTrained() end
 
 ---Overrides:
 ---
@@ -120,16 +61,14 @@ function Literature:setBookName(bookName) end
 function Literature:getUnhappyChange() end
 
 ---@public
----@return boolean
-function Literature:canBeWrite() end
+---@param skillTrained String
+---@return void
+function Literature:setSkillTrained(skillTrained) end
 
 ---@public
----@return boolean
-function Literature:IsLiterature() end
-
----@public
----@return int
-function Literature:getPageToWrite() end
+---@param pageToWrite int
+---@return void
+function Literature:setPageToWrite(pageToWrite) end
 
 ---Overrides:
 ---
@@ -139,31 +78,28 @@ function Literature:getPageToWrite() end
 function Literature:finishupdate() end
 
 ---@public
----@return String
-function Literature:getLockedBy() end
-
----@public
 ---@param numberOfPages int
 ---@return void
 function Literature:setNumberOfPages(numberOfPages) end
 
 ---@public
----@param alreadyReadPages int
+---@param lockedBy String
 ---@return void
-function Literature:setAlreadyReadPages(alreadyReadPages) end
+function Literature:setLockedBy(lockedBy) end
 
 ---@public
----@return int
-function Literature:getNumLevelsTrained() end
+---@param index Integer
+---@param text String
+---@return void
+function Literature:addPage(index, text) end
 
 ---@public
 ---@return String
 function Literature:getBookName() end
 
 ---@public
----@param lockedBy String
----@return void
-function Literature:setLockedBy(lockedBy) end
+---@return int
+function Literature:getNumLevelsTrained() end
 
 ---Overrides:
 ---
@@ -171,6 +107,60 @@ function Literature:setLockedBy(lockedBy) end
 ---@public
 ---@return float @the boredomChange
 function Literature:getBoredomChange() end
+
+---@public
+---@param lvlSkillTrained int
+---@return void
+function Literature:setLvlSkillTrained(lvlSkillTrained) end
+
+---@public
+---@param numLevelsTrained int
+---@return void
+function Literature:setNumLevelsTrained(numLevelsTrained) end
+
+---@public
+---@return String
+function Literature:getSkillTrained() end
+
+---@public
+---@return int
+function Literature:getNumberOfPages() end
+
+---@public
+---@param alreadyReadPages int
+---@return void
+function Literature:setAlreadyReadPages(alreadyReadPages) end
+
+---Overrides:
+---
+---getCategory in class InventoryItem
+---@public
+---@return String
+function Literature:getCategory() end
+
+---@public
+---@param teachedRecipes List|String
+---@return void
+function Literature:setTeachedRecipes(teachedRecipes) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function Literature:load(arg0, arg1) end
+
+---@public
+---@param customPages HashMap|Integer|String
+---@return void
+function Literature:setCustomPages(customPages) end
+
+---@public
+---@return int
+function Literature:getSaveType() end
+
+---@public
+---@return int
+function Literature:getPageToWrite() end
 
 ---throws java.io.IOException
 ---
@@ -184,29 +174,33 @@ function Literature:getBoredomChange() end
 function Literature:save(output, net) end
 
 ---@public
----@param lvlSkillTrained int
----@return void
-function Literature:setLvlSkillTrained(lvlSkillTrained) end
+---@return HashMap|Integer|String
+function Literature:getCustomPages() end
 
 ---@public
----@param index Integer
----@param text String
----@return void
-function Literature:addPage(index, text) end
-
----@public
----@param index Integer
----@return String
-function Literature:seePage(index) end
-
----@public
----@param pageToWrite int
----@return void
-function Literature:setPageToWrite(pageToWrite) end
+---@return boolean
+function Literature:canBeWrite() end
 
 ---Overrides:
 ---
----update in class InventoryItem
+---getStressChange in class InventoryItem
 ---@public
+---@return float @the stressChange
+function Literature:getStressChange() end
+
+---@public
+---@return List|String
+function Literature:getTeachedRecipes() end
+
+---@public
+---@param canBeWrite boolean
 ---@return void
-function Literature:update() end
+function Literature:setCanBeWrite(canBeWrite) end
+
+---@public
+---@return int
+function Literature:getMaxLevelTrained() end
+
+---@public
+---@return int
+function Literature:getAlreadyReadPages() end

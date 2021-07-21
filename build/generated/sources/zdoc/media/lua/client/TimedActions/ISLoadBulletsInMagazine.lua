@@ -8,7 +8,7 @@ require "TimedActions/ISBaseTimedAction"
 ISLoadBulletsInMagazine = ISBaseTimedAction:derive("ISLoadBulletsInMagazine")
 
 function ISLoadBulletsInMagazine:isValid()
-	return true;
+	return self.character:getInventory():contains(self.magazine)
 end
 
 function ISLoadBulletsInMagazine:start()
@@ -16,10 +16,10 @@ function ISLoadBulletsInMagazine:start()
 		self:forceStop();
 		return;
 	end
-	self:setActionAnim(CharacterActionAnims.InsertBullets);
 	self.ammoCountStart = self.magazine:getCurrentAmmoCount()
 	self.magazine:setJobDelta(0.0)
 	self:setOverrideHandModels(nil, "GunMagazine");
+	self:setActionAnim(CharacterActionAnims.InsertBullets);
 	self:initVars()
 end
 

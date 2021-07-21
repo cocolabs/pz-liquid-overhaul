@@ -4,9 +4,9 @@ ClimateHistory = {}
 ---@public
 ---@param arg0 ClimateManager
 ---@return void
-function ClimateHistory:updateDayChange(arg0) end
+function ClimateHistory:init(arg0) end
 
 ---@public
 ---@param arg0 ClimateManager
 ---@return void
-function ClimateHistory:init(arg0) end
+function ClimateHistory:updateDayChange(arg0) end

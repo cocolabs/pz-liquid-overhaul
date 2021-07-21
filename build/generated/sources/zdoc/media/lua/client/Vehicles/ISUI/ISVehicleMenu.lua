@@ -675,6 +675,10 @@ function ISVehicleMenu.addSetScriptMenu(context, playerObj, vehicle)
 	local subMenuBurnt = ISContextMenu:getNew(context)
 	context:addSubMenu(optionBurnt, subMenuBurnt)
 
+	local optionSmashed = context:addOption("Set Script (Smashed)", nil, nil)
+	local subMenuSmashed = ISContextMenu:getNew(context)
+	context:addSubMenu(optionSmashed, subMenuSmashed)
+
 	local scripts = getScriptManager():getAllVehicleScripts()
 	local sorted = {}
 	for i=1,scripts:size() do
@@ -685,6 +689,8 @@ function ISVehicleMenu.addSetScriptMenu(context, playerObj, vehicle)
 	for _,script in ipairs(sorted) do
 		if script:getPartCount() == 0 then
 			subMenuBurnt:addOption(script:getName(), playerObj, ISVehicleMenu.onDebugSetScript, vehicle, script:getFullName())
+		elseif string.match(script:getName(), "Smashed") then
+			subMenuSmashed:addOption(script:getName(), playerObj, ISVehicleMenu.onDebugSetScript, vehicle, script:getFullName())
 		else
 			subMenu:addOption(script:getName(), playerObj, ISVehicleMenu.onDebugSetScript, vehicle, script:getFullName())
 		end
@@ -812,13 +818,16 @@ function ISVehicleMenu.FillPartMenu(playerIndex, context, slice, vehicle)
 					context:addOption(getText("ContextMenu_VehicleSiphonGas"), playerObj, ISVehiclePartMenu.onTakeGasoline, part)
 				end
 			end
-			local square = ISVehiclePartMenu.getNearbyFuelPump(vehicle)
-			if square and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
-				if square and part:getContainerContentAmount() < part:getContainerCapacity() then
-					if slice then
-						slice:addSlice(getText("ContextMenu_VehicleRefuelFromPump"), getTexture("media/ui/vehicles/vehicle_refuel_from_pump.png"), ISVehiclePartMenu.onPumpGasoline, playerObj, part)
-					else
-						context:addOption(getText("ContextMenu_VehicleRefuelFromPump"), playerObj, ISVehiclePartMenu.onPumpGasoline, part)
+			local fuelStation = ISVehiclePartMenu.getNearbyFuelPump(vehicle)
+			if fuelStation then
+				local square = fuelStation:getSquare();
+				if square and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
+					if square and part:getContainerContentAmount() < part:getContainerCapacity() then
+						if slice then
+							slice:addSlice(getText("ContextMenu_VehicleRefuelFromPump"), getTexture("media/ui/vehicles/vehicle_refuel_from_pump.png"), ISVehiclePartMenu.onPumpGasoline, playerObj, part)
+						else
+							context:addOption(getText("ContextMenu_VehicleRefuelFromPump"), playerObj, ISVehiclePartMenu.onPumpGasoline, part)
+						end
 					end
 				end
 			end
@@ -1079,10 +1088,33 @@ function ISVehicleMenu.onEnter(playerObj, vehicle, seat)
 			end
 		end
 	else
-		if vehicle:isPassengerUseDoor2(playerObj, seat) then
+		if isShiftKeyDown() then
+			ISVehicleMenu.processShiftEnter(playerObj, vehicle, seat)
+		elseif vehicle:isPassengerUseDoor2(playerObj, seat) then
 			ISVehicleMenu.processEnter2(playerObj, vehicle, seat);
 		else 
 			ISVehicleMenu.processEnter(playerObj, vehicle, seat);
+		end
+	end
+end
+
+function ISVehicleMenu.processShiftEnter(playerObj, vehicle, seat)
+	if seat == 0 then
+		ISVehicleMenu.processEnter(playerObj, vehicle, seat);
+	else
+		if not vehicle:isSeatInstalled(0) or not vehicle:isSeatInstalled(seat) then
+			playerObj:Say(getText("IGUI_PlayerText_VehicleSeatRemoved"))
+		elseif not vehicle:canSwitchSeat(seat, 0) then
+			ISVehicleMenu.processEnter(playerObj, vehicle, 0)
+		elseif vehicle:isEnterBlocked(playerObj, seat) then
+			local seat2 = ISVehicleMenu.getBestSwitchSeatEnter(playerObj, vehicle, seat)
+			if seat2 then
+				ISVehicleMenu.onEnterAux(playerObj, vehicle, seat2)
+				ISTimedActionQueue.add(ISSwitchVehicleSeat:new(playerObj, 0))
+			end
+		else
+			ISVehicleMenu.onEnterAux(playerObj, vehicle, seat)
+			ISTimedActionQueue.add(ISSwitchVehicleSeat:new(playerObj, 0))
 		end
 	end
 end

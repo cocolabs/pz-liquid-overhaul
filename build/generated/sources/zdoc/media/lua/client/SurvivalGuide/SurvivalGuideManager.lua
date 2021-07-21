@@ -71,7 +71,8 @@ end
 function doSurvivalGuide()
 	if isServer() then return; end
 	-- Disable with controller for now.
-	if JoypadState[1] then return end
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then return end
     -- hide it for tut
 --    if getCore():getGameMode() == "Tutorial" and not getCore():isTutorialDone() then
 --        return;

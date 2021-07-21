@@ -17,6 +17,7 @@ end
 
 function ISDetachItemHotbar:start()
 	self:setActionAnim("DetachItem")
+	self.character:reportEvent("EventAttachItem");
 end
 
 function ISDetachItemHotbar:stop()

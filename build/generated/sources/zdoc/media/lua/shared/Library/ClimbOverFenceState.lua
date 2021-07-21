@@ -17,40 +17,28 @@
 ---@field PARAM_COLLIDABLE Integer
 ClimbOverFenceState = {}
 
----@public
----@param arg0 IsoGameCharacter
----@param arg1 IsoDirections
----@return void
-function ClimbOverFenceState:setParams(arg0, arg1) end
-
----@public
----@return ClimbOverFenceState
-function ClimbOverFenceState:instance() end
+---@private
+---@param arg0 IsoObject
+---@return boolean
+function ClimbOverFenceState:isMetalFence(arg0) end
 
 ---@private
----@param arg0 IsoGameCharacter
----@return IsoObject
-function ClimbOverFenceState:getFence(arg0) end
+---@param arg0 IsoObject
+---@return int
+---@overload fun(arg0:IsoObject, arg1:IsoGridSquare)
+function ClimbOverFenceState:countZombiesClimbingOver(arg0) end
+
+---@private
+---@param arg0 IsoObject
+---@param arg1 IsoGridSquare
+---@return int
+function ClimbOverFenceState:countZombiesClimbingOver(arg0, arg1) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@param arg1 AnimEvent
 ---@return void
 function ClimbOverFenceState:animEvent(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 MoveDeltaModifiers
----@return void
-function ClimbOverFenceState:getDeltaModifiers(arg0, arg1) end
-
----Overrides:
----
----enter in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function ClimbOverFenceState:enter(owner) end
 
 ---Overrides:
 ---
@@ -66,10 +54,34 @@ function ClimbOverFenceState:exit(owner) end
 ---@return void
 function ClimbOverFenceState:slideY(arg0, arg1) end
 
+---@public
+---@return ClimbOverFenceState
+function ClimbOverFenceState:instance() end
+
 ---@private
----@param arg0 IsoZombie
+---@param arg0 IsoGameCharacter
+---@return IsoObject
+function ClimbOverFenceState:getFence(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 MoveDeltaModifiers
 ---@return void
-function ClimbOverFenceState:setLungeXVars(arg0) end
+function ClimbOverFenceState:getDeltaModifiers(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 IsoDirections
+---@return void
+function ClimbOverFenceState:setParams(arg0, arg1) end
+
+---Overrides:
+---
+---execute in class State
+---@public
+---@param owner IsoGameCharacter
+---@return void
+function ClimbOverFenceState:execute(owner) end
 
 ---@private
 ---@param arg0 IsoGameCharacter
@@ -79,8 +91,13 @@ function ClimbOverFenceState:slideX(arg0, arg1) end
 
 ---Overrides:
 ---
----execute in class State
+---enter in class State
 ---@public
 ---@param owner IsoGameCharacter
 ---@return void
-function ClimbOverFenceState:execute(owner) end
+function ClimbOverFenceState:enter(owner) end
+
+---@private
+---@param arg0 IsoZombie
+---@return void
+function ClimbOverFenceState:setLungeXVars(arg0) end

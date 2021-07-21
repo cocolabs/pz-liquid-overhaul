@@ -25,10 +25,10 @@
 CharacterActionAnims = {}
 
 ---@public
----@return CharacterActionAnims[]
-function CharacterActionAnims:values() end
-
----@public
 ---@param arg0 String
 ---@return CharacterActionAnims
 function CharacterActionAnims:valueOf(arg0) end
+
+---@public
+---@return CharacterActionAnims[]
+function CharacterActionAnims:values() end

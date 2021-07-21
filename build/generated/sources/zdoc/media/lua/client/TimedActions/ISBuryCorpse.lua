@@ -87,6 +87,7 @@ function ISBuryCorpse:new(character, graves, time, shovel)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
     o.caloriesModifier = 5;
     o.shovel = shovel
 	return o;

@@ -8,12 +8,25 @@
 Language = {}
 
 ---@public
----@return int
-function Language:index() end
+---@return String
+function Language:toString() end
 
 ---@public
 ---@return String
-function Language:toString() end
+function Language:base() end
+
+---@public
+---@param value int
+---@return Language
+function Language:fromIndex(value) end
+
+---@public
+---@return String
+function Language:charset() end
+
+---@public
+---@return boolean
+function Language:isAzerty() end
 
 ---@public
 ---@return String
@@ -29,18 +42,5 @@ function Language:FromString(str) end
 function Language:name() end
 
 ---@public
----@param value int
----@return Language
-function Language:fromIndex(value) end
-
----@public
----@return boolean
-function Language:isAzerty() end
-
----@public
----@return String
-function Language:charset() end
-
----@public
----@return String
-function Language:base() end
+---@return int
+function Language:index() end

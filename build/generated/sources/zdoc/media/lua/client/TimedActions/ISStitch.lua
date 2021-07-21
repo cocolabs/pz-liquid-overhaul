@@ -48,9 +48,11 @@ function ISStitch:start()
     if self.character == self.otherPlayer then
         self:setActionAnim(CharacterActionAnims.Bandage);
         self:setAnimVariable("BandageType", ISHealthPanel.getBandageType(self.bodyPart));
+        self.character:reportEvent("EventBandage");
     else
         self:setActionAnim("Loot")
         self.character:SetVariable("LootPosition", "Mid")
+        self.character:reportEvent("EventLootItem");
     end
     self:setOverrideHandModels(nil, nil);
 end

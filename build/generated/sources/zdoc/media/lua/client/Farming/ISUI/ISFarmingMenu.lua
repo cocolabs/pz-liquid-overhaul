@@ -115,10 +115,10 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 				info = true;
 			end
 			-- disease
-			if plant.mildewLvl > 0 and playerInv:containsTypeRecurse("GardeningSprayMilk") then -- mildew
+			if plant.mildewLvl > 0 then -- mildew
 				cureMildew = true;
 			end
-			if plant.fliesLvl > 0 and playerInv:containsTypeRecurse("GardeningSprayCigarettes") then -- flies
+			if plant.fliesLvl > 0 then -- flies
 				cureFlies = true;
 			end
 			-- harvest
@@ -172,7 +172,7 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 	-- plant seed subMenu
 	if canSeed then
 		if test then return ISWorldObjectContextMenu.setTest() end
-		ISFarmingMenu.doSeedMenu(context, currentPlant, sq, player)
+		ISFarmingMenu:doSeedMenu(context, currentPlant, sq, player)
 	end
 	-- water your plant
 	if canWater and currentPlant.waterLvl < 100 then
@@ -206,14 +206,14 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 				if missingWaterUse < use then
 					use = missingWaterUse;
 				end
-				subMenu:addOption(getText("ContextMenu_Full", use * 5), worldobjects, ISFarmingMenu.onWater, use, handItem, sq, player);
+				subMenu:addOption(getText("ContextMenu_Full", use * 5), worldobjects, ISFarmingMenu.onWater, use, handItem, player);
 				if use > 10 then
 					use = 10
 				else
 					use = use - 1
 				end
 				for i=use,1,-1 do
-					subMenu:addOption(tostring(i * 5), worldobjects, ISFarmingMenu.onWater, i, handItem, sq, player);
+					subMenu:addOption(tostring(i * 5), worldobjects, ISFarmingMenu.onWater, i, handItem, player);
 				end
 				if #waterSources > 1 then
 					waterOption = subMenuWater:addOption(handItem:getName(), worldobjects, nil);
@@ -237,12 +237,13 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 		else
 			ISFarmingMenu.GardeningSprayCigarettes = handItem;
 		end
-		if ISFarmingMenu.GardeningSprayMilk or ISFarmingMenu.GardeningSprayCigarettes then
-			if test then return ISWorldObjectContextMenu.setTest() end
-			local diseaseOption = context:addOption(getText("ContextMenu_Treat_Problem"), worldobjects, nil);
-			local subMenuCure = context:getNew(context);
-			context:addSubMenu(diseaseOption, subMenuCure);
-			if ISFarmingMenu.GardeningSprayMilk and currentPlant.mildewLvl > 0 then
+--		if ISFarmingMenu.GardeningSprayMilk or ISFarmingMenu.GardeningSprayCigarettes then
+		if test then return ISWorldObjectContextMenu.setTest() end
+		local diseaseOption = context:addOption(getText("ContextMenu_Treat_Problem"), worldobjects, nil);
+		local subMenuCure = context:getNew(context);
+		context:addSubMenu(diseaseOption, subMenuCure);
+		if currentPlant.mildewLvl > 0 then
+			if ISFarmingMenu.GardeningSprayMilk then
 				-- we get how many use we can do on our item
 				local use = ISFarmingMenu.GardeningSprayMilk:getDrainableUsesInt()
 				if use > 0 then
@@ -259,9 +260,18 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 						subMenuMildew:addOption(mildewLvl .. "", worldobjects, ISFarmingMenu.onMildewCure, i, sq, player);
 					end
 					context:addSubMenu(mildewMenu, subMenuMildew);
+				else
+					local flieMenu = subMenuCure:addOption(getText("Farming_Mildew"), worldobjects, nil);
+					flieMenu.notAvailable = true;
+					local tooltip = ISWorldObjectContextMenu.addToolTip();
+					local spray = InventoryItemFactory.CreateItem("GardeningSprayMilk"):getDisplayName();
+					tooltip.description = getText("Farming_MissingItem", spray);
+					flieMenu.toolTip = tooltip;
 				end
 			end
-			if ISFarmingMenu.GardeningSprayCigarettes and currentPlant.fliesLvl > 0  then
+		end
+		if currentPlant.fliesLvl > 0  then
+			if ISFarmingMenu.GardeningSprayCigarettes then
 				-- we get how many use we can do on our item
 				local use = ISFarmingMenu.GardeningSprayCigarettes:getDrainableUsesInt()
 				if use > 0 then
@@ -279,8 +289,16 @@ ISFarmingMenu.doFarmingMenu2 = function(player, context, worldobjects, test)
 					end
 					context:addSubMenu(flieMenu, subMenuFlie);
 				end
+			else
+				local flieMenu = subMenuCure:addOption(getText("Farming_Pest_Flies"), worldobjects, nil);
+				flieMenu.notAvailable = true;
+				local tooltip = ISWorldObjectContextMenu.addToolTip();
+				local spray = getScriptManager():FindItem("farming.GardeningSprayCigarettes"):getDisplayName();
+				tooltip.description = getText("Farming_MissingItem", spray);
+				flieMenu.toolTip = tooltip;
 			end
 		end
+--		end
 	end
 	if ISFarmingMenu.cheat and currentPlant then
 		if test then return ISWorldObjectContextMenu.setTest() end
@@ -361,6 +379,9 @@ function ISFarmingMenu.isValidPlant(plant)
 end
 
 function ISFarmingMenu.walkToPlant(playerObj, square)
+	if getDebug() then
+		return true;
+	end
 	if AdjacentFreeTileFinder.isTileOrAdjacent(playerObj:getCurrentSquare(), square) then
 		return true
 	end
@@ -371,10 +392,39 @@ function ISFarmingMenu.walkToPlant(playerObj, square)
 end
 
 ISFarmingMenu.onHarvest = function(worldobjects, plantToharvest, sq, player)
-	if not ISFarmingMenu.walkToPlant(player, sq) then
+	ISFarmingMenu.cursor = ISFarmingCursorMouse:new(player, ISFarmingMenu.onHarvestSquareSelected, ISFarmingMenu.isHarvestValid)
+	getCell():setDrag(ISFarmingMenu.cursor, player:getPlayerNum())
+end
+
+function ISFarmingMenu:onHarvestSquareSelected()
+	local cursor = ISFarmingMenu.cursor;
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+
+	if not ISFarmingMenu.walkToPlant(cursor.character, cursor.sq) then
 		return;
 	end
-	ISTimedActionQueue.add(ISHarvestPlantAction:new(player, plantToharvest, 100));
+	
+	ISTimedActionQueue.add(ISHarvestPlantAction:new(cursor.character, plant, 100));
+end
+
+function ISFarmingMenu:isHarvestValid()
+	if not ISFarmingMenu.cursor then return false; end
+	local cursor = ISFarmingMenu.cursor;
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+	local plantName = ISFarmingMenu.getPlantName(plant);
+	cursor.tooltipTxt = plantName .. " ";
+
+	if not ISFarmingMenu.isValidPlant(plant) or (plant.state ~= "seeded") then
+		cursor.tooltipTxt = "<RGB:1,0,0> " .. getText("Farming_Tooltip_NotAPlant");
+		return false;
+	end
+	
+	if not plant:canHarvest() then
+		cursor.tooltipTxt = plantName .. " <LINE> <RGB:1,0,0> " .. getText("Farming_Tooltip_NotReadyToHarvest");
+		return false;
+	end
+	
+	return true;
 end
 
 ISFarmingMenu.onMildewCure = function(worldobjects, uses, sq, playerObj)
@@ -400,17 +450,138 @@ ISFarmingMenu.onInfo = function(worldobjects, plant, sq, player)
 	ISTimedActionQueue.add(ISPlantInfoAction:new(player, plant));
 end
 
-ISFarmingMenu.onWater = function(worldobjects, uses, handItem, sq, player)
-	if player:getPrimaryHandItem() ~= handItem then
-		ISTimedActionQueue.add(ISEquipWeaponAction:new(player, handItem, 50, true));
-	end
-	if not ISFarmingMenu.walkToPlant(player, sq) then
-		return;
-	end
-	ISTimedActionQueue.add(ISWaterPlantAction:new(player, handItem, uses, sq, 20 + (6 * uses)));
+ISFarmingMenu.onWater = function(worldobjects, uses, handItem, player)
+	ISFarmingMenu.cursor = ISFarmingCursorMouse:new(player, ISFarmingMenu.onWaterSquareSelected, ISFarmingMenu.isWaterValid)
+	getCell():setDrag(ISFarmingMenu.cursor, player:getPlayerNum())
+	ISFarmingMenu.cursor.handItem = handItem;
+	ISFarmingMenu.cursor.uses = uses;
 end
 
-ISFarmingMenu.doSeedMenu = function(context, plant, sq, playerObj)
+function ISFarmingMenu:onWaterSquareSelected()
+	local cursor = ISFarmingMenu.cursor;
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+	local use = math.floor(cursor.handItem:getUsedDelta()/cursor.handItem:getUseDelta());
+
+	-- if waterLvl missing is below the max use of the water plant (so we can't have the option for 40 water if the plant have 80)
+	local missingWaterUse = math.ceil((100 - plant.waterLvl) / 5);
+	if missingWaterUse < use then
+		use = missingWaterUse;
+	end
+	if use > 10 then
+		use = 10
+	end
+	
+	if use > cursor.uses then
+		use = cursor.uses;
+	end
+
+	if cursor.character:getPrimaryHandItem() ~= cursor.handItem then
+		ISTimedActionQueue.add(ISEquipWeaponAction:new(cursor.character, cursor.handItem, 50, true));
+	end
+	if not ISFarmingMenu.walkToPlant(cursor.character, cursor.sq) then
+		return;
+	end
+	ISTimedActionQueue.add(ISWaterPlantAction:new(cursor.character, cursor.handItem, use, cursor.sq, 20 + (6 * use)));
+end
+
+ISFarmingMenu.getPlantName = function(plant)
+	if not plant then
+		return "";
+	end
+	
+	if plant:getObject() then
+		return plant:getObject():getObjectName();
+	else
+		return "Dead " .. getText("Farming_" .. plant.typeOfSeed);
+	end
+end
+
+function ISFarmingMenu:isWaterValid()
+	if not ISFarmingMenu.cursor then return false; end
+	local valid = true;
+	local cursor = ISFarmingMenu.cursor;
+	cursor.tooltipTxt = "";
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+	local plantName = ISFarmingMenu.getPlantName(plant);
+	
+	if not ISFarmingMenu.isValidPlant(plant) then
+		cursor.tooltipTxt = "<RGB:1,0,0> " .. getText("Farming_Tooltip_NotAPlant");
+		return false;
+	end
+	
+	if plant and plant.state ~= "seeded" then
+		cursor.tooltipTxt = "<RGB:1,0,0> " .. getText("Farming_Tooltip_FurrowNeedsSeed");
+		return false;
+	end
+	
+	cursor.tooltipTxt = plantName .. " <LINE> ";
+	local use = 0;
+	if cursor.handItem then
+		use = math.floor(cursor.handItem:getUsedDelta()/cursor.handItem:getUseDelta());
+	end
+	
+	-- if waterLvl missing is below the max use of the water plant (so we can't have the option for 40 water if the plant have 80)
+	local missingWaterUse = math.ceil((100 - plant.waterLvl) / 5);
+	if missingWaterUse < use then
+		use = missingWaterUse;
+	end
+	if use > 10 then
+		use = 10
+	end
+	
+	if missingWaterUse <= 0 then
+		cursor.tooltipTxt = plantName .. " <LINE> <RGB:1,0,0> " .. getText("Farming_Tooltip_PlantHasEnoughWater");
+		return false;
+	end
+
+	if use > cursor.uses then
+		use = cursor.uses;
+	end
+	
+	if use <= 0 then
+		-- try to reselect another water source
+		local playerInv = cursor.character:getInventory();
+		local waterSources = {};
+		cursor.handItem = nil;
+		for i = 0, playerInv:getItems():size() - 1 do
+			local item = playerInv:getItems():get(i);
+			if item:isWaterSource() and math.floor(item:getUsedDelta()/item:getUseDelta()) > 0 then
+				table.insert(waterSources, item)
+			end
+		end
+		-- we'll select the best water source available, one with required water we want, otherwise the best next one
+		if #waterSources > 0 then
+			for index,handItem in ipairs(waterSources) do
+				local use = math.floor(handItem:getUsedDelta()/handItem:getUseDelta());
+				if use >= cursor.uses then
+					cursor.handItem = handItem;
+					return true;
+				else
+					if not cursor.handItem or use > math.floor(handItem:getUsedDelta()/handItem:getUseDelta())then
+						cursor.handItem = handItem;
+					end
+				end
+			end
+		end
+			
+		cursor.tooltipTxt = "<RGB:1,0,0> " .. getText("Farming_Tooltip_NotEnoughWaterInInventory");
+		return false;
+	end
+
+	local farmingLevel = CFarmingSystem.instance:getXp(cursor.character)
+	local water_rgb = ISFarmingInfo.getWaterLvlColor(plant, farmingLevel)
+	water_rgb = string.format(" <RGB:%.2f,%.2f,%.2f> ", water_rgb.r, water_rgb.g, water_rgb.b)
+	if farmingLevel <= 4 then
+		cursor.tooltipTxt = cursor.tooltipTxt .. getText("Farming_Water_levels") .. ": " .. water_rgb .. ISFarmingInfo.getWaterLvl(plant, farmingLevel) .. " <LINE> ";
+	else
+		cursor.tooltipTxt = cursor.tooltipTxt .. getText("Farming_Water_levels") .. ": " .. water_rgb .. tostring(100-(missingWaterUse* 5)) .. " / 100 <LINE> ";
+	end
+	cursor.tooltipTxt = cursor.tooltipTxt .. " <RGB:1,1,1> " .. getText("Farming_Tooltip_ItemUsed") .. ": " .. cursor.handItem:getDisplayName() .. " (" ..  tostring(use * 5) .. " / " .. tostring(math.floor(cursor.handItem:getUsedDelta()/cursor.handItem:getUseDelta()) * 5) .. ")";
+	
+	return valid;
+end
+
+function ISFarmingMenu:doSeedMenu(context, plant, sq, playerObj)
 	local seedOption = context:addOption(getText("ContextMenu_Sow_Seed"), nil, nil)
 	local subMenu = context:getNew(context)
 	context:addSubMenu(seedOption, subMenu)
@@ -424,30 +595,77 @@ ISFarmingMenu.doSeedMenu = function(context, plant, sq, playerObj)
 
 	for _,tos in ipairs(typeOfSeedList) do
 		local typeOfSeed = tos.typeOfSeed
-		local option = subMenu:addActionsOption(tos.text, ISFarmingMenu.onSeed, typeOfSeed, plant, sq)
+		local option = subMenu:addOption(tos.text, playerObj, ISFarmingMenu.onSeed, typeOfSeed, plant, sq)
 		local nbOfSeed = playerObj:getInventory():getCountTypeRecurse(tos.props.seedName)
 		ISFarmingMenu.canPlow(nbOfSeed, typeOfSeed, option)
 	end
 end
 
 function ISFarmingMenu.onSeed(playerObj, typeOfSeed, plant, sq)
-	if not ISFarmingMenu.isValidPlant(plant) then return end
-	local playerInv = playerObj:getInventory()
-	local props = farming_vegetableconf.props[typeOfSeed]
+	ISFarmingMenu.cursor = ISFarmingCursorMouse:new(playerObj, ISFarmingMenu.onSeedSquareSelected, ISFarmingMenu.isSeedValid)
+	getCell():setDrag(ISFarmingMenu.cursor, playerObj:getPlayerNum())
+	ISFarmingMenu.cursor.typeOfSeed = typeOfSeed;
+end
+
+function ISFarmingMenu:onSeedSquareSelected()
+	local cursor = ISFarmingMenu.cursor;
+	if not ISFarmingMenu.walkToPlant(cursor.character, cursor.sq) then
+		return
+	end
+	
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+	local playerInv = cursor.character:getInventory()
+	local props = farming_vegetableconf.props[cursor.typeOfSeed]
 	local items = playerInv:getSomeTypeRecurse(props.seedName, props.seedsRequired)
-	if items:size() < props.seedsRequired then
-		return
-	end
-	if not ISFarmingMenu.walkToPlant(playerObj, sq) then
-		return
-	end
-	ISInventoryPaneContextMenu.transferIfNeeded(playerObj, items)
+	ISInventoryPaneContextMenu.transferIfNeeded(cursor.character, items)
+
 	local seeds = {}
 	for i=1,items:size() do
 		local item = items:get(i-1)
 		table.insert(seeds, items:get(i-1))
 	end
-	ISTimedActionQueue.add(ISSeedAction:new(playerObj, seeds, props.seedsRequired, typeOfSeed, plant, 40))
+	
+	ISTimedActionQueue.add(ISSeedAction:new(cursor.character, seeds, props.seedsRequired, cursor.typeOfSeed, plant, 40))
+end
+
+function ISFarmingMenu:isSeedValid()
+	local valid = true;
+	local cursor = ISFarmingMenu.cursor;
+	
+	local playerInv = cursor.character:getInventory()
+	local props = farming_vegetableconf.props[cursor.typeOfSeed]
+--	local items = playerInv:getSomeTypeRecurse(props.seedName, props.seedsRequired)
+	local items = playerInv:getItemsFromType(props.seedName);
+	cursor.tooltipTxt = getText("ContextMenu_Sow_Seed") .. ": "
+	local color = " <RGB:1,1,1> "
+	local seedText
+	local scriptItem = getScriptManager():FindItem(props.seedName)
+	if scriptItem then
+		seedText = scriptItem:getDisplayName() .. " (";
+	else
+		seedText = cursor.typeOfSeed .. " seeds (";
+	end
+	seedText = seedText .. items:size() .. " / " .. props.seedsRequired  .. ")";
+	if items:size() < props.seedsRequired then
+		color = " <RGB:1,0,0> "
+		valid = false;
+	end
+	cursor.tooltipTxt = cursor.tooltipTxt .. color .. seedText
+
+	local plant = CFarmingSystem.instance:getLuaObjectOnSquare(cursor.sq)
+	local plantName = ISFarmingMenu.getPlantName(plant);
+
+	if not ISFarmingMenu.isValidPlant(plant) then
+		cursor.tooltipTxt = cursor.tooltipTxt .. " <LINE> <RGB:1,0,0> " .. getText("Farming_Tooltip_NotAFurrow");
+		valid = false;
+	end
+	
+	if plant and plant.state ~= "plow" then
+		cursor.tooltipTxt = " <RGB:1,1,1> " .. plantName .. " <LINE> " ..  cursor.tooltipTxt .. " <LINE> <RGB:1,0,0> " .. getText("Farming_Tooltip_FurrowHasSeeds");
+		valid = false;
+	end
+
+	return valid;
 end
 
 ISFarmingMenu.onPlow = function(worldobjects, player, handItem)

@@ -10,12 +10,8 @@
 GameSound = {}
 
 ---@public
----@return boolean
-function GameSound:isLooped() end
-
----@public
 ---@return String
-function GameSound:getName() end
+function GameSound:getMasterName() end
 
 ---@public
 ---@return float
@@ -26,12 +22,8 @@ function GameSound:getUserVolume() end
 function GameSound:getCategory() end
 
 ---@public
----@return String
-function GameSound:getMasterName() end
-
----@public
----@return void
-function GameSound:reset() end
+---@return GameSoundClip
+function GameSound:getRandomClip() end
 
 ---@public
 ---@param arg0 float
@@ -39,5 +31,13 @@ function GameSound:reset() end
 function GameSound:setUserVolume(arg0) end
 
 ---@public
----@return GameSoundClip
-function GameSound:getRandomClip() end
+---@return boolean
+function GameSound:isLooped() end
+
+---@public
+---@return void
+function GameSound:reset() end
+
+---@public
+---@return String
+function GameSound:getName() end

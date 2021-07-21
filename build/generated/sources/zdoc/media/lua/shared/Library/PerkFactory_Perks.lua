@@ -1,87 +1,53 @@
 ---@class PerkFactory.Perks : zombie.characters.skills.PerkFactory.Perks
----@field public None PerkFactory.Perks
----@field public Agility PerkFactory.Perks
----@field public Cooking PerkFactory.Perks
----@field public Melee PerkFactory.Perks
----@field public Crafting PerkFactory.Perks
----@field public Fitness PerkFactory.Perks
----@field public Strength PerkFactory.Perks
----@field public Blunt PerkFactory.Perks
----@field public Axe PerkFactory.Perks
----@field public Sprinting PerkFactory.Perks
----@field public Lightfoot PerkFactory.Perks
----@field public Nimble PerkFactory.Perks
----@field public Sneak PerkFactory.Perks
----@field public Woodwork PerkFactory.Perks
----@field public Aiming PerkFactory.Perks
----@field public Reloading PerkFactory.Perks
----@field public Farming PerkFactory.Perks
----@field public Survivalist PerkFactory.Perks
----@field public Fishing PerkFactory.Perks
----@field public Trapping PerkFactory.Perks
----@field public Passiv PerkFactory.Perks
----@field public Firearm PerkFactory.Perks
----@field public PlantScavenging PerkFactory.Perks
----@field public Doctor PerkFactory.Perks
----@field public Electricity PerkFactory.Perks
----@field public Blacksmith PerkFactory.Perks
----@field public MetalWelding PerkFactory.Perks
----@field public Melting PerkFactory.Perks
----@field public Mechanics PerkFactory.Perks
----@field public Spear PerkFactory.Perks
----@field public Maintenance PerkFactory.Perks
----@field public SmallBlade PerkFactory.Perks
----@field public LongBlade PerkFactory.Perks
----@field public SmallBlunt PerkFactory.Perks
----@field public Combat PerkFactory.Perks
----@field public Tailoring PerkFactory.Perks
----@field public MAX PerkFactory.Perks
----@field private index int
+---@field public None PerkFactory.Perk
+---@field public Agility PerkFactory.Perk
+---@field public Cooking PerkFactory.Perk
+---@field public Melee PerkFactory.Perk
+---@field public Crafting PerkFactory.Perk
+---@field public Fitness PerkFactory.Perk
+---@field public Strength PerkFactory.Perk
+---@field public Blunt PerkFactory.Perk
+---@field public Axe PerkFactory.Perk
+---@field public Sprinting PerkFactory.Perk
+---@field public Lightfoot PerkFactory.Perk
+---@field public Nimble PerkFactory.Perk
+---@field public Sneak PerkFactory.Perk
+---@field public Woodwork PerkFactory.Perk
+---@field public Aiming PerkFactory.Perk
+---@field public Reloading PerkFactory.Perk
+---@field public Farming PerkFactory.Perk
+---@field public Survivalist PerkFactory.Perk
+---@field public Fishing PerkFactory.Perk
+---@field public Trapping PerkFactory.Perk
+---@field public Passiv PerkFactory.Perk
+---@field public Firearm PerkFactory.Perk
+---@field public PlantScavenging PerkFactory.Perk
+---@field public Doctor PerkFactory.Perk
+---@field public Electricity PerkFactory.Perk
+---@field public Blacksmith PerkFactory.Perk
+---@field public MetalWelding PerkFactory.Perk
+---@field public Melting PerkFactory.Perk
+---@field public Mechanics PerkFactory.Perk
+---@field public Spear PerkFactory.Perk
+---@field public Maintenance PerkFactory.Perk
+---@field public SmallBlade PerkFactory.Perk
+---@field public LongBlade PerkFactory.Perk
+---@field public SmallBlunt PerkFactory.Perk
+---@field public Combat PerkFactory.Perk
+---@field public Tailoring PerkFactory.Perk
+---@field public MAX PerkFactory.Perk
 PerkFactory_Perks = {}
-
----Returns the enum constant of this type with the specified name.
----
----The string must match exactly an identifier used to declare an
----
----enum constant in this type.  (Extraneous whitespace characters are
----
----not permitted.)
----@public
----@param name String @the name of the enum constant to be returned.
----@return PerkFactory.Perks @the enum constant with the specified name
-function PerkFactory_Perks:valueOf(name) end
-
----@public
----@return int
-function PerkFactory_Perks:index() end
-
----Returns an array containing the constants of this enum type, in
----
----the order they are declared.  This method may be used to iterate
----
----over the constants as follows:
----
----
----
----for (PerkFactory.Perks c : PerkFactory.Perks.values())
----
----    System.out.println(c);
----
----
----@public
----@return PerkFactory.Perks[] @an array containing the constants of this enum type, in the order they are declared
-function PerkFactory_Perks:values() end
-
----@public
----@param str String
----@return PerkFactory.Perks
-function PerkFactory_Perks:FromString(str) end
 
 ---@public
 ---@return int
 function PerkFactory_Perks:getMaxIndex() end
 
 ---@public
----@param value int
----@return PerkFactory.Perks
-function PerkFactory_Perks:fromIndex(value) end
+---@param arg0 int
+---@return PerkFactory.Perk
+function PerkFactory_Perks:fromIndex(arg0) end
+
+---@public
+---@param arg0 String
+---@return PerkFactory.Perk
+function PerkFactory_Perks:FromString(arg0) end

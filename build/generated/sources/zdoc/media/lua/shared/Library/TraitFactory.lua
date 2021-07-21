@@ -3,6 +3,19 @@
 TraitFactory = {}
 
 ---@public
+---@return void
+function TraitFactory:init() end
+
+---@public
+---@return void
+function TraitFactory:sortList() end
+
+---@public
+---@param name String
+---@return TraitFactory.Trait
+function TraitFactory:getTrait(name) end
+
+---@public
 ---@param type String
 ---@param name String
 ---@param cost int
@@ -27,10 +40,6 @@ function TraitFactory:addTrait(type, name, cost, desc, profession, removeInMP) e
 function TraitFactory:Reset() end
 
 ---@public
----@return void
-function TraitFactory:init() end
-
----@public
 ---@param a String
 ---@param b String
 ---@return void
@@ -39,12 +48,3 @@ function TraitFactory:setMutualExclusive(a, b) end
 ---@public
 ---@return ArrayList|TraitFactory.Trait
 function TraitFactory:getTraits() end
-
----@public
----@param name String
----@return TraitFactory.Trait
-function TraitFactory:getTrait(name) end
-
----@public
----@return void
-function TraitFactory:sortList() end

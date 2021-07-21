@@ -31,12 +31,6 @@ Vector2i = {}
 ---@class Noise2D : zombie.erosion.utils.Noise2D
 Noise2D = {}
 
----@class TimeZone : java.util.TimeZone
-TimeZone = {}
-
----@class DataSquarePos : zombie.iso.areas.isoregion.DataSquarePos
-DataSquarePos = {}
-
 ---@class HUDButton : zombie.ui.HUDButton
 HUDButton = {}
 
@@ -49,9 +43,6 @@ LogSeverity = {}
 ---@class ParsePosition : java.text.ParsePosition
 ParsePosition = {}
 
----@class GlobalObjectLookup : zombie.globalObjects.GlobalObjectLookup
-GlobalObjectLookup = {}
-
 ---@class EditVehicleState.LuaEnvironment : zombie.vehicles.EditVehicleState.LuaEnvironment
 EditVehicleState_LuaEnvironment = {}
 
@@ -61,20 +52,26 @@ MoveDeltaModifiers = {}
 ---@class PrintStream : java.io.PrintStream
 PrintStream = {}
 
----@class characters_SurvivorDesc : zombie.characters.SurvivorDesc
-characters_SurvivorDesc = {}
-
 ---@class radio_ChannelCategory : zombie.radio.ChannelCategory
 radio_ChannelCategory = {}
 
 ---@class AbstractList : java.util.AbstractList
 AbstractList = {}
 
+---@class IChunkRegion : zombie.iso.areas.isoregion.regions.IChunkRegion
+IChunkRegion = {}
+
+---@class fonts_AngelCodeFont : zombie.core.fonts.AngelCodeFont
+fonts_AngelCodeFont = {}
+
 ---@class WalkingOnTheSpot : zombie.ai.WalkingOnTheSpot
 WalkingOnTheSpot = {}
 
----@class IsoMetaGrid.VehicleZone : zombie.iso.IsoMetaGrid.VehicleZone
-IsoMetaGrid_VehicleZone = {}
+---@class DebugOptions.Checks : zombie.debug.DebugOptions.Checks
+DebugOptions_Checks = {}
+
+---@class CollideWithObstaclesPoly.ChunkData : zombie.vehicles.CollideWithObstaclesPoly.ChunkData
+CollideWithObstaclesPoly_ChunkData = {}
 
 ---@class RenderSettings.PlayerRenderSettings : zombie.core.opengl.RenderSettings.PlayerRenderSettings
 RenderSettings_PlayerRenderSettings = {}
@@ -85,11 +82,11 @@ AnimationVariableSlotCallbackFloat_CallbackGetStrongTyped = {}
 ---@class LightbarSirenMode : zombie.vehicles.LightbarSirenMode
 LightbarSirenMode = {}
 
+---@class NetworkPlayerAI : zombie.characters.NetworkPlayerAI
+NetworkPlayerAI = {}
+
 ---@class ClientChunkRequest.Chunk : zombie.network.ClientChunkRequest.Chunk
 ClientChunkRequest_Chunk = {}
-
----@class Path : java.nio.file.Path
-Path = {}
 
 ---@class types_Key : zombie.inventory.types.Key
 types_Key = {}
@@ -100,6 +97,9 @@ sprite_IsoSprite = {}
 ---@class VehicleScript.Skin : zombie.scripting.objects.VehicleScript.Skin
 VehicleScript_Skin = {}
 
+---@class CustomSandboxOption : zombie.sandbox.CustomSandboxOption
+CustomSandboxOption = {}
+
 ---@class Map : java.util.Map
 Map = {}
 
@@ -108,6 +108,9 @@ ClimateManager_ClimateNetInfo = {}
 
 ---@class AnimationVariableSource : zombie.core.skinnedmodel.advancedanimation.AnimationVariableSource
 AnimationVariableSource = {}
+
+---@class FieldAccessor : jdk.internal.reflect.FieldAccessor
+FieldAccessor = {}
 
 ---@class UnaryOperator : java.util.function.UnaryOperator
 UnaryOperator = {}
@@ -136,8 +139,11 @@ DataOutput = {}
 ---@class MapObjects.Callback : zombie.Lua.MapObjects.Callback
 MapObjects_Callback = {}
 
----@class Lock : sun.misc.Lock
-Lock = {}
+---@class DataRoot : zombie.iso.areas.isoregion.data.DataRoot
+DataRoot = {}
+
+---@class Vector3i : org.joml.Vector3i
+Vector3i = {}
 
 ---@class ThunderStorm.ThunderEvent : zombie.iso.weather.ThunderStorm.ThunderEvent
 ThunderStorm_ThunderEvent = {}
@@ -157,14 +163,14 @@ VehicleInterpolation = {}
 ---@class Node : org.w3c.dom.Node
 Node = {}
 
----@class Instant : java.time.Instant
-Instant = {}
-
 ---@class IsoAnim : zombie.iso.sprite.IsoAnim
 IsoAnim = {}
 
 ---@class ObjectInputStream : java.io.ObjectInputStream
 ObjectInputStream = {}
+
+---@class IWorldRegion : zombie.iso.areas.isoregion.regions.IWorldRegion
+IWorldRegion = {}
 
 ---@class File : java.io.File
 File = {}
@@ -174,9 +180,6 @@ ZomboidBitFlag = {}
 
 ---@class BaseVehicle.VehicleImpulse : zombie.vehicles.BaseVehicle.VehicleImpulse
 BaseVehicle_VehicleImpulse = {}
-
----@class BaseCalendar : sun.util.calendar.BaseCalendar
-BaseCalendar = {}
 
 ---@class Spliterator : java.util.Spliterator
 Spliterator = {}
@@ -211,6 +214,9 @@ Enum = {}
 ---@class BaseVehicle.WheelInfo : zombie.vehicles.BaseVehicle.WheelInfo
 BaseVehicle_WheelInfo = {}
 
+---@class Path : zombie.ai.astar.Path
+Path = {}
+
 ---@class UI3DScene.View : zombie.vehicles.UI3DScene.View
 UI3DScene_View = {}
 
@@ -241,9 +247,6 @@ TextDrawHorizontal = {}
 ---@class PathFindBehavior2.NPCData : zombie.vehicles.PathFindBehavior2.NPCData
 PathFindBehavior2_NPCData = {}
 
----@class Vector2f : org.joml.Vector2f
-Vector2f = {}
-
 ---@class characters_CharacterActionAnims : zombie.characters.CharacterActionAnims
 characters_CharacterActionAnims = {}
 
@@ -256,11 +259,20 @@ Date = {}
 ---@class AStarPathFinderResult : zombie.ai.astar.AStarPathFinderResult
 AStarPathFinderResult = {}
 
+---@class Vector2dc : org.joml.Vector2dc
+Vector2dc = {}
+
 ---@class Thread : java.lang.Thread
 Thread = {}
 
 ---@class BaseSoundManager : zombie.BaseSoundManager
 BaseSoundManager = {}
+
+---@class Cursor : org.lwjglx.input.Cursor
+Cursor = {}
+
+---@class Lock : java.util.concurrent.locks.Lock
+Lock = {}
 
 ---@class IsoGridOcclusionData.OcclusionFilter : zombie.iso.IsoGridOcclusionData.OcclusionFilter
 IsoGridOcclusionData_OcclusionFilter = {}
@@ -304,14 +316,14 @@ PathFindBehavior2_PointOnPath = {}
 ---@class UI3DScene.StateData : zombie.vehicles.UI3DScene.StateData
 UI3DScene_StateData = {}
 
+---@class Vector3d : org.joml.Vector3d
+Vector3d = {}
+
 ---@class MultiTextureFBO2 : zombie.core.textures.MultiTextureFBO2
 MultiTextureFBO2 = {}
 
 ---@class PZMath.SideOfLine : zombie.core.math.PZMath.SideOfLine
 PZMath_SideOfLine = {}
-
----@class MethodAccessor : sun.reflect.MethodAccessor
-MethodAccessor = {}
 
 ---@class Vector3fc : org.joml.Vector3fc
 Vector3fc = {}
@@ -321,6 +333,9 @@ WorldMarkers_PlayerScreen = {}
 
 ---@class CarController : zombie.core.physics.CarController
 CarController = {}
+
+---@class iso_IsoChunk : zombie.iso.IsoChunk
+iso_IsoChunk = {}
 
 ---@class DialogButton : zombie.ui.DialogButton
 DialogButton = {}
@@ -340,9 +355,6 @@ AnimationVariableSlotCallbackString_CallbackGetStrongTyped = {}
 ---@class FileSystem.SubTexture : zombie.fileSystem.FileSystem.SubTexture
 FileSystem_SubTexture = {}
 
----@class Matrix4f : org.lwjgl.util.vector.Matrix4f
-Matrix4f = {}
-
 ---@class SandboxOptions.SandboxOption : zombie.SandboxOptions.SandboxOption
 SandboxOptions_SandboxOption = {}
 
@@ -351,6 +363,9 @@ VBOLines = {}
 
 ---@class Predicate : java.util.function.Predicate
 Predicate = {}
+
+---@class Vector2d : org.joml.Vector2d
+Vector2d = {}
 
 ---@class Vector4f : org.joml.Vector4f
 Vector4f = {}
@@ -376,6 +391,15 @@ objects_Item_Type = {}
 ---@class IsoPlayer.MoveVars : zombie.characters.IsoPlayer.MoveVars
 IsoPlayer_MoveVars = {}
 
+---@class debug_BooleanDebugOption : zombie.debug.BooleanDebugOption
+debug_BooleanDebugOption = {}
+
+---@class GLFWImage : org.lwjgl.glfw.GLFWImage
+GLFWImage = {}
+
+---@class IsoObject.IsoObjectFactory : zombie.iso.IsoObject.IsoObjectFactory
+IsoObject_IsoObjectFactory = {}
+
 ---@class characterTextures_BloodClothingType : zombie.characterTextures.BloodClothingType
 characterTextures_BloodClothingType = {}
 
@@ -385,8 +409,14 @@ UpdateLimit = {}
 ---@class TriggerXmlFile : zombie.characters.TriggerXmlFile
 TriggerXmlFile = {}
 
+---@class BentFences.Entry : zombie.iso.BentFences.Entry
+BentFences_Entry = {}
+
 ---@class Pattern : java.util.regex.Pattern
 Pattern = {}
+
+---@class iso_IsoMetaChunk : zombie.iso.IsoMetaChunk
+iso_IsoMetaChunk = {}
 
 ---@class MainScreenState.ScreenElement : zombie.gameStates.MainScreenState.ScreenElement
 MainScreenState_ScreenElement = {}
@@ -418,8 +448,8 @@ SwipeStatePlayer_AttackVars = {}
 ---@class UI3DScene.CharacterSceneModelCamera : zombie.vehicles.UI3DScene.CharacterSceneModelCamera
 UI3DScene_CharacterSceneModelCamera = {}
 
----@class InputImplementation : org.lwjgl.opengl.InputImplementation
-InputImplementation = {}
+---@class NetworkCharacter : zombie.characters.NetworkCharacter
+NetworkCharacter = {}
 
 ---@class IsoWallBloodSplat : zombie.iso.IsoWallBloodSplat
 IsoWallBloodSplat = {}
@@ -451,6 +481,9 @@ Quaternion = {}
 ---@class short
 short = {}
 
+---@class AnimationVariableHandle : zombie.core.skinnedmodel.advancedanimation.AnimationVariableHandle
+AnimationVariableHandle = {}
+
 ---@class lang_Integer : java.lang.Integer
 lang_Integer = {}
 
@@ -463,17 +496,8 @@ BuildingScore = {}
 ---@class ScrollBar : zombie.ui.ScrollBar
 ScrollBar = {}
 
----@class ZombieSortedList : zombie.core.Collections.ZombieSortedList
-ZombieSortedList = {}
-
 ---@class VehicleScript.Window : zombie.scripting.objects.VehicleScript.Window
 VehicleScript_Window = {}
-
----@class weather_ClimateManager.ClimateFloat : zombie.iso.weather.ClimateManager.ClimateFloat
-weather_ClimateManager_ClimateFloat = {}
-
----@class weather_ClimateManager.ClimateColor : zombie.iso.weather.ClimateManager.ClimateColor
-weather_ClimateManager_ClimateColor = {}
 
 ---@class SleepingEventData : zombie.ai.sadisticAIDirector.SleepingEventData
 SleepingEventData = {}
@@ -556,6 +580,9 @@ TShortArrayList = {}
 ---@class FMODSoundEmitter.Sound : fmod.fmod.FMODSoundEmitter.Sound
 FMODSoundEmitter_Sound = {}
 
+---@class Matrix2fc : org.joml.Matrix2fc
+Matrix2fc = {}
+
 ---@class State : zombie.ai.State
 State = {}
 
@@ -592,6 +619,9 @@ BiConsumer = {}
 ---@class WrappedBuffer : zombie.core.utils.WrappedBuffer
 WrappedBuffer = {}
 
+---@class Matrix3dc : org.joml.Matrix3dc
+Matrix3dc = {}
+
 ---@class ReentrantLock : java.util.concurrent.locks.ReentrantLock
 ReentrantLock = {}
 
@@ -616,8 +646,17 @@ Enumeration = {}
 ---@class AnimStateTriggerXmlFile : zombie.characters.AnimStateTriggerXmlFile
 AnimStateTriggerXmlFile = {}
 
+---@class SharedSkeleAnimationRepository : zombie.core.skinnedmodel.animation.sharedskele.SharedSkeleAnimationRepository
+SharedSkeleAnimationRepository = {}
+
+---@class GlobalObject : zombie.globalObjects.GlobalObject
+GlobalObject = {}
+
 ---@class textures_ColorInfo : zombie.core.textures.ColorInfo
 textures_ColorInfo = {}
+
+---@class isoregion_IsoRegionLogType : zombie.iso.areas.isoregion.IsoRegionLogType
+isoregion_IsoRegionLogType = {}
 
 ---@class RandomAccessFile : java.io.RandomAccessFile
 RandomAccessFile = {}
@@ -655,8 +694,17 @@ KnownBlockedEdges = {}
 ---@class Network : zombie.debug.options.Network
 Network = {}
 
+---@class Optional : java.util.Optional
+Optional = {}
+
+---@class Character : zombie.debug.options.Character
+Character = {}
+
 ---@class WorldSoundManager : zombie.WorldSoundManager
 WorldSoundManager = {}
+
+---@class Matrix2dc : org.joml.Matrix2dc
+Matrix2dc = {}
 
 ---@class TextDrawObject.DrawLine : zombie.ui.TextDrawObject.DrawLine
 TextDrawObject_DrawLine = {}
@@ -700,9 +748,6 @@ VehicleTemplate = {}
 ---@class Fixing.PredicateRequired : zombie.scripting.objects.Fixing.PredicateRequired
 Fixing_PredicateRequired = {}
 
----@class iso_Vector2 : zombie.iso.Vector2
-iso_Vector2 = {}
-
 ---@class Fitness.FitnessExercise : zombie.characters.BodyDamage.Fitness.FitnessExercise
 Fitness_FitnessExercise = {}
 
@@ -724,8 +769,14 @@ IsoGridOcclusionData = {}
 ---@class TypeVariable : java.lang.reflect.TypeVariable
 TypeVariable = {}
 
+---@class IsoZombie.AttackNetworkEvent : zombie.characters.IsoZombie.AttackNetworkEvent
+IsoZombie_AttackNetworkEvent = {}
+
 ---@class DateFormatSymbols : java.text.DateFormatSymbols
 DateFormatSymbols = {}
+
+---@class RadialProgressBar.RadSegment : zombie.ui.RadialProgressBar.RadSegment
+RadialProgressBar_RadSegment = {}
 
 ---@class SoundManager.Music : zombie.SoundManager.Music
 SoundManager_Music = {}
@@ -751,6 +802,9 @@ UIEventHandler = {}
 ---@class WallShaperWhole : zombie.iso.sprite.shapers.WallShaperWhole
 WallShaperWhole = {}
 
+---@class Matrix4dc : org.joml.Matrix4dc
+Matrix4dc = {}
+
 ---@class WorldFlares.PlayerFlareLightInfo : zombie.iso.weather.WorldFlares.PlayerFlareLightInfo
 WorldFlares_PlayerFlareLightInfo = {}
 
@@ -766,9 +820,6 @@ HashSet = {}
 ---@class SharedDescriptors.Descriptor : zombie.SharedDescriptors.Descriptor
 SharedDescriptors_Descriptor = {}
 
----@class ZonedDateTime : java.time.ZonedDateTime
-ZonedDateTime = {}
-
 ---@class ChooseGameInfo.TileDef : zombie.gameStates.ChooseGameInfo.TileDef
 ChooseGameInfo_TileDef = {}
 
@@ -777,6 +828,12 @@ Rectangle = {}
 
 ---@class FieldPosition : java.text.FieldPosition
 FieldPosition = {}
+
+---@class VehicleEngineRPM : zombie.vehicles.VehicleEngineRPM
+VehicleEngineRPM = {}
+
+---@class NetworkTeleport : zombie.characters.NetworkTeleport
+NetworkTeleport = {}
 
 ---@class IsoMannequin.PerPlayer : zombie.iso.objects.IsoMannequin.PerPlayer
 IsoMannequin_PerPlayer = {}
@@ -807,9 +864,6 @@ MouseStateCache = {}
 
 ---@class Quaternionf : org.joml.Quaternionf
 Quaternionf = {}
-
----@class Executable : java.lang.reflect.Executable
-Executable = {}
 
 ---@class Texture.TextureAssetParams : zombie.core.textures.Texture.TextureAssetParams
 Texture_TextureAssetParams = {}
@@ -898,9 +952,6 @@ NumberFormat = {}
 ---@class IsoDoor.DoorType : zombie.iso.objects.IsoDoor.DoorType
 IsoDoor_DoorType = {}
 
----@class DataRoot : zombie.iso.areas.isoregion.DataRoot
-DataRoot = {}
-
 ---@class WorldMarkers.DirectionArrowList : zombie.iso.WorldMarkers.DirectionArrowList
 WorldMarkers_DirectionArrowList = {}
 
@@ -918,6 +969,9 @@ ThreadLocal = {}
 
 ---@class IsoChunk.ChunkGetter : zombie.iso.IsoChunk.ChunkGetter
 IsoChunk_ChunkGetter = {}
+
+---@class IsoRegionManager : zombie.iso.areas.isoregion.regions.IsoRegionManager
+IsoRegionManager = {}
 
 ---@class UI3DScene.Circle : zombie.vehicles.UI3DScene.Circle
 UI3DScene_Circle = {}
@@ -948,6 +1002,9 @@ AnimationVariableSlotCallbackFloat_CallbackSetStrongTyped = {}
 
 ---@class BaseVisual : zombie.core.skinnedmodel.visual.BaseVisual
 BaseVisual = {}
+
+---@class NetworkTeleport.NetworkTeleportDebug : zombie.characters.NetworkTeleport.NetworkTeleportDebug
+NetworkTeleport_NetworkTeleportDebug = {}
 
 ---@class IsoWorld.CompScoreToPlayer : zombie.iso.IsoWorld.CompScoreToPlayer
 IsoWorld_CompScoreToPlayer = {}
@@ -991,17 +1048,11 @@ ListIterator = {}
 ---@class IAnimationVariableSlot : zombie.core.skinnedmodel.advancedanimation.IAnimationVariableSlot
 IAnimationVariableSlot = {}
 
----@class TIntHashSet : gnu.trove.set.hash.TIntHashSet
-TIntHashSet = {}
-
 ---@class Type : java.lang.reflect.Type
 Type = {}
 
 ---@class IsoCamera.FrameState : zombie.iso.IsoCamera.FrameState
 IsoCamera_FrameState = {}
-
----@class Cursor : org.lwjgl.input.Cursor
-Cursor = {}
 
 ---@class DebugLogStream : zombie.debug.DebugLogStream
 DebugLogStream = {}
@@ -1039,11 +1090,11 @@ UI3DScene_RotateGizmo = {}
 ---@class DateFormat.Field : java.text.DateFormat.Field
 DateFormat_Field = {}
 
----@class textures_Texture : zombie.core.textures.Texture
-textures_Texture = {}
-
 ---@class WorldMarkers.Line : zombie.iso.WorldMarkers.Line
 WorldMarkers_Line = {}
+
+---@class MethodHandles.Lookup : java.lang.invoke.MethodHandles.Lookup
+MethodHandles_Lookup = {}
 
 ---@class iso_IsoPuddles.PuddlesFloat : zombie.iso.IsoPuddles.PuddlesFloat
 iso_IsoPuddles_PuddlesFloat = {}
@@ -1051,14 +1102,14 @@ iso_IsoPuddles_PuddlesFloat = {}
 ---@class MapGroups.MapDirectory : zombie.MapGroups.MapDirectory
 MapGroups_MapDirectory = {}
 
----@class BaseCalendar.Date : sun.util.calendar.BaseCalendar.Date
-BaseCalendar_Date = {}
-
 ---@class Boolean : java.lang.Boolean
 Boolean = {}
 
 ---@class BaseVehicle.Passenger : zombie.vehicles.BaseVehicle.Passenger
 BaseVehicle_Passenger = {}
+
+---@class ReplayManager : zombie.network.ReplayManager
+ReplayManager = {}
 
 ---@class Dimension : java.awt.Dimension
 Dimension = {}
@@ -1074,6 +1125,12 @@ TIntArrayList = {}
 
 ---@class ConcurrentLinkedQueue : java.util.concurrent.ConcurrentLinkedQueue
 ConcurrentLinkedQueue = {}
+
+---@class GLFWImage.Buffer : org.lwjgl.glfw.GLFWImage.Buffer
+GLFWImage_Buffer = {}
+
+---@class Matrix3x2fc : org.joml.Matrix3x2fc
+Matrix3x2fc = {}
 
 ---@class ModelManager : zombie.core.skinnedmodel.ModelManager
 ModelManager = {}
@@ -1111,14 +1168,14 @@ AbstractStyle = {}
 ---@class IHumanVisual : zombie.core.skinnedmodel.visual.IHumanVisual
 IHumanVisual = {}
 
----@class Era : sun.util.calendar.Era
-Era = {}
-
 ---@class Outfit : zombie.core.skinnedmodel.population.Outfit
 Outfit = {}
 
 ---@class IsoGameCharacter.LightInfo : zombie.characters.IsoGameCharacter.LightInfo
 IsoGameCharacter_LightInfo = {}
+
+---@class DataSquarePos : zombie.iso.areas.isoregion.data.DataSquarePos
+DataSquarePos = {}
 
 ---@class BaseSoundListener : fmod.fmod.BaseSoundListener
 BaseSoundListener = {}
@@ -1135,11 +1192,17 @@ IDebugOption = {}
 ---@class StoryEmitter : zombie.radio.StorySounds.StoryEmitter
 StoryEmitter = {}
 
+---@class NetworkStrikeAI.Strike : zombie.characters.NetworkStrikeAI.Strike
+NetworkStrikeAI_Strike = {}
+
 ---@class IsoGridStack : zombie.iso.IsoGridStack
 IsoGridStack = {}
 
 ---@class GenericsFactory : sun.reflect.generics.factory.GenericsFactory
 GenericsFactory = {}
+
+---@class GregorianCalendar : java.util.GregorianCalendar
+GregorianCalendar = {}
 
 ---@class SwipeStatePlayer.HitInfo : zombie.ai.states.SwipeStatePlayer.HitInfo
 SwipeStatePlayer_HitInfo = {}
@@ -1186,6 +1249,9 @@ LocalDateTime = {}
 ---@class long
 long = {}
 
+---@class EventQueue : org.lwjglx.input.EventQueue
+EventQueue = {}
+
 ---@class ClothingItemReference : zombie.core.skinnedmodel.population.ClothingItemReference
 ClothingItemReference = {}
 
@@ -1210,17 +1276,20 @@ BiFunction = {}
 ---@class BoundedQueue : zombie.core.utils.BoundedQueue
 BoundedQueue = {}
 
+---@class Matrix4f : org.joml.Matrix4f
+Matrix4f = {}
+
 ---@class GameStateMachine.StateAction : zombie.gameStates.GameStateMachine.StateAction
 GameStateMachine_StateAction = {}
+
+---@class Vector3ic : org.joml.Vector3ic
+Vector3ic = {}
 
 ---@class AnimationVariableSlotCallbackString.CallbackSetStrongTyped : zombie.core.skinnedmodel.advancedanimation.AnimationVariableSlotCallbackString.CallbackSetStrongTyped
 AnimationVariableSlotCallbackString_CallbackSetStrongTyped = {}
 
 ---@class AssetType : zombie.asset.AssetType
 AssetType = {}
-
----@class BaseVehicle.EngineRPMData : zombie.vehicles.BaseVehicle.EngineRPMData
-BaseVehicle_EngineRPMData = {}
 
 ---@class FileWriter : java.io.FileWriter
 FileWriter = {}
@@ -1249,6 +1318,9 @@ Mover = {}
 ---@class WaveSignalDevice : zombie.radio.devices.WaveSignalDevice
 WaveSignalDevice = {}
 
+---@class Vector2ic : org.joml.Vector2ic
+Vector2ic = {}
+
 ---@class ChatElement : zombie.chat.ChatElement
 ChatElement = {}
 
@@ -1264,9 +1336,6 @@ ObjectOutput = {}
 ---@class FMODSoundEmitter.FileSound : fmod.fmod.FMODSoundEmitter.FileSound
 FMODSoundEmitter_FileSound = {}
 
----@class Gregorian : sun.util.calendar.Gregorian
-Gregorian = {}
-
 ---@class ItemPickerJava.ItemPickerRoom : zombie.inventory.ItemPickerJava.ItemPickerRoom
 ItemPickerJava_ItemPickerRoom = {}
 
@@ -1281,6 +1350,9 @@ IsoRegionWorker = {}
 
 ---@class TextDrawObject.DrawElement : zombie.ui.TextDrawObject.DrawElement
 TextDrawObject_DrawElement = {}
+
+---@class MethodAccessor : jdk.internal.reflect.MethodAccessor
+MethodAccessor = {}
 
 ---@class weather_ClimateForecaster.DayForecast : zombie.iso.weather.ClimateForecaster.DayForecast
 weather_ClimateForecaster_DayForecast = {}
@@ -1360,9 +1432,6 @@ KahluaTable = {}
 ---@class IsoChunk.JobType : zombie.iso.IsoChunk.JobType
 IsoChunk_JobType = {}
 
----@class JulianCalendar : sun.util.calendar.JulianCalendar
-JulianCalendar = {}
-
 ---@class GameTime.AnimTimer : zombie.GameTime.AnimTimer
 GameTime_AnimTimer = {}
 
@@ -1393,9 +1462,6 @@ IsoPlayer_VehicleContainerData = {}
 ---@class double
 double = {}
 
----@class skills_PerkFactory.Perks : zombie.characters.skills.PerkFactory.Perks
-skills_PerkFactory_Perks = {}
-
 ---@class SwipeStatePlayer.LOSVisitor : zombie.ai.states.SwipeStatePlayer.LOSVisitor
 SwipeStatePlayer_LOSVisitor = {}
 
@@ -1417,14 +1483,14 @@ AnimatorDebugMonitor_MonitoredLayer = {}
 ---@class URI : java.net.URI
 URI = {}
 
+---@class Calendar : java.util.Calendar
+Calendar = {}
+
 ---@class TreeMap : java.util.TreeMap
 TreeMap = {}
 
 ---@class VehicleScript.Door : zombie.scripting.objects.VehicleScript.Door
 VehicleScript_Door = {}
-
----@class Keyboard.KeyEvent : org.lwjgl.input.Keyboard.KeyEvent
-Keyboard_KeyEvent = {}
 
 ---@class SpriteRenderer.WallShaderTexRender : zombie.core.SpriteRenderer.WallShaderTexRender
 SpriteRenderer_WallShaderTexRender = {}
@@ -1477,9 +1543,6 @@ TextureDraw_GenericDrawer = {}
 ---@class Asset.State : zombie.asset.Asset.State
 Asset_State = {}
 
----@class FieldAccessor : sun.reflect.FieldAccessor
-FieldAccessor = {}
-
 ---@class FliesSound.ChunkData : zombie.FliesSound.ChunkData
 FliesSound_ChunkData = {}
 
@@ -1491,6 +1554,9 @@ RadioTranslationData = {}
 
 ---@class AnimatedModel : zombie.core.skinnedmodel.advancedanimation.AnimatedModel
 AnimatedModel = {}
+
+---@class CharBuffer : java.nio.CharBuffer
+CharBuffer = {}
 
 ---@class characters_IsoPlayer : zombie.characters.IsoPlayer
 characters_IsoPlayer = {}
@@ -1506,6 +1572,9 @@ AIBrainPlayerControlVars = {}
 
 ---@class BodyDamage_BodyPartType : zombie.characters.BodyDamage.BodyPartType
 BodyDamage_BodyPartType = {}
+
+---@class NetworkZombieAI : zombie.characters.NetworkZombieAI
+NetworkZombieAI = {}
 
 ---@class IsoWaterGeometry : zombie.iso.IsoWaterGeometry
 IsoWaterGeometry = {}

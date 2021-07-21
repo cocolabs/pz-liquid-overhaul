@@ -74,12 +74,14 @@ function ISItemEditorUI:prerender()
     end
     y = y + dy;
 
-    self:drawText(getText("IGUI_Color") .. ":", 5, y, 1,1,1,1,UIFont.Small);
-    self.color:setY(y);
-    if splitPt < getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_Color")) + 10 then
-        splitPt = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_Color")) + 10;
+    if self.color:isVisible() then
+        self:drawText(getText("IGUI_Color") .. ":", 5, y, 1,1,1,1,UIFont.Small);
+        self.color:setY(y);
+        if splitPt < getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_Color")) + 10 then
+            splitPt = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_Color")) + 10;
+        end
+        y = y + dy;
     end
-    y = y + dy;
 
     if self.isWeapon then
         self:drawText(getText("IGUI_ItemEditor_MinDmg") .. ":", 5, y, 1,1,1,1,UIFont.Small);
@@ -298,6 +300,11 @@ function ISItemEditorUI:create()
     self:addChild(self.color);
     self.colorBtn = self.color;
     y = y + dy;
+
+    if not self.item:allowRandomTint() then
+        self.color:setVisible(false);
+        y = y - dy;
+    end
 
     --************** WEAPON **************--
     if self.isWeapon then
@@ -531,7 +538,12 @@ function ISItemEditorUI:onOptionMouseDown(button, x, y)
         end
         self.item:setCondition(tonumber(string.trim(self.condition:getInternalText())));
         if self.originalColorR ~= self.color.backgroundColor.r or self.originalColorG ~= self.color.backgroundColor.g or self.originalColorB ~= self.color.backgroundColor.b then
-            self.item:setColor(Color.new(self.color.backgroundColor.r, self.color.backgroundColor.g, self.color.backgroundColor.b,1));
+            local color = Color.new(self.color.backgroundColor.r, self.color.backgroundColor.g, self.color.backgroundColor.b,1);
+            self.item:setColor(color);
+            self.item:getVisual():setTint(ImmutableColor.new(color));
+            if self.admin:isEquipped(self.item) then
+                self.admin:resetModelNextFrame();
+            end
             self.item:setCustomColor(true);
         end
         if self.isWeapon then

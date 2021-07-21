@@ -23,29 +23,62 @@
 ImmutableColor = {}
 
 ---@public
----@param arg0 Object
----@return boolean
-function ImmutableColor:equals(arg0) end
+---@return ImmutableColor
+---@overload fun(arg0:float)
+function ImmutableColor:brighter() end
+
+---@public
+---@param arg0 float
+---@return ImmutableColor
+function ImmutableColor:brighter(arg0) end
+
+---@public
+---@param arg0 ImmutableColor
+---@return ImmutableColor
+function ImmutableColor:add(arg0) end
+
+---@public
+---@return Color
+function ImmutableColor:toMutableColor() end
+
+---@public
+---@param arg0 Color
+---@return ImmutableColor
+function ImmutableColor:multiply(arg0) end
+
+---@public
+---@return byte
+function ImmutableColor:getRedByte() end
+
+---@public
+---@return byte
+function ImmutableColor:getGreenByte() end
+
+---@public
+---@return int
+function ImmutableColor:getGreenInt() end
+
+---@public
+---@return int
+function ImmutableColor:getRedInt() end
+
+---@public
+---@return int
+function ImmutableColor:getAlphaInt() end
+
+---@public
+---@return byte
+function ImmutableColor:getBlueByte() end
+
+---@public
+---@param arg0 ImmutableColor
+---@param arg1 float
+---@return ImmutableColor
+function ImmutableColor:interp(arg0, arg1) end
 
 ---@public
 ---@return float
 function ImmutableColor:getGreenFloat() end
-
----@public
----@return int
-function ImmutableColor:getBlueInt() end
-
----@public
----@return float
-function ImmutableColor:getRedFloat() end
-
----@public
----@return ImmutableColor
-function ImmutableColor:random() end
-
----@public
----@return int
-function ImmutableColor:hashCode() end
 
 ---@public
 ---@param arg0 float
@@ -53,6 +86,48 @@ function ImmutableColor:hashCode() end
 ---@param arg2 float
 ---@return Integer[]
 function ImmutableColor:HSBtoRGB(arg0, arg1, arg2) end
+
+---@public
+---@return int
+function ImmutableColor:hashCode() end
+
+---@public
+---@return byte
+function ImmutableColor:getAlphaByte() end
+
+---@public
+---@return float
+function ImmutableColor:getAlphaFloat() end
+
+---@public
+---@return float
+function ImmutableColor:getBlueFloat() end
+
+---@public
+---@return int
+function ImmutableColor:getBlueInt() end
+
+---@public
+---@return ImmutableColor
+function ImmutableColor:random() end
+
+---@public
+---@param arg0 String
+---@return ImmutableColor
+function ImmutableColor:decode(arg0) end
+
+---@public
+---@return String
+function ImmutableColor:toString() end
+
+---@public
+---@return float
+function ImmutableColor:getRedFloat() end
+
+---@public
+---@param arg0 Object
+---@return boolean
+function ImmutableColor:equals(arg0) end
 
 ---@public
 ---@return ImmutableColor
@@ -65,81 +140,6 @@ function ImmutableColor:darker() end
 function ImmutableColor:darker(arg0) end
 
 ---@public
----@return float
-function ImmutableColor:getAlphaFloat() end
-
----@public
----@return byte
-function ImmutableColor:getRedByte() end
-
----@public
----@return byte
-function ImmutableColor:getAlphaByte() end
-
----@public
----@return String
-function ImmutableColor:toString() end
-
----@public
----@param arg0 String
----@return ImmutableColor
-function ImmutableColor:decode(arg0) end
-
----@public
 ---@param arg0 float
 ---@return ImmutableColor
 function ImmutableColor:scale(arg0) end
-
----@public
----@param arg0 Color
----@return ImmutableColor
-function ImmutableColor:multiply(arg0) end
-
----@public
----@return int
-function ImmutableColor:getRedInt() end
-
----@public
----@return int
-function ImmutableColor:getGreenInt() end
-
----@public
----@return int
-function ImmutableColor:getAlphaInt() end
-
----@public
----@return ImmutableColor
----@overload fun(arg0:float)
-function ImmutableColor:brighter() end
-
----@public
----@param arg0 float
----@return ImmutableColor
-function ImmutableColor:brighter(arg0) end
-
----@public
----@return Color
-function ImmutableColor:toMutableColor() end
-
----@public
----@return float
-function ImmutableColor:getBlueFloat() end
-
----@public
----@return byte
-function ImmutableColor:getGreenByte() end
-
----@public
----@param arg0 ImmutableColor
----@param arg1 float
----@return ImmutableColor
-function ImmutableColor:interp(arg0, arg1) end
-
----@public
----@return byte
-function ImmutableColor:getBlueByte() end
-
----@public
----@param arg0 ImmutableColor
----@return ImmutableColor
-function ImmutableColor:add(arg0) end

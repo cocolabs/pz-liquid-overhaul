@@ -26,25 +26,20 @@ ObjectTooltip_LayoutItem = {}
 ---@param b float
 ---@param a float
 ---@return void
-function ObjectTooltip_LayoutItem:setValue(label, r, g, b, a) end
+function ObjectTooltip_LayoutItem:setLabel(label, r, g, b, a) end
 
 ---@public
----@param fraction float
----@param r float
----@param g float
----@param b float
----@param a float
 ---@return void
-function ObjectTooltip_LayoutItem:setProgress(fraction, r, g, b, a) end
-
----@public
----@param value int
----@return void
----@overload fun(value:float)
-function ObjectTooltip_LayoutItem:setValueRightNoPlus(value) end
+function ObjectTooltip_LayoutItem:reset() end
 
 ---@public
 ---@param value float
+---@return void
+---@overload fun(value:int)
+function ObjectTooltip_LayoutItem:setValueRightNoPlus(value) end
+
+---@public
+---@param value int
 ---@return void
 function ObjectTooltip_LayoutItem:setValueRightNoPlus(value) end
 
@@ -58,8 +53,13 @@ function ObjectTooltip_LayoutItem:setValueRightNoPlus(value) end
 function ObjectTooltip_LayoutItem:render(x, y, mid, right, ui) end
 
 ---@public
+---@param label String
+---@param r float
+---@param g float
+---@param b float
+---@param a float
 ---@return void
-function ObjectTooltip_LayoutItem:calcSizes() end
+function ObjectTooltip_LayoutItem:setValue(label, r, g, b, a) end
 
 ---@public
 ---@param value int
@@ -69,13 +69,13 @@ function ObjectTooltip_LayoutItem:setValueRight(value, highGood) end
 
 ---@public
 ---@return void
-function ObjectTooltip_LayoutItem:reset() end
+function ObjectTooltip_LayoutItem:calcSizes() end
 
 ---@public
----@param label String
+---@param fraction float
 ---@param r float
 ---@param g float
 ---@param b float
 ---@param a float
 ---@return void
-function ObjectTooltip_LayoutItem:setLabel(label, r, g, b, a) end
+function ObjectTooltip_LayoutItem:setProgress(fraction, r, g, b, a) end

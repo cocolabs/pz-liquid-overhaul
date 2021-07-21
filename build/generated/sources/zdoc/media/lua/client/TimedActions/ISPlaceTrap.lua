@@ -55,5 +55,6 @@ function ISPlaceTrap:new(character, weapon, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o;
 end

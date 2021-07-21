@@ -6,8 +6,21 @@
 DoubleConfigOption = {}
 
 ---@public
+---@return double
+function DoubleConfigOption:getDefaultValue() end
+
+---@public
+---@return String
+function DoubleConfigOption:getType() end
+
+---@public
 ---@return void
-function DoubleConfigOption:setDefaultToCurrentValue() end
+function DoubleConfigOption:resetToDefault() end
+
+---@public
+---@param arg0 Object
+---@return void
+function DoubleConfigOption:setValueFromObject(arg0) end
 
 ---@public
 ---@return double
@@ -20,15 +33,24 @@ function DoubleConfigOption:isValidString(arg0) end
 
 ---@public
 ---@return String
-function DoubleConfigOption:getType() end
+function DoubleConfigOption:getValueAsString() end
 
 ---@public
----@return void
-function DoubleConfigOption:resetToDefault() end
+---@return double
+function DoubleConfigOption:getMax() end
 
 ---@public
 ---@return Object
 function DoubleConfigOption:getValueAsObject() end
+
+---@public
+---@return void
+function DoubleConfigOption:setDefaultToCurrentValue() end
+
+---@public
+---@param arg0 String
+---@return void
+function DoubleConfigOption:parse(arg0) end
 
 ---@public
 ---@param arg0 double
@@ -38,25 +60,3 @@ function DoubleConfigOption:setValue(arg0) end
 ---@public
 ---@return double
 function DoubleConfigOption:getValue() end
-
----@public
----@return String
-function DoubleConfigOption:getValueAsString() end
-
----@public
----@param arg0 Object
----@return void
-function DoubleConfigOption:setValueFromObject(arg0) end
-
----@public
----@return double
-function DoubleConfigOption:getDefaultValue() end
-
----@public
----@param arg0 String
----@return void
-function DoubleConfigOption:parse(arg0) end
-
----@public
----@return double
-function DoubleConfigOption:getMax() end

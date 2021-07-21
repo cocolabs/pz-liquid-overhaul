@@ -39,6 +39,7 @@ function ISDrinkFromBottle:start()
     else
         self:setAnimVariable("FoodType", "bottle");
     end
+    self.character:reportEvent("EventEating");
 end
 
 function ISDrinkFromBottle:stop()

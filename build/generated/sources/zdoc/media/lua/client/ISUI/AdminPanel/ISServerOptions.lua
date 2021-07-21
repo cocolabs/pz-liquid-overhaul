@@ -50,7 +50,7 @@ function ISServerOptions:onMouseMove(dx, dy)
     local y = self:getMouseY();
     self.changeBtn:setVisible(false)
 
-    if not self.modifying and x >= self.datas:getX() + 35 and x <= self.datas:getX() + (self.datas:getWidth() - 40) and y >= self.datas:getY() and y <= self.datas:getY() + self.datas:getHeight() then
+    if self.player:getAccessLevel() == "Admin" and not self.modifying and x >= self.datas:getX() + 35 and x <= self.datas:getX() + (self.datas:getWidth() - 40) and y >= self.datas:getY() and y <= self.datas:getY() + self.datas:getHeight() then
         y = self.datas:rowAt(self.datas:getMouseX(), self.datas:getMouseY())
         if self.datas.items[y] then
             self.changeBtn:setVisible(true);
@@ -141,6 +141,11 @@ function ISServerOptions:create()
     self.cancel:instantiate();
     self.cancel.borderColor = self.buttonBorderColor;
     self:addChild(self.cancel);
+    
+    if self.player:getAccessLevel() ~= "Admin" then
+        self.changeBtn:setVisible(false);
+        self.saveBtn:setVisible(false);
+    end
 
     self:populateList();
 end
@@ -195,7 +200,6 @@ function ISServerOptions:onServerOptionChange(option, newValue)
             end
         end
     end
-
 end
 
 function ISServerOptions:onOptionMouseDown(button, x, y)
@@ -237,13 +241,14 @@ function ISServerOptions:onConfirmLeave(button)
     button.parent.ui:removeFromUIManager();
 end
 
-function ISServerOptions:new(x, y, width, height)
+function ISServerOptions:new(x, y, width, height, player)
     local o = {};
     x = getCore():getScreenWidth() / 2 - (width / 2);
     y = getCore():getScreenHeight() / 2 - (height / 2);
     o = ISPanel:new(x, y, width, height);
     setmetatable(o, self);
     self.__index = self;
+    o.player = player;
     o.variableColor={r=0.9, g=0.55, b=0.1, a=1};
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
     o.backgroundColor = {r=0, g=0, b=0, a=0.8};

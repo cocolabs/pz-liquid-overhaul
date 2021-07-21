@@ -15,36 +15,16 @@
 SLSoundManager = {}
 
 ---@public
----@return SLSoundManager
-function SLSoundManager:getInstance() end
-
----@public
----@return void
-function SLSoundManager:renderDebug() end
-
----@public
 ---@return boolean
-function SLSoundManager:getDebug() end
+function SLSoundManager:getLuaDebug() end
 
 ---@public
 ---@return JVector2
 function SLSoundManager:getRandomBorderPosition() end
 
 ---@public
----@return ArrayList|Unknown
-function SLSoundManager:getStorySounds() end
-
----@public
 ---@return void
-function SLSoundManager:init() end
-
----@public
----@return boolean
-function SLSoundManager:getLuaDebug() end
-
----@public
----@return float
-function SLSoundManager:getRandomBorderRange() end
+function SLSoundManager:updateKeys() end
 
 ---@public
 ---@param arg0 int
@@ -55,16 +35,37 @@ function SLSoundManager:update(arg0, arg1, arg2) end
 
 ---@public
 ---@return void
-function SLSoundManager:updateKeys() end
+function SLSoundManager:loadSounds() end
 
 ---@public
 ---@return void
-function SLSoundManager:thunderTest() end
+function SLSoundManager:render() end
 
 ---@private
 ---@param arg0 StorySound
 ---@return void
 function SLSoundManager:addStorySound(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function SLSoundManager:print(arg0) end
+
+---@public
+---@return void
+function SLSoundManager:renderDebug() end
+
+---@public
+---@return ArrayList|Unknown
+function SLSoundManager:getStorySounds() end
+
+---@public
+---@return void
+function SLSoundManager:init() end
+
+---@public
+---@return float
+function SLSoundManager:getRandomBorderRange() end
 
 ---@private
 ---@param arg0 UIFont
@@ -75,14 +76,13 @@ function SLSoundManager:addStorySound(arg0) end
 function SLSoundManager:renderLine(arg0, arg1, arg2, arg3) end
 
 ---@public
----@param arg0 String
 ---@return void
-function SLSoundManager:print(arg0) end
+function SLSoundManager:thunderTest() end
 
 ---@public
----@return void
-function SLSoundManager:loadSounds() end
+---@return SLSoundManager
+function SLSoundManager:getInstance() end
 
 ---@public
----@return void
-function SLSoundManager:render() end
+---@return boolean
+function SLSoundManager:getDebug() end

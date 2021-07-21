@@ -134,409 +134,9 @@
 ---@field private windAngleStr String[]
 ClimateManager = {}
 
----@public
----@return double
-function ClimateManager:getWorldAgeHours() end
-
----@protected
----@param arg0 int
----@return double
-function ClimateManager:getAirMassNoiseFrequencyMod(arg0) end
-
 ---@private
 ---@return void
 function ClimateManager:serverReceiveClientChangeWeather() end
-
----@protected
----@param arg0 ClimateManager.ClimateNetAuth
----@param arg1 byte
----@param arg2 UdpConnection
----@return void
-function ClimateManager:transmitClimatePacket(arg0, arg1, arg2) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return int
----@overload fun(arg0:float, arg1:float, arg2:float)
-function ClimateManager:clamp(arg0, arg1, arg2) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
-function ClimateManager:clamp(arg0, arg1, arg2) end
-
----@private
----@param arg0 ByteBuffer
----@param arg1 byte
----@param arg2 UdpConnection
----@return boolean
-function ClimateManager:readPacketContents(arg0, arg1, arg2) end
-
----@public
----@param arg0 int
----@return ClimateManager.ClimateColor
-function ClimateManager:getClimateColor(arg0) end
-
----@public
----@return void
-function ClimateManager:stopWeatherAndThunder() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 float
----@param arg3 float
----@param arg4 float
----@param arg5 float
----@param arg6 boolean
----@return void
-function ClimateManager:setSeasonColorDawn(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
-
----@public
----@return void
-function ClimateManager:triggerWinterIsComingStorm() end
-
----@public
----@param arg0 IsoGameCharacter
----@return float
----@overload fun(arg0:IsoGameCharacter, arg1:boolean)
-function ClimateManager:getAirTemperatureForCharacter(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 boolean
----@return float
-function ClimateManager:getAirTemperatureForCharacter(arg0, arg1) end
-
----@private
----@param arg0 UdpConnection
----@param arg1 byte
----@return boolean
-function ClimateManager:writePacketContents(arg0, arg1) end
-
----@public
----@return float
-function ClimateManager:getSeasonStrength() end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager:setEnabledSimulation(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
-function ClimateManager:lerp(arg0, arg1, arg2) end
-
----@public
----@return void
-function ClimateManager:update() end
-
----@public
----@return void
-function ClimateManager:transmitRequestAdminVars() end
-
----@public
----@return float
-function ClimateManager:getDayMeanTemperature() end
-
----@public
----@return float
-function ClimateManager:getAirMassDaily() end
-
----@public
----@return float
-function ClimateManager:getMaxWindspeedMph() end
-
----@public
----@return double
-function ClimateManager:getWindNoiseFinal() end
-
----@public
----@return void
----@overload fun(arg0:int)
-function ClimateManager:execute_Simulation() end
-
----@public
----@param arg0 int
----@return void
-function ClimateManager:execute_Simulation(arg0) end
-
----@public
----@return void
-function ClimateManager:updateEveryTenMins() end
-
----@public
----@param arg0 IsoMetaGrid
----@return void
-function ClimateManager:init(arg0) end
-
----@public
----@return void
-function ClimateManager:launchFlare() end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager:setPrecipitationIsSnow(arg0) end
-
----@public
----@return float
-function ClimateManager:getGlobalLightIntensity() end
-
----@public
----@return int
-function ClimateManager:getBoolMax() end
-
----@public
----@return float
-function ClimateManager:getFrontStrength() end
-
----@public
----@return float
-function ClimateManager:getCloudIntensity() end
-
----@public
----@return float
-function ClimateManager:getViewDistance() end
-
----@public
----@return float
-function ClimateManager:getWindPower() end
-
----@public
----@param arg0 float
----@return float
-function ClimateManager:posToPosNegRange(arg0) end
-
----@private
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return void
-function ClimateManager:updateDayInfo(arg0, arg1, arg2) end
-
----@public
----@return double
-function ClimateManager:getWindTickFinal() end
-
----@private
----@param arg0 int
----@param arg1 String
----@return ClimateManager.ClimateFloat
-function ClimateManager:initClimateFloat(arg0, arg1) end
-
----@public
----@return void
-function ClimateManager:resetOverrides() end
-
----@public
----@return void
-function ClimateManager:forceDayInfoUpdate() end
-
----@public
----@param arg0 float
----@return float
-function ClimateManager:ToMph(arg0) end
-
----@public
----@return ClimateHistory
-function ClimateManager:getClimateHistory() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getColFogLegacy() end
-
----@public
----@return double
-function ClimateManager:getWindNoiseBase() end
-
----@public
----@return String
-function ClimateManager:getSeasonName() end
-
----@public
----@return KahluaTable
-function ClimateManager:getModData() end
-
----@public
----@return int
-function ClimateManager:getFloatMax() end
-
----@public
----@return void
-function ClimateManager:resetAdmin() end
-
----@public
----@return float
-function ClimateManager:getAirMassTemperature() end
-
----@public
----@return float
-function ClimateManager:getFogIntensity() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:setDayLightStrength(arg0) end
-
----@public
----@return float
-function ClimateManager:getDesaturation() end
-
----@public
----@return float
-function ClimateManager:getWeatherInterference() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 float
----@return float
-function ClimateManager:getWindForceMovement(arg0, arg1) end
-
----@public
----@param arg0 int
----@return ClimateManager.ClimateFloat
-function ClimateManager:getClimateFloat(arg0) end
-
----@public
----@param arg0 int
----@param arg1 float
----@return boolean
-function ClimateManager:triggerCustomWeatherStage(arg0, arg1) end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getColNight() end
-
----@public
----@return WeatherPeriod
-function ClimateManager:getWeatherPeriod() end
-
----@public
----@param arg0 DataInputStream
----@param arg1 int
----@return void
-function ClimateManager:load(arg0, arg1) end
-
----@public
----@return boolean
-function ClimateManager:getEnabledSimulation() end
-
----@public
----@return Color
-function ClimateManager:getGlobalLightInternal() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getColNightMoon() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:setDesaturation(arg0) end
-
----@public
----@return boolean
-function ClimateManager:getEnabledFxUpdate() end
-
----@public
----@return void
-function ClimateManager:transmitStopWeather() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:setNightStrength(arg0) end
-
----@public
----@return double
-function ClimateManager:getSimplexOffsetC() end
-
----@public
----@return float
-function ClimateManager:getTemperature() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getFogTintTropical() end
-
----@public
----@return float
-function ClimateManager:getSeasonProgression() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getColorNewFog() end
-
----@private
----@return void
-function ClimateManager:updateTestFlare() end
-
----@public
----@return ClimateValues
-function ClimateManager:getClimateValuesCopy() end
-
----@public
----@param arg0 float
----@return float
-function ClimateManager:clamp01(arg0) end
-
----@public
----@param arg0 ClimateValues
----@return void
-function ClimateManager:CopyClimateValues(arg0) end
-
----@public
----@return float
-function ClimateManager:getWindAngleIntensity() end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 UdpConnection
----@return void
-function ClimateManager:receiveClimatePacket(arg0, arg1) end
-
----@public
----@return ThunderStorm
-function ClimateManager:getThunderStorm() end
-
----@protected
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
----@overload fun(arg0:float, arg1:float, arg2:float, arg3:boolean)
-function ClimateManager:getTimeLerp(arg0, arg1, arg2) end
-
----@protected
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 boolean
----@return float
-function ClimateManager:getTimeLerp(arg0, arg1, arg2, arg3) end
-
----@public
----@param arg0 int
----@return ClimateManager.ClimateBool
-function ClimateManager:getClimateBool(arg0) end
-
----@public
----@param arg0 float
----@param arg1 boolean
----@return boolean
-function ClimateManager:triggerCustomWeather(arg0, arg1) end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getGlobalLight() end
 
 ---@protected
 ---@param arg0 float
@@ -555,144 +155,44 @@ function ClimateManager:getTimeLerpHours(arg0, arg1, arg2) end
 function ClimateManager:getTimeLerpHours(arg0, arg1, arg2, arg3) end
 
 ---@public
----@return void
-function ClimateManager:postCellLoadSetSnow() end
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return ClimateColorInfo
+function ClimateManager:getSeasonColor(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 float
 ---@return float
-function ClimateManager:ToKph(arg0) end
-
----@public
----@return float
-function ClimateManager:getSnowStrength() end
+function ClimateManager:ToMph(arg0) end
 
 ---@public
 ---@return boolean
 function ClimateManager:getPrecipitationIsSnow() end
 
 ---@public
----@param arg0 float
----@return void
-function ClimateManager:transmitTriggerTropical(arg0) end
-
----@public
----@return double
-function ClimateManager:getSimplexOffsetA() end
-
----@public
 ---@return boolean
 function ClimateManager:isSnowing() end
 
 ---@public
----@return float
-function ClimateManager:getRainIntensity() end
+---@return ClimateValues
+function ClimateManager:getClimateValuesCopy() end
 
 ---@public
----@return ClimateColorInfo
-function ClimateManager:getColNightNoMoon() end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
-function ClimateManager:clerp(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function ClimateManager:getIsThunderStorming() end
-
----@public
----@return void
-function ClimateManager:resetModded() end
+---@return int
+function ClimateManager:getColorMax() end
 
 ---@public
 ---@return float
-function ClimateManager:getWindAngleDegrees() end
-
----@public
----@return float
-function ClimateManager:getAirMass() end
-
----@private
----@return void
-function ClimateManager:updateOnTick() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getFogTintStorm() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:setAmbient(arg0) end
-
----@private
----@return void
-function ClimateManager:initSeasonColors() end
-
----@private
----@return void
-function ClimateManager:updateSnowOLD() end
-
----@public
----@param arg0 float
----@return String
-function ClimateManager:getWindAngleString(arg0) end
-
----@public
----@return float
-function ClimateManager:getWindSpeedMovement() end
-
----@public
----@return float
-function ClimateManager:getNightStrength() end
-
----@public
----@return ClimateColorInfo
-function ClimateManager:getColFog() end
-
----@public
----@return float
-function ClimateManager:getPrecipitationIntensity() end
-
----@public
----@return void
-function ClimateManager:updateOLD() end
-
----@public
----@return float
-function ClimateManager:getMaxWindspeedKph() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:transmitServerStartRain(arg0) end
-
----@public
----@param arg0 IsoGridSquare
----@return float
----@overload fun(arg0:IsoGridSquare, arg1:BaseVehicle)
----@overload fun(arg0:IsoGridSquare, arg1:BaseVehicle, arg2:boolean)
-function ClimateManager:getAirTemperatureForSquare(arg0) end
-
----@public
----@param arg0 IsoGridSquare
----@param arg1 BaseVehicle
----@return float
-function ClimateManager:getAirTemperatureForSquare(arg0, arg1) end
-
----@public
----@param arg0 IsoGridSquare
----@param arg1 BaseVehicle
----@param arg2 boolean
----@return float
-function ClimateManager:getAirTemperatureForSquare(arg0, arg1, arg2) end
+function ClimateManager:getCorrectedWindAngleIntensity() end
 
 ---@public
 ---@return ClimateManager.DayInfo
 function ClimateManager:getNextDay() end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColNightNoMoon() end
 
 ---@public
 ---@param arg0 int
@@ -705,40 +205,56 @@ function ClimateManager:getNextDay() end
 ---@return void
 function ClimateManager:setSeasonColorDay(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
----@public
+---@protected
 ---@param arg0 float
----@return void
-function ClimateManager:setViewDistance(arg0) end
+---@param arg1 float
+---@param arg2 float
+---@return float
+---@overload fun(arg0:float, arg1:float, arg2:float, arg3:boolean)
+function ClimateManager:getTimeLerp(arg0, arg1, arg2) end
 
----@public
----@return ClimateManager
-function ClimateManager:getInstance() end
+---@protected
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 boolean
+---@return float
+function ClimateManager:getTimeLerp(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@return void
 function ClimateManager:transmitClientChangeAdminVars() end
 
 ---@private
----@param arg0 int
----@param arg1 String
----@return ClimateManager.ClimateBool
-function ClimateManager:initClimateBool(arg0, arg1) end
+---@param arg0 ByteBuffer
+---@param arg1 byte
+---@param arg2 UdpConnection
+---@return boolean
+function ClimateManager:readPacketContents(arg0, arg1, arg2) end
 
 ---@public
+---@param arg0 float
 ---@return float
-function ClimateManager:getBaseTemperature() end
+function ClimateManager:clamp01(arg0) end
 
 ---@public
----@return double
-function ClimateManager:getSimplexOffsetD() end
-
----@private
+---@param arg0 float
 ---@return void
-function ClimateManager:updateWindTick() end
+function ClimateManager:setViewDistance(arg0) end
 
----@private
+---@public
+---@return boolean
+function ClimateManager:getEnabledFxUpdate() end
+
+---@public
+---@param arg0 float
+---@param arg1 int
 ---@return void
-function ClimateManager:serverReceiveClientChangeAdminVars() end
+function ClimateManager:transmitGenerateWeather(arg0, arg1) end
+
+---@public
+---@return boolean
+function ClimateManager:isRaining() end
 
 ---@public
 ---@param arg0 int
@@ -765,59 +281,92 @@ function ClimateManager:triggerKateBobIntroStorm(arg0, arg1, arg2, arg3, arg4, a
 function ClimateManager:triggerKateBobIntroStorm(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
 
 ---@public
----@return ClimateManager.DayInfo
-function ClimateManager:getPreviousDay() end
+---@return float
+function ClimateManager:getRainIntensity() end
 
 ---@public
 ---@param arg0 float
----@param arg1 int
----@return void
-function ClimateManager:transmitGenerateWeather(arg0, arg1) end
+---@return float
+function ClimateManager:posToPosNegRange(arg0) end
 
 ---@public
----@return void
-function ClimateManager:transmitServerStopRain() end
-
----@private
----@return void
-function ClimateManager:updateFx() end
+---@return double
+function ClimateManager:getSimplexOffsetD() end
 
 ---@public
----@return boolean
-function ClimateManager:isRaining() end
+---@return ClimateColorInfo
+function ClimateManager:getColFog() end
 
----@protected
----@param arg0 ClimateManager.DayInfo
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@param arg4 int
----@return void
-function ClimateManager:setDayInfo(arg0, arg1, arg2, arg3, arg4) end
+---@public
+---@return float
+function ClimateManager:getWindAngleIntensity() end
+
+---@public
+---@return Color
+function ClimateManager:getGlobalLightInternal() end
 
 ---@public
 ---@param arg0 float
 ---@return void
 function ClimateManager:transmitTriggerStorm(arg0) end
 
----@public
----@param arg0 float
+---@protected
+---@param arg0 int
+---@return double
+function ClimateManager:getAirMassNoiseFrequencyMod(arg0) end
+
+---@private
 ---@return void
-function ClimateManager:transmitTriggerBlizzard(arg0) end
+function ClimateManager:updateViewDistance() end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getFogTintStorm() end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColNight() end
 
 ---@public
 ---@param arg0 float
 ---@param arg1 float
+---@param arg2 float
 ---@return float
-function ClimateManager:normalizeRange(arg0, arg1) end
+function ClimateManager:clerp(arg0, arg1, arg2) end
 
----@public
----@return ClimateColorInfo
-function ClimateManager:getColFogNew() end
-
----@public
+---@private
 ---@return void
-function ClimateManager:transmitServerStopWeather() end
+function ClimateManager:setup() end
+
+---@public
+---@return boolean
+function ClimateManager:getEnabledSimulation() end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:transmitServerTriggerStorm(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getAirMass() end
+
+---@public
+---@return boolean
+function ClimateManager:getIsThunderStorming() end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:setDesaturation(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getTemperature() end
+
+---@public
+---@return float
+function ClimateManager:getPrecipitationIntensity() end
 
 ---@public
 ---@param arg0 int
@@ -827,42 +376,95 @@ function ClimateManager:transmitServerStopWeather() end
 ---@return void
 function ClimateManager:CalculateWeatherFrontStrength(arg0, arg1, arg2, arg3) end
 
----@private
----@return void
-function ClimateManager:updateValues() end
-
----@private
----@return void
-function ClimateManager:updateViewDistance() end
-
----@private
----@return void
-function ClimateManager:setup() end
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getGlobalLight() end
 
 ---@public
----@return ErosionSeason
-function ClimateManager:getSeason() end
-
----@public
----@return float
-function ClimateManager:getWindAngleRadians() end
-
----@public
----@return float
-function ClimateManager:getHumidity() end
-
----@public
----@param arg0 boolean
 ---@return void
-function ClimateManager:setEnabledFxUpdate(arg0) end
+function ClimateManager:resetModded() end
+
+---@public
+---@return void
+function ClimateManager:updateOLD() end
+
+---@public
+---@return void
+---@overload fun(arg0:int)
+function ClimateManager:execute_Simulation() end
+
+---@public
+---@param arg0 int
+---@return void
+function ClimateManager:execute_Simulation(arg0) end
 
 ---@public
 ---@return double
 function ClimateManager:getSimplexOffsetB() end
 
 ---@public
+---@return ClimateColorInfo
+function ClimateManager:getFogTintTropical() end
+
+---@public
 ---@return float
-function ClimateManager:getDayLightStrength() end
+function ClimateManager:getSnowStrength() end
+
+---@public
+---@return void
+function ClimateManager:launchFlare() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 UdpConnection
+---@return void
+function ClimateManager:receiveClimatePacket(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:transmitTriggerTropical(arg0) end
+
+---@public
+---@param arg0 int
+---@return ClimateManager.ClimateBool
+function ClimateManager:getClimateBool(arg0) end
+
+---@public
+---@return int
+function ClimateManager:getBoolMax() end
+
+---@public
+---@return double
+function ClimateManager:getWindNoiseFinal() end
+
+---@public
+---@return double
+function ClimateManager:getWindNoiseBase() end
+
+---@public
+---@param arg0 IsoGridSquare
+---@return float
+---@overload fun(arg0:IsoGridSquare, arg1:BaseVehicle)
+---@overload fun(arg0:IsoGridSquare, arg1:BaseVehicle, arg2:boolean)
+function ClimateManager:getAirTemperatureForSquare(arg0) end
+
+---@public
+---@param arg0 IsoGridSquare
+---@param arg1 BaseVehicle
+---@return float
+function ClimateManager:getAirTemperatureForSquare(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGridSquare
+---@param arg1 BaseVehicle
+---@param arg2 boolean
+---@return float
+function ClimateManager:getAirTemperatureForSquare(arg0, arg1, arg2) end
+
+---@private
+---@return void
+function ClimateManager:updateValues() end
 
 ---@private
 ---@param arg0 int
@@ -871,12 +473,305 @@ function ClimateManager:getDayLightStrength() end
 function ClimateManager:initClimateColor(arg0, arg1) end
 
 ---@public
+---@param arg0 float
+---@param arg1 boolean
+---@return boolean
+function ClimateManager:triggerCustomWeather(arg0, arg1) end
+
+---@public
+---@return void
+function ClimateManager:stopWeatherAndThunder() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 float
+---@return float
+function ClimateManager:getWindForceMovement(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:setDayLightStrength(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
 ---@return int
-function ClimateManager:getColorMax() end
+---@overload fun(arg0:float, arg1:float, arg2:float)
+function ClimateManager:clamp(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return float
+function ClimateManager:clamp(arg0, arg1, arg2) end
+
+---@public
+---@return int
+function ClimateManager:getFloatMax() end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColNightMoon() end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:setNightStrength(arg0) end
+
+---@public
+---@return void
+function ClimateManager:update() end
+
+---@public
+---@return float
+function ClimateManager:getNightStrength() end
+
+---@public
+---@return float
+function ClimateManager:getAirMassTemperature() end
+
+---@public
+---@return float
+function ClimateManager:getSeasonProgression() end
+
+---@public
+---@param arg0 int
+---@return ClimateManager.ClimateColor
+function ClimateManager:getClimateColor(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getCloudIntensity() end
+
+---@public
+---@param arg0 ClimateValues
+---@return void
+function ClimateManager:CopyClimateValues(arg0) end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColorNewFog() end
+
+---@private
+---@param arg0 UdpConnection
+---@param arg1 byte
+---@return boolean
+function ClimateManager:writePacketContents(arg0, arg1) end
+
+---@public
+---@return float
+function ClimateManager:getBaseTemperature() end
+
+---@private
+---@param arg0 int
+---@param arg1 String
+---@return ClimateManager.ClimateFloat
+function ClimateManager:initClimateFloat(arg0, arg1) end
+
+---@public
+---@return float
+function ClimateManager:getMaxWindspeedKph() end
+
+---@public
+---@return float
+function ClimateManager:getWindSpeedMovement() end
+
+---@public
+---@return float
+function ClimateManager:getWindPower() end
+
+---@private
+---@return void
+function ClimateManager:updateSnowOLD() end
+
+---@public
+---@return float
+function ClimateManager:getSnowIntensity() end
+
+---@public
+---@return ClimateManager.DayInfo
+function ClimateManager:getCurrentDay() end
+
+---@public
+---@return KahluaTable
+function ClimateManager:getModData() end
+
+---@private
+---@return void
+function ClimateManager:updateOnTick() end
+
+---@public
+---@param arg0 DataInputStream
+---@param arg1 int
+---@return void
+function ClimateManager:load(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return ClimateManager.ClimateFloat
+function ClimateManager:getClimateFloat(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getWeatherInterference() end
+
+---@public
+---@return void
+function ClimateManager:forceDayInfoUpdate() end
+
+---@public
+---@param arg0 UdpConnection
+---@return void
+function ClimateManager:sendInitialState(arg0) end
+
+---@public
+---@return double
+function ClimateManager:getSimplexOffsetC() end
+
+---@private
+---@return void
+function ClimateManager:serverReceiveClientChangeAdminVars() end
+
+---@public
+---@return String
+function ClimateManager:getSeasonName() end
+
+---@private
+---@return void
+function ClimateManager:initSeasonColors() end
+
+---@public
+---@return ClimateHistory
+function ClimateManager:getClimateHistory() end
+
+---@public
+---@return float
+function ClimateManager:getWindAngleRadians() end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return boolean
+function ClimateManager:triggerCustomWeatherStage(arg0, arg1) end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColFogNew() end
+
+---@public
+---@return void
+function ClimateManager:updateEveryTenMins() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return float
+---@overload fun(arg0:IsoGameCharacter, arg1:boolean)
+function ClimateManager:getAirTemperatureForCharacter(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 boolean
+---@return float
+function ClimateManager:getAirTemperatureForCharacter(arg0, arg1) end
+
+---@public
+---@param arg0 ClimateManager
+---@return void
+function ClimateManager:setInstance(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getDesaturation() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager:setEnabledSimulation(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:transmitTriggerBlizzard(arg0) end
+
+---@public
+---@return void
+function ClimateManager:resetAdmin() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager:setPrecipitationIsSnow(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getFogIntensity() end
+
+---@public
+---@return float
+function ClimateManager:getWindIntensity() end
+
+---@public
+---@return double
+function ClimateManager:getSimplexOffsetA() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@return float
+function ClimateManager:normalizeRange(arg0, arg1) end
+
+---@public
+---@return ErosionSeason
+function ClimateManager:getSeason() end
+
+---@private
+---@return void
+function ClimateManager:updateSnow() end
+
+---@public
+---@return ThunderStorm
+function ClimateManager:getThunderStorm() end
+
+---@public
+---@return float
+function ClimateManager:getDayLightStrength() end
+
+---@public
+---@return float
+function ClimateManager:getDayMeanTemperature() end
+
+---@public
+---@return WeatherPeriod
+function ClimateManager:getWeatherPeriod() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager:setEnabledFxUpdate(arg0) end
+
+---@public
+---@return void
+function ClimateManager:transmitStopWeather() end
 
 ---@public
 ---@return boolean
 function ClimateManager:getEnabledWeatherGeneration() end
+
+---@public
+---@return void
+function ClimateManager:transmitServerStopWeather() end
+
+---@public
+---@return void
+function ClimateManager:postCellLoadSetSnow() end
+
+---@public
+---@param arg0 IsoMetaGrid
+---@return void
+function ClimateManager:init(arg0) end
 
 ---@public
 ---@return float
@@ -884,11 +779,36 @@ function ClimateManager:getWindspeedKph() end
 
 ---@public
 ---@return float
-function ClimateManager:getSnowIntensity() end
+function ClimateManager:getAmbient() end
+
+---@public
+---@return ClimateManager
+function ClimateManager:getInstance() end
 
 ---@public
 ---@return float
-function ClimateManager:getCorrectedWindAngleIntensity() end
+function ClimateManager:getGlobalLightIntensity() end
+
+---@public
+---@return float
+function ClimateManager:getAirMassDaily() end
+
+---@public
+---@param arg0 float
+---@return float
+function ClimateManager:ToKph(arg0) end
+
+---@private
+---@return void
+function ClimateManager:updateFx() end
+
+---@public
+---@return float
+function ClimateManager:getHumidity() end
+
+---@public
+---@return void
+function ClimateManager:transmitRequestAdminVars() end
 
 ---@public
 ---@param arg0 int
@@ -902,46 +822,12 @@ function ClimateManager:getCorrectedWindAngleIntensity() end
 function ClimateManager:setSeasonColorDusk(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
 ---@public
----@return ClimateForecaster
-function ClimateManager:getClimateForecaster() end
-
----@public
----@param arg0 float
----@return void
-function ClimateManager:transmitServerTriggerStorm(arg0) end
-
----@protected
----@param arg0 int
 ---@return float
-function ClimateManager:getRainTimeMultiplierMod(arg0) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return ClimateColorInfo
-function ClimateManager:getSeasonColor(arg0, arg1, arg2) end
-
----@public
----@param arg0 DataOutputStream
----@return void
-function ClimateManager:save(arg0) end
-
----@public
----@return float
-function ClimateManager:getWindIntensity() end
-
----@public
----@return ClimateManager.DayInfo
-function ClimateManager:getCurrentDay() end
-
----@public
----@return float
-function ClimateManager:getAmbient() end
+function ClimateManager:getMaxWindspeedMph() end
 
 ---@private
 ---@return void
-function ClimateManager:updateSnow() end
+function ClimateManager:updateTestFlare() end
 
 ---@public
 ---@param arg0 boolean
@@ -949,6 +835,125 @@ function ClimateManager:updateSnow() end
 function ClimateManager:setEnabledWeatherGeneration(arg0) end
 
 ---@public
----@param arg0 ClimateManager
+---@return float
+function ClimateManager:getWindAngleDegrees() end
+
+---@public
+---@param arg0 DataOutputStream
 ---@return void
-function ClimateManager:setInstance(arg0) end
+function ClimateManager:save(arg0) end
+
+---@private
+---@param arg0 int
+---@param arg1 String
+---@return ClimateManager.ClimateBool
+function ClimateManager:initClimateBool(arg0, arg1) end
+
+---@public
+---@return void
+function ClimateManager:triggerWinterIsComingStorm() end
+
+---@public
+---@return ClimateForecaster
+function ClimateManager:getClimateForecaster() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 float
+---@param arg3 float
+---@param arg4 float
+---@param arg5 float
+---@param arg6 boolean
+---@return void
+function ClimateManager:setSeasonColorDawn(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---@public
+---@return float
+function ClimateManager:getSeasonStrength() end
+
+---@private
+---@return void
+function ClimateManager:updateWindTick() end
+
+---@protected
+---@param arg0 ClimateManager.DayInfo
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@param arg4 int
+---@return void
+function ClimateManager:setDayInfo(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@return ClimateColorInfo
+function ClimateManager:getColFogLegacy() end
+
+---@public
+---@return ClimateManager.DayInfo
+function ClimateManager:getPreviousDay() end
+
+---@public
+---@return void
+function ClimateManager:resetOverrides() end
+
+---@public
+---@return float
+function ClimateManager:getViewDistance() end
+
+---@protected
+---@param arg0 ClimateManager.ClimateNetAuth
+---@param arg1 byte
+---@param arg2 UdpConnection
+---@return void
+function ClimateManager:transmitClimatePacket(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:setAmbient(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function ClimateManager:transmitServerStartRain(arg0) end
+
+---@public
+---@return double
+function ClimateManager:getWindTickFinal() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return void
+function ClimateManager:updateDayInfo(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 float
+---@return String
+function ClimateManager:getWindAngleString(arg0) end
+
+---@public
+---@return float
+function ClimateManager:getFrontStrength() end
+
+---@protected
+---@param arg0 int
+---@return float
+function ClimateManager:getRainTimeMultiplierMod(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return float
+function ClimateManager:lerp(arg0, arg1, arg2) end
+
+---@public
+---@return double
+function ClimateManager:getWorldAgeHours() end
+
+---@public
+---@return void
+function ClimateManager:transmitServerStopRain() end

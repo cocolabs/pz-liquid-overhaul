@@ -300,7 +300,7 @@ function ISAdminPanelUI:onOptionMouseDown(button, x, y)
         if ISServerOptions.instance then
             ISServerOptions.instance:close()
         end
-        local ui = ISServerOptions:new(50,50,600,600)
+        local ui = ISServerOptions:new(50,50,600,600, getPlayer())
         ui:initialise();
         ui:addToUIManager();
     end

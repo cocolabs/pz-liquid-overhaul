@@ -137,7 +137,7 @@ function ISCharacterInfo:render()
                 end
             end
 			if not self.progressBarLoaded then
-				local progressBar = ISSkillProgressBar:new(left + 20 + self.txtLen + 45, y + (rowHgt - progressHgt) / 2, 0, 0, self.playerNum, perk);
+				local progressBar = ISSkillProgressBar:new(left + 20 + self.txtLen + 45, y + (rowHgt - progressHgt) / 2, 0, 0, self.playerNum, perk, self);
 				progressBar:initialise();
 				self:addChild(progressBar);
 				table.insert(self.progressBars, progressBar);
@@ -202,6 +202,7 @@ function ISCharacterInfo:new (x, y, width, height, playerNum)
 	o:noBackground();
 	o.txtLen = 0;
 	o.perks = ISCharacterInfo.loadPerk(o);
+	o.lastLeveledUpPerk = nil;
     o.arrow = getTexture("media/ui/ArrowRight.png");
     o.arrowLeft = getTexture("media/ui/ArrowLeft.png");
     o.yButton = Joypad.Texture.YButton;

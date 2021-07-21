@@ -45,7 +45,7 @@ function ISItemsListTable:render()
     end
 end
 
-function ISItemsListTable:new (x, y, width, height)
+function ISItemsListTable:new (x, y, width, height, viewer)
     local o = ISPanel:new(x, y, width, height);
     setmetatable(o, self);
     o.listHeaderColor = {r=0.4, g=0.4, b=0.4, a=0.3};
@@ -55,6 +55,7 @@ function ISItemsListTable:new (x, y, width, height)
     o.totalResult = 0;
     o.filterWidgets = {};
     o.filterWidgetMap = {}
+    o.viewer = viewer
     ISItemsListTable.instance = o;
     return o;
 end
@@ -76,7 +77,7 @@ function ISItemsListTable:createChildren()
     self.datas.font = UIFont.NewSmall;
     self.datas.doDrawItem = self.drawDatas;
     self.datas.drawBorder = true;
-    self.datas.parent = self;
+--    self.datas.parent = self;
     self.datas:addColumn("Type", 0);
     self.datas:addColumn("Name", 200);
     self.datas:addColumn("Category", 450);
@@ -88,21 +89,21 @@ function ISItemsListTable:createChildren()
     self.buttonAdd1 = ISButton:new(0, btnY, btnWid, btnHgt, "Add 1", self, ISItemsListTable.onOptionMouseDown);
     self.buttonAdd1.internal = "ADDITEM1";
     self.buttonAdd1.enable = false;
-    self.buttonAdd1.parent = self;
+--    self.buttonAdd1.parent = self;
     self.buttonAdd1.borderColor = self.buttonBorderColor;
     self:addChild(self.buttonAdd1);
         
     self.buttonAdd2 = ISButton:new(self.buttonAdd1:getRight() + 10, btnY, btnWid, btnHgt, "Add 2", self, ISItemsListTable.onOptionMouseDown);
     self.buttonAdd2.internal = "ADDITEM2";
     self.buttonAdd2.enable = false;
-    self.buttonAdd2.parent = self;
+--    self.buttonAdd2.parent = self;
     self.buttonAdd2.borderColor = self.buttonBorderColor;
     self:addChild(self.buttonAdd2);
         
     self.buttonAdd5 = ISButton:new(self.buttonAdd2:getRight() + 10, btnY, btnWid, btnHgt, "Add 5", self, ISItemsListTable.onOptionMouseDown);
     self.buttonAdd5.internal = "ADDITEM5";
     self.buttonAdd5.enable = false;
-    self.buttonAdd5.parent = self;
+--    self.buttonAdd5.parent = self;
     self.buttonAdd5.borderColor = self.buttonBorderColor;
     self:addChild(self.buttonAdd5);
 
@@ -111,7 +112,7 @@ function ISItemsListTable:createChildren()
     self.buttonAddMultiple:initialise();
     self.buttonAddMultiple:instantiate();
     self.buttonAddMultiple.enable = false;
-    self.buttonAddMultiple.parent = self;
+--    self.buttonAddMultiple.parent = self;
     self.buttonAddMultiple.borderColor = self.buttonBorderColor;
     self:addChild(self.buttonAddMultiple);
 
@@ -160,7 +161,10 @@ function ISItemsListTable:createChildren()
 end
 
 function ISItemsListTable:addItem(item)
-    getPlayer():getInventory():AddItem(item:getFullName())
+    local playerNum = self.viewer.playerSelect.selected - 1
+    local playerObj = getSpecificPlayer(playerNum)
+    if not playerObj or playerObj:isDead() then return end
+    playerObj:getInventory():AddItem(item:getFullName())
 end
 
 function ISItemsListTable:onOptionMouseDown(button, x, y)
@@ -217,10 +221,14 @@ function ISItemsListTable:initList(module)
 end
 
 function ISItemsListTable:update()
-    self.buttonAdd1.enable = self.datas.selected > 0;
-    self.buttonAdd2.enable = self.datas.selected > 0;
-    self.buttonAdd5.enable = self.datas.selected > 0;
-    self.buttonAddMultiple.enable = self.datas.selected > 0;
+    local playerNum = self.viewer.playerSelect.selected - 1
+    local playerObj = getSpecificPlayer(playerNum)
+    local hasPlayer = playerObj ~= nil
+
+    self.buttonAdd1.enable = self.datas.selected > 0 and hasPlayer;
+    self.buttonAdd2.enable = self.datas.selected > 0 and hasPlayer;
+    self.buttonAdd5.enable = self.datas.selected > 0 and hasPlayer;
+    self.buttonAddMultiple.enable = self.datas.selected > 0 and hasPlayer;
     self.datas.doDrawItem = self.drawDatas;
 end
 

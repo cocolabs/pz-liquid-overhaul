@@ -19,6 +19,7 @@ end
 function ISWashYourself:start()
 	self:setActionAnim("WashFace")
 	self:setOverrideHandModels(nil, nil)
+	self.character:reportEvent("EventWashClothing");
 end
 
 function ISWashYourself:stop()
@@ -127,5 +128,6 @@ function ISWashYourself:new(character, sink, soapList)
 	if ISWashYourself.GetRequiredSoap(character) > ISWashClothing.GetSoapRemaining(soapList) then
 		o.maxTime = o.maxTime * 1.8;
 	end
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o;
 end

@@ -76,6 +76,9 @@ ISPaintMenu.doPaintMenu = function(player, context, worldobjects, test)
                 ISPaintMenu.addSignOption(subMenuPaint, getText(pme.text), paintableWall, pme.paint, pme.color[1], pme.color[2], pme.color[3]);
             end
         end
+        if subMenuPaint:isEmpty() then
+            context:removeLastOption()
+        end
     end
 
 	-- if the item can be paint
@@ -87,6 +90,9 @@ ISPaintMenu.doPaintMenu = function(player, context, worldobjects, test)
 			if ISBuildMenu.cheat or playerInv:containsTypeRecurse(pme.paint) then
 				subMenuPaint:addOption(getText(pme.text), worldobjects, ISPaintMenu.onPaint, player, thump, pme.paint)
 			end
+		end
+		if subMenuPaint:isEmpty() then
+			context:removeLastOption()
 		end
 	elseif ((thump and thump:isPaintable()) or paintableItem) and (ISBuildMenu.cheat or paintBrush) then
         local item = thump;
@@ -136,7 +142,7 @@ end
 ISPaintMenu.onPaintSign = function(wall, player, painting, sign, r,g,b)
     local playerObj = getSpecificPlayer(player)
     local playerInv = playerObj:getInventory()
-    if JoypadState.players[player+1] then
+    if true or JoypadState.players[player+1] then
         local bo = ISPaintCursor:new(playerObj, "paintSign", { paintType=painting, sign=sign, r=r, g=g, b=b })
         getCell():setDrag(bo, bo.player)
         return
@@ -156,7 +162,7 @@ end
 ISPaintMenu.onPaint = function(worldobjects, player, thumpable, painting)
     local playerObj = getSpecificPlayer(player)
     local playerInv = playerObj:getInventory()
-    if JoypadState.players[player+1] then
+    if true or JoypadState.players[player+1] then
         local bo = ISPaintCursor:new(playerObj, "paintThump", { paintType=painting })
         getCell():setDrag(bo, bo.player)
         return
@@ -187,7 +193,7 @@ end
 ISPaintMenu.onPlaster = function(worldobjects, player, thumpable, square)
     local playerObj = getSpecificPlayer(player)
     local playerInv = playerObj:getInventory()
-    if JoypadState.players[player+1] then
+    if true or JoypadState.players[player+1] then
         local bo = ISPaintCursor:new(playerObj, "plaster")
         getCell():setDrag(bo, bo.player)
         return

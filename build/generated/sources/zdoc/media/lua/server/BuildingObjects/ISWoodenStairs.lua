@@ -10,6 +10,9 @@ ISWoodenStairs = ISBuildingObject:derive("ISWoodenStairs");
 --**
 --************************************************************************--
 function ISWoodenStairs:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	--local thumpable = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -79,7 +82,7 @@ function ISWoodenStairs:setInfo(square, level, north, sprite, luaobject)
 	thumpable:transmitCompleteItemToServer();
 end
 
-function ISWoodenStairs:new(sprite1, sprite2, sprite3, northSprite1, northSprite2, northSprite3, pillar, pillarNorth)
+function ISWoodenStairs:new(sprite1, sprite2, sprite3, northSprite1, northSprite2, northSprite3, pillar, pillarNorth, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -92,6 +95,11 @@ function ISWoodenStairs:new(sprite1, sprite2, sprite3, northSprite1, northSprite
 	o.northSprite3 = northSprite3;
     o.pillar = pillar;
     o.pillarNorth = pillarNorth;
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

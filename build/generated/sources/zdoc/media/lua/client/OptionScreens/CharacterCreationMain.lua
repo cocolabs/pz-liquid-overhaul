@@ -15,12 +15,123 @@ CharacterCreationMain = ISPanelJoypad:derive("CharacterCreationMain");
 CharacterCreationMain.debug = getDebug() and getDebugOptions():getBoolean("Character.Create.AllOutfits")
 CharacterCreationMain.savefile = "saved_outfits.txt";
 
+CharacterCreationMainCharacterPanel = ISPanelJoypad:derive("CharacterCreationMainCharacterPanel")
+CharacterCreationMainPresetPanel = ISPanelJoypad:derive("CharacterCreationMainPresetPanel")
+
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
+
+-- -- -- -- --
+-- -- -- -- --
+-- -- -- -- --
+
+function CharacterCreationMainCharacterPanel:prerender()
+	ISPanelJoypad.prerender(self)
+	self:setStencilRect(0, 0, self.width, self.height)
+end
+
+function CharacterCreationMainCharacterPanel:render()
+	ISPanelJoypad.render(self)
+	self:clearStencilRect()
+	if self.joyfocus then
+		self:drawRectBorder(0, -self:getYScroll(), self:getWidth(), self:getHeight(), 0.4, 0.2, 1.0, 1.0);
+		self:drawRectBorder(1, 1-self:getYScroll(), self:getWidth()-2, self:getHeight()-2, 0.4, 0.2, 1.0, 1.0);
+	end
+end
+
+function CharacterCreationMainCharacterPanel:onGainJoypadFocus(joypadData)
+	ISPanelJoypad.onGainJoypadFocus(self, joypadData)
+	self.joypadIndex = 1
+	if self.prevJoypadIndexY ~= -1 then
+		self.joypadIndexY = math.min(self.prevJoypadIndexY, #self.joypadButtonsY)
+	else
+		self.joypadIndexY = 1
+	end
+	self.joypadButtons = self.joypadButtonsY[self.joypadIndexY]
+	self.joypadButtons[self.joypadIndex]:setJoypadFocused(true)
+end
+
+function CharacterCreationMainCharacterPanel:onLoseJoypadFocus(joypadData)
+	self.prevJoypadIndexY = self.joypadIndexY
+	self:clearJoypadFocus()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function CharacterCreationMainCharacterPanel:onJoypadDown(button, joypadData)
+	if button == Joypad.BButton and not self:isFocusOnControl() then
+		joypadData.focus = self.parent.parent
+		updateJoypadFocus(joypadData)
+	else
+		ISPanelJoypad.onJoypadDown(self, button, joypadData)
+	end
+end
+
+function CharacterCreationMainCharacterPanel:onJoypadDirLeft(joypadData)
+	ISPanelJoypad.onJoypadDirLeft(self, joypadData)
+end
+
+function CharacterCreationMainCharacterPanel:onJoypadDirRight(joypadData)
+--	ISPanelJoypad.onJoypadDirRight(self, joypadData)
+	joypadData.focus = self.parent.parent.clothingPanel
+	updateJoypadFocus(joypadData)
+end
+
+function CharacterCreationMainCharacterPanel:new(x, y, width, height)
+	local o = ISPanelJoypad.new(self, x, y, width, height)
+	self.prevJoypadIndexY = -1
+	return o
+end
+
+-- -- -- -- --
+-- -- -- -- --
+-- -- -- -- --
+
+function CharacterCreationMainPresetPanel:render()
+	ISPanelJoypad.render(self)
+	if self.joyfocus then
+		self:drawRectBorder(0 - 4, 0 - 4, self:getWidth() + 4 + 4, self:getHeight() + 4 + 4, 0.4, 0.2, 1.0, 1.0)
+		self:drawRectBorder(0 - 3, 0 - 3, self:getWidth() + 3 + 3, self:getHeight() + 3 + 3, 0.4, 0.2, 1.0, 1.0)
+	end
+end
+
+function CharacterCreationMainPresetPanel:onGainJoypadFocus(joypadData)
+	ISPanelJoypad.onGainJoypadFocus(self, joypadData)
+	if self.joypadButtons[self.joypadIndex] then
+		self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
+	end
+end
+
+function CharacterCreationMainPresetPanel:onLoseJoypadFocus(joypadData)
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	self:clearJoypadFocus()
+end
+
+function CharacterCreationMainPresetPanel:onJoypadDown(button, joypadData)
+	if button == Joypad.BButton and not self:isFocusOnControl() then
+		joypadData.focus = self.parent.parent
+		updateJoypadFocus(joypadData)
+	else
+		ISPanelJoypad.onJoypadDown(self, button, joypadData)
+	end
+end
+
+function CharacterCreationMainPresetPanel:onJoypadDirUp(joypadData)
+	if self:isFocusOnControl() then
+		ISPanelJoypad.onJoypadDirUp(self, joypadData)
+	else
+		joypadData.focus = self.parent.parent.characterPanel
+		updateJoypadFocus(joypadData)
+	end
+end
+
+-- -- -- -- --
+-- -- -- -- --
+-- -- -- -- --
 
 function CharacterCreationMain:initialise()
 	ISPanelJoypad.initialise(self);
 end
+
 --************************************************************************--
 --** ISPanel:instantiate
 --**
@@ -74,6 +185,10 @@ function CharacterCreationMain:create()
 	MainScreen.instance.charCreationHeader:setAnchorTop(true);
 	
 	self:addChild(MainScreen.instance.charCreationHeader);
+
+	self.characterPanel = CharacterCreationMainCharacterPanel:new(0, 0, self.mainPanel.width / 2, self.mainPanel.height - 5 - 25 - 10)
+	self.characterPanel.background = false
+	self.mainPanel:addChild(self.characterPanel)
 	
 	-- HAIR TYPE SELECTION
 	self.xOffset = MainScreen.instance.charCreationHeader.avatarPanel:getRight() + 24
@@ -98,14 +213,20 @@ function CharacterCreationMain:create()
 	self.backButton:setAnchorTop(false);
 	self.backButton:setAnchorBottom(true);
 	self.backButton.borderColor = {r=1, g=1, b=1, a=0.1};
-	self.backButton.setJoypadFocused = self.setJoypadFocusedBButton
+--	self.backButton.setJoypadFocused = self.setJoypadFocusedBButton
 	self.mainPanel:addChild(self.backButton);
-	
-	self.savedBuilds = ISComboBox:new(self.backButton:getRight() + 22, self.backButton.y, 250, buttonHgt, self, CharacterCreationMain.loadOutfit);
+
+	self.presetPanel = CharacterCreationMainPresetPanel:new(self.backButton:getRight() + 22, self.backButton.y, 100, buttonHgt)
+	self.presetPanel:noBackground()
+	self.presetPanel:setAnchorTop(false)
+	self.presetPanel:setAnchorBottom(true)
+	self.mainPanel:addChild(self.presetPanel)
+
+	self.savedBuilds = ISComboBox:new(0, 0, 250, buttonHgt, self, CharacterCreationMain.loadOutfit);
 	self.savedBuilds:setAnchorTop(false);
 	self.savedBuilds:setAnchorBottom(true);
 	self.savedBuilds.openUpwards = true;
-	self.mainPanel:addChild(self.savedBuilds)
+	self.presetPanel:addChild(self.savedBuilds)
 
 	self.savedBuilds.noSelectionText = getText("UI_characreation_SelectToLoad")
 	local saved_builds = CharacterCreationMain.readSavedOutfitFile();
@@ -122,7 +243,7 @@ function CharacterCreationMain:create()
 	self.saveBuildButton:setAnchorTop(false);
 	self.saveBuildButton:setAnchorBottom(true);
 	self.saveBuildButton.borderColor = { r = 1, g = 1, b = 1, a = 0.1 };
-	self.mainPanel:addChild(self.saveBuildButton);
+	self.presetPanel:addChild(self.saveBuildButton);
 
 	self.deleteBuildButton = ISButton:new(self.saveBuildButton:getRight() + 10, self.saveBuildButton:getY(), 50, buttonHgt, getText("UI_characreation_BuildDel"), self, self.deleteBuildStep1);
 	self.deleteBuildButton:initialise();
@@ -132,8 +253,13 @@ function CharacterCreationMain:create()
 	self.deleteBuildButton:setAnchorTop(false);
 	self.deleteBuildButton:setAnchorBottom(true);
 	self.deleteBuildButton.borderColor = { r = 1, g = 1, b = 1, a = 0.1 };
-	self.mainPanel:addChild(self.deleteBuildButton);
-	
+	self.presetPanel:addChild(self.deleteBuildButton);
+
+	self.presetPanel:setWidth(self.deleteBuildButton:getRight())
+	self.presetPanel:insertNewLineOfButtons(self.savedBuilds, self.saveBuildButton, self.deleteBuildButton)
+	self.presetPanel.joypadIndex = 1
+	self.presetPanel.joypadIndexY = 1
+
 	self.playButton = ISButton:new(self.mainPanel.width - 116, self.mainPanel.height - 5 - buttonHgt, 100, buttonHgt, getText("UI_btn_play"), self, self.onOptionMouseDown);
 	self.playButton.internal = "NEXT";
 	self.playButton:initialise();
@@ -143,7 +269,7 @@ function CharacterCreationMain:create()
 	self.playButton:setAnchorTop(false);
 	self.playButton:setAnchorBottom(true);
 	self.playButton:setEnable(true); -- sets the hard-coded border color
-	self.playButton.setJoypadFocused = self.setJoypadFocusedAButton
+--	self.playButton.setJoypadFocused = self.setJoypadFocusedAButton
 	self.mainPanel:addChild(self.playButton);
 	
 	local textWid = getTextManager():MeasureStringX(UIFont.Small, getText("UI_characreation_random"))
@@ -157,7 +283,7 @@ function CharacterCreationMain:create()
 	self.randomButton:setAnchorTop(false);
 	self.randomButton:setAnchorBottom(true);
 	self.randomButton.borderColor = { r = 1, g = 1, b = 1, a = 0.1 };
-	self.backButton.setJoypadFocused = self.setJoypadFocusedYButton
+--	self.backButton.setJoypadFocused = self.setJoypadFocusedYButton
 	self.mainPanel:addChild(self.randomButton);
 	
 	-- Hack: CharacterCreationHeader.avatarPanel overlaps this
@@ -183,16 +309,16 @@ function CharacterCreationMain:deleteBuildStep1()
 	modal:setCapture(true)
 	modal:addToUIManager()
 	modal:setAlwaysOnTop(true)
-	if self.joyfocus then
-		modal.param1 = self.joyfocus
-		self.joyfocus.focus = modal
-		updateJoypadFocus(self.joyfocus)
+	if self.presetPanel.joyfocus then
+		modal.param1 = self.presetPanel.joyfocus
+		self.presetPanel.joyfocus.focus = modal
+		updateJoypadFocus(self.presetPanel.joyfocus)
 	end
 end
 
 function CharacterCreationMain:deleteBuildStep2(button, joypadData) -- {{{
 	if joypadData then
-		joypadData.focus = self
+		joypadData.focus = self.presetPanel
 		updateJoypadFocus(joypadData)
 	end
 	
@@ -237,16 +363,16 @@ function CharacterCreationMain:saveBuildStep1()
 	self.inputModal = BCRC.inputModal(true, nil, nil, nil, nil, text, CharacterCreationMain.saveBuildStep2, self);
 	self.inputModal.backgroundColor.a = 0.9
 	self.inputModal:setValidateFunction(self, self.saveBuildValidate)
-	if self.joyfocus then
-		self.inputModal.param1 = self.joyfocus
-		self.joyfocus.focus = self.inputModal
-		updateJoypadFocus(self.joyfocus)
+	if self.presetPanel.joyfocus then
+		self.inputModal.param1 = self.presetPanel.joyfocus
+		self.presetPanel.joyfocus.focus = self.inputModal
+		updateJoypadFocus(self.presetPanel.joyfocus)
 	end
 end
 
 function CharacterCreationMain:saveBuildStep2(button, joypadData, param2)
 	if joypadData then
-		joypadData.focus = self
+		joypadData.focus = self.presetPanel
 		updateJoypadFocus(joypadData)
 	end
 	
@@ -422,12 +548,12 @@ function CharacterCreationMain:createChestTypeBtn()
 	local lbl = ISLabel:new(self.xOffset, self.yOffset, FONT_HGT_MEDIUM, getText("UI_characreation_body"), 1, 1, 1, 1, UIFont.Medium, true);
 	lbl:initialise();
 	lbl:instantiate();
-	self.mainPanel:addChild(lbl);
+	self.characterPanel:addChild(lbl);
 	
 	local rect = ISRect:new(self.xOffset, self.yOffset + FONT_HGT_MEDIUM + 5, 300, 1, 1, 0.3, 0.3, 0.3);
 	rect:initialise();
 	rect:instantiate();
-	self.mainPanel:addChild(rect);
+	self.characterPanel:addChild(rect);
 	
 	self.yOffset = self.yOffset + FONT_HGT_MEDIUM + 15;
 	
@@ -437,7 +563,7 @@ function CharacterCreationMain:createChestTypeBtn()
 	self.skinColorLbl = ISLabel:new(self.xOffset+70, self.yOffset, FONT_HGT_SMALL, getText("UI_SkinColor"), 1, 1, 1, 1, UIFont.Small);
 	self.skinColorLbl:initialise();
 	self.skinColorLbl:instantiate();
-	self.mainPanel:addChild(self.skinColorLbl);
+	self.characterPanel:addChild(self.skinColorLbl);
 	
 	local xColor = 90;
 	self.skinColors = { {r=1,g=0.91,b=0.72},
@@ -453,14 +579,14 @@ function CharacterCreationMain:createChestTypeBtn()
 	skinColorBtn:instantiate()
 	local color = self.skinColors[1]
 	skinColorBtn.backgroundColor = {r = color.r, g = color.g, b = color.b, a = 1}
-	self.mainPanel:addChild(skinColorBtn)
+	self.characterPanel:addChild(skinColorBtn)
 	self.skinColorButton = skinColorBtn
 	
 	self.colorPickerSkin = ISColorPicker:new(0, 0, nil)
 	self.colorPickerSkin:initialise()
 	self.colorPickerSkin.keepOnScreen = true
 	self.colorPickerSkin.pickedTarget = self
-	self.colorPickerSkin.resetFocusTo = self
+	self.colorPickerSkin.resetFocusTo = self.characterPanel
 	self.colorPickerSkin:setColors(self.skinColors, #self.skinColors, 1)
 	
 	self.yOffset = self.yOffset + FONT_HGT_SMALL + 5 + 4;
@@ -471,11 +597,11 @@ function CharacterCreationMain:createChestTypeBtn()
 	self.chestHairLbl = ISLabel:new(self.xOffset+70, self.yOffset, comboHgt, getText("UI_ChestHair"), 1, 1, 1, 1, UIFont.Small);
 	self.chestHairLbl:initialise();
 	self.chestHairLbl:instantiate();
-	self.mainPanel:addChild(self.chestHairLbl);
+	self.characterPanel:addChild(self.chestHairLbl);
 
 	local tickBox = ISTickBox:new(self.xOffset+90, self.yOffset, self.comboWid, comboHgt, "", self, CharacterCreationMain.onChestHairSelected)
 	tickBox:initialise()
-	self.mainPanel:addChild(tickBox)
+	self.characterPanel:addChild(tickBox)
 	tickBox:addOption("")
 	self.chestHairTickBox = tickBox
 	self.yOffset = self.yOffset + comboHgt + 4
@@ -486,14 +612,14 @@ function CharacterCreationMain:createChestTypeBtn()
 	self.shavedHairLbl = ISLabel:new(self.xOffset+70, self.yOffset, comboHgt, getText("UI_Stubble"), 1, 1, 1, 1, UIFont.Small);
 	self.shavedHairLbl:initialise();
 	self.shavedHairLbl:instantiate();
-	--	self.mainPanel:addChild(self.shavedHairLbl);
+	--	self.characterPanel:addChild(self.shavedHairLbl);
 	
 	self.shavedHairCombo = ISComboBox:new(self.xOffset+90, self.yOffset, 100, comboHgt, self, CharacterCreationMain.onShavedHairSelected);
 	self.shavedHairCombo:initialise();
 	--	self.shavedHairCombo:instantiate();
 	self.shavedHairCombo:addOption(getText("UI_Yes"))
 	self.shavedHairCombo:addOption(getText("UI_No"))
-	--	self.mainPanel:addChild(self.shavedHairCombo)
+	--	self.characterPanel:addChild(self.shavedHairCombo)
 	self.yOffset = self.yOffset + comboHgt + 10;
 end
 
@@ -504,13 +630,13 @@ function CharacterCreationMain:createHairTypeBtn()
 	local lbl = ISLabel:new(self.xOffset, self.yOffset, FONT_HGT_MEDIUM, getText("UI_characreation_hair"), 1, 1, 1, 1, UIFont.Medium, true);
 	lbl:initialise();
 	lbl:instantiate();
-	self.mainPanel:addChild(lbl);
+	self.characterPanel:addChild(lbl);
 	
 	local rect = ISRect:new(self.xOffset, self.yOffset + FONT_HGT_MEDIUM + 5, 300, 1, 1, 0.3, 0.3, 0.3);
 	rect:setAnchorRight(false);
 	rect:initialise();
 	rect:instantiate();
-	self.mainPanel:addChild(rect);
+	self.characterPanel:addChild(rect);
 	
 	self.yOffset = self.yOffset + FONT_HGT_MEDIUM + 15;
 	
@@ -518,12 +644,12 @@ function CharacterCreationMain:createHairTypeBtn()
 	self.hairTypeLbl:initialise();
 	self.hairTypeLbl:instantiate();
 	
-	self.mainPanel:addChild(self.hairTypeLbl);
+	self.characterPanel:addChild(self.hairTypeLbl);
 	
 	self.hairTypeCombo = ISComboBox:new(self.xOffset+90, self.yOffset, self.comboWid, comboHgt, self, CharacterCreationMain.onHairTypeSelected);
 	self.hairTypeCombo:initialise();
 	--	self.hairTypeCombo:instantiate();
-	self.mainPanel:addChild(self.hairTypeCombo)
+	self.characterPanel:addChild(self.hairTypeCombo)
 	
 	self.hairType = 0
 	
@@ -533,7 +659,7 @@ function CharacterCreationMain:createHairTypeBtn()
 	self.hairColorLbl:initialise();
 	self.hairColorLbl:instantiate();
 	
-	self.mainPanel:addChild(self.hairColorLbl);
+	self.characterPanel:addChild(self.hairColorLbl);
 	
 	local xColor = 90;
 	local fontHgt = getTextManager():getFontHeight(self.hairColorLbl.font)
@@ -553,14 +679,14 @@ function CharacterCreationMain:createHairTypeBtn()
 	hairColorBtn:instantiate()
 	local color = hairColors1[1]
 	hairColorBtn.backgroundColor = {r=color.r, g=color.g, b=color.b, a=1}
-	self.mainPanel:addChild(hairColorBtn)
+	self.characterPanel:addChild(hairColorBtn)
 	self.hairColorButton = hairColorBtn
 	
 	self.colorPickerHair = ISColorPicker:new(0, 0, nil)
 	self.colorPickerHair:initialise()
 	self.colorPickerHair.keepOnScreen = true
 	self.colorPickerHair.pickedTarget = self
-	self.colorPickerHair.resetFocusTo = self
+	self.colorPickerHair.resetFocusTo = self.characterPanel
 	self.colorPickerHair:setColors(hairColors1, math.min(#hairColors1, 10), math.ceil(#hairColors1 / 10))
 
 	self.yOffset = self.yOffset + comboHgt + 10;
@@ -572,13 +698,13 @@ function CharacterCreationMain:createBeardTypeBtn()
 	self.beardLbl = ISLabel:new(self.xOffset, self.yOffset, FONT_HGT_MEDIUM, getText("UI_characreation_beard"), 1, 1, 1, 1, UIFont.Medium, true);
 	self.beardLbl:initialise();
 	self.beardLbl:instantiate();
-	self.mainPanel:addChild(self.beardLbl);
+	self.characterPanel:addChild(self.beardLbl);
 	
 	self.beardRect = ISRect:new(self.xOffset, self.yOffset + FONT_HGT_MEDIUM + 5, 300, 1, 1, 0.3, 0.3, 0.3);
 	self.beardRect:setAnchorRight(false);
 	self.beardRect:initialise();
 	self.beardRect:instantiate();
-	self.mainPanel:addChild(self.beardRect);
+	self.characterPanel:addChild(self.beardRect);
 	
 	self.yOffset = self.yOffset + FONT_HGT_MEDIUM + 15;
 	
@@ -586,12 +712,12 @@ function CharacterCreationMain:createBeardTypeBtn()
 	self.beardTypeLbl:initialise();
 	self.beardTypeLbl:instantiate();
 	
-	self.mainPanel:addChild(self.beardTypeLbl);
+	self.characterPanel:addChild(self.beardTypeLbl);
 	
 	self.beardTypeCombo = ISComboBox:new(self.xOffset+90, self.yOffset, self.comboWid, comboHgt, self, CharacterCreationMain.onBeardTypeSelected);
 	self.beardTypeCombo:initialise();
 	--	self.beardTypeCombo:instantiate();
-	self.mainPanel:addChild(self.beardTypeCombo)
+	self.characterPanel:addChild(self.beardTypeCombo)
 	
 	self.yOffset = self.yOffset + comboHgt + 10;
 end
@@ -679,12 +805,22 @@ end
 
 function ClothingPanel:onLoseJoypadFocus(joypadData)
 	self.prevJoypadIndexY = self.joypadIndexY
+	self:clearJoypadFocus()
 	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function ClothingPanel:onJoypadDown(button, joypadData)
+	if button == Joypad.BButton and not self:isFocusOnControl() then
+		joypadData.focus = self.parent.parent
+		updateJoypadFocus(joypadData)
+	else
+		ISPanelJoypad.onJoypadDown(self, button, joypadData)
+	end
 end
 
 function ClothingPanel:onJoypadDirLeft(joypadData)
 	if self.joypadIndex == 1 then
-		joypadData.focus = self.parent.parent
+		joypadData.focus = self.parent.parent.characterPanel
 		updateJoypadFocus(joypadData)
 	else
 		ISPanelJoypad.onJoypadDirLeft(self, joypadData)
@@ -1054,13 +1190,17 @@ function CharacterCreationMain:disableBtn()
 		self.hairTypeCombo.options = {}
 		local hairStyles = getAllHairStyles(desc:isFemale())
 		for i=1,hairStyles:size() do
-			local label = hairStyles:get(i-1)
+			local styleId = hairStyles:get(i-1)
+			local hairStyle = self.female and getHairStylesInstance():FindFemaleStyle(styleId) or getHairStylesInstance():FindMaleStyle(styleId)
+			local label = styleId
 			if label == "" then
 				label = getText("IGUI_Hair_Bald")
 			else
 				label = getText("IGUI_Hair_" .. label);
 			end
-			self.hairTypeCombo:addOptionWithData(label, hairStyles:get(i-1))
+			if not hairStyle:isNoChoose() then
+				self.hairTypeCombo:addOptionWithData(label, hairStyles:get(i-1))
+			end
 		end
 		
 		self.beardTypeCombo.options = {}
@@ -1214,8 +1354,8 @@ function CharacterCreationMain:onHairColorMouseDown(button, x, y)
 	self.colorPickerHair:setInitialColor(ColorInfo.new(color.r, color.g, color.b, 1))
 	self:removeChild(self.colorPickerHair)
 	self:addChild(self.colorPickerHair)
-	if self.joyfocus then
-		self.joyfocus.focus = self.colorPickerHair
+	if self.characterPanel.joyfocus then
+		self.characterPanel.joyfocus.focus = self.colorPickerHair
 	end
 	--[[
 		local desc = MainScreen.instance.desc
@@ -1292,8 +1432,8 @@ function CharacterCreationMain:onSkinColorSelected(button, x, y)
 	self.colorPickerSkin:setInitialColor(ColorInfo.new(color.r, color.g, color.b, 1))
 	self:removeChild(self.colorPickerSkin)
 	self:addChild(self.colorPickerSkin)
-	if self.joyfocus then
-		self.joyfocus.focus = self.colorPickerSkin
+	if self.characterPanel.joyfocus then
+		self.characterPanel.joyfocus.focus = self.colorPickerSkin
 	end
 end
 
@@ -1358,9 +1498,9 @@ function CharacterCreationMain:onClothingColorClicked(button, bodyLocation)
 	self.colorPicker:setInitialColor(ColorInfo.new(color.r, color.g, color.b, 1))
 	self:removeChild(self.colorPicker)
 	self:addChild(self.colorPicker)
-	if self.joyfocus then
+	if self.clothingPanel.joyfocus then
 		button:setJoypadFocused(false)
-		self.joyfocus.focus = self.colorPicker
+		self.clothingPanel.joyfocus.focus = self.colorPicker
 	end
 end
 
@@ -1426,6 +1566,7 @@ function CharacterCreationMain:onOptionMouseDown(button, x, y)
 			createWorld(getWorld():getWorld())
 		end
 		GameWindow.doRenderEvent(false);
+--[[
 		-- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
 		if self.joyfocus then
 			local joypadData = self.joyfocus
@@ -1436,6 +1577,7 @@ function CharacterCreationMain:onOptionMouseDown(button, x, y)
 			JoypadState.joypads = {};
 			JoypadState.forceActivate = joypadData.id;
 		end
+--]]
 		forceChangeState(GameLoadingState.new());
 	end
 	self:disableBtn();
@@ -1480,31 +1622,33 @@ function CharacterCreationMain:prerender()
 end
 
 function CharacterCreationMain:onGainJoypadFocus(joypadData)
-	local oldFocus = self:getJoypadFocus()
+--	local oldFocus = self:getJoypadFocus()
 	ISPanelJoypad.onGainJoypadFocus(self, joypadData);
-	self.playButton:setJoypadButton(Joypad.Texture.AButton)
+	self:setISButtonForA(self.playButton);
 	self:setISButtonForB(self.backButton);
 	self:setISButtonForY(self.randomButton);
 	-- init all the button for the controller
-	self:loadJoypadButtons();
+	self:loadJoypadButtons(joypadData);
+--[[
 	if not oldFocus or not oldFocus:isVisible() then
-		self:clearJoypadFocus(JoypadState[1])
+		self:clearJoypadFocus(joypadData)
 		self.joypadIndexY = #self.joypadButtonsY;
 		self.joypadButtons = self.joypadButtonsY[self.joypadIndexY];
 		self.joypadIndex = #self.joypadButtons;
 		self.playButton:setJoypadFocused(true);
 	end
+--]]
 end
 
 function CharacterCreationMain:onLoseJoypadFocus(joypadData)
-	self.playButton.isJoypad = false
-	self.ISButtonB = nil
-	self.backButton.isJoypad = false
-	self.ISButtonY = nil
-	self.randomButton.isJoypad = false
-	ISPanelJoypad.onLoseJoypadFocus(joypadData)
+	self.playButton:clearJoypadButton()
+	self.backButton:clearJoypadButton()
+	self.randomButton:clearJoypadButton()
+--	self:clearJoypadFocus()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
 end
 
+--[[
 function CharacterCreationMain:setJoypadFocusedAButton(focused)
 	ISButton.setJoypadFocused(self, focused)
 	self.ISButtonA = focused and self or nil
@@ -1522,47 +1666,56 @@ function CharacterCreationMain:setJoypadFocusedYButton(focused)
 	CharacterCreationMain.instance.ISButtonY = focused and self or nil
 	self.isJoypad = focused
 end
+--]]
 
 function CharacterCreationMain:onJoypadDirLeft(joypadData)
-	ISPanelJoypad.onJoypadDirLeft(self, joypadData)
+	joypadData.focus = self.presetPanel
+	updateJoypadFocus(joypadData)
 end
 
 function CharacterCreationMain:onJoypadDirRight(joypadData)
-	if self.joypadIndexY < #self.joypadButtonsY then
-		joypadData.focus = self.clothingPanel
-		updateJoypadFocus(joypadData)
-	else
-		ISPanelJoypad.onJoypadDirRight(self, joypadData)
-	end
+	joypadData.focus = self.presetPanel
+	updateJoypadFocus(joypadData)
 end
 
-function CharacterCreationMain:loadJoypadButtons()
+function CharacterCreationMain:onJoypadDirUp(joypadData)
+	joypadData.focus = self.characterPanel
+	updateJoypadFocus(joypadData)
+end
+
+-- This is also called by CharacterCreationHeader when male/female changes.
+function CharacterCreationMain:loadJoypadButtons(joypadData)
+	self.characterPanel:loadJoypadButtons(joypadData)
+end
+
+function CharacterCreationMainCharacterPanel:loadJoypadButtons(joypadData)
+	if joypadData and #self.joypadButtonsY > 0 then
+		return
+	end
 	local oldFocus = nil
-	if JoypadState[1] then
+	if joypadData and joypadData.focus == self then
 		oldFocus = self:getJoypadFocus()
-		self:clearJoypadFocus(JoypadState[1])
+		self:clearJoypadFocus(joypadData)
 	end
 	self.joypadButtonsY = {};
 	local sexButton = self:insertNewLineOfButtons(MainScreen.instance.charCreationHeader.genderCombo);
-	--    self:insertNewLineOfButtons(MainScreen.instance.charCreationHeader.randomButton);
 	local buttons = {}
-	table.insert(buttons, self.skinColorButton)
-	table.insert(buttons, self.clothingOutfitCombo)
+	local charCreationMain = self.parent.parent
+	table.insert(buttons, charCreationMain.skinColorButton)
+	table.insert(buttons, charCreationMain.clothingOutfitCombo)
 	self:insertNewListOfButtons(buttons)
 	if not MainScreen.instance.desc:isFemale() then
-		self:insertNewLineOfButtons(self.chestHairTickBox)
+		self:insertNewLineOfButtons(charCreationMain.chestHairTickBox)
 	end
-	self:insertNewLineOfButtons(self.hairTypeCombo);
-	self:insertNewLineOfButtons(self.hairColorButton);
+	self:insertNewLineOfButtons(charCreationMain.hairTypeCombo);
+	self:insertNewLineOfButtons(charCreationMain.hairColorButton);
 	if not MainScreen.instance.desc:isFemale() then
-		self:insertNewLineOfButtons(self.beardTypeCombo);
+		self:insertNewLineOfButtons(charCreationMain.beardTypeCombo);
 	end
-	self:insertNewLineOfButtons(self.savedBuilds, self.saveBuildButton, self.deleteBuildButton, self.playButton)
 	self.joypadIndex = 1
 	self.joypadIndexY = 1
 	self.joypadButtons = self.joypadButtonsY[self.joypadIndexY];
---    self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, JoypadState[1])
-
+--    self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
 	if oldFocus and oldFocus:isVisible() then
 		self:setJoypadFocus(oldFocus)
 	end
@@ -1584,7 +1737,10 @@ function CharacterCreationMain:onResolutionChange(oldw, oldh, neww, newh)
 	self.mainPanel:setX((tw - w) / 2)
 	self.mainPanel:setY(48)
 	self.mainPanel:recalcSize()
-	
+
+	self.characterPanel:setWidth(self.mainPanel:getWidth() / 2)
+	self.characterPanel:setHeight(self.mainPanel:getHeight() - 5 - 25 - 10)
+
 	self.clothingPanel:setX(self.mainPanel:getWidth() / 2)
 	self.clothingPanel:setWidth(self.mainPanel:getWidth() / 2)
 	self.clothingPanel:setHeight(self.mainPanel:getHeight() - 5 - 25 - 10)

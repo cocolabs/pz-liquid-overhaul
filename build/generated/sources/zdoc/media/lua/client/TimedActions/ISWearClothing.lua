@@ -53,6 +53,7 @@ function ISWearClothing:start()
 		local location = self.item:canBeEquipped()
 		self:setAnimVariable("WearClothingLocation", WearClothingAnimations[location] or "")
 	end
+	self.character:reportEvent("EventWearClothing");
 end
 
 function ISWearClothing:stop()
@@ -70,6 +71,13 @@ function ISWearClothing:perform()
 	elseif self.item:getCategory() == "Clothing" then
 		if self.item:getBodyLocation() ~= "" then
 			self.character:setWornItem(self.item:getBodyLocation(), self.item);
+
+			-- here we handle flating the mohawk!
+			if self.character:getHumanVisual():getHairModel():contains("Mohawk") and (self.item:getBodyLocation() == "Hat" or self.item:getBodyLocation() == "FullHat") then
+				self.character:getHumanVisual():setHairModel("MohawkFlat");
+				self.character:resetModel();
+				self.character:resetHairGrowingTime();
+			end
 		end
 	end
 	triggerEvent("OnClothingUpdated", self.character)

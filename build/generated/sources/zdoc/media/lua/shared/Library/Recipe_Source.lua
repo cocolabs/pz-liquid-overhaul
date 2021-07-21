@@ -11,16 +11,12 @@ Recipe_Source = {}
 function Recipe_Source:getUse() end
 
 ---@public
----@return float
-function Recipe_Source:getCount() end
+---@return String
+function Recipe_Source:getOnlyItem() end
 
 ---@public
 ---@return boolean
-function Recipe_Source:isKeep() end
-
----@public
----@return String
-function Recipe_Source:getOnlyItem() end
+function Recipe_Source:isDestroy() end
 
 ---@public
 ---@return ArrayList|Unknown
@@ -28,4 +24,8 @@ function Recipe_Source:getItems() end
 
 ---@public
 ---@return boolean
-function Recipe_Source:isDestroy() end
+function Recipe_Source:isKeep() end
+
+---@public
+---@return float
+function Recipe_Source:getCount() end

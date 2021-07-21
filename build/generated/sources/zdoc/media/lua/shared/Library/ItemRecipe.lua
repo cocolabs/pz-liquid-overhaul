@@ -6,6 +6,11 @@
 ItemRecipe = {}
 
 ---@public
+---@param arg0 String
+---@return void
+function ItemRecipe:setModule(arg0) end
+
+---@public
 ---@return String
 function ItemRecipe:getName() end
 
@@ -14,14 +19,9 @@ function ItemRecipe:getName() end
 function ItemRecipe:getFullType() end
 
 ---@public
----@return String
-function ItemRecipe:getModule() end
-
----@public
----@param arg0 String
----@return void
-function ItemRecipe:setModule(arg0) end
-
----@public
 ---@return Integer
 function ItemRecipe:getUse() end
+
+---@public
+---@return String
+function ItemRecipe:getModule() end

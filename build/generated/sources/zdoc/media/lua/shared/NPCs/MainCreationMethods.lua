@@ -353,6 +353,7 @@ BaseGameCharacterDetails.DoTraits = function()
     TraitFactory.setMutualExclusive("Athletic", "Obese");
     TraitFactory.setMutualExclusive("Athletic", "Out of Shape");
     TraitFactory.setMutualExclusive("Athletic", "Unfit");
+    TraitFactory.setMutualExclusive("Athletic", "Very Underweight");
     TraitFactory.setMutualExclusive("Fit", "Out of Shape");
     TraitFactory.setMutualExclusive("Fit", "Unfit");
     TraitFactory.setMutualExclusive("Fit", "Overweight");

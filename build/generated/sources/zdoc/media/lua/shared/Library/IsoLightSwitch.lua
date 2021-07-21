@@ -19,40 +19,34 @@
 ---@field protected nextBreakUpdate int
 IsoLightSwitch = {}
 
+---Overrides:
+---
+---getObjectName in class IsoObject
 ---@public
----@return float
-function IsoLightSwitch:getPrimaryG() end
+---@return String
+function IsoLightSwitch:getObjectName() end
 
 ---@public
 ---@return boolean
-function IsoLightSwitch:hasLightBulb() end
+function IsoLightSwitch:canSwitchLight() end
 
 ---@public
----@return ArrayList|Unknown
-function IsoLightSwitch:getLights() end
+---@param arg0 IsoGameCharacter
+---@return InventoryItem
+function IsoLightSwitch:removeLightBulb(arg0) end
 
 ---@public
----@param arg0 boolean
+---@return float
+function IsoLightSwitch:getPrimaryB() end
+
+---@public
+---@param arg0 ByteBufferWriter
 ---@return void
-function IsoLightSwitch:setUseBattery(arg0) end
+function IsoLightSwitch:syncIsoObjectSend(arg0) end
 
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
 ---@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoLightSwitch:load(input, WorldVersion) end
-
----Overrides:
----
----update in class IsoObject
----@public
----@return void
-function IsoLightSwitch:update() end
+---@return boolean
+function IsoLightSwitch:isActivated() end
 
 ---@private
 ---@param arg0 ByteBufferWriter
@@ -60,24 +54,19 @@ function IsoLightSwitch:update() end
 ---@return void
 function IsoLightSwitch:writeLightSwitchObjectHeader(arg0, arg1) end
 
----@public
----@param arg0 IsoGameCharacter
----@param arg1 InventoryItem
+---@private
+---@param arg0 ByteBuffer
 ---@return void
-function IsoLightSwitch:addBattery(arg0, arg1) end
+function IsoLightSwitch:readCustomizedSettingsPacket(arg0) end
+
+---@private
+---@return IsoLightSource
+function IsoLightSwitch:getPrimaryLight() end
 
 ---@public
----@return boolean
-function IsoLightSwitch:getUseBattery() end
-
----@public
----@return boolean
-function IsoLightSwitch:getCanBeModified() end
-
----@public
----@param arg0 IsoGameCharacter
----@return DrainableComboItem
-function IsoLightSwitch:removeBattery(arg0) end
+---@param arg0 UdpConnection
+---@return void
+function IsoLightSwitch:syncCustomizedSettings(arg0) end
 
 ---@public
 ---@param active boolean
@@ -99,75 +88,33 @@ function IsoLightSwitch:setActive(arg0, arg1) end
 ---@return boolean
 function IsoLightSwitch:setActive(arg0, arg1, arg2) end
 
----@public
----@return float
-function IsoLightSwitch:getDelta() end
-
----@public
----@return String
-function IsoLightSwitch:getBulbItem() end
-
----@private
----@param arg0 ByteBuffer
----@return void
-function IsoLightSwitch:readCustomizedSettingsPacket(arg0) end
-
----@public
----@param arg0 float
----@return void
-function IsoLightSwitch:setPrimaryB(arg0) end
-
----throws java.io.IOException
----
 ---Overrides:
 ---
----save in class IsoObject
+---addToWorld in class IsoObject
 ---@public
----@param output ByteBuffer
 ---@return void
-function IsoLightSwitch:save(output) end
-
----@public
----@param arg0 InventoryItem
----@return void
-function IsoLightSwitch:setCustomSettingsToItem(arg0) end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 UdpConnection
----@return void
-function IsoLightSwitch:receiveSyncCustomizedSettings(arg0, arg1) end
-
----@public
----@param arg0 ByteBufferWriter
----@return void
-function IsoLightSwitch:syncIsoObjectSend(arg0) end
-
----@public
----@return float
-function IsoLightSwitch:getPower() end
-
----@public
----@return boolean
-function IsoLightSwitch:canSwitchLight() end
+function IsoLightSwitch:addToWorld() end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function IsoLightSwitch:setPrimaryR(arg0) end
+function IsoLightSwitch:setPower(arg0) end
 
 ---@public
----@return boolean
-function IsoLightSwitch:isActivated() end
+---@param arg0 boolean
+---@return void
+function IsoLightSwitch:switchLight(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 InventoryItem
+---@return void
+function IsoLightSwitch:addLightBulb(arg0, arg1) end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
 function IsoLightSwitch:setHasBatteryRaw(arg0) end
-
----@public
----@return void
-function IsoLightSwitch:addLightSourceFromSprite() end
 
 ---Overrides:
 ---
@@ -188,57 +135,6 @@ function IsoLightSwitch:syncIsoObject(bRemote, val, source) end
 ---@return void
 function IsoLightSwitch:syncIsoObject(arg0, arg1, arg2, arg3) end
 
----Overrides:
----
----getObjectName in class IsoObject
----@public
----@return String
-function IsoLightSwitch:getObjectName() end
-
----@public
----@param arg0 String
----@return void
-function IsoLightSwitch:setBulbItemRaw(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function IsoLightSwitch:switchLight(arg0) end
-
----@private
----@return IsoLightSource
-function IsoLightSwitch:getPrimaryLight() end
-
----@public
----@param arg0 float
----@return void
-function IsoLightSwitch:setDelta(arg0) end
-
----@public
----@return boolean
-function IsoLightSwitch:getHasBattery() end
-
----@private
----@param arg0 UdpConnection
----@return void
-function IsoLightSwitch:writeCustomizedSettingsPacket(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 InventoryItem
----@return void
-function IsoLightSwitch:addLightBulb(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@return InventoryItem
-function IsoLightSwitch:removeLightBulb(arg0) end
-
----@public
----@param arg0 InventoryItem
----@return void
-function IsoLightSwitch:getCustomSettingsFromItem(arg0) end
-
 ---@public
 ---@param arg0 float
 ---@return void
@@ -246,7 +142,21 @@ function IsoLightSwitch:setPrimaryG(arg0) end
 
 ---@public
 ---@return boolean
-function IsoLightSwitch:toggle() end
+function IsoLightSwitch:getHasBattery() end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoLightSwitch:setBulbItemRaw(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoLightSwitch:setPrimaryR(arg0) end
+
+---@public
+---@return boolean
+function IsoLightSwitch:getUseBattery() end
 
 ---Overrides:
 ---
@@ -256,13 +166,66 @@ function IsoLightSwitch:toggle() end
 function IsoLightSwitch:removeFromWorld() end
 
 ---@public
----@return float
-function IsoLightSwitch:getPrimaryR() end
+---@param chunk IsoChunk
+---@return void
+function IsoLightSwitch:chunkLoaded(chunk) end
 
 ---@public
----@param arg0 UdpConnection
+---@return boolean
+function IsoLightSwitch:getCanBeModified() end
+
+---@public
+---@param arg0 boolean
 ---@return void
-function IsoLightSwitch:syncCustomizedSettings(arg0) end
+function IsoLightSwitch:setUseBattery(arg0) end
+
+---@public
+---@return String
+function IsoLightSwitch:getBulbItem() end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function IsoLightSwitch:getCustomSettingsFromItem(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function IsoLightSwitch:getLights() end
+
+---@public
+---@return boolean
+function IsoLightSwitch:toggle() end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function IsoLightSwitch:setCustomSettingsToItem(arg0) end
+
+---@public
+---@return float
+function IsoLightSwitch:getDelta() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoLightSwitch:save(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoLightSwitch:load(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function IsoLightSwitch:hasLightBulb() end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoLightSwitch:setDelta(arg0) end
 
 ---Overrides:
 ---
@@ -273,23 +236,52 @@ function IsoLightSwitch:syncCustomizedSettings(arg0) end
 ---@return boolean
 function IsoLightSwitch:onMouseLeftClick(x, y) end
 
----@public
----@param chunk IsoChunk
+---@private
+---@param arg0 UdpConnection
 ---@return void
-function IsoLightSwitch:chunkLoaded(chunk) end
+function IsoLightSwitch:writeCustomizedSettingsPacket(arg0) end
 
 ---@public
 ---@return float
-function IsoLightSwitch:getPrimaryB() end
+function IsoLightSwitch:getPrimaryR() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 InventoryItem
+---@return void
+function IsoLightSwitch:addBattery(arg0, arg1) end
+
+---@public
+---@return float
+function IsoLightSwitch:getPrimaryG() end
+
+---@public
+---@return float
+function IsoLightSwitch:getPower() end
+
+---@public
+---@return void
+function IsoLightSwitch:addLightSourceFromSprite() end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function IsoLightSwitch:setPower(arg0) end
+function IsoLightSwitch:setPrimaryB(arg0) end
 
 ---Overrides:
 ---
----addToWorld in class IsoObject
+---update in class IsoObject
 ---@public
 ---@return void
-function IsoLightSwitch:addToWorld() end
+function IsoLightSwitch:update() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return DrainableComboItem
+function IsoLightSwitch:removeBattery(arg0) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 UdpConnection
+---@return void
+function IsoLightSwitch:receiveSyncCustomizedSettings(arg0, arg1) end

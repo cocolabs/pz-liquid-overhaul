@@ -19,7 +19,10 @@
 ---@field private maxSuspensionTravelCm float
 ---@field private rollInfluence float
 ---@field private extents Vector3f
----@field private shadowOffset Vector4f
+---@field private shadowExtents Vector2f
+---@field private shadowOffset Vector2f
+---@field private bHadShadowOExtents boolean
+---@field private bHadShadowOffset boolean
 ---@field private extentsOffset Vector2f
 ---@field private physicsChassisShape Vector3f
 ---@field private m_physicsShapes ArrayList|Unknown
@@ -68,6 +71,15 @@ function VehicleScript:LoadPart(arg0) end
 ---@return VehicleScript.Container
 function VehicleScript:LoadContainer(arg0, arg1) end
 
+---@public
+---@return float
+function VehicleScript:getForcedVal() end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleScript:setForcedVal(arg0) end
+
 ---@private
 ---@param arg0 String
 ---@param arg1 Vector2f
@@ -75,8 +87,346 @@ function VehicleScript:LoadContainer(arg0, arg1) end
 function VehicleScript:LoadVector2f(arg0, arg1) end
 
 ---@public
+---@return int
+function VehicleScript:getRearEndHealth() end
+
+---@public
+---@return int
+function VehicleScript:getEngineLoudness() end
+
+---@private
+---@return void
+---@overload fun(arg0:VehicleScript.Wheel)
+function VehicleScript:initCrawlOffsets() end
+
+---@private
+---@param arg0 VehicleScript.Wheel
+---@return void
+function VehicleScript:initCrawlOffsets(arg0) end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.Skin
+function VehicleScript:getSkin(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function VehicleScript:setMechanicType(arg0) end
+
+---@public
+---@param arg0 VehicleScript
+---@param arg1 String
+---@return void
+function VehicleScript:copyAreasFrom(arg0, arg1) end
+
+---@public
+---@return boolean
+function VehicleScript:getHasSiren() end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.Passenger
+function VehicleScript:getPassenger(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleScript:setPlayerDamageProtection(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getModelScale() end
+
+---@public
+---@param arg0 int
+---@param arg1 ModelAttachment
+---@return ModelAttachment
+function VehicleScript:addAttachmentAt(arg0, arg1) end
+
+---@public
+---@return int
+function VehicleScript:getAreaCount() end
+
+---@public
+---@param arg0 String
+---@return int
+function VehicleScript:getIndexOfPartById(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getSuspensionDamping() end
+
+---@public
+---@return VehicleScript.Skin
+function VehicleScript:getTextures() end
+
+---@public
+---@return Vector3f
+function VehicleScript:getExtents() end
+
+---@public
+---@return float
+function VehicleScript:getSuspensionTravel() end
+
+---@public
+---@param arg0 VehicleScript
+---@param arg1 String
+---@return void
+function VehicleScript:copyPassengersFrom(arg0, arg1) end
+
+---@public
+---@return String
+function VehicleScript:getFullName() end
+
+---@private
+---@param arg0 String
+---@param arg1 Vector3f
+---@return void
+function VehicleScript:LoadVector3f(arg0, arg1) end
+
+---@public
+---@return VehicleScript.Sounds
+function VehicleScript:getSounds() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return VehicleScript.PhysicsShape
+function VehicleScript:LoadPhysicsShape(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getSteeringIncrement() end
+
+---@public
+---@return Vector3f
+function VehicleScript:getModelOffset() end
+
+---@public
+---@param arg0 String
+---@return void
+function VehicleScript:setEngineRPMType(arg0) end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.Part
+function VehicleScript:getPart(arg0) end
+
+---@private
+---@param arg0 float
+---@return boolean
+function VehicleScript:isOverlappingWheel(arg0) end
+
+---@public
+---@param arg0 String
+---@return VehicleScript.Passenger
+function VehicleScript:getPassengerById(arg0) end
+
+---@public
+---@return int
+function VehicleScript:getSeats() end
+
+---@private
+---@param arg0 String
+---@param arg1 Vector2i
+---@return void
+function VehicleScript:LoadVector2i(arg0, arg1) end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return VehicleScript.Passenger
+function VehicleScript:LoadPassenger(arg0) end
+
+---@public
+---@return void
+function VehicleScript:Loaded() end
+
+---@public
+---@param arg0 VehicleScript
+---@param arg1 String
+---@return void
+function VehicleScript:copyPartsFrom(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return int
+function VehicleScript:getIndexOfWheelById(arg0) end
+
+---@public
+---@return int
+function VehicleScript:getGearRatioCount() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return HashMap|Unknown|Unknown
+function VehicleScript:LoadLuaFunctions(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getSuspensionRestLength() end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.Area
+function VehicleScript:getArea(arg0) end
+
+---@public
+---@return Vector3f
+function VehicleScript:getPhysicsChassisShape() end
+
+---@public
+---@param arg0 float
+---@return float
+function VehicleScript:getSteeringClamp(arg0) end
+
+---@public
+---@param arg0 ModelAttachment
+---@return ModelAttachment
+---@overload fun(arg0:int)
+function VehicleScript:removeAttachment(arg0) end
+
+---@public
+---@param arg0 int
+---@return ModelAttachment
+function VehicleScript:removeAttachment(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 Vector4f
+---@return void
+function VehicleScript:LoadVector4f(arg0, arg1) end
+
+---@public
 ---@return float
 function VehicleScript:getSuspensionStiffness() end
+
+---@public
+---@return Vector2f
+function VehicleScript:getShadowExtents() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@param arg1 KahluaTable
+---@return KahluaTable
+function VehicleScript:LoadTable(arg0, arg1) end
+
+---@public
+---@return VehicleScript.LightBar
+function VehicleScript:getLightbar() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return VehicleScript.Wheel
+function VehicleScript:LoadWheel(arg0) end
+
+---@public
+---@return int
+function VehicleScript:getHeadlightConfigLevel() end
+
+---@public
+---@param arg0 String
+---@return int
+function VehicleScript:getPassengerIndex(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getPlayerDamageProtection() end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleScript:setForcedSat(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getEngineIdleSpeed() end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.Wheel
+function VehicleScript:getWheel(arg0) end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@param arg1 ArrayList|Unknown
+---@return VehicleScript.Anim
+function VehicleScript:LoadAnim(arg0, arg1) end
+
+---@public
+---@return String
+function VehicleScript:getEngineRPMType() end
+
+---@public
+---@param arg0 String
+---@return int
+function VehicleScript:getIndexOfAreaById(arg0) end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@param arg1 ArrayList|Unknown
+---@return VehicleScript.Position
+function VehicleScript:LoadPosition(arg0, arg1) end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@param arg1 ArrayList|Unknown
+---@return VehicleScript.Model
+function VehicleScript:LoadModel(arg0, arg1) end
+
+---@public
+---@return int
+function VehicleScript:getEngineRepairLevel() end
+
+---@public
+---@return float
+function VehicleScript:getRollInfluence() end
+
+---@public
+---@param arg0 String
+---@return VehicleScript.Wheel
+function VehicleScript:getWheelById(arg0) end
+
+---@public
+---@return int
+function VehicleScript:getModelCount() end
+
+---@public
+---@return Vector2f
+function VehicleScript:getShadowOffset() end
+
+---@public
+---@return Vector2f
+function VehicleScript:getExtentsOffset() end
+
+---@public
+---@return int
+function VehicleScript:getPartCount() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return VehicleScript.Area
+function VehicleScript:LoadArea(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getEngineForce() end
+
+---@public
+---@return String
+function VehicleScript:getFileName() end
+
+---@public
+---@return float
+function VehicleScript:getWheelFriction() end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleScript:setOffroadEfficiency(arg0) end
+
+---@public
+---@return int
+function VehicleScript:getPhysicsShapeCount() end
 
 ---@public
 ---@return int
@@ -85,6 +435,41 @@ function VehicleScript:getMechanicType() end
 ---@public
 ---@return float
 function VehicleScript:getOffroadEfficiency() end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@return VehicleScript.Window
+function VehicleScript:LoadWindow(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function VehicleScript:Load(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleScript:setModelScale(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 ArrayList|Unknown
+---@return VehicleScript.Anim
+function VehicleScript:getAnimationById(arg0, arg1) end
+
+---@public
+---@return float
+function VehicleScript:getForcedSat() end
+
+---@public
+---@param arg0 String
+---@return ModelAttachment
+function VehicleScript:getAttachmentById(arg0) end
+
+---@public
+---@return VehicleScript.Model
+function VehicleScript:getModel() end
 
 ---@public
 ---@param arg0 String
@@ -99,47 +484,53 @@ function VehicleScript:getModelById(arg0) end
 function VehicleScript:getModelById(arg0, arg1) end
 
 ---@public
+---@return int
+function VehicleScript:getAttachmentCount() end
+
+---@public
+---@return int
+function VehicleScript:getFrontEndHealth() end
+
+---@public
+---@param arg0 int
+---@return VehicleScript.PhysicsShape
+function VehicleScript:getPhysicsShape(arg0) end
+
+---@private
+---@param arg0 ScriptParser.Block
+---@param arg1 VehicleScript.Passenger
+---@return VehicleScript.Passenger.SwitchSeat
+function VehicleScript:LoadPassengerSwitchSeat(arg0, arg1) end
+
+---@public
+---@return TFloatArrayList
+function VehicleScript:getCrawlOffsets() end
+
+---@public
 ---@param arg0 int
 ---@return void
-function VehicleScript:setSeats(arg0) end
+function VehicleScript:setEngineRepairLevel(arg0) end
+
+---@public
+---@return float
+function VehicleScript:getForcedHue() end
+
+---@public
+---@return int
+function VehicleScript:getWheelCount() end
 
 ---@public
 ---@return float
 function VehicleScript:getMass() end
 
----@private
----@param arg0 Object
----@return Object
-function VehicleScript:checkIntegerKey(arg0) end
-
----@private
----@param arg0 ScriptParser.Block
----@return VehicleScript.Wheel
-function VehicleScript:LoadWheel(arg0) end
-
 ---@public
 ---@param arg0 int
----@return ModelAttachment
----@overload fun(arg0:ModelAttachment)
-function VehicleScript:removeAttachment(arg0) end
-
----@public
----@param arg0 ModelAttachment
----@return ModelAttachment
-function VehicleScript:removeAttachment(arg0) end
-
----@public
----@param arg0 float
 ---@return void
-function VehicleScript:setForcedSat(arg0) end
+function VehicleScript:setSeats(arg0) end
 
 ---@public
 ---@return int
-function VehicleScript:getSkinCount() end
-
----@public
----@return float
-function VehicleScript:getForcedSat() end
+function VehicleScript:getPassengerCount() end
 
 ---@public
 ---@param arg0 ModelAttachment
@@ -148,97 +539,8 @@ function VehicleScript:addAttachment(arg0) end
 
 ---@private
 ---@param arg0 ScriptParser.Block
----@return VehicleScript.Door
-function VehicleScript:LoadDoor(arg0) end
-
----@private
----@param arg0 ScriptParser.Block
----@param arg1 ArrayList|Unknown
----@return VehicleScript.Anim
-function VehicleScript:LoadAnim(arg0, arg1) end
-
----@public
----@return int
-function VehicleScript:getGearRatioCount() end
-
----@public
----@param arg0 String
----@return VehicleScript.Part
-function VehicleScript:getPartById(arg0) end
-
----@public
----@param arg0 int
----@return VehicleScript.Part
-function VehicleScript:getPart(arg0) end
-
----@public
----@param arg0 VehicleScript
----@param arg1 String
----@return void
-function VehicleScript:copyWheelsFrom(arg0, arg1) end
-
----@public
----@return float
-function VehicleScript:getEngineForce() end
-
----@public
----@return int
-function VehicleScript:getWheelCount() end
-
----@private
----@return void
----@overload fun(arg0:VehicleScript.Wheel)
-function VehicleScript:initCrawlOffsets() end
-
----@private
----@param arg0 VehicleScript.Wheel
----@return void
-function VehicleScript:initCrawlOffsets(arg0) end
-
----@public
----@param arg0 String
----@return int
-function VehicleScript:getPassengerIndex(arg0) end
-
----@private
----@param arg0 ScriptParser.Block
----@return VehicleScript.Passenger
-function VehicleScript:LoadPassenger(arg0) end
-
----@public
----@return VehicleScript.LightBar
-function VehicleScript:getLightbar() end
-
----@public
----@return int
-function VehicleScript:getHeadlightConfigLevel() end
-
----@private
----@param arg0 ScriptParser.Block
 ---@return ModelAttachment
 function VehicleScript:LoadAttachment(arg0) end
-
----@public
----@return Vector4f
-function VehicleScript:getShadowOffset() end
-
----@private
----@param arg0 ScriptParser.Block
----@return VehicleScript.PhysicsShape
-function VehicleScript:LoadPhysicsShape(arg0) end
-
----@public
----@return float
-function VehicleScript:getPlayerDamageProtection() end
-
----@public
----@param arg0 String
----@return int
-function VehicleScript:getIndexOfPartById(arg0) end
-
----@public
----@return VehicleScript.Skin
-function VehicleScript:getTextures() end
 
 ---@private
 ---@param arg0 ScriptParser.Block
@@ -251,157 +553,14 @@ function VehicleScript:LoadSkin(arg0) end
 ---@return VehicleScript.Position
 function VehicleScript:getPositionById(arg0, arg1) end
 
----@public
----@param arg0 int
----@return VehicleScript.Wheel
-function VehicleScript:getWheel(arg0) end
-
----@public
----@return String
-function VehicleScript:getEngineRPMType() end
-
----@public
----@param arg0 float
----@return void
-function VehicleScript:setOffroadEfficiency(arg0) end
-
----@public
----@return float
-function VehicleScript:getWheelFriction() end
-
----@private
----@param arg0 float
----@return boolean
-function VehicleScript:isOverlappingWheel(arg0) end
-
----@public
----@return String
-function VehicleScript:getFullName() end
-
----@public
----@param arg0 float
----@return void
-function VehicleScript:setForcedVal(arg0) end
-
----@public
----@return int
-function VehicleScript:getPartCount() end
-
----@public
----@return int
-function VehicleScript:getEngineRepairLevel() end
-
----@public
----@return float
-function VehicleScript:getRollInfluence() end
-
----@public
----@param arg0 VehicleScript
----@param arg1 String
----@return void
-function VehicleScript:copyPartsFrom(arg0, arg1) end
-
 ---@private
 ---@param arg0 String
----@param arg1 Vector3f
 ---@return void
-function VehicleScript:LoadVector3f(arg0, arg1) end
-
----@public
----@param arg0 float
----@return void
-function VehicleScript:setModelScale(arg0) end
-
----@public
----@param arg0 String
----@return void
-function VehicleScript:setEngineRPMType(arg0) end
-
----@public
----@return void
-function VehicleScript:Loaded() end
-
----@public
----@return Vector3f
-function VehicleScript:getPhysicsChassisShape() end
-
----@private
----@param arg0 ScriptParser.Block
----@return VehicleScript.Window
-function VehicleScript:LoadWindow(arg0) end
-
----@public
----@param arg0 String
----@return int
-function VehicleScript:getIndexOfWheelById(arg0) end
-
----@public
----@return float
-function VehicleScript:getEngineIdleSpeed() end
-
----@public
----@param arg0 int
----@return ModelAttachment
-function VehicleScript:getAttachment(arg0) end
-
----@public
----@return float
-function VehicleScript:getSuspensionRestLength() end
-
----@private
----@param arg0 ScriptParser.Block
----@return VehicleScript.Area
-function VehicleScript:LoadArea(arg0) end
-
----@public
----@param arg0 float
----@return void
-function VehicleScript:setPlayerDamageProtection(arg0) end
-
----@public
----@param arg0 int
----@return VehicleScript.Area
-function VehicleScript:getArea(arg0) end
-
----@public
----@return VehicleScript.Sounds
-function VehicleScript:getSounds() end
-
----@public
----@return float
-function VehicleScript:getModelScale() end
+function VehicleScript:LoadTemplate(arg0) end
 
 ---@public
 ---@return int
-function VehicleScript:getSeats() end
-
----@public
----@return int
-function VehicleScript:getAreaCount() end
-
----@private
----@param arg0 ScriptParser.Block
----@param arg1 ArrayList|Unknown
----@return VehicleScript.Position
-function VehicleScript:LoadPosition(arg0, arg1) end
-
----@public
----@return int
-function VehicleScript:getEngineQuality() end
-
----@public
----@param arg0 float
----@return void
-function VehicleScript:setForcedHue(arg0) end
-
----@public
----@return float
-function VehicleScript:getForcedHue() end
-
----@public
----@param arg0 int
----@return void
-function VehicleScript:setEngineRepairLevel(arg0) end
+function VehicleScript:getStorageCapacity() end
 
 ---@public
 ---@param arg0 String
@@ -410,218 +569,66 @@ function VehicleScript:setEngineRepairLevel(arg0) end
 function VehicleScript:globMatch(arg0, arg1) end
 
 ---@public
----@return float
-function VehicleScript:getForcedVal() end
-
----@public
----@param arg0 String
----@return VehicleScript.Passenger
-function VehicleScript:getPassengerById(arg0) end
-
----@public
----@param arg0 int
----@return void
-function VehicleScript:setMechanicType(arg0) end
-
----@public
----@return TFloatArrayList
-function VehicleScript:getCrawlOffsets() end
-
----@public
 ---@param arg0 int
 ---@return VehicleScript.Model
 function VehicleScript:getModelByIndex(arg0) end
 
 ---@public
----@param arg0 float
----@return float
-function VehicleScript:getSteeringClamp(arg0) end
-
----@public
----@return int
-function VehicleScript:getEngineLoudness() end
-
----@private
----@param arg0 ScriptParser.Block
----@param arg1 ArrayList|Unknown
----@return VehicleScript.Model
-function VehicleScript:LoadModel(arg0, arg1) end
-
----@public
----@return int
-function VehicleScript:getStorageCapacity() end
-
----@private
----@param arg0 ScriptParser.Block
----@param arg1 VehicleScript.Passenger
----@return VehicleScript.Passenger.SwitchSeat
-function VehicleScript:LoadPassengerSwitchSeat(arg0, arg1) end
-
----@public
----@param arg0 VehicleScript
----@param arg1 String
----@return void
-function VehicleScript:copyAreasFrom(arg0, arg1) end
-
----@public
----@return boolean
-function VehicleScript:getHasSiren() end
-
----@public
 ---@param arg0 int
----@return VehicleScript.Skin
-function VehicleScript:getSkin(arg0) end
-
----@public
----@return Vector3f
-function VehicleScript:getCenterOfMassOffset() end
+---@return ModelAttachment
+function VehicleScript:getAttachment(arg0) end
 
 ---@public
 ---@return int
-function VehicleScript:getRearEndHealth() end
-
----@public
----@return Vector3f
-function VehicleScript:getModelOffset() end
-
----@public
----@return float
-function VehicleScript:getSuspensionCompression() end
+function VehicleScript:getEngineQuality() end
 
 ---@public
 ---@return void
 function VehicleScript:toBullet() end
 
 ---@public
----@return int
-function VehicleScript:getModelCount() end
-
----@public
----@param arg0 int
----@param arg1 ModelAttachment
----@return ModelAttachment
-function VehicleScript:addAttachmentAt(arg0, arg1) end
-
----@public
----@return int
-function VehicleScript:getPhysicsShapeCount() end
-
----@public
 ---@param arg0 String
+---@return VehicleScript.Part
+function VehicleScript:getPartById(arg0) end
+
+---@public
+---@param arg0 VehicleScript
 ---@param arg1 String
 ---@return void
-function VehicleScript:Load(arg0, arg1) end
-
----@private
----@param arg0 String
----@return void
-function VehicleScript:LoadTemplate(arg0) end
-
----@private
----@param arg0 ScriptParser.Block
----@return HashMap|Unknown|Unknown
-function VehicleScript:LoadLuaFunctions(arg0) end
+function VehicleScript:copyWheelsFrom(arg0, arg1) end
 
 ---@public
 ---@return float
-function VehicleScript:getSteeringIncrement() end
+function VehicleScript:getSuspensionCompression() end
+
+---@public
+---@return Vector3f
+function VehicleScript:getCenterOfMassOffset() end
 
 ---@private
----@param arg0 String
----@param arg1 Vector4f
+---@param arg0 Object
+---@return Object
+function VehicleScript:checkIntegerKey(arg0) end
+
+---@public
+---@param arg0 float
 ---@return void
-function VehicleScript:LoadVector4f(arg0, arg1) end
-
----@public
----@return String
-function VehicleScript:getName() end
-
----@public
----@return int
-function VehicleScript:getFrontEndHealth() end
+function VehicleScript:setForcedHue(arg0) end
 
 ---@public
 ---@param arg0 String
 ---@return VehicleScript.Area
 function VehicleScript:getAreaById(arg0) end
 
----@public
----@param arg0 String
----@return int
-function VehicleScript:getIndexOfAreaById(arg0) end
-
----@private
----@param arg0 String
----@param arg1 ArrayList|Unknown
----@return VehicleScript.Anim
-function VehicleScript:getAnimationById(arg0, arg1) end
-
----@private
----@param arg0 String
----@param arg1 Vector2i
----@return void
-function VehicleScript:LoadVector2i(arg0, arg1) end
-
----@public
----@param arg0 String
----@return ModelAttachment
-function VehicleScript:getAttachmentById(arg0) end
-
----@public
----@param arg0 int
----@return VehicleScript.PhysicsShape
-function VehicleScript:getPhysicsShape(arg0) end
-
----@public
----@return Vector2f
-function VehicleScript:getExtentsOffset() end
-
 ---@private
 ---@param arg0 ScriptParser.Block
----@param arg1 KahluaTable
----@return KahluaTable
-function VehicleScript:LoadTable(arg0, arg1) end
-
----@public
----@param arg0 String
----@return VehicleScript.Wheel
-function VehicleScript:getWheelById(arg0) end
+---@return VehicleScript.Door
+function VehicleScript:LoadDoor(arg0) end
 
 ---@public
 ---@return int
-function VehicleScript:getAttachmentCount() end
-
----@public
----@return VehicleScript.Model
-function VehicleScript:getModel() end
-
----@public
----@return float
-function VehicleScript:getSuspensionTravel() end
-
----@public
----@return int
-function VehicleScript:getPassengerCount() end
-
----@public
----@param arg0 VehicleScript
----@param arg1 String
----@return void
-function VehicleScript:copyPassengersFrom(arg0, arg1) end
+function VehicleScript:getSkinCount() end
 
 ---@public
 ---@return String
-function VehicleScript:getFileName() end
-
----@public
----@return Vector3f
-function VehicleScript:getExtents() end
-
----@public
----@param arg0 int
----@return VehicleScript.Passenger
-function VehicleScript:getPassenger(arg0) end
-
----@public
----@return float
-function VehicleScript:getSuspensionDamping() end
+function VehicleScript:getName() end

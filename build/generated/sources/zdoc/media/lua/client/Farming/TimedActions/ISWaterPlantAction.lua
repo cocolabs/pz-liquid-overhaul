@@ -77,6 +77,9 @@ function ISWaterPlantAction:new(character, item, uses, sq, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
     o.sq = sq;
 	return o;
 end

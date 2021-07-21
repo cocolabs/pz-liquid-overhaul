@@ -5,6 +5,13 @@ IsoWheelieBin = {}
 
 ---Overrides:
 ---
+---update in class IsoPushableObject
+---@public
+---@return void
+function IsoWheelieBin:update() end
+
+---Overrides:
+---
 ---getWeight in class IsoPushableObject
 ---@public
 ---@param x float
@@ -18,10 +25,3 @@ function IsoWheelieBin:getWeight(x, y) end
 ---@public
 ---@return String
 function IsoWheelieBin:getObjectName() end
-
----Overrides:
----
----update in class IsoPushableObject
----@public
----@return void
-function IsoWheelieBin:update() end

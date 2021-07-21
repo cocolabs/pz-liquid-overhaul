@@ -23,11 +23,42 @@ PerformanceSettings = {}
 
 ---@public
 ---@return int
-function PerformanceSettings:getFogQuality() end
+function PerformanceSettings:getPuddlesQuality() end
+
+---@public
+---@param arg0 int
+---@return void
+function PerformanceSettings:setPuddlesQuality(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function PerformanceSettings:setNewRoofHiding(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function PerformanceSettings:setFogQuality(arg0) end
 
 ---@public
 ---@return int
-function PerformanceSettings:getLockFPS() end
+function PerformanceSettings:getLightingQuality() end
+
+---@public
+---@return int
+function PerformanceSettings:getLightingFPS() end
+
+---@public
+---@return boolean
+function PerformanceSettings:isFramerateUncapped() end
+
+---@public
+---@return int
+function PerformanceSettings:getWaterQuality() end
+
+---@public
+---@return int
+function PerformanceSettings:getFogQuality() end
 
 ---@public
 ---@param arg0 boolean
@@ -36,11 +67,11 @@ function PerformanceSettings:setUncappedFPS(arg0) end
 
 ---@public
 ---@return int
-function PerformanceSettings:getFramerate() end
+function PerformanceSettings:getLockFPS() end
 
 ---@public
 ---@return int
-function PerformanceSettings:getUIRenderFPS() end
+function PerformanceSettings:getFramerate() end
 
 ---@public
 ---@param arg0 int
@@ -48,58 +79,13 @@ function PerformanceSettings:getUIRenderFPS() end
 function PerformanceSettings:setWaterQuality(arg0) end
 
 ---@public
----@param arg0 int
----@return void
-function PerformanceSettings:setPuddlesQuality(arg0) end
-
----@public
----@return boolean
-function PerformanceSettings:isFramerateUncapped() end
-
----@public
 ---@param framerate int
 ---@return void
 function PerformanceSettings:setFramerate(framerate) end
 
 ---@public
----@return int
-function PerformanceSettings:getLightingFPS() end
-
----@public
----@return int
-function PerformanceSettings:getWaterQuality() end
-
----@public
----@param arg0 int
----@return void
-function PerformanceSettings:setLockFPS(arg0) end
-
----@public
----@return boolean
-function PerformanceSettings:getNewRoofHiding() end
-
----@public
----@param arg0 boolean
----@return void
-function PerformanceSettings:setNewRoofHiding(arg0) end
-
----@public
----@param fps int
----@return void
-function PerformanceSettings:setLightingFPS(fps) end
-
----@public
 ---@return boolean
 function PerformanceSettings:isUncappedFPS() end
-
----@public
----@return int
-function PerformanceSettings:getPuddlesQuality() end
-
----@public
----@param arg0 int
----@return void
-function PerformanceSettings:setFogQuality(arg0) end
 
 ---@public
 ---@param arg0 boolean
@@ -113,4 +99,18 @@ function PerformanceSettings:setLightingQuality(lighting) end
 
 ---@public
 ---@return int
-function PerformanceSettings:getLightingQuality() end
+function PerformanceSettings:getUIRenderFPS() end
+
+---@public
+---@param arg0 int
+---@return void
+function PerformanceSettings:setLockFPS(arg0) end
+
+---@public
+---@param fps int
+---@return void
+function PerformanceSettings:setLightingFPS(fps) end
+
+---@public
+---@return boolean
+function PerformanceSettings:getNewRoofHiding() end

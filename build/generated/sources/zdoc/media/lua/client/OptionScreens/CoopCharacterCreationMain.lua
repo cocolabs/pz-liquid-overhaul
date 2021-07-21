@@ -22,9 +22,7 @@ function CoopCharacterCreationMain:onOptionMouseDown(button, x, y)
 end
 
 function CoopCharacterCreationMain:new(x, y, width, height)
-	local o = CharacterCreationMain:new(x, y, width, height)
-	setmetatable(o, self)
-	self.__index = self
+	local o = CharacterCreationMain.new(self, x, y, width, height)
 	o:setUIName("CoopCharacterCreationMain")
 	return o
 end

@@ -10,6 +10,9 @@ ISLightSource = ISBuildingObject:derive("ISLightSource");
 --**
 --************************************************************************--
 function ISLightSource:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -50,13 +53,18 @@ function ISLightSource:create(x, y, z, north, sprite)
 	self.javaObject:transmitCompleteItemToServer()
 end
 
-function ISLightSource:new(sprite, northSprite, player)
+function ISLightSource:new(sprite, northSprite, player, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	o:init();
 	o:setSprite(sprite);
 	o:setNorthSprite(northSprite);
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	o.canBarricade = false;
 	o.dismantable = true;
     o.character = player;

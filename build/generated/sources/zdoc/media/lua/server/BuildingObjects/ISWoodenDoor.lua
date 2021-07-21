@@ -10,6 +10,9 @@ ISWoodenDoor = ISBuildingObject:derive("ISWoodenDoor");
 --**
 --************************************************************************--
 function ISWoodenDoor:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	local openSprite = self.openSprite;
@@ -35,7 +38,7 @@ function ISWoodenDoor:create(x, y, z, north, sprite)
 	self.javaObject:transmitCompleteItemToServer();
 end
 
-function ISWoodenDoor:new(sprite, northSprite, openSprite, openNorthSprite)
+function ISWoodenDoor:new(sprite, northSprite, openSprite, openNorthSprite, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -48,6 +51,11 @@ function ISWoodenDoor:new(sprite, northSprite, openSprite, openNorthSprite)
 	o.thumpDmg = 5;
 	o.name = "Wooden Door";
 	o.isWallLike = true
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

@@ -14,13 +14,6 @@ IsoSurvivor = {}
 
 ---Overrides:
 ---
----Despawn in class IsoMovingObject
----@public
----@return void
-function IsoSurvivor:Despawn() end
-
----Overrides:
----
 ---getObjectName in class IsoMovingObject
 ---@public
 ---@return String
@@ -29,3 +22,10 @@ function IsoSurvivor:getObjectName() end
 ---@public
 ---@return void
 function IsoSurvivor:reloadSpritePart() end
+
+---Overrides:
+---
+---Despawn in class IsoMovingObject
+---@public
+---@return void
+function IsoSurvivor:Despawn() end

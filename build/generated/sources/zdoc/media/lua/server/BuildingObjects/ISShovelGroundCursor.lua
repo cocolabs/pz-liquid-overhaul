@@ -104,7 +104,7 @@ function ISShovelGroundCursor.GetDirtGravelSand(square)
 		local obj = square:getObjects():get(i-1)
 		if obj:hasModData() and obj:getModData().shovelled then
 			-- skip already-shovelled squares
-		elseif CFarmingSystem.instance:getLuaObjectOnSquare(square) then
+		elseif not isServer() and CFarmingSystem.instance:getLuaObjectOnSquare(square) then
 			-- skip dirt with farm plants
 		elseif obj:getSprite() and obj:getSprite():getName() then
 			local spriteName = obj:getSprite():getName()

@@ -281,6 +281,9 @@ function ISFitnessUI:updateButtons(currentAction)
 		self.ok.enable = false;
 		self.ok.tooltip = getText("Tooltip_TooMuchPainFitness");
 	end
+	if self.player:isClimbing() then
+		self.ok.enable = false;
+	end
 	--    self.ok.enable = false;
 	--    self.cancel.enable = false;
 	--

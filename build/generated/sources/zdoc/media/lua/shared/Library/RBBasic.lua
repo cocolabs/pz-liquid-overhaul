@@ -9,10 +9,28 @@
 ---@field private uniqueRDSSpawned ArrayList|Unknown
 RBBasic = {}
 
+---@public
+---@return ArrayList|Unknown
+function RBBasic:getUniqueRDSSpawned() end
+
 ---@private
 ---@param arg0 BuildingDef
 ---@return void
-function RBBasic:initRDSMap(arg0) end
+function RBBasic:addRandomDeadSurvivorStory(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function RBBasic:getSurvivorStories() end
+
+---@public
+---@param arg0 BuildingDef
+---@param arg1 RandomizedDeadSurvivorBase
+---@return void
+function RBBasic:doRandomDeadSurvivorStory(arg0, arg1) end
+
+---@public
+---@return ArrayList|Unknown
+function RBBasic:getSurvivorProfession() end
 
 ---@public
 ---@param arg0 BuildingDef
@@ -25,25 +43,7 @@ function RBBasic:randomizeBuilding(arg0) end
 ---@return void
 function RBBasic:doProfessionStory(arg0, arg1) end
 
----@public
----@return ArrayList|Unknown
-function RBBasic:getSurvivorProfession() end
-
----@public
----@return ArrayList|Unknown
-function RBBasic:getUniqueRDSSpawned() end
-
----@public
----@return ArrayList|Unknown
-function RBBasic:getSurvivorStories() end
-
----@public
----@param arg0 BuildingDef
----@param arg1 RandomizedDeadSurvivorBase
----@return void
-function RBBasic:doRandomDeadSurvivorStory(arg0, arg1) end
-
 ---@private
 ---@param arg0 BuildingDef
 ---@return void
-function RBBasic:addRandomDeadSurvivorStory(arg0) end
+function RBBasic:initRDSMap(arg0) end

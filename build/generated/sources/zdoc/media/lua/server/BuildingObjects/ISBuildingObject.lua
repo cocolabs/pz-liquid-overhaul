@@ -55,6 +55,10 @@ function ISBuildingObject:setSprite(sprite)
 	self.choosenSprite = sprite;
 end
 
+function ISBuildingObject:setOpenNailsBox(openNailsBox)
+	self.openNailsBox = openNailsBox;
+end
+
 function ISBuildingObject:setDragNilAfterPlace(nilAfter)
 	self.dragNilAfterPlace = nilAfter;
 end
@@ -65,6 +69,10 @@ function ISBuildingObject.onDestroy(thump, player)
 		for i=0,items:size()-1 do
 			thump:getSquare():AddWorldInventoryItem(items:get(i), 0.0, 0.0, 0.0)
 		end
+	end
+	if camping.isTentObject(thump) then
+		camping.destroyTent(thump)
+		return
 	end
 	for index, value in pairs(thump:getModData()) do
 		if luautils.stringStarts(index, "need:") then
@@ -190,7 +198,7 @@ function ISBuildingObject:tryBuild(x, y, z)
 		if self.maxTime then
 			maxTime = self.maxTime
 		end
-		if ISBuildMenu.cheat then
+		if playerObj:isTimedActionInstant() then
 			maxTime = 1
 		end
 		if self.skipBuildAction then
@@ -228,7 +236,13 @@ function ISBuildingObject:tryBuild(x, y, z)
 					end
                 end
             end
-			ISTimedActionQueue.add(ISBuildAction:new(playerObj, self, x, y, z, self.north, self:getSprite(), maxTime))
+
+			-- Pass a copy of this object to ISBuildAction to avoid issues with changing this object
+			-- before the action completes, such as rotating it with the 'Rotate Building' key.
+			local selfCopy = copyTable(self)
+			setmetatable(selfCopy, getmetatable(self, true))
+
+			ISTimedActionQueue.add(ISBuildAction:new(playerObj, selfCopy, x, y, z, self.north, self:getSprite(), maxTime))
 		end
 	end
 end
@@ -286,6 +300,13 @@ function ISBuildingObject:haveMaterial(square)
 			if luautils.stringStarts(index, "need:") then
 				local itemFullType = luautils.split(index, ":")[2];
 				local nbOfItem = playerInv:getCountTypeEvalRecurse(itemFullType, buildUtil.predicateMaterial)
+				-- if the build recipe requires nails, check the player's inventory for boxes of nails, and add them to the count
+				if itemFullType == "Base.Nails" then
+					nbOfItem = nbOfItem + playerInv:getCountTypeEvalRecurse("Base.NailsBox", buildUtil.predicateMaterial)*100;
+					if groundItemCounts["Base.NailsBox"] then
+						nbOfItem = nbOfItem + playerInv:getCountTypeEvalRecurse("Base.NailsBox", buildUtil.predicateMaterial)*100;
+					end
+				end
 				if groundItemCounts[itemFullType] then
 					nbOfItem = nbOfItem + groundItemCounts[itemFullType];
 				end
@@ -346,7 +367,8 @@ function ISBuildingObject:reset()
 	self.xJoypad = -1;
 	self.yJoypad = -1;
 	self.zJoypad = -1;
-	self.isWallLike = false
+	self.isWallLike = false;
+	self.isCorner = false;
 end
 
 function ISBuildingObject:init()
@@ -502,6 +524,10 @@ function ISBuildingObject:rotateMouse(x, y)
 	end
 end
 
+-- Called by Java in IsoCell.setDrag().  Can be overridden to do stuff.
+function ISBuildingObject:deactivate()
+end
+
 function ISBuildingObject:onJoypadPressButton(joypadIndex, joypadData, button)
     local playerObj = getSpecificPlayer(joypadData.player)
     if button == Joypad.AButton then
@@ -512,6 +538,13 @@ function ISBuildingObject:onJoypadPressButton(joypadIndex, joypadData, button)
 
     if button == Joypad.BButton then
         getCell():setDrag(nil, joypadData.player);
+    end
+
+    if button == Joypad.YButton then
+        if self.isYButtonResetCursor then
+            self.xJoypad = self.character:getCurrentSquare():getX()
+            self.yJoypad = self.character:getCurrentSquare():getY()
+        end
     end
 
     if button == Joypad.RBumper then
@@ -549,6 +582,14 @@ function ISBuildingObject:getAPrompt()
     if self.canBeBuild then
         return getText("ContextMenu_Build")
     end
+    return nil
+end
+
+function ISBuildingObject:getYPrompt()
+	if self.isYButtonResetCursor then
+		return getText("IGUI_SetCursorToPlayerLocation")
+	end
+	return nil
 end
 
 function ISBuildingObject:getLBPrompt()
@@ -563,13 +604,13 @@ function DoTileBuildingJoyPad(draggingItem, isRender, x, y, z)
     if draggingItem.xJoypad == -1 then
         draggingItem.xJoypad = x;
         draggingItem.yJoypad = y;
-        draggingItem.zJoypad = z;
 --        local buts = getButtonPrompts(playerIndex);
 --        if buts ~= nil then
 --            buts:getBestLBButtonAction(nil);
 --            buts:getBestRBButtonAction(nil);
 --        end
     end
+    draggingItem.zJoypad = z;
     local square = getCell():getGridSquare(draggingItem.xJoypad, draggingItem.yJoypad, draggingItem.zJoypad);
     DoTileBuilding(draggingItem, isRender, draggingItem.xJoypad, draggingItem.yJoypad, draggingItem.zJoypad, square);
 end

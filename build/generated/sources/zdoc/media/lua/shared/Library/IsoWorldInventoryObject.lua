@@ -7,47 +7,43 @@
 ---@field public dropTime double
 IsoWorldInventoryObject = {}
 
----Overrides:
----
----Serialize in class IsoObject
 ---@public
----@return boolean
-function IsoWorldInventoryObject:Serialize() end
-
----Overrides:
----
----HasTooltip in class IsoObject
----@public
----@return boolean
-function IsoWorldInventoryObject:HasTooltip() end
-
----Overrides:
----
----onMouseLeftClick in class IsoObject
----@public
----@param x int
----@param y int
----@return boolean
-function IsoWorldInventoryObject:onMouseLeftClick(x, y) end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
+---@param arg0 ByteBuffer
+---@param arg1 boolean
 ---@return void
-function IsoWorldInventoryObject:load(input, WorldVersion) end
+function IsoWorldInventoryObject:save(arg0, arg1) end
 
 ---@public
----@return InventoryItem
-function IsoWorldInventoryObject:getItem() end
+---@return void
+function IsoWorldInventoryObject:update() end
+
+---Overrides:
+---
+---getObjectName in class IsoObject
+---@public
+---@return String
+function IsoWorldInventoryObject:getObjectName() end
 
 ---@public
----@return int
-function IsoWorldInventoryObject:getWaterAmount() end
+---@param arg0 int
+---@return float
+function IsoWorldInventoryObject:getScreenPosX(arg0) end
+
+---@public
+---@return void
+function IsoWorldInventoryObject:addToWorld() end
+
+---@public
+---@return boolean
+function IsoWorldInventoryObject:finishupdate() end
+
+---Overrides:
+---
+---DoTooltip in class IsoObject
+---@public
+---@param tooltipUI ObjectTooltip
+---@return void
+function IsoWorldInventoryObject:DoTooltip(tooltipUI) end
 
 ---Overrides:
 ---
@@ -61,6 +57,37 @@ function IsoWorldInventoryObject:getWaterAmount() end
 function IsoWorldInventoryObject:renderObjectPicker(x, y, z, lightInfo) end
 
 ---@public
+---@return void
+function IsoWorldInventoryObject:softReset() end
+
+---Overrides:
+---
+---HasTooltip in class IsoObject
+---@public
+---@return boolean
+function IsoWorldInventoryObject:HasTooltip() end
+
+---Overrides:
+---
+---removeFromSquare in class IsoObject
+---@public
+---@return void
+function IsoWorldInventoryObject:removeFromSquare() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoWorldInventoryObject:setWaterAmount(arg0) end
+
+---@public
+---@return InventoryItem
+function IsoWorldInventoryObject:getItem() end
+
+---@public
+---@return int
+function IsoWorldInventoryObject:getWaterAmount() end
+
+---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
@@ -72,6 +99,30 @@ function IsoWorldInventoryObject:renderObjectPicker(x, y, z, lightInfo) end
 function IsoWorldInventoryObject:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
 ---@private
+---@return void
+function IsoWorldInventoryObject:debugHitTest() end
+
+---@public
+---@return void
+function IsoWorldInventoryObject:updateSprite() end
+
+---@public
+---@param arg0 int
+---@return float
+function IsoWorldInventoryObject:getScreenPosY(arg0) end
+
+---@public
+---@return void
+function IsoWorldInventoryObject:removeFromWorld() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoWorldInventoryObject:load(arg0, arg1, arg2) end
+
+---@private
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
@@ -80,75 +131,16 @@ function IsoWorldInventoryObject:debugDrawLocation(arg0, arg1, arg2) end
 
 ---Overrides:
 ---
----getObjectName in class IsoObject
----@public
----@return String
-function IsoWorldInventoryObject:getObjectName() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoObject
----@public
----@param output ByteBuffer
----@return void
-function IsoWorldInventoryObject:save(output) end
-
----@public
----@param arg0 int
----@return void
-function IsoWorldInventoryObject:setWaterAmount(arg0) end
-
----@public
----@return void
-function IsoWorldInventoryObject:update() end
-
----@public
----@return void
-function IsoWorldInventoryObject:removeFromWorld() end
-
----@public
----@param arg0 int
----@return float
-function IsoWorldInventoryObject:getScreenPosY(arg0) end
-
+---Serialize in class IsoObject
 ---@public
 ---@return boolean
-function IsoWorldInventoryObject:finishupdate() end
-
----@public
----@return void
-function IsoWorldInventoryObject:softReset() end
+function IsoWorldInventoryObject:Serialize() end
 
 ---Overrides:
 ---
----DoTooltip in class IsoObject
+---onMouseLeftClick in class IsoObject
 ---@public
----@param tooltipUI ObjectTooltip
----@return void
-function IsoWorldInventoryObject:DoTooltip(tooltipUI) end
-
----@public
----@param arg0 int
----@return float
-function IsoWorldInventoryObject:getScreenPosX(arg0) end
-
----@public
----@return void
-function IsoWorldInventoryObject:updateSprite() end
-
----@private
----@return void
-function IsoWorldInventoryObject:debugHitTest() end
-
----Overrides:
----
----removeFromSquare in class IsoObject
----@public
----@return void
-function IsoWorldInventoryObject:removeFromSquare() end
-
----@public
----@return void
-function IsoWorldInventoryObject:addToWorld() end
+---@param x int
+---@param y int
+---@return boolean
+function IsoWorldInventoryObject:onMouseLeftClick(x, y) end

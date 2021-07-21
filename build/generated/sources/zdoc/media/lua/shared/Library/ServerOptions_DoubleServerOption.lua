@@ -2,9 +2,9 @@
 ServerOptions_DoubleServerOption = {}
 
 ---@public
----@return String
-function ServerOptions_DoubleServerOption:getTooltip() end
-
----@public
 ---@return ConfigOption
 function ServerOptions_DoubleServerOption:asConfigOption() end
+
+---@public
+---@return String
+function ServerOptions_DoubleServerOption:getTooltip() end

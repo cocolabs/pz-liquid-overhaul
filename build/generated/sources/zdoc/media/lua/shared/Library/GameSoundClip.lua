@@ -16,30 +16,6 @@
 GameSoundClip = {}
 
 ---@public
----@return float
-function GameSoundClip:getMaxDistance() end
-
----@public
----@return String
-function GameSoundClip:getFile() end
-
----@public
----@return float
-function GameSoundClip:getEffectiveVolume() end
-
----@public
----@return float
-function GameSoundClip:getEffectiveVolumeInMenu() end
-
----@public
----@return boolean
-function GameSoundClip:hasMinDistance() end
-
----@public
----@return GameSoundClip
-function GameSoundClip:checkReloaded() end
-
----@public
 ---@return String
 function GameSoundClip:getEvent() end
 
@@ -58,3 +34,27 @@ function GameSoundClip:getMinDistance() end
 ---@public
 ---@return float
 function GameSoundClip:getPitch() end
+
+---@public
+---@return float
+function GameSoundClip:getEffectiveVolume() end
+
+---@public
+---@return float
+function GameSoundClip:getMaxDistance() end
+
+---@public
+---@return float
+function GameSoundClip:getEffectiveVolumeInMenu() end
+
+---@public
+---@return GameSoundClip
+function GameSoundClip:checkReloaded() end
+
+---@public
+---@return boolean
+function GameSoundClip:hasMinDistance() end
+
+---@public
+---@return String
+function GameSoundClip:getFile() end

@@ -16,13 +16,11 @@
 ---@field private EventMap HashMap|Unknown|Unknown
 LuaEventManager = {}
 
----@private
----@return void
-function LuaEventManager:AddEvents() end
-
 ---@public
+---@param prototype Prototype
+---@param luaClosure LuaClosure
 ---@return void
-function LuaEventManager:clear() end
+function LuaEventManager:reroute(prototype, luaClosure) end
 
 ---@public
 ---@param event String
@@ -119,15 +117,34 @@ function LuaEventManager:triggerEventGarbage(event, param1, param2, param3) end
 ---@return void
 function LuaEventManager:triggerEventGarbage(event, param1, param2, param3, param4) end
 
+---@private
+---@return void
+function LuaEventManager:AddEvents() end
+
+---@public
+---@param name String
+---@return void
+function LuaEventManager:AddEvent(name) end
+
+---@public
+---@return void
+function LuaEventManager:clear() end
+
 ---@public
 ---@param platform Platform
 ---@param environment KahluaTable
 ---@return void
 function LuaEventManager:register(platform, environment) end
 
+---@private
+---@param arg0 LuaCallFrame
+---@param arg1 int
+---@return int
+function LuaEventManager:OnTick(arg0, arg1) end
+
 ---@public
 ---@return void
-function LuaEventManager:Reset() end
+function LuaEventManager:ResetCallbacks() end
 
 ---Description copied from interface: JavaFunction
 ---
@@ -154,27 +171,10 @@ function LuaEventManager:call(callFrame, nArguments) end
 
 ---@public
 ---@return void
-function LuaEventManager:ResetCallbacks() end
-
----@private
----@param arg0 LuaCallFrame
----@param arg1 int
----@return int
-function LuaEventManager:OnTick(arg0, arg1) end
+function LuaEventManager:Reset() end
 
 ---@public
 ---@param event String
 ---@param param1 Object
 ---@return void
 function LuaEventManager:triggerEventUnique(event, param1) end
-
----@public
----@param name String
----@return void
-function LuaEventManager:AddEvent(name) end
-
----@public
----@param prototype Prototype
----@param luaClosure LuaClosure
----@return void
-function LuaEventManager:reroute(prototype, luaClosure) end

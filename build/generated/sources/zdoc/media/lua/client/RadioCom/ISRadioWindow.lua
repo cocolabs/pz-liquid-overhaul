@@ -12,8 +12,10 @@ ISRadioWindow.instancesIso = {};
 
 function ISRadioWindow.activate( _player, _deviceObject )
     local playerNum = _player:getPlayerNum();
-    local radioWindow, instances;
 
+    local radioWindow, instances;
+    _player:setVariable("ExerciseStarted", false);
+    _player:setVariable("ExerciseEnded", true);
     local _isIso = not instanceof(_deviceObject, "Radio")
     if _isIso then
         instances = ISRadioWindow.instancesIso;

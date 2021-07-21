@@ -4,6 +4,10 @@
 BooleanDebugOption = {}
 
 ---@public
+---@return IDebugOptionGroup
+function BooleanDebugOption:getParent() end
+
+---@public
 ---@param arg0 IDebugOptionGroup
 ---@return void
 function BooleanDebugOption:setParent(arg0) end
@@ -11,10 +15,6 @@ function BooleanDebugOption:setParent(arg0) end
 ---@public
 ---@return boolean
 function BooleanDebugOption:isDebugOnly() end
-
----@public
----@return IDebugOptionGroup
-function BooleanDebugOption:getParent() end
 
 ---@public
 ---@return boolean

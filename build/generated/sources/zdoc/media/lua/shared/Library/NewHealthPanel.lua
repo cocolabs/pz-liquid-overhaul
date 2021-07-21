@@ -24,10 +24,6 @@
 ---@field ParentChar IsoGameCharacter
 NewHealthPanel = {}
 
----@public
----@return String
-function NewHealthPanel:getDamageStatusString() end
-
 ---Overrides:
 ---
 ---render in class NewWindow
@@ -35,14 +31,18 @@ function NewHealthPanel:getDamageStatusString() end
 ---@return void
 function NewHealthPanel:render() end
 
----@public
----@param chr IsoGameCharacter
----@return void
-function NewHealthPanel:SetCharacter(chr) end
-
 ---Overrides:
 ---
 ---update in class NewWindow
 ---@public
 ---@return void
 function NewHealthPanel:update() end
+
+---@public
+---@return String
+function NewHealthPanel:getDamageStatusString() end
+
+---@public
+---@param chr IsoGameCharacter
+---@return void
+function NewHealthPanel:SetCharacter(chr) end

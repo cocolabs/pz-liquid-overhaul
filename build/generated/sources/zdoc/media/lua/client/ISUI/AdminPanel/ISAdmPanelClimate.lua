@@ -325,10 +325,12 @@ local FLOAT_CLOUD_INTENSITY = 8;
 local FLOAT_AMBIENT = 9;
 local FLOAT_VIEW_DISTANCE = 10;
 local FLOAT_DAYLIGHT_STRENGTH = 11;
-local FLOAT_MAX = 12;
+local FLOAT_HUMIDITY = 12;
+local FLOAT_MAX = 13;
 
 local COLOR_GLOBAL_LIGHT = 0;
-local COLOR_MAX = 1;
+local COLOR_NEW_FOG = 1;
+local COLOR_MAX = 2;
 
 local BOOL_IS_SNOW = 0;
 local BOOL_MAX = 1;
@@ -355,7 +357,7 @@ function ISAdmPanelClimate:prerender()
         self.tickBoxPrecip.selected[1] = var:isEnableAdmin();
         self.sliderPrecipSlider:setCurrentValue(var:getAdminValue());
 
-        var = clim:getClimateFloat(BOOL_IS_SNOW);
+        var = clim:getClimateBool(BOOL_IS_SNOW);
         self.tickBoxPrecipIsSnow.selected[1] = var:isEnableAdmin() and var:getAdminValue(); --clim:issetAdminBool(BOOL_IS_SNOW) and clim:getAdminBool(BOOL_IS_SNOW);
 
         var = clim:getClimateFloat(FLOAT_TEMPERATURE);
@@ -448,6 +450,7 @@ function ISAdmPanelClimate:onSliderChange(_newval, _slider)
     elseif _slider.customData=="DarknessSlider" and clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH) then
         clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH):setAdminValue(1-_slider:getCurrentValue());
         clim:getClimateFloat(FLOAT_NIGHT_STRENGTH):setAdminValue(_slider:getCurrentValue());
+        clim:getClimateFloat(FLOAT_AMBIENT):setAdminValue(1-_slider:getCurrentValue());
     elseif _slider.customData=="DesaturationSlider" and clim:getClimateFloat(FLOAT_DESATURATION) then
         clim:getClimateFloat(FLOAT_DESATURATION):setAdminValue(_slider:getCurrentValue());
     --elseif _slider.customData=="LightSliderIntensity" and clim:getClimateFloat(FLOAT_GLOBAL_LIGHT_INTENSITY) then
@@ -505,14 +508,14 @@ function ISAdmPanelClimate:onTicked(_index, _selected, _arg1, _arg2, _tickbox)
             clim:getClimateFloat(FLOAT_PRECIPITATION_INTENSITY):setEnableAdmin(true);
             clim:getClimateFloat(FLOAT_PRECIPITATION_INTENSITY):setAdminValue(val);
             val = self.tickBoxPrecipIsSnow.selected[1];
-            clim:getClimateFloat(BOOL_IS_SNOW):setAdminValue(val);
+            clim:getClimateBool(BOOL_IS_SNOW):setAdminValue(val);
         end
     elseif _tickbox.customData == "PrecipIsSnow" then
         if clim:getClimateFloat(FLOAT_PRECIPITATION_INTENSITY):isEnableAdmin() then
             local val = self.tickBoxPrecipIsSnow.selected[1];
             --print("set admin snow: "..tostring(val))
-            clim:getClimateFloat(BOOL_IS_SNOW):setEnableAdmin(true);
-            clim:getClimateFloat(BOOL_IS_SNOW):setAdminValue(val);
+            clim:getClimateBool(BOOL_IS_SNOW):setEnableAdmin(true);
+            clim:getClimateBool(BOOL_IS_SNOW):setAdminValue(val);
         end
     elseif _tickbox.customData == "Temp" then
         if clim:getClimateFloat(FLOAT_TEMPERATURE):isEnableAdmin() then
@@ -526,12 +529,15 @@ function ISAdmPanelClimate:onTicked(_index, _selected, _arg1, _arg2, _tickbox)
         if clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH):isEnableAdmin() then
             clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH):setEnableAdmin(false);
             clim:getClimateFloat(FLOAT_NIGHT_STRENGTH):setEnableAdmin(false);
+            clim:getClimateFloat(FLOAT_AMBIENT):setEnableAdmin(false);
         else
             local val = self.sliderDarknessSlider:getCurrentValue();
             clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH):setEnableAdmin(true);
             clim:getClimateFloat(FLOAT_DAYLIGHT_STRENGTH):setAdminValue(1-val);
             clim:getClimateFloat(FLOAT_NIGHT_STRENGTH):setEnableAdmin(true);
             clim:getClimateFloat(FLOAT_NIGHT_STRENGTH):setAdminValue(val);
+            clim:getClimateFloat(FLOAT_AMBIENT):setEnableAdmin(true);
+            clim:getClimateFloat(FLOAT_AMBIENT):setAdminValue(1-val);
         end
     elseif _tickbox.customData == "Desaturation" then
         if clim:getClimateFloat(FLOAT_DESATURATION):isEnableAdmin() then

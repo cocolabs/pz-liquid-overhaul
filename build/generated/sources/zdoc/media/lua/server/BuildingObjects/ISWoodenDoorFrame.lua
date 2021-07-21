@@ -11,6 +11,9 @@ ISWoodenDoorFrame = ISBuildingObject:derive("ISWoodenDoorFrame");
 --**
 --************************************************************************--
 function ISWoodenDoorFrame:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -30,7 +33,7 @@ function ISWoodenDoorFrame:create(x, y, z, north, sprite)
     end
 end
 
-function ISWoodenDoorFrame:new(sprite, northSprite, corner)
+function ISWoodenDoorFrame:new(sprite, northSprite, corner, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -43,6 +46,11 @@ function ISWoodenDoorFrame:new(sprite, northSprite, corner)
 	o.name = "Wooden Door Frame";
 	o.isThumpable = false
 	o.isWallLike = true
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

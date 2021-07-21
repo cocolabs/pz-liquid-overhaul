@@ -5,11 +5,6 @@ FitnessState = {}
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@return void
-function FitnessState:execute(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
 function FitnessState:enter(arg0) end
 
 ---@public
@@ -26,3 +21,8 @@ function FitnessState:exit(arg0) end
 ---@public
 ---@return FitnessState
 function FitnessState:instance() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function FitnessState:execute(arg0) end

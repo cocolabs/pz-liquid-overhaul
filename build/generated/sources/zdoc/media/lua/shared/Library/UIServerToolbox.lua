@@ -11,15 +11,10 @@
 UIServerToolbox = {}
 
 ---@public
+---@param arg0 String
+---@param arg1 String
 ---@return void
-function UIServerToolbox:update() end
-
----@public
----@return void
-function UIServerToolbox:shutdown() end
-
----@return void
-function UIServerToolbox:UpdateViewPos() end
+function UIServerToolbox:ModalClick(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
@@ -28,16 +23,8 @@ function UIServerToolbox:UpdateViewPos() end
 ---@return void
 function UIServerToolbox:DoubleClick(arg0, arg1, arg2) end
 
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
 ---@return void
-function UIServerToolbox:Selected(arg0, arg1, arg2) end
-
----@param arg0 String
----@return void
-function UIServerToolbox:PrintLine(arg0) end
+function UIServerToolbox:UpdateViewPos() end
 
 ---@public
 ---@param arg0 String
@@ -47,11 +34,24 @@ function UIServerToolbox:PrintLine(arg0) end
 function UIServerToolbox:OnCoopServerMessage(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 String
----@param arg1 String
 ---@return void
-function UIServerToolbox:ModalClick(arg0, arg1) end
+function UIServerToolbox:render() end
 
 ---@public
 ---@return void
-function UIServerToolbox:render() end
+function UIServerToolbox:update() end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@return void
+function UIServerToolbox:Selected(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function UIServerToolbox:shutdown() end
+
+---@param arg0 String
+---@return void
+function UIServerToolbox:PrintLine(arg0) end

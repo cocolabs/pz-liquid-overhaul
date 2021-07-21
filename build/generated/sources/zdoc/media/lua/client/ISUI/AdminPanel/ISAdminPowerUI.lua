@@ -2,6 +2,8 @@
 --**              	  ROBERT JOHNSON                       **
 --***********************************************************
 
+if not isClient() then return end
+
 ---@class ISAdminPowerUI : ISPanel
 ISAdminPowerUI = ISPanel:derive("ISAdminPowerUI");
 ISAdminPowerUI.messages = {};
@@ -49,27 +51,66 @@ function ISAdminPowerUI:initialise()
 end
 
 function ISAdminPowerUI:addAdminPowerOptions()
-    self.tickBox:addOption("Invisible");
-    self.tickBox.selected[1] = self.player:isInvisible();
-    self.tickBox:addOption("God mode");
-    self.tickBox.selected[2] = self.player:isGodMod();
-    self.tickBox:addOption("No Clip");
-    self.tickBox.selected[3] = self.player:isNoClip();
-    self.tickBox:addOption("Unlimited Carry");
-    self.tickBox.selected[4] = self.player:isUnlimitedCarry();
-    self.tickBox:addOption(getText("IGUI_AdminPanel_BuildCheat"));
-    self.tickBox.selected[5] = ISBuildMenu.cheat;
-    self.tickBox:addOption(getText("IGUI_AdminPanel_MechanicsCheat"));
-    self.tickBox.selected[6] = ISVehicleMechanics.cheat;
-    self.tickBox:addOption(getText("IGUI_AdminPanel_HealthCheat"));
-    self.tickBox.selected[7] = ISHealthPanel.cheat;
-    self.tickBox:addOption(getText("IGUI_AdminPanel_MoveableCheat"));
-    self.tickBox.selected[8] = ISMoveableDefinitions.cheat;
+    self.setFunction = {}
+    self:addOption("Invisible", self.player:isInvisible(), function(self, selected)
+        self.player:setInvisible(selected);
+    end);
+    self:addOption("God mode", self.player:isGodMod(), function(self, selected)
+        self.player:setGodMod(selected);
+    end);
+    self:addOption("Ghost mode", self.player:isGhostMode(), function(self, selected)
+        self.player:setGhostMode(selected);
+    end);
+    self:addOption("No Clip", self.player:isNoClip(), function(self, selected)
+        self.player:setNoClip(selected);
+    end);
+    self:addOption("Timed Action Instant", self.player:isTimedActionInstantCheat(), function(self, selected)
+        self.player:setTimedActionInstantCheat(selected);
+    end);
+    self:addOption("Unlimited Carry", self.player:isUnlimitedCarry(), function(self, selected)
+        self.player:setUnlimitedCarry(selected);
+    end);
+    self:addOption("Unlimited Endurance", self.player:isUnlimitedEndurance(), function(self, selected)
+        self.player:setUnlimitedEndurance(selected);
+    end);
+    self:addOption(getText("IGUI_AdminPanel_BuildCheat"), ISBuildMenu.cheat, function(self, selected)
+        ISBuildMenu.cheat = selected;
+        self.player:setBuildCheat(selected);
+    end);
+    self:addOption(getText("IGUI_AdminPanel_FarmingCheat"), ISFarmingMenu.cheat, function(self, selected)
+        ISFarmingMenu.cheat = selected;
+        self.player:setFarmingCheat(selected);
+    end);
+    self:addOption(getText("IGUI_AdminPanel_HealthCheat"), ISHealthPanel.cheat, function(self, selected)
+        ISHealthPanel.cheat = selected;
+        self.player:setHealthCheat(selected);
+    end);
+    self:addOption(getText("IGUI_AdminPanel_MechanicsCheat"), ISVehicleMechanics.cheat, function(self, selected)
+        ISVehicleMechanics.cheat = selected;
+        self.player:setMechanicsCheat(selected);
+    end);
+    self:addOption(getText("IGUI_AdminPanel_MoveableCheat"), ISMoveableDefinitions.cheat, function(self, selected)
+        ISMoveableDefinitions.cheat = selected;
+        self.player:setMovablesCheat(selected);
+    end);
+
+    self:addOption(getText("IGUI_AdminPanel_CanSeeAll"), self.player:isCanSeeAll(), function(self, selected)
+        self.player:setCanSeeAll(selected)
+    end);
+    self:addOption(getText("IGUI_AdminPanel_CanHearAll"), self.player:isCanHearAll(), function(self, selected)
+        self.player:setCanHearAll(selected)
+    end);
 
     self.tickBox:setWidthToFit()
 
     self:setHeight(self.tickBox:getBottom() + 40 +
         self.richText:getHeight() + 20 + self.ok:getHeight() + 10)
+end
+
+function ISAdminPowerUI:addOption(text, selected, setFunction)
+    local n = self.tickBox:addOption(text)
+    self.tickBox:setSelected(n, selected)
+    self.setFunction[n] = setFunction
 end
 
 function ISAdminPowerUI:onTicked(index, selected)
@@ -89,19 +130,9 @@ end
 
 function ISAdminPowerUI:onClick(button)
     if button.internal == "SAVE" then
-        self.player:setInvisible(self.tickBox.selected[1]);
-        self.player:setGodMod(self.tickBox.selected[2]);
-        self.player:setNoClip(self.tickBox.selected[3]);
-        self.player:setUnlimitedCarry(self.tickBox.selected[4]);
-        ISBuildMenu.cheat = self.tickBox.selected[5];
-        self.player:setBuildCheat(ISBuildMenu.cheat);
-        ISVehicleMechanics.cheat = self.tickBox.selected[6];
-        self.player:setMechanicsCheat(ISVehicleMechanics.cheat);
-        ISHealthPanel.cheat = self.tickBox.selected[7];
-        self.player:setHealthCheat(ISHealthPanel.cheat);
-        ISMoveableDefinitions.cheat = self.tickBox.selected[8];
---        self.player:setHealthCheat(ISMoveableDefinitions.cheat); -- TODO: add a boolean to store this (didn't do it now to not touch saving as we're close to public release)
-    
+        for i=1,#self.tickBox.options do
+            self.setFunction[i](self, self.tickBox:isSelected(i))
+        end
         self.player:setShowAdminTag(false);
         for i,v in pairs(self.tickBox.selected) do
             if self.tickBox.selected[i] then
@@ -118,9 +149,11 @@ function ISAdminPowerUI:onClick(button)
 end
 
 ISAdminPowerUI.onGameStart = function()
-    if getPlayer():isBuildCheat() then ISBuildMenu.cheat = true; end
-    if getPlayer():isMechanicsCheat() then ISVehicleMechanics.cheat = true; end
-    if getPlayer():isHealthCheat() then ISHealthPanel.cheat = true; end
+    ISBuildMenu.cheat = getPlayer():isBuildCheat();
+    ISFarmingMenu.cheat = getPlayer():isFarmingCheat();
+    ISHealthPanel.cheat = getPlayer():isHealthCheat();
+    ISMoveableDefinitions.cheat = getPlayer():isMovablesCheat();
+    ISVehicleMechanics.cheat = getPlayer():isMechanicsCheat();
 end
 
 --************************************************************************--

@@ -39,31 +39,70 @@ SimpleDateFormat = {}
 ---@return int
 function SimpleDateFormat:subParse(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
----@public
----@return Object
-function SimpleDateFormat:clone() end
-
 ---@private
 ---@param arg0 Date
 ---@return void
 function SimpleDateFormat:parseAmbiguousDatesAsAfter(arg0) end
 
 ---@public
----@return int
-function SimpleDateFormat:hashCode() end
+---@param arg0 Date
+---@return void
+function SimpleDateFormat:set2DigitYearStart(arg0) end
 
 ---@public
----@param arg0 String
----@param arg1 ParsePosition
----@return Date
-function SimpleDateFormat:parse(arg0, arg1) end
+---@return String
+function SimpleDateFormat:toLocalizedPattern() end
+
+---@private
+---@param arg0 Locale
+---@return void
+function SimpleDateFormat:initializeCalendar(arg0) end
 
 ---@private
 ---@param arg0 int
 ---@param arg1 int
----@param arg2 StringBuilder
+---@param arg2 int
+---@param arg3 StringBuffer
 ---@return void
-function SimpleDateFormat:encode(arg0, arg1, arg2) end
+function SimpleDateFormat:zeroPaddingNumber(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return Date
+function SimpleDateFormat:get2DigitYearStart() end
+
+---@private
+---@param arg0 ObjectInputStream
+---@return void
+function SimpleDateFormat:readObject(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@param arg4 String[][]
+---@return boolean
+function SimpleDateFormat:matchDSTString(arg0, arg1, arg2, arg3, arg4) end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@param arg2 Format.FieldDelegate
+---@param arg3 StringBuffer
+---@param arg4 boolean
+---@return void
+function SimpleDateFormat:subFormat(arg0, arg1, arg2, arg3, arg4) end
+
+---@private
+---@param arg0 int
+---@param arg1 Locale
+---@return Map|Unknown|Unknown
+function SimpleDateFormat:getDisplayContextNamesMap(arg0, arg1) end
+
+---@public
+---@param arg0 Object
+---@return boolean
+function SimpleDateFormat:equals(arg0) end
 
 ---@public
 ---@param arg0 Date
@@ -81,75 +120,9 @@ function SimpleDateFormat:format(arg0, arg1, arg2) end
 function SimpleDateFormat:format(arg0, arg1, arg2) end
 
 ---@private
----@param arg0 String
----@param arg1 int
----@param arg2 String[]
----@return int
-function SimpleDateFormat:matchZoneString(arg0, arg1, arg2) end
-
----@public
----@return String
-function SimpleDateFormat:toPattern() end
-
----@private
----@param arg0 int
----@param arg1 Locale
----@return Map|Unknown|Unknown
-function SimpleDateFormat:getDisplayNamesMap(arg0, arg1) end
-
----@private
----@return void
-function SimpleDateFormat:checkNegativeNumberExpression() end
-
----@public
----@param arg0 String
----@return void
-function SimpleDateFormat:applyPattern(arg0) end
-
----@public
----@param arg0 String
----@return void
-function SimpleDateFormat:applyLocalizedPattern(arg0) end
-
----@private
----@param arg0 String
----@return void
-function SimpleDateFormat:applyPatternImpl(arg0) end
-
----@private
 ---@param arg0 Locale
 ---@return void
 function SimpleDateFormat:initialize(arg0) end
-
----@private
----@param arg0 int
----@param arg1 int
----@param arg2 Format.FieldDelegate
----@param arg3 StringBuffer
----@param arg4 boolean
----@return void
-function SimpleDateFormat:subFormat(arg0, arg1, arg2, arg3, arg4) end
-
----@private
----@param arg0 Locale
----@return void
-function SimpleDateFormat:initializeCalendar(arg0) end
-
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@param arg4 String[][]
----@return boolean
-function SimpleDateFormat:matchDSTString(arg0, arg1, arg2, arg3, arg4) end
-
----@private
----@param arg0 String
----@param arg1 String
----@param arg2 String
----@return String
-function SimpleDateFormat:translatePattern(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 Object
@@ -161,22 +134,80 @@ function SimpleDateFormat:formatToCharacterIterator(arg0) end
 ---@return boolean
 function SimpleDateFormat:isDigit(arg0) end
 
----@public
----@param arg0 Date
+---@private
+---@param arg0 int
+---@param arg1 int
+---@param arg2 StringBuilder
 ---@return void
-function SimpleDateFormat:set2DigitYearStart(arg0) end
+function SimpleDateFormat:encode(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 int
+---@param arg1 Locale
+---@return Map|Unknown|Unknown
+function SimpleDateFormat:getDisplayNamesMap(arg0, arg1) end
 
 ---@public
----@return String
-function SimpleDateFormat:toLocalizedPattern() end
+---@param arg0 String
+---@return void
+function SimpleDateFormat:applyLocalizedPattern(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 String[]
+---@param arg4 CalendarBuilder
+---@return int
+---@overload fun(arg0:String, arg1:int, arg2:int, arg3:Map|Unknown|Unknown, arg4:CalendarBuilder)
+function SimpleDateFormat:matchString(arg0, arg1, arg2, arg3, arg4) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 Map|Unknown|Unknown
+---@param arg4 CalendarBuilder
+---@return int
+function SimpleDateFormat:matchString(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@param arg0 DateFormatSymbols
+---@return void
+function SimpleDateFormat:setDateFormatSymbols(arg0) end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@return boolean
+function SimpleDateFormat:shouldObeyCount(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return void
+function SimpleDateFormat:applyPattern(arg0) end
 
 ---@public
 ---@return DateFormatSymbols
 function SimpleDateFormat:getDateFormatSymbols() end
 
+---@public
+---@return Object
+function SimpleDateFormat:clone() end
+
 ---@private
----@return boolean
-function SimpleDateFormat:useDateFormatSymbols() end
+---@param arg0 String
+---@param arg1 int
+---@param arg2 CalendarBuilder
+---@return int
+function SimpleDateFormat:subParseZoneString(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 String
+---@param arg1 String
+---@param arg2 String
+---@return String
+function SimpleDateFormat:translatePattern(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 String
@@ -188,64 +219,45 @@ function SimpleDateFormat:useDateFormatSymbols() end
 ---@return int
 function SimpleDateFormat:subParseNumericZone(arg0, arg1, arg2, arg3, arg4, arg5) end
 
+---@public
+---@param arg0 String
+---@param arg1 ParsePosition
+---@return Date
+function SimpleDateFormat:parse(arg0, arg1) end
+
+---@private
+---@return boolean
+function SimpleDateFormat:useDateFormatSymbols() end
+
+---@public
+---@return String
+function SimpleDateFormat:toPattern() end
+
 ---@private
 ---@param arg0 String
 ---@return char[]
 function SimpleDateFormat:compile(arg0) end
 
 ---@private
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 StringBuffer
+---@param arg0 String
 ---@return void
-function SimpleDateFormat:zeroPaddingNumber(arg0, arg1, arg2, arg3) end
+function SimpleDateFormat:applyPatternImpl(arg0) end
 
 ---@private
----@param arg0 ObjectInputStream
 ---@return void
-function SimpleDateFormat:readObject(arg0) end
+function SimpleDateFormat:checkNegativeNumberExpression() end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 String[]
+---@return int
+function SimpleDateFormat:matchZoneString(arg0, arg1, arg2) end
 
 ---@private
 ---@return void
 function SimpleDateFormat:initializeDefaultCentury() end
 
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 Map|Unknown|Unknown
----@param arg4 CalendarBuilder
----@return int
----@overload fun(arg0:String, arg1:int, arg2:int, arg3:String[], arg4:CalendarBuilder)
-function SimpleDateFormat:matchString(arg0, arg1, arg2, arg3, arg4) end
-
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 String[]
----@param arg4 CalendarBuilder
----@return int
-function SimpleDateFormat:matchString(arg0, arg1, arg2, arg3, arg4) end
-
 ---@public
----@return Date
-function SimpleDateFormat:get2DigitYearStart() end
-
----@public
----@param arg0 DateFormatSymbols
----@return void
-function SimpleDateFormat:setDateFormatSymbols(arg0) end
-
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 CalendarBuilder
 ---@return int
-function SimpleDateFormat:subParseZoneString(arg0, arg1, arg2) end
-
----@public
----@param arg0 Object
----@return boolean
-function SimpleDateFormat:equals(arg0) end
+function SimpleDateFormat:hashCode() end

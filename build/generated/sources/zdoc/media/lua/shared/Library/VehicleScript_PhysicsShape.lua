@@ -7,26 +7,26 @@
 VehicleScript_PhysicsShape = {}
 
 ---@public
----@return String
-function VehicleScript_PhysicsShape:getTypeString() end
+---@return float
+function VehicleScript_PhysicsShape:getRadius() end
 
 ---@public
 ---@return Vector3f
 function VehicleScript_PhysicsShape:getRotate() end
 
 ---@public
----@param arg0 float
----@return void
-function VehicleScript_PhysicsShape:setRadius(arg0) end
+---@return Vector3f
+function VehicleScript_PhysicsShape:getExtents() end
+
+---@public
+---@return String
+function VehicleScript_PhysicsShape:getTypeString() end
 
 ---@public
 ---@return Vector3f
 function VehicleScript_PhysicsShape:getOffset() end
 
 ---@public
----@return float
-function VehicleScript_PhysicsShape:getRadius() end
-
----@public
----@return Vector3f
-function VehicleScript_PhysicsShape:getExtents() end
+---@param arg0 float
+---@return void
+function VehicleScript_PhysicsShape:setRadius(arg0) end

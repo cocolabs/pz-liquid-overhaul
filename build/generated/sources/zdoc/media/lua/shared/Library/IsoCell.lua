@@ -149,485 +149,28 @@
 IsoCell = {}
 
 ---@public
----@param newSquare IsoGridSquare
----@param getter IsoGridSquare.GetSquare
+---@param width int @the width to set
 ---@return void
-function IsoCell:DoGridNav(newSquare, getter) end
-
----@public
----@param x int
----@param y int
----@param z int
----@return float
-function IsoCell:DistanceFromSupport(x, y, z) end
-
----@public
----@param arg0 IsoChunk
----@return void
----@overload fun(arg0:IsoChunk, arg1:int)
-function IsoCell:setCacheChunk(arg0) end
-
----@public
----@param arg0 IsoChunk
----@param arg1 int
----@return void
-function IsoCell:setCacheChunk(arg0, arg1) end
-
----@public
----@param dangerUpdate OnceEvery @the dangerUpdate to set
----@return void
-function IsoCell:setDangerUpdate(dangerUpdate) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return IsoLightSource
-function IsoCell:getLightSourceAt(arg0, arg1, arg2) end
-
----throws java.io.FileNotFoundException, java.io.IOException
----@public
----@param WorldVersion int
----@return boolean
-function IsoCell:LoadPlayer(WorldVersion) end
-
----@public
----@return void
-function IsoCell:updateHeatSources() end
-
----@private
----@return void
-function IsoCell:initTileShaders() end
-
----@public
----@return ArrayList|Unknown
-function IsoCell:getProcessWorldItems() end
-
----@public
----@param zza int
----@return void
-function IsoCell:RenderFloorShading(zza) end
-
----@public
----@param arg0 InventoryItem
----@return void
----@overload fun(arg0:ArrayList|Unknown)
-function IsoCell:addToProcessItems(arg0) end
-
----@public
----@param arg0 ArrayList|Unknown
----@return void
-function IsoCell:addToProcessItems(arg0) end
-
----@param arg0 BuildingScore
----@param arg1 BuildingScore[]
----@param arg2 IsoCell.BuildingSearchCriteria
----@return void
-function IsoCell:Place(arg0, arg1, arg2) end
-
----@public
----@param col int
----@return int
-function IsoCell:getGComponent(col) end
-
----@public
----@return ArrayList|IsoMovingObject @the addList
-function IsoCell:getAddList() end
-
----Specified by:
----
----isNull in interface TileBasedMap
----@public
----@param x int
----@param y int
----@param z int
----@return boolean
-function IsoCell:isNull(x, y, z) end
-
----@public
----@param x int
----@param y int
----@param z int
----@param square IsoGridSquare
----@param playerIndex int
----@return void
-function IsoCell:setCacheGridSquareLocal(x, y, z, square, playerIndex) end
-
----@public
----@param light IsoLightSource
----@return void
----@overload fun(x:int, y:int, z:int)
-function IsoCell:removeLamppost(light) end
-
----@public
----@param x int
----@param y int
----@param z int
----@return void
-function IsoCell:removeLamppost(x, y, z) end
-
----@public
----@param LightInfoUpdate Thread @the LightInfoUpdate to set
----@return void
-function IsoCell:setLightInfoUpdate(LightInfoUpdate) end
-
----@public
----@param arg0 IsoWindow
----@return void
-function IsoCell:removeFromWindowList(arg0) end
-
----@private
----@param arg0 Iterator|Unknown
----@return void
-function IsoCell:ProcessObjects(arg0) end
-
----@private
----@param arg0 int
----@return void
-function IsoCell:RenderSnow(arg0) end
-
----@private
----@param arg0 IsoGridSquare
----@return boolean
-function IsoCell:IsCollapsibleBuildingSquare(arg0) end
-
----@public
----@return ArrayList|IsoGameCharacter @the RemoteSurvivorList
-function IsoCell:getRemoteSurvivorList() end
-
----@public
----@param arg0 IsoWindow
----@return void
-function IsoCell:addToWindowList(arg0) end
-
----@public
----@return int @the currentLZ
-function IsoCell:getCurrentLightZ() end
-
----@public
----@param maxZ int @the maxZ to set
----@return void
-function IsoCell:setMaxZ(maxZ) end
-
----@private
----@param arg0 Iterator|Unknown
----@return void
-function IsoCell:ProcessItems(arg0) end
-
----@public
----@return int @the worldX
-function IsoCell:getWorldX() end
-
----@public
----@return ArrayList|IsoSurvivor
-function IsoCell:getSurvivorList() end
-
----@private
----@return void
-function IsoCell:updateInternal() end
-
----@public
----@param player int
----@return KahluaTable
-function IsoCell:getDrag(player) end
-
----@private
----@param arg0 int
----@return IsoCell.PerPlayerRender
-function IsoCell:getPerPlayerRenderAt(arg0) end
-
----@public
----@param arg0 IsoHeatSource
----@return void
-function IsoCell:addHeatSource(arg0) end
-
----@public
----@param arg0 int
----@return void
-function IsoCell:setRainSpeed(arg0) end
-
----@public
----@param minY int @the minY to set
----@return void
-function IsoCell:setMinY(minY) end
-
----@public
----@return IsoZombie
-function IsoCell:getFakeZombieForHit() end
-
----Description copied from interface: TileBasedMap
----
----get the height of the tile map. The slightly odd name is used to distiguish this method from commonly used names in game maps.
----
----Specified by:
----
----getHeightInTiles in interface TileBasedMap
----@public
----@return int @The number of tiles down the map
-function IsoCell:getHeightInTiles() end
-
----@public
----@param currentLZ int @the currentLZ to set
----@return void
-function IsoCell:setCurrentLightZ(currentLZ) end
-
----@private
----@param arg0 int
----@param arg1 BuildingScore
----@param arg2 BuildingScore[]
----@return void
-function IsoCell:InsertAt(arg0, arg1, arg2) end
-
----@public
----@param arg0 InventoryItem
----@return void
----@overload fun(arg0:ArrayList|Unknown)
-function IsoCell:addToProcessItemsRemove(arg0) end
-
----@public
----@param arg0 ArrayList|Unknown
----@return void
-function IsoCell:addToProcessItemsRemove(arg0) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return int
-function IsoCell:getHeatSourceTemperature(arg0, arg1, arg2) end
-
----@private
----@return void
-function IsoCell:ProcessIsoObject() end
-
----@private
----@param arg0 int
----@return void
-function IsoCell:renderTilesInternal(arg0) end
-
----@public
----@return ArrayList|IsoBuilding @the BuildingList
-function IsoCell:getBuildingList() end
-
----@public
----@return ArrayList|IsoZombie @the ZombieList
-function IsoCell:getZombieList() end
-
----@public
----@param x int
----@param y int
----@param z int
----@param playerIndex int
----@return IsoGridSquare
-function IsoCell:getGridSquareDirect(x, y, z, playerIndex) end
-
----@public
----@param o IsoMovingObject
----@return void
-function IsoCell:addMovingObject(o) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return short
-function IsoCell:getStencilValue(arg0, arg1, arg2) end
-
----@return IsoGridSquare
-function IsoCell:getRandomFreeTile() end
-
----@public
----@param x int
----@param y int
----@param z int
----@return IsoGridSquare
-function IsoCell:getRelativeGridSquare(x, y, z) end
-
----@private
----@param arg0 int
----@return void
-function IsoCell:updateSnow(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
-function IsoCell:resumeVehicleSounds(arg0) end
-
----@private
----@param arg0 Texture
----@param arg1 int
----@param arg2 int
----@param arg3 float
----@param arg4 boolean
----@return void
-function IsoCell:renderSnowTileBase(arg0, arg1, arg2, arg3, arg4) end
-
----@public
----@param maxX int @the maxX to set
----@return void
-function IsoCell:setMaxX(maxX) end
-
----@private
----@param arg0 IsoCell.PerPlayerRender
----@param arg1 int
----@return void
-function IsoCell:flattenAnyFoliage(arg0, arg1) end
-
----@public
----@param safeToAdd boolean @the safeToAdd to set
----@return void
-function IsoCell:setSafeToAdd(safeToAdd) end
-
----@public
----@return KahluaTable
-function IsoCell:getLuaObjectList() end
-
----@private
----@return void
-function IsoCell:renderInternal() end
-
----@public
----@return LotHeader
-function IsoCell:getCurrentLotHeader() end
-
----@private
----@param arg0 Iterator|Unknown
----@return void
-function IsoCell:ProcessRemoveItems(arg0) end
-
----@public
----@param x int
----@param y int
----@param z int
----@return IsoGridSquare
----@overload fun(x:double, y:double, z:double)
----@overload fun(x:Double, y:Double, z:Double)
-function IsoCell:getGridSquare(x, y, z) end
-
----@public
----@param x double
----@param y double
----@param z double
----@return IsoGridSquare
-function IsoCell:getGridSquare(x, y, z) end
-
----@public
----@param x Double
----@param y Double
----@param z Double
----@return IsoGridSquare
-function IsoCell:getGridSquare(x, y, z) end
-
----@public
----@return void
-function IsoCell:DrawStencilMask() end
+function IsoCell:setWidth(width) end
 
 ---@public
 ---@param obj IsoMovingObject
 ---@return void
 function IsoCell:Remove(obj) end
 
----@private
----@return void
-function IsoCell:updateWeatherFx() end
-
 ---@public
----@return Thread @the LightInfoUpdate
-function IsoCell:getLightInfoUpdate() end
+---@return boolean @the safeToAdd
+function IsoCell:isSafeToAdd() end
 
 ---@private
 ---@return void
-function IsoCell:ProcessStaticUpdaters() end
+function IsoCell:initTileShaders() end
 
 ---@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return short
-function IsoCell:getStencilValue2z(arg0, arg1, arg2) end
-
----@public
----@return void
-function IsoCell:ProcessSpottedRooms() end
-
----@private
----@param arg0 IsoCell.PerPlayerRender
----@param arg1 int
----@param arg2 int
----@param arg3 long
----@return void
-function IsoCell:recalculateAnyGridStacks(arg0, arg1, arg2, arg3) end
-
----@private
----@param arg0 ArrayList|Unknown
----@param arg1 IsoGridSquare
----@param arg2 boolean
----@return void
-function IsoCell:GetBuildingsInFrontOfCharacter(arg0, arg1, arg2) end
-
----@public
----@return ArrayList|Unknown
-function IsoCell:getVehicles() end
-
----@public
----@return ArrayList|IsoMovingObject @the ObjectList
-function IsoCell:getObjectList() end
-
----@public
----@return Stack|BuildingScore @the getBuildings
-function IsoCell:getBuildings() end
-
----@public
----@param worldX int @the worldX to set
----@return void
-function IsoCell:setWorldX(worldX) end
-
----@public
----@param currentLX int @the currentLX to set
----@return void
-function IsoCell:setCurrentLightX(currentLX) end
-
----@public
----@return void
-function IsoCell:update() end
-
----Description copied from interface: TileBasedMap
----
----get the width of the tile map. The slightly odd name is used to distiguish this method from commonly used names in game maps.
----
----Specified by:
----
----getWidthInTiles in interface TileBasedMap
----@public
----@return int @The number of tiles across the map
-function IsoCell:getWidthInTiles() end
-
----@public
----@param arg0 IsoHeatSource
----@return void
-function IsoCell:removeHeatSource(arg0) end
-
----@public
----@return int @the minZ
-function IsoCell:getMinZ() end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoGridSquare
----@param arg2 IsoGridSquare
----@param arg3 IsoGridSquare
----@param arg4 int
----@param arg5 int
+---@param x int
+---@param y int
 ---@return int
-function IsoCell:CalculateColor(arg0, arg1, arg2, arg3, arg4, arg5) end
-
----@public
----@return IsoWeatherFX
-function IsoCell:getWeatherFX() end
-
----@public
----@return IsoDirections
-function IsoCell:FromMouseTile() end
+function IsoCell:getDangerScore(x, y) end
 
 ---@public
 ---@param filename String
@@ -660,13 +203,182 @@ function IsoCell:PlaceLot(lot, sx, sy, sz, bClearExisting) end
 ---@return void
 function IsoCell:PlaceLot(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
----@private
+---@public
 ---@return void
-function IsoCell:renderShadows() end
+function IsoCell:reloadRainTextures() end
 
 ---@public
----@return ArrayList|InventoryItem @the ProcessItemsRemove
-function IsoCell:getProcessItemsRemove() end
+---@param pl int
+---@return IsoChunkMap
+function IsoCell:getChunkMap(pl) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return boolean
+function IsoCell:IsCollapsibleBuildingSquare(arg0) end
+
+---@public
+---@param r float
+---@param g float
+---@param b float
+---@param a float
+---@return int
+function IsoCell:toIntColor(r, g, b, a) end
+
+---@public
+---@param worldX int @the worldX to set
+---@return void
+function IsoCell:setWorldX(worldX) end
+
+---@public
+---@return int @the height
+function IsoCell:getHeight() end
+
+---@public
+---@return void
+function IsoCell:DrawStencilMask() end
+
+---@public
+---@param arg0 float
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return float
+function IsoCell:getHeatSourceHighestTemperature(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 ArrayList|Unknown
+---@return void
+---@overload fun(arg0:InventoryItem)
+function IsoCell:addToProcessItemsRemove(arg0) end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function IsoCell:addToProcessItemsRemove(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoGridSquare
+---@param arg2 IsoGridSquare
+---@param arg3 IsoGridSquare
+---@param arg4 int
+---@param arg5 int
+---@return int
+function IsoCell:CalculateColor(arg0, arg1, arg2, arg3, arg4, arg5) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoCell:invalidatePeekedRoom(arg0) end
+
+---@public
+---@return ArrayList|IsoMovingObject @the removeList
+function IsoCell:getRemoveList() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 boolean
+---@param arg4 ArrayList|Unknown
+---@return void
+function IsoCell:GetBuildingsInFrontOfCharacterSquare(arg0, arg1, arg2, arg3, arg4) end
+
+---@private
+---@param arg0 int
+---@return IsoCell.PerPlayerRender
+function IsoCell:getPerPlayerRenderAt(arg0) end
+
+---@private
+---@param arg0 int
+---@return void
+function IsoCell:updateSnow(arg0) end
+
+---@public
+---@return int @the maxY
+function IsoCell:getMaxY() end
+
+---@private
+---@param arg0 IsoCell.PerPlayerRender
+---@param arg1 int
+---@return void
+function IsoCell:renderDebugLighting(arg0, arg1) end
+
+---@public
+---@return IsoWeatherFX
+function IsoCell:getWeatherFX() end
+
+---@public
+---@param maxX int @the maxX to set
+---@return void
+function IsoCell:setMaxX(maxX) end
+
+---@public
+---@param playerIndex int
+---@return void
+function IsoCell:clearCacheGridSquare(playerIndex) end
+
+---@private
+---@param arg0 int
+---@return void
+function IsoCell:renderTilesInternal(arg0) end
+
+---@private
+---@return void
+function IsoCell:ProcessIsoObject() end
+
+---@public
+---@return ArrayList|Unknown
+function IsoCell:getWindowList() end
+
+---@private
+---@return void
+function IsoCell:ProcessStaticUpdaters() end
+
+---@public
+---@return ArrayList|IsoObject
+function IsoCell:getProcessIsoObjectRemove() end
+
+---@public
+---@param scores Stack|BuildingScore
+---@return void
+function IsoCell:setBuildings(scores) end
+
+---@public
+---@return int @the MaxHeight
+function IsoCell:getMaxHeight() end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 long
+---@return boolean
+function IsoCell:IsCutawaySquare(arg0, arg1) end
+
+---@public
+---@return ArrayList|IsoPushableObject @the PushableObjectList
+function IsoCell:getPushableObjectList() end
+
+---@public
+---@param o IsoMovingObject
+---@return void
+function IsoCell:addMovingObject(o) end
+
+---@public
+---@param xx int
+---@param yy int
+---@param zz int
+---@return void
+function IsoCell:EnsureSurroundNotNull(xx, yy, zz) end
+
+---@public
+---@return KahluaTable
+function IsoCell:getLuaObjectList() end
+
+---@public
+---@param RemoteID int
+---@return IsoSurvivor
+function IsoCell:getNetworkPlayer(RemoteID) end
 
 ---@public
 ---@param ID int
@@ -678,27 +390,44 @@ function IsoCell:getRoom(ID) end
 function IsoCell:getProcessItems() end
 
 ---@public
+---@return HashMap|Integer|BuildingScore @the BuildingScores
+function IsoCell:getBuildingScores() end
+
+---@public
+---@return int @the minY
+function IsoCell:getMinY() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
 ---@return IsoGridSquare
-function IsoCell:getRandomOutdoorTile() end
+---@overload fun(x:double, y:double, z:double)
+---@overload fun(x:Double, y:Double, z:Double)
+function IsoCell:getGridSquare(x, y, z) end
 
 ---@public
----@param arg0 IsoGridSquare
----@param arg1 int
----@return boolean
-function IsoCell:CanBuildingSquareOccludePlayer(arg0, arg1) end
+---@param x double
+---@param y double
+---@param z double
+---@return IsoGridSquare
+function IsoCell:getGridSquare(x, y, z) end
 
 ---@public
----@return int @the maxZ
-function IsoCell:getMaxZ() end
-
----@public
----@param currentLY int @the currentLY to set
----@return void
-function IsoCell:setCurrentLightY(currentLY) end
+---@param x Double
+---@param y Double
+---@param z Double
+---@return IsoGridSquare
+function IsoCell:getGridSquare(x, y, z) end
 
 ---@private
+---@param arg0 int
 ---@return void
-function IsoCell:renderRain() end
+function IsoCell:RenderSnow(arg0) end
+
+---@public
+---@return int @the worldX
+function IsoCell:getWorldX() end
 
 ---@public
 ---@param room IsoRoom
@@ -706,10 +435,303 @@ function IsoCell:renderRain() end
 function IsoCell:roomSpotted(room) end
 
 ---@public
+---@param minX int @the minX to set
+---@return void
+function IsoCell:setMinX(minX) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoCell:setRainSpeed(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 int
+---@param arg2 int
+---@return boolean
+function IsoCell:isSnowShore(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 IsoBuilding
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return int
+function IsoCell:GetBuildingHeightAt(arg0, arg1, arg2, arg3) end
+
+---Overrides:
+---
+---Dispose in class Bucket
+---@public
+---@return void
+function IsoCell:Dispose() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@param playerIndex int
+---@return IsoGridSquare
+function IsoCell:getGridSquareDirect(x, y, z, playerIndex) end
+
+---@public
+---@return ArrayList|IsoObject
+function IsoCell:getProcessIsoObjects() end
+
+---@private
+---@return void
+function IsoCell:ObjectDeletionAddition() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoCell:setRainAlpha(arg0) end
+
+---@public
+---@param arg0 IsoWindow
+---@return void
+function IsoCell:addToWindowList(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoGridSquare
+---@param arg2 int
+---@param arg3 long
+---@return boolean
+function IsoCell:DoesSquareHaveValidCutawayPlayerWalls(arg0, arg1, arg2, arg3) end
+
+---@param arg0 IsoGridSquare
+---@param arg1 IsoGridSquare
+---@return boolean
+function IsoCell:isBlocked(arg0, arg1) end
+
+---@public
+---@return ArrayList|InventoryItem @the ProcessItemsRemove
+function IsoCell:getProcessItemsRemove() end
+
+---@public
+---@return IsoDirections
+function IsoCell:FromMouseTile() end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoDirections
+---@return IsoBuilding
+function IsoCell:GetPeekedInBuilding(arg0, arg1) end
+
+---@private
+---@param arg0 IsoCell.PerPlayerRender
+---@param arg1 int
+---@param arg2 int
+---@param arg3 long
+---@return void
+function IsoCell:performRenderTiles(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param dangerUpdate OnceEvery @the dangerUpdate to set
+---@return void
+function IsoCell:setDangerUpdate(dangerUpdate) end
+
+---@public
+---@return int @the minZ
+function IsoCell:getMinZ() end
+
+---@private
+---@param arg0 Texture
+---@param arg1 int
+---@param arg2 int
+---@param arg3 float
+---@param arg4 boolean
+---@return void
+function IsoCell:renderSnowTileBase(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@param arg0 ArrayList|Unknown
+---@return void
+---@overload fun(arg0:InventoryItem)
+function IsoCell:addToProcessItems(arg0) end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function IsoCell:addToProcessItems(arg0) end
+
+---@public
 ---@param x int
 ---@param y int
 ---@return boolean
 function IsoCell:isInChunkMap(x, y) end
+
+---@public
+---@return int @the currentLX
+function IsoCell:getCurrentLightX() end
+
+---@public
+---@return int @the maxZ
+function IsoCell:getMaxZ() end
+
+---@public
+---@return IsoGridSquare
+function IsoCell:getRandomOutdoorTile() end
+
+---Description copied from interface: TileBasedMap
+---
+---get the height of the tile map. The slightly odd name is used to distiguish this method from commonly used names in game maps.
+---
+---Specified by:
+---
+---getHeightInTiles in interface TileBasedMap
+---@public
+---@return int @The number of tiles down the map
+function IsoCell:getHeightInTiles() end
+
+---@private
+---@param arg0 ArrayList|Unknown
+---@param arg1 IsoBuilding
+---@return void
+function IsoCell:AddUniqueToBuildingList(arg0, arg1) end
+
+---@public
+---@param zza int
+---@return void
+function IsoCell:RenderFloorShading(zza) end
+
+---@public
+---@param col int
+---@return int
+function IsoCell:getRComponent(col) end
+
+---@public
+---@param arg0 IsoHeatSource
+---@return void
+function IsoCell:removeHeatSource(arg0) end
+
+---@public
+---@param newSquare IsoGridSquare
+---@param bDoSurrounds boolean
+---@return IsoGridSquare
+---@overload fun(arg0:IsoGridSquare, arg1:boolean, arg2:boolean)
+function IsoCell:ConnectNewSquare(newSquare, bDoSurrounds) end
+
+---@param arg0 IsoGridSquare
+---@param arg1 boolean
+---@param arg2 boolean
+---@return IsoGridSquare
+function IsoCell:ConnectNewSquare(arg0, arg1, arg2) end
+
+---@public
+---@param currentLX int @the currentLX to set
+---@return void
+function IsoCell:setCurrentLightX(currentLX) end
+
+---@public
+---@return ArrayList|IsoMovingObject @the ObjectList
+function IsoCell:getObjectList() end
+
+---@public
+---@return void
+function IsoCell:ProcessSpottedRooms() end
+
+---@private
+---@param arg0 int
+---@param arg1 BuildingScore
+---@param arg2 BuildingScore[]
+---@return void
+function IsoCell:InsertAt(arg0, arg1, arg2) end
+
+---Description copied from interface: TileBasedMap
+---
+---get the width of the tile map. The slightly odd name is used to distiguish this method from commonly used names in game maps.
+---
+---Specified by:
+---
+---getWidthInTiles in interface TileBasedMap
+---@public
+---@return int @The number of tiles across the map
+function IsoCell:getWidthInTiles() end
+
+---Specified by:
+---
+---isNull in interface TileBasedMap
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return boolean
+function IsoCell:isNull(x, y, z) end
+
+---@public
+---@return void
+function IsoCell:update() end
+
+---@public
+---@return ArrayList|Unknown
+function IsoCell:getVehicles() end
+
+---@private
+---@return boolean
+function IsoCell:initWeatherFx() end
+
+---@public
+---@return Stack|IsoLightSource @the LamppostPositions
+function IsoCell:getLamppostPositions() end
+
+---@public
+---@param LightInfoUpdate Thread @the LightInfoUpdate to set
+---@return void
+function IsoCell:setLightInfoUpdate(LightInfoUpdate) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function IsoCell:resumeVehicleSounds(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 int
+---@return boolean
+function IsoCell:IsDissolvedSquare(arg0, arg1) end
+
+---@public
+---@return ArrayList|IsoMovingObject @the addList
+function IsoCell:getAddList() end
+
+---@public
+---@param col int
+---@return int
+function IsoCell:getBComponent(col) end
+
+---@public
+---@return int @the currentLY
+function IsoCell:getCurrentLightY() end
+
+---@public
+---@return ArrayList|IsoZombie @the ZombieList
+function IsoCell:getZombieList() end
+
+---@private
+---@param arg0 IsoCell.SnowGrid
+---@param arg1 float
+---@param arg2 IsoGridSquare
+---@param arg3 int
+---@param arg4 int
+---@param arg5 int
+---@param arg6 int
+---@param arg7 int
+---@param arg8 int
+---@return void
+function IsoCell:renderSnowTileGeneral(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
+
+---@public
+---@param minY int @the minY to set
+---@return void
+function IsoCell:setMinY(minY) end
+
+---@public
+---@param item KahluaTable
+---@param player int
+---@return void
+function IsoCell:setDrag(item, player) end
 
 ---@private
 ---@param arg0 IsoCell.SnowGrid
@@ -726,170 +748,90 @@ function IsoCell:isInChunkMap(x, y) end
 function IsoCell:renderSnowTile(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
 ---@public
+---@param col int
 ---@return int
-function IsoCell:getMaxFloors() end
-
----@private
----@param arg0 IsoCell.SnowGrid
----@param arg1 float
----@param arg2 IsoGridSquare
----@param arg3 int
----@param arg4 int
----@param arg5 int
----@param arg6 int
----@param arg7 int
----@param arg8 int
----@return void
-function IsoCell:renderSnowTileGeneral(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
+function IsoCell:getGComponent(col) end
 
 ---@public
----@param def RoomDef
+---@param x int
+---@param y int
+---@return void
+function IsoCell:checkHaveRoof(x, y) end
+
+---@public
+---@param chr IsoGameCharacter
+---@param except IsoRoom
+---@return IsoBuilding
+function IsoCell:getClosestBuildingExcept(chr, except) end
+
+---@private
+---@return void
+function IsoCell:renderRain() end
+
+---@public
+---@param safeToAdd boolean @the safeToAdd to set
+---@return void
+function IsoCell:setSafeToAdd(safeToAdd) end
+
+---@public
+---@return Stack|BuildingScore @the getBuildings
+function IsoCell:getBuildings() end
+
+---@public
+---@return LotHeader
+function IsoCell:getCurrentLotHeader() end
+
+---@public
+---@param player int
+---@param bRender boolean
+---@return boolean
+function IsoCell:DoBuilding(player, bRender) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoCell:setRainIntensity(arg0) end
+
 ---@return IsoGridSquare
-function IsoCell:getFreeTile(def) end
+function IsoCell:getRandomOutdoorFreeTile() end
 
 ---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
----@param arg3 int
----@return void
-function IsoCell:setStencilValue(arg0, arg1, arg2, arg3) end
-
----@public
----@return IsoSpriteManager
-function IsoCell:getSpriteManager() end
-
----@public
----@return ArrayList|IsoObject
-function IsoCell:getProcessIsoObjects() end
-
----@public
----@return Stack|IsoLightSource @the LamppostPositions
-function IsoCell:getLamppostPositions() end
-
----@private
----@param arg0 int
----@param arg1 boolean
----@return boolean
-function IsoCell:doBuildingInternal(arg0, arg1) end
-
----@public
----@param minX int @the minX to set
----@return void
-function IsoCell:setMinX(minX) end
-
----@private
----@param arg0 IsoGridStack
----@param arg1 boolean[][][]
----@param arg2 boolean[][]
----@return void
-function IsoCell:CullFullyOccludedSquares(arg0, arg1, arg2) end
-
----@public
----@param r float
----@param g float
----@param b float
----@param a float
----@return int
-function IsoCell:toIntColor(r, g, b, a) end
+---@return short
+function IsoCell:getStencilValue(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
----@param arg3 int
----@return void
-function IsoCell:setStencilValue2z(arg0, arg1, arg2, arg3) end
+---@return short
+function IsoCell:getStencilValue2z(arg0, arg1, arg2) end
 
 ---@private
----@param arg0 IsoGridSquare
----@param arg1 int
----@return boolean
-function IsoCell:IsDissolvedSquare(arg0, arg1) end
-
----@public
----@param col int
----@return int
-function IsoCell:getBComponent(col) end
-
----@public
----@return int @the MaxHeight
-function IsoCell:getMaxHeight() end
-
----@public
----@param playerIndex int
 ---@return void
-function IsoCell:clearCacheGridSquare(playerIndex) end
-
----@public
----@param newSquare IsoGridSquare
----@param bDoSurrounds boolean
----@return IsoGridSquare
----@overload fun(arg0:IsoGridSquare, arg1:boolean, arg2:boolean)
-function IsoCell:ConnectNewSquare(newSquare, bDoSurrounds) end
-
----@param arg0 IsoGridSquare
----@param arg1 boolean
----@param arg2 boolean
----@return IsoGridSquare
-function IsoCell:ConnectNewSquare(arg0, arg1, arg2) end
-
----@public
----@return ArrayList|Unknown
-function IsoCell:getWindowList() end
-
----Overrides:
----
----Dispose in class Bucket
----@public
----@return void
-function IsoCell:Dispose() end
-
----@public
----@param arg0 int
----@return void
-function IsoCell:setRainAlpha(arg0) end
-
----@param arg0 IsoGridSquare
----@param arg1 IsoGridSquare
----@return boolean
-function IsoCell:isBlocked(arg0, arg1) end
-
----@public
----@return int @the currentLX
-function IsoCell:getCurrentLightX() end
-
----@public
----@param col int
----@return int
-function IsoCell:getRComponent(col) end
-
----@public
----@return ArrayList|IsoPushableObject @the PushableObjectList
-function IsoCell:getPushableObjectList() end
-
----@public
----@return boolean @the safeToAdd
-function IsoCell:isSafeToAdd() end
-
----@public
----@param width int @the width to set
----@return void
-function IsoCell:setWidth(width) end
-
----@public
----@return void
-function IsoCell:reloadRainTextures() end
-
----@public
----@param RemoteID int
----@return IsoSurvivor
-function IsoCell:getNetworkPlayer(RemoteID) end
+function IsoCell:renderShadows() end
 
 ---@private
----@param arg0 IsoGridSquare
----@return boolean
-function IsoCell:IsBehindStuff(arg0) end
+---@return Texture
+function IsoCell:getStencilTexture() end
+
+---@return IsoGridSquare
+function IsoCell:getRandomFreeTile() end
+
+---@public
+---@return ArrayList|IsoRoom @the RoomList
+function IsoCell:getRoomList() end
+
+---@public
+---@return IsoCell
+function IsoCell:getInstance() end
+
+---@public
+---@param arg0 IsoHeatSource
+---@return void
+function IsoCell:addHeatSource(arg0) end
 
 ---@public
 ---@param criteria IsoCell.BuildingSearchCriteria
@@ -898,146 +840,25 @@ function IsoCell:IsBehindStuff(arg0) end
 function IsoCell:getBestBuildings(criteria, count) end
 
 ---@public
----@param arg0 IsoGameCharacter
+---@param arg0 IsoChunk
 ---@return void
-function IsoCell:putInVehicle(arg0) end
+---@overload fun(arg0:IsoChunk, arg1:int)
+function IsoCell:setCacheChunk(arg0) end
 
 ---@public
----@param pl int
----@return IsoChunkMap
-function IsoCell:getChunkMap(pl) end
-
----@private
----@return Texture
-function IsoCell:getStencilTexture() end
-
----@public
----@return int @the minY
-function IsoCell:getMinY() end
-
----@private
----@param arg0 IsoCell.PerPlayerRender
+---@param arg0 IsoChunk
 ---@param arg1 int
----@param arg2 int
----@param arg3 long
 ---@return void
-function IsoCell:performRenderTiles(arg0, arg1, arg2, arg3) end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoDirections
----@return IsoBuilding
-function IsoCell:GetPeekedInBuilding(arg0, arg1) end
+function IsoCell:setCacheChunk(arg0, arg1) end
 
 ---@public
----@return HashMap|Integer|BuildingScore @the BuildingScores
-function IsoCell:getBuildingScores() end
+---@return Thread @the LightInfoUpdate
+function IsoCell:getLightInfoUpdate() end
 
 ---@public
----@param arg0 IsoObject
+---@param arg0 IsoWindow
 ---@return void
-function IsoCell:addToStaticUpdaterObjectList(arg0) end
-
----@public
----@param arg0 IsoObject
----@return void
-function IsoCell:addToProcessIsoObject(arg0) end
-
----@public
----@param worldY int @the worldY to set
----@return void
-function IsoCell:setWorldY(worldY) end
-
----@public
----@return int @the maxY
-function IsoCell:getMaxY() end
-
----@private
----@return void
-function IsoCell:ObjectDeletionAddition() end
-
----@public
----@param minZ int @the minZ to set
----@return void
-function IsoCell:setMinZ(minZ) end
-
----@public
----@param arg0 int
----@return void
-function IsoCell:setRainIntensity(arg0) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return boolean
-function IsoCell:gridSquareIsSnow(arg0, arg1, arg2) end
-
----@public
----@param arg0 int
----@return void
-function IsoCell:setSnowTarget(arg0) end
-
----@public
----@return ArrayList|IsoRoom @the RoomList
-function IsoCell:getRoomList() end
-
----@public
----@param height int @the height to set
----@return void
-function IsoCell:setHeight(height) end
-
----@public
----@return ArrayList|IsoMovingObject @the removeList
-function IsoCell:getRemoveList() end
-
----@public
----@return ArrayList|IsoObject
-function IsoCell:getProcessIsoObjectRemove() end
-
----@public
----@param x int
----@param y int
----@param z int
----@return IsoChunk
-function IsoCell:getChunkForGridSquare(x, y, z) end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoGridOcclusionData.OcclusionFilter
----@return ArrayList|Unknown
-function IsoCell:GetBuildingsInFrontOfMustSeeSquare(arg0, arg1) end
-
----@public
----@param x int
----@param y int
----@return int
-function IsoCell:getDangerScore(x, y) end
-
----@private
----@return boolean
-function IsoCell:initWeatherFx() end
-
----@private
----@param arg0 IsoBuilding
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return int
-function IsoCell:GetBuildingHeightAt(arg0, arg1, arg2, arg3) end
-
----@public
----@param item KahluaTable
----@param player int
----@return void
-function IsoCell:setDrag(item, player) end
-
----@public
----@param xx int
----@param yy int
----@param zz int
----@return void
-function IsoCell:EnsureSurroundNotNull(xx, yy, zz) end
+function IsoCell:removeFromWindowList(arg0) end
 
 ---@public
 ---@param arg0 int
@@ -1047,26 +868,281 @@ function IsoCell:getChunk(arg0, arg1) end
 
 ---@public
 ---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return int
+function IsoCell:getHeatSourceTemperature(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 IsoGridStack
+---@param arg1 boolean[][][]
+---@param arg2 boolean[][]
 ---@return void
-function IsoCell:invalidatePeekedRoom(arg0) end
+function IsoCell:CullFullyOccludedSquares(arg0, arg1, arg2) end
+
+---@public
+---@return IsoZombie
+function IsoCell:getFakeZombieForHit() end
+
+---@private
+---@param arg0 int
+---@return void
+function IsoCell:renderDebugPhysics(arg0) end
+
+---@public
+---@param arg0 IsoObject
+---@return void
+function IsoCell:addToStaticUpdaterObjectList(arg0) end
+
+---@public
+---@param currentLZ int @the currentLZ to set
+---@return void
+function IsoCell:setCurrentLightZ(currentLZ) end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return float
+function IsoCell:DistanceFromSupport(x, y, z) end
+
+---@public
+---@return ArrayList|IsoGameCharacter @the RemoteSurvivorList
+function IsoCell:getRemoteSurvivorList() end
+
+---@public
+---@return ArrayList|IsoBuilding @the BuildingList
+function IsoCell:getBuildingList() end
+
+---@private
+---@return void
+function IsoCell:renderWeatherFx() end
+
+---@public
+---@param worldY int @the worldY to set
+---@return void
+function IsoCell:setWorldY(worldY) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return int
+function IsoCell:getShoreInt(arg0) end
+
+---@public
+---@param maxZ int @the maxZ to set
+---@return void
+function IsoCell:setMaxZ(maxZ) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoGridOcclusionData.OcclusionFilter
+---@return ArrayList|Unknown
+function IsoCell:GetBuildingsInFrontOfMustSeeSquare(arg0, arg1) end
+
+---@private
+---@param arg0 IsoCell.PerPlayerRender
+---@param arg1 int
+---@return void
+function IsoCell:flattenAnyFoliage(arg0, arg1) end
+
+---@public
+---@return ArrayList|Unknown
+function IsoCell:getProcessWorldItems() end
+
+---@private
+---@return void
+function IsoCell:updateWeatherFx() end
+
+---@private
+---@return boolean
+function IsoCell:SetCutawayRoomsForPlayer() end
+
+---@public
+---@param player int
+---@return KahluaTable
+function IsoCell:getDrag(player) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return IsoLightSource
+function IsoCell:getLightSourceAt(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 IsoObject
+---@return void
+function IsoCell:addToProcessIsoObject(arg0) end
+
+---@public
+---@param light IsoLightSource
+---@return void
+---@overload fun(x:int, y:int, z:int)
+function IsoCell:removeLamppost(light) end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return void
+function IsoCell:removeLamppost(x, y, z) end
+
+---@private
+---@param arg0 Iterator|Unknown
+---@return void
+function IsoCell:ProcessRemoveItems(arg0) end
+
+---@public
+---@return ArrayList|IsoSurvivor
+function IsoCell:getSurvivorList() end
+
+---@public
+---@param sqThis IsoGridSquare
+---@param x int
+---@param y int
+---@param zz int
+---@param playerIndex int
+---@return void
+function IsoCell:CalculateVertColoursForTile(sqThis, x, y, zz, playerIndex) end
+
+---@public
+---@param MaxHeight int
+---@return void
+function IsoCell:RenderTiles(MaxHeight) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return void
+function IsoCell:setStencilValue2z(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return void
+function IsoCell:DeleteAllMovingObjects() end
+
+---@public
+---@return int
+function IsoCell:GetEffectivePlayerRoomId() end
+
+---@public
+---@param arg0 int
+---@return boolean
+function IsoCell:IsPlayerWindowPeeking(arg0) end
+
+---@public
+---@return int @the currentLZ
+function IsoCell:getCurrentLightZ() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return IsoGridSquare
+function IsoCell:getRelativeGridSquare(x, y, z) end
+
+---@public
+---@return int
+function IsoCell:getMaxFloors() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function IsoCell:putInVehicle(arg0) end
+
+---@param arg0 IsoPlayer
+---@param arg1 IsoGridSquare
+---@param arg2 ArrayList|Unknown
+---@param arg3 ArrayList|Unknown
+---@return void
+function IsoCell:GetSquaresAroundPlayerSquare(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param newSquare IsoGridSquare
+---@param getter IsoGridSquare.GetSquare
+---@return void
+function IsoCell:DoGridNav(newSquare, getter) end
+
+---@public
+---@param currentLY int @the currentLY to set
+---@return void
+function IsoCell:setCurrentLightY(currentLY) end
+
+---@private
+---@param arg0 ArrayList|Unknown
+---@param arg1 IsoGridSquare
+---@param arg2 boolean
+---@return void
+function IsoCell:GetBuildingsInFrontOfCharacter(arg0, arg1, arg2) end
+
+---throws java.io.FileNotFoundException, java.io.IOException
+---@public
+---@param WorldVersion int
+---@return boolean
+function IsoCell:LoadPlayer(WorldVersion) end
+
+---@public
+---@return OnceEvery @the dangerUpdate
+function IsoCell:getDangerUpdate() end
 
 ---@public
 ---@param x int
 ---@param y int
 ---@param z int
 ---@param square IsoGridSquare
+---@param playerIndex int
 ---@return void
-function IsoCell:setCacheGridSquare(x, y, z, square) end
+function IsoCell:setCacheGridSquareLocal(x, y, z, square, playerIndex) end
+
+---@public
+---@param x double
+---@param y double
+---@param z double
+---@return IsoGridSquare
+function IsoCell:getOrCreateGridSquare(x, y, z) end
+
+---@private
+---@return void
+function IsoCell:updateInternal() end
+
+---throws java.io.IOException
+---@public
+---@return void
+function IsoCell:savePlayer() end
 
 ---@public
 ---@return int @the width
 function IsoCell:getWidth() end
 
----@public
----@param x int
----@param y int
+---@private
+---@param arg0 Iterator|Unknown
 ---@return void
-function IsoCell:checkHaveRoof(x, y) end
+function IsoCell:ProcessItems(arg0) end
+
+---@public
+---@param arg0 IsoGridSquare
+---@param arg1 int
+---@return boolean
+function IsoCell:CanBuildingSquareOccludePlayer(arg0, arg1) end
+
+---@private
+---@param arg0 IsoCell.PerPlayerRender
+---@param arg1 int
+---@param arg2 int
+---@param arg3 long
+---@return void
+function IsoCell:recalculateAnyGridStacks(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoCell:setSnowTarget(arg0) end
+
+---@public
+---@param arg0 int
+---@return IsoZombie
+function IsoCell:getNearestVisibleZombie(arg0) end
 
 ---@public
 ---@param light IsoLightSource
@@ -1085,13 +1161,85 @@ function IsoCell:addLamppost(light) end
 ---@return IsoLightSource
 function IsoCell:addLamppost(x, y, z, r, g, b, rad) end
 
+---throws java.io.IOException
+---@public
+---@param output DataOutputStream
+---@param bDoChars boolean
+---@return void
+function IsoCell:save(output, bDoChars) end
+
+---@param arg0 BuildingScore
+---@param arg1 BuildingScore[]
+---@param arg2 IsoCell.BuildingSearchCriteria
+---@return void
+function IsoCell:Place(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 Iterator|Unknown
+---@return void
+function IsoCell:ProcessObjects(arg0) end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return IsoChunk
+function IsoCell:getChunkForGridSquare(x, y, z) end
+
+---@public
+---@return void
+function IsoCell:updateHeatSources() end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return boolean
+function IsoCell:IsBehindStuff(arg0) end
+
+---@public
+---@param minZ int @the minZ to set
+---@return void
+function IsoCell:setMinZ(minZ) end
+
+---throws java.lang.InterruptedException
+---@public
+---@return void
+function IsoCell:render() end
+
+---@public
+---@return int @the maxX
+function IsoCell:getMaxX() end
+
+---@public
+---@return ArrayList|IsoObject @the StaticUpdaterObjectList
+function IsoCell:getStaticUpdaterObjectList() end
+
+---@public
+---@return int @the worldY
+function IsoCell:getWorldY() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@param square IsoGridSquare
+---@return void
+function IsoCell:setCacheGridSquare(x, y, z, square) end
+
+---@public
+---@param def RoomDef
+---@return IsoGridSquare
+function IsoCell:getFreeTile(def) end
+
 ---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
----@param arg3 boolean
+---@return boolean
+function IsoCell:gridSquareIsSnow(arg0, arg1, arg2) end
+
+---@public
 ---@return IsoGridSquare
-function IsoCell:createNewGridSquare(arg0, arg1, arg2, arg3) end
+function IsoCell:getRandomFreeTileInRoom() end
 
 ---@public
 ---@param maxY int @the maxY to set
@@ -1099,62 +1247,16 @@ function IsoCell:createNewGridSquare(arg0, arg1, arg2, arg3) end
 function IsoCell:setMaxY(maxY) end
 
 ---@public
----@param arg0 IsoObject
----@return void
-function IsoCell:addToProcessIsoObjectRemove(arg0) end
-
----@private
----@return void
-function IsoCell:renderWeatherFx() end
-
----@public
 ---@return int @the minX
 function IsoCell:getMinX() end
 
----@private
----@param arg0 IsoGridSquare
----@param arg1 long
----@return boolean
-function IsoCell:IsCutawaySquare(arg0, arg1) end
-
 ---@public
----@param player int
----@param bRender boolean
----@return boolean
-function IsoCell:DoBuilding(player, bRender) end
-
----@public
----@param sqThis IsoGridSquare
----@param x int
----@param y int
----@param zz int
----@param playerIndex int
----@return void
-function IsoCell:CalculateVertColoursForTile(sqThis, x, y, zz, playerIndex) end
-
----@public
----@return IsoGridSquare
-function IsoCell:getRandomFreeTileInRoom() end
-
----@private
----@return boolean
-function IsoCell:SetCutawayRoomsForPlayer() end
-
----@public
----@param x double
----@param y double
----@param z double
----@return IsoGridSquare
-function IsoCell:getOrCreateGridSquare(x, y, z) end
-
----@public
----@return int @the currentLY
-function IsoCell:getCurrentLightY() end
-
----@private
 ---@param arg0 int
----@return void
-function IsoCell:renderDebugPhysics(arg0) end
+---@param arg1 int
+---@param arg2 int
+---@param arg3 boolean
+---@return IsoGridSquare
+function IsoCell:createNewGridSquare(arg0, arg1, arg2, arg3) end
 
 ---Description copied from interface: TileBasedMap
 ---
@@ -1174,136 +1276,34 @@ function IsoCell:renderDebugPhysics(arg0) end
 ---@return boolean @True if the location is blocked
 function IsoCell:blocked(mover, x, y, z, lx, ly, lz) end
 
----throws java.io.IOException
 ---@public
----@return void
-function IsoCell:savePlayer() end
-
----@private
----@param arg0 ArrayList|Unknown
----@param arg1 IsoBuilding
----@return void
-function IsoCell:AddUniqueToBuildingList(arg0, arg1) end
+---@return IsoSpriteManager
+function IsoCell:getSpriteManager() end
 
 ---@public
----@return OnceEvery @the dangerUpdate
-function IsoCell:getDangerUpdate() end
-
----@public
----@return IsoCell
-function IsoCell:getInstance() end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 int
----@param arg2 int
----@return boolean
-function IsoCell:isSnowShore(arg0, arg1, arg2) end
-
----@private
 ---@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 boolean
----@param arg4 ArrayList|Unknown
----@return void
-function IsoCell:GetBuildingsInFrontOfCharacterSquare(arg0, arg1, arg2, arg3, arg4) end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoGridSquare
----@param arg2 int
----@param arg3 long
----@return boolean
-function IsoCell:DoesSquareHaveValidCutawayPlayerWalls(arg0, arg1, arg2, arg3) end
-
----@public
----@return ArrayList|IsoObject @the StaticUpdaterObjectList
-function IsoCell:getStaticUpdaterObjectList() end
-
----@public
----@param chr IsoGameCharacter
----@param except IsoRoom
----@return IsoBuilding
-function IsoCell:getClosestBuildingExcept(chr, except) end
-
----@public
----@return void
-function IsoCell:DeleteAllMovingObjects() end
-
----@public
----@param arg0 float
 ---@param arg1 int
 ---@param arg2 int
 ---@param arg3 int
----@return float
-function IsoCell:getHeatSourceHighestTemperature(arg0, arg1, arg2, arg3) end
-
----@param arg0 IsoPlayer
----@param arg1 IsoGridSquare
----@param arg2 ArrayList|Unknown
----@param arg3 ArrayList|Unknown
 ---@return void
-function IsoCell:GetSquaresAroundPlayerSquare(arg0, arg1, arg2, arg3) end
-
----@public
----@param scores Stack|BuildingScore
----@return void
-function IsoCell:setBuildings(scores) end
+function IsoCell:setStencilValue(arg0, arg1, arg2, arg3) end
 
 ---@private
----@param arg0 IsoCell.PerPlayerRender
----@param arg1 int
 ---@return void
-function IsoCell:renderDebugLighting(arg0, arg1) end
+function IsoCell:renderInternal() end
 
 ---@public
----@return int
-function IsoCell:GetEffectivePlayerRoomId() end
+---@param height int @the height to set
+---@return void
+function IsoCell:setHeight(height) end
 
 ---@public
+---@param arg0 IsoObject
+---@return void
+function IsoCell:addToProcessIsoObjectRemove(arg0) end
+
+---@private
 ---@param arg0 int
+---@param arg1 boolean
 ---@return boolean
-function IsoCell:IsPlayerWindowPeeking(arg0) end
-
----@public
----@return int @the worldY
-function IsoCell:getWorldY() end
-
----@public
----@return int @the maxX
-function IsoCell:getMaxX() end
-
----@public
----@param arg0 int
----@return IsoZombie
-function IsoCell:getNearestVisibleZombie(arg0) end
-
----@return IsoGridSquare
-function IsoCell:getRandomOutdoorFreeTile() end
-
----@public
----@return int @the height
-function IsoCell:getHeight() end
-
----throws java.io.IOException
----@public
----@param output DataOutputStream
----@param bDoChars boolean
----@return void
-function IsoCell:save(output, bDoChars) end
-
----@private
----@param arg0 IsoGridSquare
----@return int
-function IsoCell:getShoreInt(arg0) end
-
----@public
----@param MaxHeight int
----@return void
-function IsoCell:RenderTiles(MaxHeight) end
-
----throws java.lang.InterruptedException
----@public
----@return void
-function IsoCell:render() end
+function IsoCell:doBuildingInternal(arg0, arg1) end

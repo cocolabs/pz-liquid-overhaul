@@ -5,27 +5,27 @@
 
 -- used to not spawn items inside item container (bags) in this room
 ---@class NoContainerFillRooms
-NoContainerFillRooms = { laundry = {}, mechanic = {}, clothesstore = {}, clothingstore = {} };
+NoContainerFillRooms = { armysurplus = {}, bookstore = {}, camping = {}, clothesstore = {}, clothingstore = {}, musicstore = {} }
 
 WeaponUpgrades = {
     VarmintRifle = {"x2Scope", "x4Scope", "x8Scope", "AmmoStraps", "Sling", "FiberglassStock", "RecoilPad", "IronSight"},
     HuntingRifle = {"x2Scope", "x4Scope", "x8Scope", "AmmoStraps", "Sling", "FiberglassStock", "RecoilPad"},
     Shotgun = {"AmmoStraps", "Sling", "ChokeTubeFull", "ChokeTubeImproved"},
     Pistol = {"Laser", "RedDot", "IronSight"}
-};
+}
 
 
 -- can be used to clear all items from distribution tables.
 function ClearAllDistributionItems(_dist, _dorecursive)
-    local recursive = (_dorecursive==nil) or _dorecursive;
+    local recursive = (_dorecursive==nil) or _dorecursive
 
     for k,v in pairs(_dist) do
         if type(_dist[k])=="table" then
             if type(k)=="string" and k=="items" then
-                _dist[k] = {};
+                _dist[k] = {}
             else
                 if recursive then
-                    ClearAllDistributionItems(_dist[k], _dorecursive);
+                    ClearAllDistributionItems(_dist[k], _dorecursive)
                 end
             end
         end
@@ -34,37 +34,37 @@ end
 
 -- optionally set 'chance' to false if you want to ommit it but do want to set dorecursive
 function RemoveItemFromDistribution(_dist, _item, _chance, _dorecursive)
-    local recursive = (_dorecursive==nil) or _dorecursive;
-    local doChance = type(_chance)=="number";
+    local recursive = (_dorecursive==nil) or _dorecursive
+    local doChance = type(_chance)=="number"
 
     for k,v in pairs(_dist) do
         if type(_dist[k])=="table" then
             if type(k)=="string" and k=="items" then
-                local validItem = false;
-                local isChance = true;
+                local validItem = false
+                local isChance = true
                 for i=#_dist[k],1,-1 do
-                    local val = _dist[k][i];
+                    local val = _dist[k][i]
                     if isChance then
-                        validItem = not doChance;
+                        validItem = not doChance
                         if doChance and type(val)=="number" and val==_chance then
-                            validItem = true;
+                            validItem = true
                         end
                     else
                         if validItem and type(val)=="string" and val==_item then
-                            table.remove(_dist[k], i+1);
-                            table.remove(_dist[k], i);
+                            table.remove(_dist[k], i+1)
+                            table.remove(_dist[k], i)
                         end
                     end
 
 
-                    isChance = not isChance;
+                    isChance = not isChance
                     if isChance then
-                        validItem = false;
+                        validItem = false
                     end
                 end
             else
                 if recursive then
-                    RemoveItemFromDistribution(_dist[k], _item, _chance, _dorecursive);
+                    RemoveItemFromDistribution(_dist[k], _item, _chance, _dorecursive)
                 end
             end
         end
@@ -73,40 +73,40 @@ end
 
 -- set 'chance' or 'replaceChance' to false if you want to ommit either or both of them.
 function ReplaceItemInDistribution(_dist, _item, _chance, _replacement, _replaceChance, _dorecursive)
-    local recursive = (_dorecursive==nil) or _dorecursive;
-    local doChance = type(_chance)=="number";
-    local doReplaceChance = type(_replaceChance)=="number";
+    local recursive = (_dorecursive==nil) or _dorecursive
+    local doChance = type(_chance)=="number"
+    local doReplaceChance = type(_replaceChance)=="number"
 
     for k,v in pairs(_dist) do
         if type(_dist[k])=="table" then
             if type(k)=="string" and k=="items" then
-                local validItem = false;
-                local isChance = true;
+                local validItem = false
+                local isChance = true
                 for i=#_dist[k],1,-1 do
-                    local val = _dist[k][i];
+                    local val = _dist[k][i]
                     if isChance then
-                        validItem = not doChance;
+                        validItem = not doChance
                         if doChance and type(val)=="number" and val==_chance then
-                            validItem = true;
+                            validItem = true
                         end
                     else
                         if validItem and type(val)=="string" and val==_item then
-                            _dist[k][i] = _replacement;
+                            _dist[k][i] = _replacement
                             if doReplaceChance then
-                                _dist[k][i] = _replaceChance;
+                                _dist[k][i] = _replaceChance
                             end
                         end
                     end
 
 
-                    isChance = not isChance;
+                    isChance = not isChance
                     if isChance then
-                        validItem = false;
+                        validItem = false
                     end
                 end
             else
                 if recursive then
-                    ReplaceItemInDistribution(_dist[k], _item, _chance, _replacement, _replaceChance, _dorecursive);
+                    ReplaceItemInDistribution(_dist[k], _item, _chance, _replacement, _replaceChance, _dorecursive)
                 end
             end
         end
@@ -119,14 +119,14 @@ function MergeDistributionRecursive(_orig, _mod)
             if type(_mod[k])=="table" then
                 if type(k)=="string" and k=="items" then
                     for _,v2 in ipairs(_mod[k]) do
-                        table.insert(_orig[k], v2);
+                        table.insert(_orig[k], v2)
                     end
                 else
-                    MergeDistributionRecursive(_orig[k], _mod[k]);
+                    MergeDistributionRecursive(_orig[k], _mod[k])
                 end
             end
         else --if original doesnt have the table the mod has, add it.
-            _orig[k] = _mod[k];
+            _orig[k] = _mod[k]
         end
     end
 end
@@ -136,35 +136,37 @@ end
 
 
 local function mergeDistributions()
-    SuburbsDistributions = Distributions[1]; -- the games distribition table should always be the first in table.
+    SuburbsDistributions = Distributions[1] -- the games distribition table should always be the first in table.
 
     -- if there are modded distribution tables merge them into the main suburbsdistributions
     if #Distributions>1 then
         print("### Merging distribution tables ###")
         for key,dist in pairs(Distributions) do
             if key > 1 then
-                print("Merging distribution addon #",key-1);
-                MergeDistributionRecursive(SuburbsDistributions, dist);
+                print("Merging distribution addon #",key-1)
+                MergeDistributionRecursive(SuburbsDistributions, dist)
             end
         end
         print("###################################")
     end
 
-    SuburbsDistributions.clothingstore = SuburbsDistributions.clothesstore;
-
-    SuburbsDistributions.generalstore.bin = SuburbsDistributions.all.bin;
-    SuburbsDistributions.generalstore.clothingrack = SuburbsDistributions.clothesstore.clothingrack;
-    SuburbsDistributions.generalstore.filingcabinet = SuburbsDistributions.all.filingcabinet;
-    SuburbsDistributions.generalstore.microwave = SuburbsDistributions.all.microwave;
-    SuburbsDistributions.generalstore.freezer = SuburbsDistributions.conveniencestore.freezer;
-    SuburbsDistributions.generalstore.fridge = SuburbsDistributions.conveniencestore.fridge;
+    SuburbsDistributions.clothesstore = SuburbsDistributions.clothingstore
+    SuburbsDistributions.motelbedroom = SuburbsDistributions.motelroom
+    SuburbsDistributions.dinnerkitchen = SuburbsDistributions.dinerkitchen
+    SuburbsDistributions.grocers = SuburbsDistributions.grocery
+	SuburbsDistributions.locker = SuburbsDistributions.changeroom
+    SuburbsDistributions.knoxbutcher = SuburbsDistributions.butcher
+	SuburbsDistributions.storageclothes = SuburbsDistributions.clothingstorage
+	SuburbsDistributions.clothesstorage = SuburbsDistributions.clothingstorage
+	SuburbsDistributions.clothesstorestorage = SuburbsDistributions.clothingstorage
+    
     --print("###################################")
 end
 
 local function postDistributionMerge()
-    --RemoveItemFromDistribution(SuburbsDistributions, "Razor");
+    --RemoveItemFromDistribution(SuburbsDistributions, "Razor")
 
-    --DeepPrintDistributionTable(SuburbsDistributions,"");
+    --DeepPrintDistributionTable(SuburbsDistributions,"")
 end
 
 function DeepPrintDistributionTable (_dist, tab)
@@ -178,6 +180,6 @@ function DeepPrintDistributionTable (_dist, tab)
     end
 end
 
-Events.OnPreDistributionMerge.Add(preDistributionMerge);
-Events.OnDistributionMerge.Add(mergeDistributions);
-Events.OnPostDistributionMerge.Add(postDistributionMerge);
+Events.OnPreDistributionMerge.Add(preDistributionMerge)
+Events.OnDistributionMerge.Add(mergeDistributions)
+Events.OnPostDistributionMerge.Add(postDistributionMerge)

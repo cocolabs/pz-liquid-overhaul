@@ -13,12 +13,21 @@
 ---@field public isBurntCar boolean
 ---@field public chanceToSpawnSpecial int
 ---@field public vehicles HashMap|Unknown|Unknown
----@field public specialVehicles HashMap|Unknown|Unknown
+---@field public specialVehicles ArrayList|Unknown
 VehicleType = {}
 
 ---@public
+---@return int
+function VehicleType:getChanceToSpawnKey() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function VehicleType:hasTypeForZone(arg0) end
+
+---@public
 ---@return void
-function VehicleType:Reset() end
+function VehicleType:init() end
 
 ---@public
 ---@param arg0 int
@@ -26,26 +35,12 @@ function VehicleType:Reset() end
 function VehicleType:setChanceToSpawnKey(arg0) end
 
 ---@public
----@param arg0 String
----@return VehicleType
-function VehicleType:getTypeFromName(arg0) end
-
----@private
----@param arg0 Collection|Unknown
----@return void
-function VehicleType:validate(arg0) end
-
----@private
----@return void
-function VehicleType:initNormal() end
-
----@public
----@return int
-function VehicleType:getChanceToSpawnKey() end
+---@return float
+function VehicleType:getBaseVehicleQuality() end
 
 ---@public
 ---@return float
-function VehicleType:getBaseVehicleQuality() end
+function VehicleType:getRandomBaseVehicleQuality() end
 
 ---@public
 ---@param arg0 String
@@ -61,8 +56,18 @@ function VehicleType:getRandomVehicleType(arg0, arg1) end
 
 ---@public
 ---@return void
-function VehicleType:init() end
+function VehicleType:Reset() end
+
+---@private
+---@return void
+function VehicleType:initNormal() end
+
+---@private
+---@param arg0 Collection|Unknown
+---@return void
+function VehicleType:validate(arg0) end
 
 ---@public
----@return float
-function VehicleType:getRandomBaseVehicleQuality() end
+---@param arg0 String
+---@return VehicleType
+function VehicleType:getTypeFromName(arg0) end

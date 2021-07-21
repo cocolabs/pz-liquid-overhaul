@@ -88,7 +88,9 @@ ISCampingMenu.doCampingMenu = function(player, context, worldobjects, test)
 
 	local playerObj = getSpecificPlayer(player)
 	local playerInv = playerObj:getInventory();
-	
+
+	if playerObj:getVehicle() then return end
+
 	local makeCampfire = false;
 	local addFuel = nil
 	local addPetrol = nil

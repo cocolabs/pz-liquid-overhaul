@@ -14,7 +14,8 @@ ISDebugMenu.shiftDown = 0;
 function ISDebugMenu:setupButtons()
     self:addButtonInfo("General debuggers", ISGeneralDebug.OnOpenPanel);
     self:addButtonInfo("Climate debuggers", ClimateControlDebug.OnOpenPanel);
-    self:addButtonInfo("IsoRegions", IsoRegionDebug.OnOpenPanel);
+    self:addButtonInfo("IsoRegions", IsoRegionsWindow.OnOpenPanel);
+    --self:addButtonInfo("IsoRegions [OLD]", IsoRegionDebug.OnOpenPanel);
     self:addButtonInfo("Zombie Population", ZombiePopulationWindow.OnOpenPanel);
     self:addButtonInfo("Player's Stats", ISPlayerStatsUI.OnOpenPanel);
     self:addButtonInfo("Items List", ISItemsListViewer.OnOpenPanel);
@@ -26,6 +27,8 @@ function ISDebugMenu:setupButtons()
     self:addButtonInfo("Chunk Debugger", showChunkDebugger);
     self:addButtonInfo("Vehicle Editor", function() showVehicleEditor(nil) end);
     self:addButtonInfo("World Flares", WorldFlaresDebug.OnOpenPanel);
+	self:addButtonInfo("Statistic", ISGameStatisticPanel.OnOpenPanel);
+    self:addButtonInfo("GlobalModData", GlobalModDataDebug.OnOpenPanel);
 end
 
 function ISDebugMenu:addButtonInfo(_title, _func, _marginBot)

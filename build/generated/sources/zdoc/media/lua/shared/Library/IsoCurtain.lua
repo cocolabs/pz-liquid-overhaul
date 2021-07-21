@@ -14,17 +14,14 @@
 ---@field private destroyed boolean
 IsoCurtain = {}
 
----Overrides:
----
----getObjectName in class IsoObject
 ---@public
----@return String
-function IsoCurtain:getObjectName() end
+---@param arg0 IsoGameCharacter
+---@return boolean
+function IsoCurtain:canInteractWith(arg0) end
 
 ---@public
----@param arg0 ByteBufferWriter
----@return void
-function IsoCurtain:syncIsoObjectSend(arg0) end
+---@return IsoGridSquare
+function IsoCurtain:getOppositeSquare() end
 
 ---Overrides:
 ---
@@ -45,16 +42,36 @@ function IsoCurtain:syncIsoObject(bRemote, val, source) end
 ---@return void
 function IsoCurtain:syncIsoObject(arg0, arg1, arg2, arg3) end
 
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
 ---@public
----@param input ByteBuffer
----@param WorldVersion int
 ---@return void
-function IsoCurtain:load(input, WorldVersion) end
+function IsoCurtain:ToggleDoorSilent() end
+
+---@public
+---@param chr IsoGameCharacter
+---@return void
+function IsoCurtain:ToggleDoor(chr) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoCurtain:save(arg0, arg1) end
+
+---@public
+---@return boolean
+function IsoCurtain:IsOpen() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoCurtain:load(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 ByteBufferWriter
+---@return void
+function IsoCurtain:syncIsoObjectSend(arg0) end
 
 ---@public
 ---@param arg0 IsoGridSquare
@@ -70,58 +87,12 @@ function IsoCurtain:isAdjacentToSquare(arg0, arg1) end
 
 ---Overrides:
 ---
----TestVision in class IsoObject
----@public
----@param from IsoGridSquare
----@param to IsoGridSquare
----@return IsoObject.VisionResult
-function IsoCurtain:TestVision(from, to) end
-
----Overrides:
----
 ---onMouseLeftClick in class IsoObject
 ---@public
 ---@param x int
 ---@param y int
 ---@return boolean
 function IsoCurtain:onMouseLeftClick(x, y) end
-
----@public
----@param arg0 JVector2
----@return JVector2
-function IsoCurtain:getFacingPosition(arg0) end
-
----@public
----@param chr IsoGameCharacter
----@return void
-function IsoCurtain:removeSheet(chr) end
-
----@public
----@return IsoGridSquare
-function IsoCurtain:getOppositeSquare() end
-
----@public
----@param chr IsoGameCharacter
----@return void
-function IsoCurtain:ToggleDoor(chr) end
-
----@public
----@return boolean
-function IsoCurtain:IsOpen() end
-
----@public
----@return boolean
-function IsoCurtain:getNorth() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoObject
----@public
----@param output ByteBuffer
----@return void
-function IsoCurtain:save(output) end
 
 ---@public
 ---@param arg0 float
@@ -135,14 +106,35 @@ function IsoCurtain:save(output) end
 function IsoCurtain:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
 ---@public
+---@param chr IsoGameCharacter
+---@return void
+function IsoCurtain:removeSheet(chr) end
+
+---@public
 ---@return IsoObject
 function IsoCurtain:getObjectAttachedTo() end
 
+---Overrides:
+---
+---getObjectName in class IsoObject
 ---@public
----@param arg0 IsoGameCharacter
----@return boolean
-function IsoCurtain:canInteractWith(arg0) end
+---@return String
+function IsoCurtain:getObjectName() end
 
 ---@public
----@return void
-function IsoCurtain:ToggleDoorSilent() end
+---@param arg0 JVector2
+---@return JVector2
+function IsoCurtain:getFacingPosition(arg0) end
+
+---@public
+---@return boolean
+function IsoCurtain:getNorth() end
+
+---Overrides:
+---
+---TestVision in class IsoObject
+---@public
+---@param from IsoGridSquare
+---@param to IsoGridSquare
+---@return IsoObject.VisionResult
+function IsoCurtain:TestVision(from, to) end

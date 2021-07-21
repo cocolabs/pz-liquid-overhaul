@@ -50,5 +50,6 @@ function ISDropItemAction:new (character, item, time)
 	o.stopOnWalk = false;
 	o.stopOnRun = false;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o
 end

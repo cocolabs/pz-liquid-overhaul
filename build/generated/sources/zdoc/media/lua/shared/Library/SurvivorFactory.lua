@@ -5,16 +5,6 @@
 SurvivorFactory = {}
 
 ---@public
----@param forename String
----@return void
-function SurvivorFactory:addMaleForename(forename) end
-
----@public
----@param surName String
----@return void
-function SurvivorFactory:addSurname(surName) end
-
----@public
 ---@return SurvivorDesc
 ---@overload fun(survivorType:SurvivorFactory.SurvivorType)
 ---@overload fun(survivorType:SurvivorFactory.SurvivorType, bFemale:boolean)
@@ -32,6 +22,16 @@ function SurvivorFactory:CreateSurvivor(survivorType) end
 function SurvivorFactory:CreateSurvivor(survivorType, bFemale) end
 
 ---@public
+---@param desc SurvivorDesc
+---@return void
+function SurvivorFactory:randomName(desc) end
+
+---@public
+---@param nCount int
+---@return SurvivorDesc[]
+function SurvivorFactory:CreateFamily(nCount) end
+
+---@public
 ---@param survivor SurvivorDesc
 ---@return void
 function SurvivorFactory:setTorso(survivor) end
@@ -42,22 +42,14 @@ function SurvivorFactory:setTorso(survivor) end
 function SurvivorFactory:CreateSurvivorGroup(nCount) end
 
 ---@public
----@param desc SurvivorDesc
----@param cell IsoCell
----@param x int
----@param y int
----@param z int
----@return IsoSurvivor
-function SurvivorFactory:InstansiateInCell(desc, cell, x, y, z) end
+---@param forename String
+---@return void
+function SurvivorFactory:addMaleForename(forename) end
 
 ---@public
+---@param surName String
 ---@return void
-function SurvivorFactory:Reset() end
-
----@public
----@param desc SurvivorDesc
----@return void
-function SurvivorFactory:randomName(desc) end
+function SurvivorFactory:addSurname(surName) end
 
 ---@public
 ---@param forename String
@@ -65,6 +57,14 @@ function SurvivorFactory:randomName(desc) end
 function SurvivorFactory:addFemaleForename(forename) end
 
 ---@public
----@param nCount int
----@return SurvivorDesc[]
-function SurvivorFactory:CreateFamily(nCount) end
+---@return void
+function SurvivorFactory:Reset() end
+
+---@public
+---@param desc SurvivorDesc
+---@param cell IsoCell
+---@param x int
+---@param y int
+---@param z int
+---@return IsoSurvivor
+function SurvivorFactory:InstansiateInCell(desc, cell, x, y, z) end

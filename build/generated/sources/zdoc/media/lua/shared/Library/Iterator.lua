@@ -2,6 +2,10 @@
 Iterator = {}
 
 ---@public
+---@return Object
+function Iterator:next() end
+
+---@public
 ---@return boolean
 function Iterator:hasNext() end
 
@@ -13,7 +17,3 @@ function Iterator:remove() end
 ---@param arg0 Consumer|Unknown
 ---@return void
 function Iterator:forEachRemaining(arg0) end
-
----@public
----@return Object
-function Iterator:next() end

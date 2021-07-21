@@ -23,7 +23,14 @@
 ---@field public IsoRegion DebugType
 ---@field public UnitTests DebugType
 ---@field public FileIO DebugType
+---@field public Multiplayer DebugType
+---@field public Statistic DebugType
 DebugType = {}
+
+---@public
+---@param arg0 DebugType
+---@return boolean
+function DebugType:Do(arg0) end
 
 ---Returns an array containing the constants of this enum type, in
 ---
@@ -41,11 +48,6 @@ DebugType = {}
 ---@public
 ---@return DebugType[] @an array containing the constants of this enum type, in the order they are declared
 function DebugType:values() end
-
----@public
----@param arg0 DebugType
----@return boolean
-function DebugType:Do(arg0) end
 
 ---Returns the enum constant of this type with the specified name.
 ---

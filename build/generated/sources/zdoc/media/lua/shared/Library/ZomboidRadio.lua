@@ -27,29 +27,32 @@
 ZomboidRadio = {}
 
 ---@public
----@return String
-function ZomboidRadio:getRandomBzztFzzt() end
+---@return void
+function ZomboidRadio:Reset() end
 
----@public
----@return int
----@overload fun(arg0:int, arg1:int)
-function ZomboidRadio:getRandomFrequency() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return int
-function ZomboidRadio:getRandomFrequency(arg0, arg1) end
+---@private
+---@param arg0 boolean
+---@param arg1 DeviceData
+---@param arg2 int
+---@param arg3 int
+---@return void
+function ZomboidRadio:addFrequencyListEntry(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@param arg0 int
 ---@return void
-function ZomboidRadio:removeChannelName(arg0) end
+function ZomboidRadio:Init(arg0) end
 
 ---@public
----@param arg0 WaveSignalDevice
+---@return ZomboidRadio
+function ZomboidRadio:getInstance() end
+
+---@public
+---@param arg0 int
+---@param arg1 boolean
+---@param arg2 boolean
 ---@return void
-function ZomboidRadio:RegisterDevice(arg0) end
+function ZomboidRadio:PlayerListensChannel(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 int
@@ -65,126 +68,28 @@ function ZomboidRadio:RegisterDevice(arg0) end
 ---@return void
 function ZomboidRadio:DistributeTransmission(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
----@public
----@return void
-function ZomboidRadio:Save() end
-
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 boolean
----@return String
----@overload fun(arg0:String, arg1:int, arg2:boolean, arg3:String)
-function ZomboidRadio:scrambleString(arg0, arg1, arg2) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 boolean
----@param arg3 String
----@return String
-function ZomboidRadio:scrambleString(arg0, arg1, arg2, arg3) end
-
----@public
----@param arg0 String
----@return String
-function ZomboidRadio:computerize(arg0) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 String
----@return void
----@overload fun(arg0:String, arg1:int, arg2:String, arg3:boolean)
-function ZomboidRadio:addChannelName(arg0, arg1, arg2) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 String
----@param arg3 boolean
----@return void
-function ZomboidRadio:addChannelName(arg0, arg1, arg2, arg3) end
-
----@private
----@param arg0 String
----@param arg1 int
----@return String
-function ZomboidRadio:applyWeatherInterference(arg0, arg1) end
-
----@public
----@return ArrayList|Unknown
-function ZomboidRadio:getBroadcastDevices() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 String
----@param arg4 String
----@param arg5 float
----@param arg6 float
----@param arg7 float
----@param arg8 int
----@param arg9 boolean
----@return void
-function ZomboidRadio:ReceiveTransmission(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
-
----@public
----@return int
-function ZomboidRadio:getDaysSinceStart() end
-
----@public
----@param arg0 int
----@return String
-function ZomboidRadio:getChannelName(arg0) end
-
----@public
----@return ArrayList|Unknown
-function ZomboidRadio:getDevices() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return void
-function ZomboidRadio:UpdateScripts(arg0, arg1) end
-
----@public
----@param arg0 String
----@return boolean
-function ZomboidRadio:isStaticSound(arg0) end
-
----@public
----@param arg0 WaveSignalDevice
----@return void
-function ZomboidRadio:UnRegisterDevice(arg0) end
-
----@public
----@return RadioScriptManager
-function ZomboidRadio:getScriptManager() end
-
----@private
----@return void
-function ZomboidRadio:checkGameModeSpecificStart() end
-
 ---@private
 ---@param arg0 IsoPlayer
----@param arg1 IsoPlayer
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@param arg4 String
+---@param arg5 String
+---@param arg6 float
+---@param arg7 float
+---@param arg8 float
+---@param arg9 int
+---@param arg10 boolean
 ---@return void
-function ZomboidRadio:checkPlayerForDevice(arg0, arg1) end
+function ZomboidRadio:DistributeToPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) end
 
 ---@public
----@param arg0 String
----@return Map|Unknown|Unknown
-function ZomboidRadio:GetChannelList(arg0) end
+---@return boolean
+function ZomboidRadio:Load() end
 
 ---@public
 ---@return void
-function ZomboidRadio:Reset() end
-
----@public
----@return void
-function ZomboidRadio:update() end
+function ZomboidRadio:render() end
 
 ---@public
 ---@param arg0 int
@@ -210,41 +115,13 @@ function ZomboidRadio:SendTransmission(arg0, arg1, arg2, arg3) end
 function ZomboidRadio:SendTransmission(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
 ---@public
----@return void
-function ZomboidRadio:render() end
-
----@public
----@param arg0 int
----@param arg1 boolean
----@param arg2 boolean
----@return void
-function ZomboidRadio:PlayerListensChannel(arg0, arg1, arg2) end
-
----@public
 ---@return boolean
 function ZomboidRadio:hasInstance() end
 
 ---@public
----@param arg0 boolean
----@return void
-function ZomboidRadio:setHasRecievedServerData(arg0) end
-
----@public
----@param arg0 ByteBufferWriter
----@return void
-function ZomboidRadio:WriteRadioServerDataPacket(arg0) end
-
----@public
----@return boolean
-function ZomboidRadio:Load() end
-
----@private
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return int
-function ZomboidRadio:GetDistance(arg0, arg1, arg2, arg3) end
+---@param arg0 String
+---@return Map|Unknown|Unknown
+function ZomboidRadio:GetChannelList(arg0) end
 
 ---@private
 ---@param arg0 int
@@ -256,12 +133,104 @@ function ZomboidRadio:GetDistance(arg0, arg1, arg2, arg3) end
 function ZomboidRadio:DeviceInRange(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
----@return Map|Unknown|Unknown
-function ZomboidRadio:getFullChannelList() end
+---@return int
+---@overload fun(arg0:int, arg1:int)
+function ZomboidRadio:getRandomFrequency() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return int
+function ZomboidRadio:getRandomFrequency(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBufferWriter
+---@return void
+function ZomboidRadio:WriteRadioServerDataPacket(arg0) end
+
+---@public
+---@return GameMode
+function ZomboidRadio:getGameMode() end
+
+---@public
+---@param arg0 WaveSignalDevice
+---@return void
+function ZomboidRadio:RegisterDevice(arg0) end
 
 ---@public
 ---@return Object
 function ZomboidRadio:clone() end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@return String
+function ZomboidRadio:applyWeatherInterference(arg0, arg1) end
+
+---@public
+---@return Map|Unknown|Unknown
+function ZomboidRadio:getFullChannelList() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function ZomboidRadio:isStaticSound(arg0) end
+
+---@private
+---@return void
+function ZomboidRadio:checkGameModeSpecificStart() end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 boolean
+---@return String
+---@overload fun(arg0:String, arg1:int, arg2:boolean, arg3:String)
+function ZomboidRadio:scrambleString(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 boolean
+---@param arg3 String
+---@return String
+function ZomboidRadio:scrambleString(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ZomboidRadio:setHasRecievedServerData(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function ZomboidRadio:removeChannelName(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function ZomboidRadio:getDevices() end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 String
+---@return void
+---@overload fun(arg0:String, arg1:int, arg2:String, arg3:boolean)
+function ZomboidRadio:addChannelName(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 String
+---@param arg3 boolean
+---@return void
+function ZomboidRadio:addChannelName(arg0, arg1, arg2, arg3) end
+
+---@private
+---@param arg0 IsoPlayer
+---@param arg1 IsoPlayer
+---@return void
+function ZomboidRadio:checkPlayerForDevice(arg0, arg1) end
 
 ---@private
 ---@param arg0 String
@@ -271,37 +240,68 @@ function ZomboidRadio:clone() end
 function ZomboidRadio:doDeviceRangeDistortion(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 int
+---@param arg0 WaveSignalDevice
 ---@return void
-function ZomboidRadio:Init(arg0) end
+function ZomboidRadio:UnRegisterDevice(arg0) end
 
 ---@public
----@return GameMode
-function ZomboidRadio:getGameMode() end
+---@param arg0 int
+---@param arg1 int
+---@return void
+function ZomboidRadio:UpdateScripts(arg0, arg1) end
+
+---@public
+---@return void
+function ZomboidRadio:update() end
+
+---@public
+---@return String
+function ZomboidRadio:getRandomBzztFzzt() end
 
 ---@private
----@param arg0 IsoPlayer
+---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
 ---@param arg3 int
----@param arg4 String
----@param arg5 String
----@param arg6 float
----@param arg7 float
----@param arg8 float
----@param arg9 int
----@param arg10 boolean
----@return void
-function ZomboidRadio:DistributeToPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) end
-
----@private
----@param arg0 boolean
----@param arg1 DeviceData
----@param arg2 int
----@param arg3 int
----@return void
-function ZomboidRadio:addFrequencyListEntry(arg0, arg1, arg2, arg3) end
+---@return int
+function ZomboidRadio:GetDistance(arg0, arg1, arg2, arg3) end
 
 ---@public
----@return ZomboidRadio
-function ZomboidRadio:getInstance() end
+---@return RadioScriptManager
+function ZomboidRadio:getScriptManager() end
+
+---@public
+---@return ArrayList|Unknown
+function ZomboidRadio:getBroadcastDevices() end
+
+---@public
+---@param arg0 String
+---@return String
+function ZomboidRadio:computerize(arg0) end
+
+---@public
+---@param arg0 int
+---@return String
+function ZomboidRadio:getChannelName(arg0) end
+
+---@public
+---@return void
+function ZomboidRadio:Save() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 String
+---@param arg4 String
+---@param arg5 float
+---@param arg6 float
+---@param arg7 float
+---@param arg8 int
+---@param arg9 boolean
+---@return void
+function ZomboidRadio:ReceiveTransmission(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
+
+---@public
+---@return int
+function ZomboidRadio:getDaysSinceStart() end

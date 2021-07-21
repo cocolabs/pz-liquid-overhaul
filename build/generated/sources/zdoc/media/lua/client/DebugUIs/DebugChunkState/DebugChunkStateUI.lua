@@ -209,11 +209,21 @@ function DebugChunkStateUI:onMouseMove(dx, dy)
 				self.mouseMoved = true
 			end
 		end
-	else
+	elseif not self:isMouseOverChild() then
 		self:updateObjectList()
 	end
 	if self.currentTool then
 		self.currentTool:onMouseMove(dx, dy)
+	end
+	return false
+end
+
+function DebugChunkStateUI:isMouseOverChild()
+	local children = self.javaObject:getControls()
+	for i=children:size(),1,-1 do
+		if children:get(i-1):getTable():isMouseOver() then
+			return true
+		end
 	end
 	return false
 end
@@ -247,8 +257,8 @@ function DebugChunkStateUI:onMouseUpOutside(x, y)
 end
 
 function DebugChunkStateUI:onMouseWheel(del)
-	if playerIndex == 0 then return end -- UIManager already does this
 	local playerIndex = self.gameState:fromLua0("getPlayerIndex")
+	if playerIndex == 0 then return false end -- UIManager already does this
 	getCore():doZoomScroll(playerIndex, del)
 	return false
 end

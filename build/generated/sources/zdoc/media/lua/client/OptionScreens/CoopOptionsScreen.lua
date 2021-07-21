@@ -43,6 +43,10 @@ function CoopOptionsScreenPanel:onLoseJoypadFocus(joypadData)
 	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
 end
 
+function CoopOptionsScreenPanel:onJoypadBeforeDeactivate(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
+end
+
 function CoopOptionsScreenPanel:onJoypadDown(button, joypadData)
     if button == Joypad.BButton and not self:isFocusOnControl() then
         joypadData.focus = self.parent
@@ -314,7 +318,7 @@ function CoopOptionsScreen:onEditSettings()
     ServerSettingsScreen.instance.prevScreen = self
     ServerSettingsScreen.instance.initialSelectedSettings = CoopConnection.servername
     ServerSettingsScreen.instance:aboutToShow()
-    ServerSettingsScreen.instance:setVisible(true, self.joyfocus)
+    ServerSettingsScreen.instance:setVisible(true, self.panel.joyfocus or self.joyfocus)
 end
 
 function CoopOptionsScreen:onSettingsSelected()
@@ -349,10 +353,11 @@ function CoopOptionsScreen:onSoftReset()
     modal:setCapture(true)
     modal:setAlwaysOnTop(true)
     modal:addToUIManager()
-    if self.joyfocus then
-        modal.param1 = self.joyfocus
-        self.joyfocus.focus = modal
-        updateJoypadFocus(self.joyfocus)
+    local joypadData = self.panel.joyfocus
+    if joypadData then
+        modal.param1 = joypadData
+        joypadData.focus = modal
+        updateJoypadFocus(joypadData)
     end
 end
 
@@ -369,7 +374,7 @@ end
 function CoopOptionsScreen:onDeleteWorld()
     local screenW = getCore():getScreenWidth()
     local screenH = getCore():getScreenHeight()
-    local folder = getAbsoluteSaveFolderName(self:getServerSaveFolder()):gsub("\\", "\\\\")
+    local folder = getAbsoluteSaveFolderName(self:getServerSaveFolder())
     local label = getText("UI_coopscreen_delete_world_prompt", folder)
     local modal = ISModalDialog:new(0, 0, 1, 1, label, true, self, self.onDeleteWorldStep2)
     modal:setX((screenW - modal.width) / 2)
@@ -379,10 +384,11 @@ function CoopOptionsScreen:onDeleteWorld()
     modal:setCapture(true)
     modal:setAlwaysOnTop(true)
     modal:addToUIManager()
-    if self.joyfocus then
-        modal.param1 = self.joyfocus
-        self.joyfocus.focus = modal
-        updateJoypadFocus(self.joyfocus)
+    local joypadData = self.panel.joyfocus
+    if joypadData then
+        modal.param1 = joypadData
+        joypadData.focus = modal
+        updateJoypadFocus(joypadData)
     end
 end
 
@@ -412,10 +418,11 @@ function CoopOptionsScreen:onDeletePlayer()
     modal:setCapture(true)
     modal:setAlwaysOnTop(true)
     modal:addToUIManager()
-    if self.joyfocus then
-        modal.param1 = self.joyfocus
-        self.joyfocus.focus = modal
-        updateJoypadFocus(self.joyfocus)
+    local joypadData = self.panel.joyfocus
+    if joypadData then
+        modal.param1 = joypadData
+        joypadData.focus = modal
+        updateJoypadFocus(joypadData)
     end
 end
 
@@ -525,13 +532,14 @@ function CoopOptionsScreen:onGainJoypadFocus(joypadData)
 end
 
 function CoopOptionsScreen:onLoseJoypadFocus(joypadData)
-	self.startButton.isJoypad = false
-	self.ISButtonA = nil
-	self.abortButton.isJoypad = false
-	self.ISButtonY = nil
-	self.backButton.isJoypad = false
-	self.ISButtonB = nil
-	ISPanelJoypad.onLoseJoypadFocus(joypadData)
+	self.startButton:clearJoypadButton()
+	self.abortButton:clearJoypadButton()
+	self.backButton:clearJoypadButton()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function CoopOptionsScreen:onJoypadBeforeDeactivate(joypadData)
+	
 end
 
 function CoopOptionsScreen:onJoypadDirUp(joypadData)

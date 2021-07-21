@@ -6,12 +6,12 @@
 ---@field public rotate Vector3f
 VehicleScript_Model = {}
 
+---@return VehicleScript.Model
+function VehicleScript_Model:makeCopy() end
+
 ---@public
 ---@return String
 function VehicleScript_Model:getId() end
-
----@return VehicleScript.Model
-function VehicleScript_Model:makeCopy() end
 
 ---@public
 ---@return Vector3f

@@ -8,6 +8,11 @@ require "TimedActions/ISBaseTimedAction"
 ISGrabItemAction = ISBaseTimedAction:derive("ISGrabItemAction");
 
 function ISGrabItemAction:isValid()
+	if self.item:getSquare() and self.character:getSquare() then
+		if self.item:getSquare():isWallTo(self.character:getSquare()) then
+			return false;
+		end
+	end
 	-- Check that the item wasn't picked up by a preceding action
 	if self.item == nil or self.item:getSquare() == nil then return false end
 
@@ -25,6 +30,7 @@ function ISGrabItemAction:start()
 	self:setOverrideHandModels(nil, nil);
 	self.item:getItem():setJobType(getText("ContextMenu_Grab"));
 	self.item:getItem():setJobDelta(0.0);
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISGrabItemAction:stop()
@@ -120,7 +126,6 @@ function ISGrabItemAction:new (character, item, time)
 	o.item = item;
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
-	print("time?")
 	o.maxTime = time;
 	o.loopedAction = true;
 	o:checkQueueList();

@@ -8,7 +8,7 @@ require "TimedActions/ISBaseTimedAction"
 ISTakeFuel = ISBaseTimedAction:derive("ISTakeFuel");
 
 function ISTakeFuel:isValid()
-	local pumpCurrent = tonumber(self.square:getProperties():Val("fuelAmount"))
+	local pumpCurrent = self.fuelStation:getPipedFuelAmount()
 	return pumpCurrent > 0
 end
 
@@ -24,8 +24,8 @@ function ISTakeFuel:update()
 	local itemCurrent = math.floor(self.petrolCan:getUsedDelta() / self.petrolCan:getUseDelta() + 0.001)
 	if actionCurrent > itemCurrent then
 		-- FIXME: sync in multiplayer
-		local pumpCurrent = tonumber(self.square:getProperties():Val("fuelAmount"))
-		self.square:getProperties():Set("fuelAmount", tostring(pumpCurrent - (actionCurrent - itemCurrent)))
+		local pumpCurrent = tonumber(self.fuelStation:getPipedFuelAmount())
+		self.fuelStation:setPipedFuelAmount(pumpCurrent - (actionCurrent - itemCurrent))
 
 		self.petrolCan:setUsedDelta(actionCurrent * self.petrolCan:getUseDelta())
     end
@@ -51,7 +51,7 @@ function ISTakeFuel:start()
 	self.petrolCan:setJobType(getText("ContextMenu_TakeGasFromPump"))
 	self.petrolCan:setJobDelta(0.0)
 
-	local pumpCurrent = tonumber(self.square:getProperties():Val("fuelAmount"))
+	local pumpCurrent = tonumber(self.fuelStation:getPipedFuelAmount())
 	local itemCurrent = math.floor(self.petrolCan:getUsedDelta() / self.petrolCan:getUseDelta() + 0.001)
 	local itemMax = math.floor(1 / self.petrolCan:getUseDelta() + 0.001)
 	local take = math.min(pumpCurrent, itemMax - itemCurrent)
@@ -74,19 +74,20 @@ function ISTakeFuel:perform()
 	if self.itemTarget > itemCurrent then
 		self.petrolCan:setUsedDelta(self.itemTarget * self.petrolCan:getUseDelta())
 		-- FIXME: sync in multiplayer
-		local pumpCurrent = tonumber(self.square:getProperties():Val("fuelAmount"))
-		self.square:getProperties():Set("fuelAmount", tostring(pumpCurrent + (self.itemTarget - itemCurrent)))
+		local pumpCurrent = self.fuelStation:getPipedFuelAmount()
+		self.fuelStation:setPipedFuelAmount(pumpCurrent + (self.itemTarget - itemCurrent))
 	end
     -- needed to remove from queue / start next.
 	ISBaseTimedAction.perform(self);
 end
 
-function ISTakeFuel:new(character, square, petrolCan, time)
+function ISTakeFuel:new(character, fuelStation, petrolCan, time)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character;
-    o.square = square;
+    o.fuelStation = fuelStation;
+	o.square = fuelStation:getSquare();
 	o.petrolCan = petrolCan;
 	o.stopOnWalk = true;
 	o.stopOnRun = true;

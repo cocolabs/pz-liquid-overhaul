@@ -43,14 +43,16 @@ end
 
 function ISReloadWeaponAction:start()
 	-- Setup IsPerformingAction & the current anim we want (check in AnimSets LoadHandgun.xml for example)
-	self:setActionAnim(CharacterActionAnims.Reload);
+	self:setOverrideHandModels(self.gun, nil);
 	self.character:setVariable("WeaponReloadType", self.gun:getWeaponReloadType())
 	self.character:setVariable("isLoading", true);
-	self:setOverrideHandModels(self.gun, nil);
 	self.ammoCountStart = self.gun:getCurrentAmmoCount()
 	self.gun:setJobType(getText("IGUI_JobType_LoadBulletsIntoFirearm"))
 	self.gun:setJobDelta(0.0)
 	self:initVars();
+	self:setActionAnim(CharacterActionAnims.Reload);
+	
+	self.character:reportEvent("EventReloading");
 
 	-- no bullets were found
 	if not self.bullets then

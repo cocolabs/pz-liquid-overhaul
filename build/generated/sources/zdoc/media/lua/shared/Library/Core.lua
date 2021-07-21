@@ -39,6 +39,7 @@
 ---@field public OptionBloodDecals int
 ---@field public OptionBorderlessWindow boolean
 ---@field public OptionTextureCompression boolean
+---@field public OptionModelTextureMipmaps boolean
 ---@field public OptionTexture2x boolean
 ---@field private OptionZoomLevels1x String
 ---@field private OptionZoomLevels2x String
@@ -108,6 +109,7 @@
 ---@field private bModsPopupDone boolean
 ---@field public blinkAlpha float
 ---@field public blinkAlphaIncrease boolean
+---@field private optionsOnStartup HashMap|Unknown|Unknown
 ---@field private bChallenge boolean
 ---@field public width int
 ---@field public height int
@@ -166,15 +168,683 @@
 Core = {}
 
 ---@public
+---@return boolean
+function Core:getOptionDoWindSpriteEffects() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setPerfReflections(arg0) end
+
+---@public
+---@return boolean
+function Core:isOptiondblTapJogToSprint() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setTestingMicrophone(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setPerfPuddles(arg0) end
+
+---@public
+---@return void
+function Core:updateKeyboard() end
+
+---@public
+---@param mem int
+---@return void
+function Core:setVidMem(mem) end
+
+---@public
+---@return String
+function Core:getOptionCycleContainerKey() end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionMeasurementFormat(arg0) end
+
+---@public
+---@param newSaveFolder String
+---@return void
+function Core:setSaveFolder(newSaveFolder) end
+
+---@public
+---@return GameVersion
+function Core:getGameVersion() end
+
+---@public
+---@param playerIndex int
+---@param del int
+---@return void
+function Core:doZoomScroll(playerIndex, del) end
+
+---@public
+---@return void
+function Core:initFBOs() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setVehiclesWarningShow(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setNewReloading(arg0) end
+
+---throws org.lwjgl.LWJGLException
+---@public
+---@param bool boolean
+---@return void
+function Core:setFullScreen(bool) end
+
+---@public
+---@return boolean
+function Core:isInDebug() end
+
+---@public
+---@return int
+function Core:getOptionVehicleEngineVolume() end
+
+---@public
+---@return int
+function Core:getOptionVoiceVADMode() end
+
+---@public
+---@return TextureFBO
+---@overload fun(nPlayer:int)
+function Core:getOffscreenBuffer() end
+
+---@public
+---@param nPlayer int
+---@return TextureFBO
+function Core:getOffscreenBuffer(nPlayer) end
+
+---throws java.io.IOException
+---@public
+---@return boolean
+function Core:loadOptions() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionUIFBO(arg0) end
+
+---@public
+---@return void
+function Core:CheckDelayResetLua() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:zoomOptionChanged(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionShoulderButtonContainerSwitch(arg0) end
+
+---@public
+---@return float
+function Core:getMinZoom() end
+
+---@public
+---@return float
+function Core:getRealOptionSoundVolume() end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionChatFontSize(arg0) end
+
+---@public
+---@return void
+function Core:initPoisonousMushroom() end
+
+---@public
+---@return boolean
+function Core:isChallenge() end
+
+---@public
+---@return boolean
+function Core:isVehiclesWarningShow() end
+
+---@public
+---@return boolean
+function Core:getOptionModsEnabled() end
+
+---@public
+---@return void
+---@overload fun(nPlayer:int, clear:boolean)
+function Core:StartFrame() end
+
+---@public
+---@param nPlayer int
+---@param clear boolean
+---@return void
+function Core:StartFrame(nPlayer, clear) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionAimOutline(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionSimpleWeaponTextures(arg0) end
+
+---@public
+---@param showPing boolean
+---@return void
+function Core:setShowPing(showPing) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionContextMenuFont(arg0) end
+
+---@public
+---@param playerIndex int
+---@return float
+function Core:getZoom(playerIndex) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionClock24Hour(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionVoiceRecordDeviceName(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setShowFirstTimeSneakTutorial(arg0) end
+
+---@public
+---@return int
+function Core:getMicVolumeIndicator() end
+
+---@public
+---@return void
+---@overload fun(nPlayer:int)
+function Core:EndFrame() end
+
+---@public
+---@param nPlayer int
+---@return void
+function Core:EndFrame(nPlayer) end
+
+---@public
+---@return boolean
+function Core:getOptionSimpleWeaponTextures() end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return int
+function Core:getXAngle(arg0, arg1) end
+
+---@public
+---@param width int
+---@param height int
+---@return void
+function Core:setScreenSize(width, height) end
+
+---@public
+---@param keyName String
+---@return int
+function Core:getKey(keyName) end
+
+---@public
+---@return boolean
+function Core:supportNPTTexture() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setAzerty(arg0) end
+
+---@public
+---@return boolean
+function Core:getPerfReflectionsOnLoad() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionRadialMenuKeyToggle(arg0) end
+
+---@public
+---@return boolean
+function Core:getDebug() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setToggleToSprint(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionCycleContainerKey(arg0) end
+
+---@public
+---@return int
+function Core:getOffscreenTrueHeight() end
+
+---@public
+---@return boolean
+function Core:getOptionBorderlessWindow() end
+
+---@public
+---@param volume int
+---@return void
+function Core:setOptionMusicVolume(volume) end
+
+---@public
+---@return boolean
+function Core:getUseShaders() end
+
+---@public
+---@return int
+function Core:getPerfPuddlesOnLoad() end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setPoisonousBerry(arg0) end
+
+---throws org.lwjgl.LWJGLException
+---@public
+---@param width int
+---@param height int
+---@return boolean
+function Core:supportRes(width, height) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function Core:DelayResetLua(arg0, arg1) end
+
+---@public
+---@return boolean
+function Core:isAnimPopupDone() end
+
+---@public
+---@return boolean
+function Core:getOptionModelTextureMipmaps() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionPanCameraWhileAiming(arg0) end
+
+---@public
+---@return int
+function Core:getTileScale() end
+
+---@public
+---@return String
+function Core:getGameMode() end
+
+---@public
+---@param sp boolean
+---@param reason String
+---@return void
+---@overload fun(arg0:String, arg1:String)
+function Core:ResetLua(sp, reason) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function Core:ResetLua(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionRenderPrecipitation(arg0) end
+
+---@public
+---@return float
+function Core:getCurrentPlayerZoom() end
+
+---@public
+---@return boolean
+function Core:isMultiThread() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVoiceRecordDevice(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionTooltipFont(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setShowYourUsername(arg0) end
+
+---@public
+---@return ColorInfo
+function Core:getMpTextColor() end
+
+---@public
+---@return boolean
+function Core:isLastStand() end
+
+---@public
+---@param arg0 ColorInfo
+---@return void
+function Core:setObjectHighlitedColor(arg0) end
+
+---@public
+---@return boolean
+function Core:isShowFirstTimeSneakTutorial() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setNoSave(arg0) end
+
+---@public
+---@return boolean
+function Core:loadedShader() end
+
+---@public
+---@return int
+function Core:getVidMem() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionFontSize(arg0) end
+
+---@public
+---@return int
+function Core:getPerfSkybox() end
+
+---throws java.io.IOException
+---@public
+---@return void
+function Core:saveOptions() end
+
+---@public
+---@return String
+function Core:getBlinkingMoodle() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return void
+function Core:DoPushIsoParticleStuff(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function Core:setResolutionAndFullScreen(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function Core:initShaders() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 float
+---@param arg4 boolean
+---@return void
+function Core:DoPushIsoStuff(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@return boolean
+function Core:supportCompressedTextures() end
+
+---@public
+---@return boolean
+function Core:isModsPopupDone() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionDropItemsOnSquareCenter(arg0) end
+
+---@public
+---@return void
+function Core:MoveMethodToggle() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVehicleEngineVolume(arg0) end
+
+---@public
+---@param controllerIndex int
+---@param active boolean
+---@return void
+function Core:setOptionActiveController(controllerIndex, active) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionDoDoorSpriteEffects(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionCorpseShadows(arg0) end
+
+---@public
+---@return boolean
+function Core:isForceSnow() end
+
+---@private
+---@param arg0 String
+---@return void
+function Core:copyPasteFolders(arg0) end
+
+---@public
+---@return int
+function Core:getScreenHeight() end
+
+---@public
+---@param zombieGroupSound boolean
+---@return void
+function Core:setZombieGroupSound(zombieGroupSound) end
+
+---@public
+---@return ArrayList|Unknown
+function Core:getDefaultZoomLevels() end
+
+---@public
+---@return boolean
+function Core:isNewReloading() end
+
+---@public
+---@return boolean
+function Core:getContentTranslationsEnabled() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setIsSelectingAll(arg0) end
+
+---@public
 ---@param playerIndex int
 ---@param del int
 ---@return float
 function Core:getNextZoom(playerIndex, del) end
 
 ---@public
----@param b boolean
+---@return boolean
+function Core:getOptionDropItemsOnSquareCenter() end
+
+---@public
+---@return int
+function Core:getOptionMusicLibrary() end
+
+---@public
 ---@return void
-function Core:setOptionRackProgress(b) end
+function Core:quitToDesktop() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setCelsius(arg0) end
+
+---@public
+---@return String
+function Core:getSaveFolder() end
+
+---@public
+---@return boolean
+function Core:supportsFBO() end
+
+---@public
+---@return boolean
+function Core:isCollideZombies() end
+
+---@public
+---@param arg0 ColorInfo
+---@return void
+function Core:setMpTextColor(arg0) end
+
+---@public
+---@return int
+function Core:getScreenWidth() end
+
+---@public
+---@return int
+function Core:getOptionRenderPrecipitation() end
+
+---@public
+---@return boolean
+function Core:getOptionDisplayAsCelsius() end
+
+---@public
+---@param val boolean
+---@return void
+function Core:setMultiThread(val) end
+
+---@public
+---@param playerIndex int
+---@return int
+function Core:getOffscreenHeight(playerIndex) end
+
+---@public
+---@return int
+function Core:getOptionFontSize() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setRiversideDone(arg0) end
+
+---@public
+---@return String
+function Core:getOptionZoomLevels1x() end
+
+---@public
+---@return void
+function Core:EndFrameUI() end
+
+---@public
+---@return void
+function Core:zoomLevelsChanged() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setToggleToRun(arg0) end
+
+---@public
+---@return boolean
+function Core:isShowFirstTimeWeatherTutorial() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionTexture2x(arg0) end
+
+---@public
+---@return boolean
+function Core:isTutorialDone() end
+
+---@public
+---@param zoom boolean
+---@return void
+function Core:setOptionZoom(zoom) end
+
+---@public
+---@param playerIndex int
+---@param auto boolean
+---@return void
+function Core:setAutoZoom(playerIndex, auto) end
+
+---@public
+---@param arg0 int
+---@param arg1 boolean
+---@return void
+function Core:setOptionSingleContextMenu(arg0, arg1) end
+
+---@public
+---@return boolean
+function Core:getOptionVoiceEnable() end
+
+---@public
+---@param bChallenge boolean
+---@return void
+function Core:setChallenge(bChallenge) end
+
+---@public
+---@param done boolean
+---@return void
+function Core:setTutorialDone(done) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionUIRenderFPS(arg0) end
+
+---@public
+---@return void
+function Core:UnfocusActiveTextEntryBox() end
+
+---@public
+---@return String
+function Core:getMyDocumentFolder() end
+
+---@public
+---@return int
+function Core:getOptionMusicVolume() end
+
+---@public
+---@return boolean
+function Core:StartFrameUI() end
+
+---@public
+---@return int
+function Core:getOptionVoiceVolumeMic() end
+
+---@public
+---@return int
+function Core:getOptionIgnoreProneZombieRange() end
 
 ---@public
 ---@param arg0 int
@@ -195,8 +865,122 @@ function Core:DoStartFrameStuff(arg0, arg1, arg2, arg3) end
 function Core:DoStartFrameStuff(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
+---@return boolean
+function Core:getOptionLeaveKeyInIgnition() end
+
+---@public
+---@param arg0 boolean
 ---@return void
-function Core:RenderOffScreenBuffer() end
+function Core:setOptionAutoDrink(arg0) end
+
+---@public
+---@return String
+function Core:getOptionChatFontSize() end
+
+---@public
+---@return boolean
+function Core:isShowFirstTimeVehicleTutorial() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setToggleToAim(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function Core:setOptionMaxChatOpaque(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionClockFormat(arg0) end
+
+---@public
+---@return int
+function Core:getOptionVoiceMode() end
+
+---@public
+---@return Core
+function Core:getInstance() end
+
+---@public
+---@return void
+---@overload fun(arg0:int, arg1:int, arg2:int)
+---@overload fun(arg0:int, arg1:int, arg2:int, arg3:int, arg4:int)
+function Core:TakeScreenshot() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return void
+function Core:TakeScreenshot(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@param arg4 int
+---@return void
+function Core:TakeScreenshot(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptiondblTapJogToSprint(arg0) end
+
+---@public
+---@return void
+function Core:reinitKeyMaps() end
+
+---@public
+---@param fbo TextureFBO
+---@return void
+function Core:setLastRenderedFBO(fbo) end
+
+---@public
+---@return String
+function Core:getPoisonousBerry() end
+
+---@public
+---@return boolean
+function Core:isFullScreen() end
+
+---@public
+---@return int
+function Core:getOptionShoulderButtonContainerSwitch() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVoiceVolumeMic(arg0) end
+
+---@public
+---@return boolean
+function Core:getOptionDoDoorSpriteEffects() end
+
+---@public
+---@return int
+function Core:getIsoCursorVisibility() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionChatOpaqueOnFocus(arg0) end
+
+---@public
+---@return boolean
+function Core:getOptionTextureCompression() end
+
+---@public
+---@return float
+function Core:getOptionChatFadeTime() end
+
+---@public
+---@return Map|String|Integer
+function Core:getKeyMaps() end
 
 ---@public
 ---@param width int
@@ -206,579 +990,35 @@ function Core:RenderOffScreenBuffer() end
 function Core:setDisplayMode(width, height, fullscreen) end
 
 ---@public
----@param arg0 boolean
 ---@return void
-function Core:setFlashIsoCursor(arg0) end
-
----@public
----@return int
-function Core:getOptionVoiceRecordDevice() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setDoneNewSaveFolder(arg0) end
-
----@public
----@param playerIndex int
----@return boolean
-function Core:getAutoZoom(playerIndex) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setIsSelectingAll(arg0) end
-
----@public
----@return int
-function Core:getScreenWidth() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setToggleToRun(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setShowFirstTimeWeatherTutorial(arg0) end
-
----@public
----@return boolean
-function Core:isSelectingAll() end
-
----@public
----@return float
-function Core:getIgnoreProneZombieRange() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setRenderPrecipIndoors(arg0) end
-
----@public
----@return boolean
-function Core:isToggleToAim() end
-
----@public
----@return void
-function Core:DoPopIsoStuff() end
-
----@public
----@param arg0 float
----@return void
-function Core:setOptionMinChatOpaque(arg0) end
-
----@public
----@param forceSnow boolean
----@return void
-function Core:setForceSnow(forceSnow) end
-
----@public
----@return void
-function Core:getOpenGLVersions() end
-
----@public
----@return boolean
-function Core:isModsPopupDone() end
-
----@public
----@return int
-function Core:getOptionVoiceVolumePlayers() end
-
----@public
----@return boolean
-function Core:gotNewBelt() end
-
----@public
----@return boolean
-function Core:getOptionTexture2x() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionTimedActionGameSpeedReset(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setIsoCursorVisibility(arg0) end
-
----@public
----@return void
-function Core:EndFrameUI() end
-
----@public
----@return String
-function Core:getBlinkingMoodle() end
-
----@public
----@return boolean
-function Core:getOptionRackProgress() end
-
----@public
----@return String
-function Core:getOptionInventoryFont() end
-
----@public
----@return boolean
-function Core:getOptionVoiceEnable() end
-
----@public
----@return boolean
-function Core:getPerfReflections() end
-
----@public
----@param sync boolean
----@return void
-function Core:setOptionVSync(sync) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setContentTranslationsEnabled(arg0) end
-
----@public
----@return float
-function Core:getOptionMaxChatOpaque() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionLeaveKeyInIgnition(arg0) end
-
----@public
----@return int
-function Core:getPerfSkybox() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 boolean
----@return void
-function Core:setResolutionAndFullScreen(arg0, arg1, arg2) end
-
----@public
----@param bUse boolean
----@return void
-function Core:setUseShaders(bUse) end
-
----@public
----@return ColorInfo
-function Core:getObjectHighlitedColor() end
-
----@public
----@return boolean
-function Core:getContentTranslationsEnabled() end
-
----@public
----@return boolean
-function Core:isCelsius() end
-
----@public
----@param arg0 String
----@return void
-function Core:setSeenUpdateText(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVoiceRecordDevice(arg0) end
-
----@public
----@return int
-function Core:getOptionAimOutline() end
+function Core:exitToMenu() end
 
 ---@public
 ---@return void
 function Core:shadersOptionChanged() end
 
 ---@public
----@param arg0 String
----@return void
-function Core:setOptionLanguageName(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVehicleEngineVolume(arg0) end
-
----@public
----@param arg0 String
----@param arg1 String
----@return void
----@overload fun(sp:boolean, reason:String)
-function Core:ResetLua(arg0, arg1) end
-
----@public
----@param sp boolean
----@param reason String
----@return void
-function Core:ResetLua(sp, reason) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVoiceVolumeMic(arg0) end
-
----@public
----@return int
-function Core:getOptionShoulderButtonContainerSwitch() end
-
----@public
----@param name String
----@return boolean
-function Core:getOptionActiveController(name) end
-
----@public
----@return boolean
-function Core:getOptionReloadRadialInstant() end
-
----@public
----@return boolean
-function Core:isFlashIsoCursor() end
-
----@public
----@return ColorInfo
-function Core:getMpTextColor() end
-
----@public
----@return boolean
-function Core:isShowFirstTimeSneakTutorial() end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 float
----@param arg4 boolean
----@return void
-function Core:DoPushIsoStuff(arg0, arg1, arg2, arg3, arg4) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionRenderPrecipitation(arg0) end
-
----@public
----@return boolean
-function Core:getServerVOIPEnable() end
-
----@public
----@return int
-function Core:getOptionMusicLibrary() end
-
----@public
----@return boolean
-function Core:isMultiThread() end
-
----@public
----@param directory String
----@return void
-function Core:deleteDirectoryRecusrively(directory) end
-
----@public
----@param font String
----@return void
-function Core:setOptionInventoryFont(font) end
-
----@public
----@param arg0 int
----@return boolean
-function Core:getOptionSingleContextMenu(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setCelsius(arg0) end
-
----@public
----@return boolean
-function Core:isNewReloading() end
-
----@public
----@return void
-function Core:DoFrameReady() end
-
----@public
----@return boolean
-function Core:isToggleToSprint() end
-
----@public
----@return float
-function Core:getMaxZoom() end
-
----@public
----@param arg0 int
----@param arg1 float
----@return int
-function Core:getYAngle(arg0, arg1) end
-
----@public
----@return boolean
-function Core:getOptionTimedActionGameSpeedReset() end
-
----@public
----@param playerIndex int
----@return int
-function Core:getOffscreenWidth(playerIndex) end
-
----@public
----@return int
-function Core:getMicVolumeIndicator() end
-
----@public
----@param index int
----@return void
-function Core:setFramerate(index) end
-
----@public
----@return int
-function Core:getPerfSkyboxOnLoad() end
-
----@public
----@param arg0 String
----@return void
-function Core:setPoisonousBerry(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionCorpseShadows(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVoiceMode(arg0) end
-
----@public
----@return int
-function Core:getOptionUIRenderFPS() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionProgressBar(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionDoWindSpriteEffects(arg0) end
-
----@public
----@return boolean
-function Core:isOptionShowChatTitle() end
-
----@public
----@param zombieGroupSound boolean
----@return void
-function Core:setZombieGroupSound(zombieGroupSound) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setToggleToSprint(arg0) end
-
----@public
----@param volume int
----@return void
-function Core:setOptionMusicVolume(volume) end
-
----@public
----@return boolean
-function Core:getOptionTieredZombieUpdates() end
-
----@public
----@return boolean
-function Core:getOptionZoom() end
-
----throws java.io.IOException
----@public
----@return boolean
-function Core:loadOptions() end
-
----@public
----@return boolean
-function Core:isOptionProgressBar() end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionBloodDecals(arg0) end
-
----@public
----@return boolean
-function Core:getPerfReflectionsOnLoad() end
-
----@public
----@return boolean
-function Core:isShowFirstTimeVehicleTutorial() end
-
----@public
----@return int
-function Core:getOptionVoiceVADMode() end
-
----@public
----@param enabled boolean
----@return void
-function Core:setOptionModsEnabled(enabled) end
-
----@private
----@param arg0 String
----@return void
-function Core:copyPasteFolders(arg0) end
-
----@public
----@return float
-function Core:getRealOptionSoundVolume() end
-
----@public
----@return boolean
-function Core:getOptionUIFBO() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionUIFBO(arg0) end
-
----@public
----@return void
-function Core:zoomLevelsChanged() end
-
----@public
----@return int
-function Core:getOptionFontSize() end
-
----@public
----@param res String
----@return void
-function Core:setResolution(res) end
-
----@public
----@return float
-function Core:getOptionMinChatOpaque() end
-
----@public
----@return String
-function Core:getOptionZoomLevels1x() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setCollideZombies(arg0) end
-
----@public
----@param playerIndex int
----@return float
-function Core:getZoom(playerIndex) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionSimpleWeaponTextures(arg0) end
-
----@public
----@param arg0 String
----@return void
-function Core:setOptionContextMenuFont(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setShowYourUsername(arg0) end
-
----@public
----@return String
-function Core:getSeenUpdateText() end
-
----@public
----@return boolean
-function Core:isChallenge() end
-
----@public
----@return String
-function Core:getChallengeID() end
-
----@public
----@return int
-function Core:getOptionClockFormat() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionReloadRadialInstant(arg0) end
-
----@public
----@param arg0 ColorInfo
----@return void
-function Core:setObjectHighlitedColor(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionAutoDrink(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVoiceVolumePlayers(arg0) end
-
----@public
----@return TextureFBO
----@overload fun(nPlayer:int)
-function Core:getOffscreenBuffer() end
-
----@public
----@param nPlayer int
----@return TextureFBO
-function Core:getOffscreenBuffer(nPlayer) end
-
----@public
----@return boolean
-function Core:getOptionLeaveKeyInIgnition() end
-
----@public
----@return boolean
-function Core:getOptionTextureCompression() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setToggleToAim(arg0) end
-
----@public
----@param fbo TextureFBO
----@return void
-function Core:setLastRenderedFBO(fbo) end
-
----@public
 ---@param arg0 float
 ---@return void
-function Core:setOptionMaxChatOpaque(arg0) end
+function Core:setOptionChatFadeTime(arg0) end
 
 ---@public
 ---@param arg0 int
----@param arg1 boolean
 ---@return void
-function Core:setOptionSingleContextMenu(arg0, arg1) end
-
----@public
----@return GameVersion
-function Core:getGameVersion() end
-
----@public
----@return void
-function Core:TakeScreenshot() end
+function Core:setPerfSkybox(arg0) end
 
 ---@public
 ---@return boolean
-function Core:StartFrameUI() end
+function Core:isDoneNewSaveFolder() end
 
 ---@public
----@param playerIndex int
----@param auto boolean
+---@param arg0 boolean
 ---@return void
-function Core:setAutoZoom(playerIndex, auto) end
+function Core:setShowFirstTimeVehicleTutorial(arg0) end
+
+---@public
+---@return boolean
+function Core:isToggleToRun() end
 
 ---@public
 ---@param blinkingMoodle String
@@ -786,192 +1026,42 @@ function Core:setAutoZoom(playerIndex, auto) end
 function Core:setBlinkingMoodle(blinkingMoodle) end
 
 ---@public
----@param arg0 boolean
----@return void
-function Core:setNewReloading(arg0) end
-
----@public
----@return boolean
-function Core:isZoomEnabled() end
-
----@public
----@return int
-function Core:getOptionVoiceMode() end
-
----@public
----@return boolean
-function Core:isForceSnow() end
-
----@public
----@param arg0 int
----@return void
-function Core:EndFrameText(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionUIRenderFPS(arg0) end
-
----@public
----@return float
-function Core:getOptionChatFadeTime() end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionIgnoreProneZombieRange(arg0) end
-
----@public
----@return Map|String|Integer
-function Core:getKeyMaps() end
-
----@public
----@return int
-function Core:getOptionVoiceVolumeMic() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setTestingMicrophone(arg0) end
-
----@public
----@return int
-function Core:getIsoCursorVisibility() end
-
----@private
----@return void
-function Core:sharedInit() end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionClockFormat(arg0) end
-
----@public
----@return void
-function Core:reinitKeyMaps() end
-
----@public
----@return int
-function Core:getScreenHeight() end
-
----@public
----@return boolean
-function Core:supportNPTTexture() end
-
----@public
----@return boolean
-function Core:isFullScreen() end
-
----@public
----@param zoom boolean
----@return void
-function Core:setOptionZoom(zoom) end
-
----@public
----@param arg0 int
----@return void
-function Core:setPerfPuddles(arg0) end
-
----@public
----@param bChallenge boolean
----@return void
-function Core:setChallenge(bChallenge) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionTexture2x(arg0) end
-
----@public
----@param done boolean
----@return void
-function Core:setTutorialDone(done) end
-
----@public
----@param arg0 String
----@return void
-function Core:setDifficulty(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionFontSize(arg0) end
-
----@public
----@return boolean
-function Core:getOptionDoDoorSpriteEffects() end
-
----@public
----@param filename String
----@return void
-function Core:TakeFullScreenshot(filename) end
-
----@public
----@return void
-function Core:quitToDesktop() end
-
----@public
----@return void
-function Core:initShaders() end
-
----@private
----@param arg0 boolean[]
----@return String
-function Core:getPerPlayerBooleanString(arg0) end
-
----@public
----@return boolean
-function Core:getOptionDisplayAsCelsius() end
-
----@public
----@return float
-function Core:getMinZoom() end
-
----@public
----@return boolean
-function Core:supportCompressedTextures() end
-
----@public
----@return boolean
-function Core:isInDebug() end
-
----@public
 ---@return String
 function Core:getOptionZoomLevels2x() end
 
 ---@public
----@param val boolean
+---@param d int
 ---@return void
-function Core:setMultiThread(val) end
-
----@public
----@return int
-function Core:getOptionVehicleEngineVolume() end
-
----@public
----@return boolean
-function Core:isDoneNewSaveFolder() end
-
----@private
----@param arg0 File
----@param arg1 String
----@return void
-function Core:copyPasteFile(arg0, arg1) end
+function Core:setOptionReloadDifficulty(d) end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
-function Core:setOptionDropItemsOnSquareCenter(arg0) end
+function Core:setModsPopupDone(arg0) end
 
 ---@public
----@param playerIndex int
----@return int
-function Core:getOffscreenHeight(playerIndex) end
+---@return float
+function Core:getOptionMinChatOpaque() end
 
 ---@public
 ---@return boolean
-function Core:isTutorialDone() end
+function Core:isFlashIsoCursor() end
+
+---@public
+---@return boolean
+function Core:isOptionShowChatTitle() end
+
+---@public
+---@return boolean
+function Core:getOptionZoom() end
+
+---@public
+---@return boolean
+function Core:isNoSave() end
+
+---@public
+---@return String
+function Core:getChallengeID() end
 
 ---@private
 ---@param arg0 int
@@ -985,435 +1075,15 @@ function Core:isTutorialDone() end
 function Core:DoStartFrameStuffInternal(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
 ---@public
----@param arg0 float
+---@param arg0 int
 ---@param arg1 float
----@param arg2 float
----@return void
-function Core:DoPushIsoParticleStuff(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function Core:isLastStand() end
-
----@public
----@return boolean
-function Core:getUseShaders() end
-
----@public
 ---@return int
-function Core:getOptionAmbientVolume() end
+function Core:getYAngle(arg0, arg1) end
 
 ---@public
----@return boolean
-function Core:getDebug() end
-
----@public
----@return boolean
-function Core:supportsFBO() end
-
----@public
----@return int
-function Core:getTileScale() end
-
----@public
----@return String
-function Core:getOptionVoiceRecordDeviceName() end
-
----@public
----@param arg0 String
+---@param forceSnow boolean
 ---@return void
-function Core:setOptionTooltipFont(arg0) end
-
----@public
----@return int
-function Core:getOptionIgnoreProneZombieRange() end
-
----throws org.lwjgl.LWJGLException
----@public
----@param width int
----@param height int
----@return void
-function Core:init(width, height) end
-
----@public
----@return boolean
-function Core:getOptionBorderlessWindow() end
-
----@public
----@return String
-function Core:getGameMode() end
-
----@public
----@param arg0 String
----@return void
-function Core:setOptionCycleContainerKey(arg0) end
-
----@private
----@param arg0 UITextBox2
----@param arg1 int
----@return void
-function Core:updateKeyboardAux(arg0, arg1) end
-
----@public
----@return ArrayList|Unknown
-function Core:getDefaultZoomLevels() end
-
----@public
----@return int
-function Core:getOptionMusicVolume() end
-
----@public
----@return int
-function Core:getOptionSoundVolume() end
-
----@public
----@return int
-function Core:getPerfPuddlesOnLoad() end
-
----@public
----@return String
-function Core:getSaveFolder() end
-
----@public
----@return boolean
-function Core:isShowPing() end
-
----@public
----@return void
----@overload fun(nPlayer:int, clear:boolean)
-function Core:StartFrame() end
-
----@public
----@param nPlayer int
----@param clear boolean
----@return void
-function Core:StartFrame(nPlayer, clear) end
-
----@public
----@return boolean
-function Core:isAnimPopupDone() end
-
----throws org.lwjgl.LWJGLException
----@public
----@param width int
----@param height int
----@return boolean
-function Core:supportRes(width, height) end
-
----@public
----@return String
-function Core:getOptionChatFontSize() end
-
----@public
----@return boolean
-function Core:getOptionDropItemsOnSquareCenter() end
-
----@public
----@return float
-function Core:getCurrentPlayerZoom() end
-
----@public
----@return Core
-function Core:getInstance() end
-
----@public
----@param keyName String
----@return int
-function Core:getKey(keyName) end
-
----@public
----@return boolean
-function Core:getOptionPanCameraWhileAiming() end
-
----@public
----@return String
-function Core:getPoisonousMushroom() end
-
----@public
----@return void
-function Core:MoveMethodToggle() end
-
----@public
----@return boolean
-function Core:loadedShader() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionTextureCompression(arg0) end
-
----@public
----@return int
-function Core:getOptionRenderPrecipitation() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionVoiceEnable(arg0) end
-
----throws java.io.IOException
----@public
----@return void
-function Core:saveOptions() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setRiversideDone(arg0) end
-
----@public
----@param w int
----@param h int
----@return void
-function Core:DoEndFrameStuff(w, h) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setNoSave(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionDoDoorSpriteEffects(arg0) end
-
----@public
----@return boolean
-function Core:isShowFirstTimeWeatherTutorial() end
-
----@public
----@return boolean
-function Core:getOptionUpdateSneakButton() end
-
----@public
----@return void
-function Core:initPoisonousMushroom() end
-
----@public
----@return void
-function Core:UnfocusActiveTextEntryBox() end
-
----@public
----@param showPing boolean
----@return void
-function Core:setShowPing(showPing) end
-
----@public
----@return String
-function Core:getOptionCycleContainerKey() end
-
----@public
----@return String
-function Core:getMyDocumentFolder() end
-
----@public
----@return String
-function Core:getVersionNumber() end
-
----@private
----@param arg0 int
----@return boolean
-function Core:isFunctionKey(arg0) end
-
----@public
----@param arg0 String
----@param arg1 String
----@return void
-function Core:DelayResetLua(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return void
-function Core:DoStartFrameStuffSmartTextureFx(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function Core:isCollideZombies() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionPanCameraWhileAiming(arg0) end
-
----@public
----@return boolean
-function Core:isShowYourUsername() end
-
----@public
----@return boolean
-function Core:isVehiclesWarningShow() end
-
----@private
----@return boolean
-function Core:setupMultiFBO() end
-
----@public
----@param arg0 String
----@return void
-function Core:setOptionVoiceRecordDeviceName(arg0) end
-
----@private
----@param arg0 File
----@param arg1 String
----@return void
-function Core:searchFolders(arg0, arg1) end
-
----@public
----@return int
-function Core:getVidMem() end
-
----@public
----@return boolean
-function Core:getOptionModsEnabled() end
-
----@private
----@param arg0 String
----@param arg1 boolean[]
----@return void
-function Core:readPerPlayerBoolean(arg0, arg1) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setAzerty(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionAmbientVolume(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setPerfReflections(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setShowFirstTimeSneakTutorial(arg0) end
-
----@public
----@param arg0 boolean
----@return boolean
-function Core:isOptionSimpleClothingTextures(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionShoulderButtonContainerSwitch(arg0) end
-
----@public
----@param mem int
----@return void
-function Core:setVidMem(mem) end
-
----@public
----@param arg0 ColorInfo
----@return void
-function Core:setMpTextColor(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:StartFrameText(arg0) end
-
----@public
----@param width int
----@param height int
----@return void
-function Core:setScreenSize(width, height) end
-
----@public
----@param controllerIndex int
----@param active boolean
----@return void
-function Core:setOptionActiveController(controllerIndex, active) end
-
----@public
----@return boolean
-function Core:getOptionSimpleWeaponTextures() end
-
----@public
----@return boolean
-function Core:getMicVolumeError() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionRadialMenuKeyToggle(arg0) end
-
----@public
----@return int
-function Core:getOptionReloadDifficulty() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionShowChatTimestamp(arg0) end
-
----@public
----@return boolean
-function Core:isRiversideDone() end
-
----@public
----@return int
-function Core:getOffscreenTrueWidth() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionUpdateSneakButton(arg0) end
-
----@public
----@return String
-function Core:getOptionContextMenuFont() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:zoomOptionChanged(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setModsPopupDone(arg0) end
-
----@public
----@return int
-function Core:getOffscreenTrueHeight() end
-
----@public
----@param d int
----@return void
-function Core:setOptionReloadDifficulty(d) end
-
----@public
----@param keyMaps Map|String|Integer
----@return void
-function Core:setKeyMaps(keyMaps) end
-
----@public
----@return boolean
-function Core:isZombieGroupSound() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionClock24Hour(arg0) end
-
----@public
----@return boolean
-function Core:getOptionRadialMenuKeyToggle() end
-
----@public
----@return void
-function Core:initPoisonousBerry() end
-
----@public
----@return boolean
-function Core:getOptionVSync() end
+function Core:setForceSnow(forceSnow) end
 
 ---@public
 ---@param arg0 int
@@ -1423,8 +1093,18 @@ function Core:getOptionVSync() end
 function Core:DoEndFrameStuffFx(arg0, arg1, arg2) end
 
 ---@public
----@return boolean
-function Core:isAzerty() end
+---@return String
+function Core:getSteamServerVersion() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionShowChatTimestamp(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setCollideZombies(arg0) end
 
 ---@public
 ---@param arg0 boolean
@@ -1432,22 +1112,120 @@ function Core:isAzerty() end
 function Core:setOptionShowChatTitle(arg0) end
 
 ---@public
----@param arg0 String
+---@param arg0 int
 ---@return void
-function Core:setPoisonousMushroom(arg0) end
+function Core:setOptionIgnoreProneZombieRange(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionUpdateSneakButton(arg0) end
+
+---@private
+---@param arg0 UITextBox2
+---@param arg1 int
+---@return void
+function Core:updateKeyboardAux(arg0, arg1) end
+
+---@public
+---@param filename String
+---@return void
+function Core:TakeFullScreenshot(filename) end
+
+---@public
+---@return boolean
+function Core:getOptionVSync() end
 
 ---@public
 ---@param arg0 int
 ---@return void
-function Core:setOptionAimOutline(arg0) end
-
----@public
----@return int
-function Core:getPerfPuddles() end
+function Core:EndFrameText(arg0) end
 
 ---@public
 ---@return boolean
-function Core:isRenderPrecipIndoors() end
+function Core:getOptionTexture2x() end
+
+---@public
+---@return String
+function Core:getOptionInventoryFont() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:StartFrameText(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setDifficulty(arg0) end
+
+---@private
+---@param arg0 int
+---@return boolean
+function Core:isFunctionKey(arg0) end
+
+---@public
+---@return boolean
+function Core:isZombieGroupSound() end
+
+---@public
+---@return boolean
+function Core:getOptionRackProgress() end
+
+---@public
+---@return int
+function Core:getOptionClockFormat() end
+
+---@private
+---@return boolean
+function Core:setupMultiFBO() end
+
+---@public
+---@return String
+function Core:getDifficulty() end
+
+---@public
+---@return void
+function Core:RenderOffScreenBuffer() end
+
+---@public
+---@return int
+function Core:getOptionVoiceVolumePlayers() end
+
+---@public
+---@return boolean
+function Core:isSelectingAll() end
+
+---@public
+---@return boolean
+function Core:getOptionTimedActionGameSpeedReset() end
+
+---@public
+---@return float
+function Core:getMaxZoom() end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionAmbientVolume(arg0) end
+
+---@private
+---@param arg0 File
+---@param arg1 String
+---@return void
+function Core:searchFolders(arg0, arg1) end
+
+---@public
+---@return boolean
+function Core:getOptionTieredZombieUpdates() end
+
+---@public
+---@return int
+function Core:getOptionReloadDifficulty() end
+
+---@private
+---@return void
+function Core:sharedInit() end
 
 ---@public
 ---@param arg0 String
@@ -1455,13 +1233,99 @@ function Core:isRenderPrecipIndoors() end
 function Core:setOptionZoomLevels2x(arg0) end
 
 ---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVoiceVolumePlayers(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function Core:setOptionMinChatOpaque(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionProgressBar(arg0) end
+
+---@public
+---@return float
+function Core:getOptionMaxChatOpaque() end
+
+---@public
+---@param arg0 boolean
 ---@return boolean
-function Core:isToggleToRun() end
+function Core:isOptionSimpleClothingTextures(arg0) end
+
+---@public
+---@return void
+function Core:initPoisonousBerry() end
+
+---@public
+---@return String
+function Core:getSeenUpdateText() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return void
+function Core:DoStartFrameStuffSmartTextureFx(arg0, arg1, arg2) end
+
+---@public
+---@param playerIndex int
+---@return boolean
+function Core:getAutoZoom(playerIndex) end
+
+---@public
+---@return String
+function Core:getGLVersion() end
 
 ---@public
 ---@param arg0 String
+---@return Object
+function Core:getOptionOnStartup(arg0) end
+
+---@public
+---@return boolean
+function Core:isZoomEnabled() end
+
+---@public
+---@return int
+function Core:getPerfSkyboxOnLoad() end
+
+---@public
+---@return boolean
+function Core:isAzerty() end
+
+---@public
+---@return boolean
+function Core:isRiversideDone() end
+
+---@public
+---@param arg0 int
 ---@return void
-function Core:setOptionMeasurementFormat(arg0) end
+function Core:setOptionBloodDecals(arg0) end
+
+---@public
+---@return boolean
+function Core:getOptionUIFBO() end
+
+---@public
+---@return boolean
+function Core:isOptionProgressBar() end
+
+---@public
+---@return boolean
+function Core:isShowYourUsername() end
+
+---@public
+---@param res String
+---@return void
+function Core:setResolution(res) end
+
+---@public
+---@return int
+function Core:getOptionAimOutline() end
 
 ---@public
 ---@param b boolean
@@ -1469,41 +1333,60 @@ function Core:setOptionMeasurementFormat(arg0) end
 function Core:setWindowed(b) end
 
 ---@public
----@param playerIndex int
----@param del int
+---@param directory String
 ---@return void
-function Core:doZoomScroll(playerIndex, del) end
-
----@public
----@return String
-function Core:getOptionMeasurementFormat() end
+function Core:deleteDirectoryRecusrively(directory) end
 
 ---@public
 ---@return void
-function Core:quit() end
+function Core:DoPopIsoStuff() end
+
+---@public
+---@return boolean
+function Core:gotNewBelt() end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setOptionLanguageName(arg0) end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
-function Core:setOptiondblTapJogToSprint(arg0) end
+function Core:setRenderPrecipIndoors(arg0) end
 
 ---@public
----@return int
-function Core:getOptionSimpleClothingTextures() end
+---@return String
+function Core:getVersionNumber() end
 
 ---@public
----@return KahluaTable
-function Core:getScreenModes() end
+---@param arg0 boolean
+---@return void
+function Core:setOptionReloadRadialInstant(arg0) end
 
 ---@public
 ---@return void
----@overload fun(nPlayer:int)
-function Core:EndFrame() end
+function Core:getOpenGLVersions() end
 
 ---@public
----@param nPlayer int
+---@param enabled boolean
 ---@return void
-function Core:EndFrame(nPlayer) end
+function Core:setOptionModsEnabled(enabled) end
+
+---@public
+---@param b boolean
+---@return void
+function Core:setOptionRackProgress(b) end
+
+---@public
+---@param name String
+---@return boolean
+function Core:getOptionActiveController(name) end
+
+---@public
+---@param arg0 int
+---@return boolean
+function Core:getOptionSingleContextMenu(arg0) end
 
 ---@public
 ---@param imgPixels int[]
@@ -1513,97 +1396,8 @@ function Core:EndFrame(nPlayer) end
 function Core:flipPixels(imgPixels, imgw, imgh) end
 
 ---@public
----@param arg0 int
----@param arg1 float
----@return int
-function Core:getXAngle(arg0, arg1) end
-
----@public
----@param arg0 float
----@return void
-function Core:setOptionChatFadeTime(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setVehiclesWarningShow(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setShowFirstTimeVehicleTutorial(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionChatOpaqueOnFocus(arg0) end
-
----@public
----@param arg0 int
----@return void
-function Core:setPerfSkybox(arg0) end
-
----@public
----@return String
-function Core:getPoisonousBerry() end
-
----@public
 ---@return boolean
-function Core:getOptionChatOpaqueOnFocus() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setAnimPopupDone(arg0) end
-
----@public
----@return boolean
-function Core:isOptionShowChatTimestamp() end
-
----@public
----@param volume int
----@return void
-function Core:setOptionSoundVolume(volume) end
-
----@public
----@return int
-function Core:getOptionBloodDecals() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionDisplayAsCelsius(arg0) end
-
----@public
----@return void
-function Core:exitToMenu() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionBorderlessWindow(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionTieredZombieUpdates(arg0) end
-
----@public
----@return boolean
-function Core:isOptiondblTapJogToSprint() end
-
----@public
----@return String
-function Core:getGLVersion() end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setGotNewBelt(arg0) end
-
----@public
----@return boolean
-function Core:isNoSave() end
+function Core:isDedicated() end
 
 ---@public
 ---@param arg0 int
@@ -1612,20 +1406,314 @@ function Core:setOptionMusicLibrary(arg0) end
 
 ---@public
 ---@return boolean
-function Core:isDedicated() end
+function Core:getOptionAutoDrink() end
+
+---@public
+---@return boolean
+function Core:getOptionReloadRadialInstant() end
+
+---@public
+---@param font String
+---@return void
+function Core:setOptionInventoryFont(font) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVoiceMode(arg0) end
+
+---@public
+---@return int
+function Core:getGLMajorVersion() end
+
+---@public
+---@param w int
+---@param h int
+---@return void
+function Core:DoEndFrameStuff(w, h) end
+
+---@public
+---@return boolean
+function Core:getOptionPanCameraWhileAiming() end
+
+---@public
+---@return void
+function Core:DoFrameReady() end
+
+---@public
+---@return boolean
+function Core:getPerfReflections() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionTextureCompression(arg0) end
+
+---@public
+---@param bUse boolean
+---@return void
+function Core:setUseShaders(bUse) end
+
+---@public
+---@param volume int
+---@return void
+function Core:setOptionSoundVolume(volume) end
+
+---@public
+---@param index int
+---@return void
+function Core:setFramerate(index) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionSimpleClothingTextures(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionVoiceEnable(arg0) end
+
+---@public
+---@return boolean
+function Core:isToggleToSprint() end
+
+---@public
+---@return int
+function Core:getOptionUIRenderFPS() end
+
+---@public
+---@return String
+function Core:getPoisonousMushroom() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionTieredZombieUpdates(arg0) end
 
 ---@public
 ---@param arg0 String
 ---@return void
-function Core:setOptionChatFontSize(arg0) end
+function Core:setSeenUpdateText(arg0) end
 
 ---@public
+---@return float
+function Core:getIgnoreProneZombieRange() end
+
+---@public
+---@param arg0 boolean
 ---@return void
-function Core:CheckDelayResetLua() end
+function Core:setFlashIsoCursor(arg0) end
+
+---@private
+---@param arg0 File
+---@param arg1 String
+---@return void
+function Core:copyPasteFile(arg0, arg1) end
+
+---@public
+---@return boolean
+function Core:getMicVolumeError() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setDoneNewSaveFolder(arg0) end
+
+---@public
+---@return boolean
+function Core:isOptionAutoProneAtk() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionDoWindSpriteEffects(arg0) end
+
+---@public
+---@return boolean
+function Core:getServerVOIPEnable() end
+
+---@public
+---@return ColorInfo
+function Core:getObjectHighlitedColor() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionModelTextureMipmaps(arg0) end
+
+---@public
+---@return boolean
+function Core:isToggleToAim() end
 
 ---@public
 ---@return boolean
 function Core:getOptionClock24Hour() end
+
+---@public
+---@return boolean
+function Core:getOptionUpdateSneakButton() end
+
+---@public
+---@return boolean
+function Core:isShowPing() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionAutoProneAtk(arg0) end
+
+---@public
+---@return boolean
+function Core:isCelsius() end
+
+---@public
+---@param playerIndex int
+---@return int
+function Core:getOffscreenWidth(playerIndex) end
+
+---@private
+---@param arg0 boolean[]
+---@return String
+function Core:getPerPlayerBooleanString(arg0) end
+
+---@public
+---@return void
+function Core:quit() end
+
+---@public
+---@return String
+function Core:getOptionLanguageName() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionTimedActionGameSpeedReset(arg0) end
+
+---@public
+---@return int
+function Core:getOptionSoundVolume() end
+
+---@public
+---@return boolean
+function Core:isRenderPrecipIndoors() end
+
+---@public
+---@return boolean
+function Core:getOptionChatOpaqueOnFocus() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setContentTranslationsEnabled(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setShowFirstTimeWeatherTutorial(arg0) end
+
+---throws org.lwjgl.LWJGLException
+---@public
+---@param width int
+---@param height int
+---@return void
+function Core:init(width, height) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setAnimPopupDone(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionLeaveKeyInIgnition(arg0) end
+
+---@public
+---@return String
+function Core:getOptionMeasurementFormat() end
+
+---@public
+---@param arg0 String
+---@param arg1 Object
+---@return void
+function Core:setOptionOnStartup(arg0, arg1) end
+
+---@public
+---@return KahluaTable
+function Core:getScreenModes() end
+
+---@public
+---@param keyName String
+---@param key Integer
+---@return void
+function Core:addKeyBinding(keyName, key) end
+
+---@public
+---@param arg0 String
+---@return void
+function Core:setPoisonousMushroom(arg0) end
+
+---@public
+---@param sync boolean
+---@return void
+function Core:setOptionVSync(sync) end
+
+---@public
+---@return String
+function Core:getOptionVoiceRecordDeviceName() end
+
+---@private
+---@param arg0 String
+---@param arg1 boolean[]
+---@return void
+function Core:readPerPlayerBoolean(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setOptionVoiceVADMode(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionBorderlessWindow(arg0) end
+
+---@public
+---@param keyMaps Map|String|Integer
+---@return void
+function Core:setKeyMaps(keyMaps) end
+
+---@public
+---@param arg0 int
+---@return void
+function Core:setIsoCursorVisibility(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setGotNewBelt(arg0) end
+
+---@public
+---@return boolean
+function Core:isOptionShowChatTimestamp() end
+
+---@public
+---@return int
+function Core:getOptionBloodDecals() end
+
+---@public
+---@return int
+function Core:getOffscreenTrueWidth() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Core:setOptionDisplayAsCelsius(arg0) end
+
+---@public
+---@return String
+function Core:getOptionContextMenuFont() end
 
 ---@public
 ---@param arg0 String
@@ -1637,77 +1725,29 @@ function Core:setOptionZoomLevels1x(arg0) end
 function Core:getOptionCorpseShadows() end
 
 ---@public
----@return String
-function Core:getOptionTooltipFont() end
-
----@public
----@return boolean
-function Core:getOptionDoWindSpriteEffects() end
+---@return int
+function Core:getPerfPuddles() end
 
 ---@public
 ---@return boolean
 function Core:isDoingTextEntry() end
 
 ---@public
----@return boolean
-function Core:getOptionAutoDrink() end
-
----@public
----@return String
-function Core:getDifficulty() end
-
----@public
----@return void
-function Core:updateKeyboard() end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionVoiceVADMode(arg0) end
-
----@public
----@return String
-function Core:getOptionLanguageName() end
-
----throws org.lwjgl.LWJGLException
----@public
----@param bool boolean
----@return void
-function Core:setFullScreen(bool) end
-
----@public
----@return String
-function Core:getSteamServerVersion() end
-
----@public
----@param newSaveFolder String
----@return void
-function Core:setSaveFolder(newSaveFolder) end
-
----@public
----@param arg0 boolean
----@return void
-function Core:setOptionAutoProneAtk(arg0) end
-
----@public
----@param keyName String
----@param key Integer
----@return void
-function Core:addKeyBinding(keyName, key) end
-
----@public
----@return boolean
-function Core:isOptionAutoProneAtk() end
-
----@public
----@return void
-function Core:initFBOs() end
-
----@public
----@param arg0 int
----@return void
-function Core:setOptionSimpleClothingTextures(arg0) end
+---@return int
+function Core:getOptionSimpleClothingTextures() end
 
 ---@public
 ---@return int
-function Core:getGLMajorVersion() end
+function Core:getOptionVoiceRecordDevice() end
+
+---@public
+---@return int
+function Core:getOptionAmbientVolume() end
+
+---@public
+---@return String
+function Core:getOptionTooltipFont() end
+
+---@public
+---@return boolean
+function Core:getOptionRadialMenuKeyToggle() end

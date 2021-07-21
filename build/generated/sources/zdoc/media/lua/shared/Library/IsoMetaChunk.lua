@@ -9,11 +9,6 @@
 IsoMetaChunk = {}
 
 ---@public
----@param zone IsoMetaGrid.Zone
----@return void
-function IsoMetaChunk:addZone(zone) end
-
----@public
 ---@return float
 ---@overload fun(arg0:boolean)
 function IsoMetaChunk:getZombieIntensity() end
@@ -22,6 +17,36 @@ function IsoMetaChunk:getZombieIntensity() end
 ---@param arg0 boolean
 ---@return float
 function IsoMetaChunk:getZombieIntensity(arg0) end
+
+---@public
+---@return void
+function IsoMetaChunk:clearRooms() end
+
+---@public
+---@return int
+function IsoMetaChunk:numZones() end
+
+---@public
+---@return float
+function IsoMetaChunk:getLootZombieIntensity() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return RoomDef
+function IsoMetaChunk:getRoomAt(x, y, z) end
+
+---@public
+---@return int
+function IsoMetaChunk:getNumRooms() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return IsoMetaGrid.Zone
+function IsoMetaChunk:getZoneAt(x, y, z) end
 
 ---@public
 ---@param x int
@@ -34,8 +59,14 @@ function IsoMetaChunk:getZombieIntensity(arg0) end
 function IsoMetaChunk:getZonesIntersecting(x, y, z, w, h, result) end
 
 ---@public
----@return float
-function IsoMetaChunk:getLootZombieIntensity() end
+---@param zone IsoMetaGrid.Zone
+---@return void
+function IsoMetaChunk:removeZone(zone) end
+
+---@public
+---@param room RoomDef
+---@return void
+function IsoMetaChunk:addRoom(room) end
 
 ---@public
 ---@param arg0 int
@@ -47,50 +78,6 @@ function IsoMetaChunk:getLootZombieIntensity() end
 function IsoMetaChunk:getRoomsIntersecting(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return RoomDef
-function IsoMetaChunk:getEmptyOutsideAt(arg0, arg1, arg2) end
-
----@public
----@return int
-function IsoMetaChunk:getUnadjustedZombieIntensity() end
-
----@public
----@return void
-function IsoMetaChunk:clearRooms() end
-
----@public
----@param x int
----@param y int
----@param z int
----@return IsoMetaGrid.Zone
-function IsoMetaChunk:getZoneAt(x, y, z) end
-
----@public
----@param room RoomDef
----@return void
-function IsoMetaChunk:addRoom(room) end
-
----@public
----@param x int
----@param y int
----@param z int
----@return RoomDef
-function IsoMetaChunk:getRoomAt(x, y, z) end
-
----@public
----@param zone IsoMetaGrid.Zone
----@return void
-function IsoMetaChunk:removeZone(zone) end
-
----@public
----@param arg0 int
----@return IsoMetaGrid.Zone
-function IsoMetaChunk:getZone(arg0) end
-
----@public
 ---@param x int
 ---@param y int
 ---@param z int
@@ -99,18 +86,31 @@ function IsoMetaChunk:getZone(arg0) end
 function IsoMetaChunk:getZonesAt(x, y, z, result) end
 
 ---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return RoomDef
+function IsoMetaChunk:getEmptyOutsideAt(arg0, arg1, arg2) end
+
+---@public
 ---@return void
 function IsoMetaChunk:clearZones() end
-
----@public
----@return int
-function IsoMetaChunk:getNumRooms() end
-
----@public
----@return int
-function IsoMetaChunk:numZones() end
 
 ---@public
 ---@param zombieIntensity int
 ---@return void
 function IsoMetaChunk:setZombieIntensity(zombieIntensity) end
+
+---@public
+---@return int
+function IsoMetaChunk:getUnadjustedZombieIntensity() end
+
+---@public
+---@param zone IsoMetaGrid.Zone
+---@return void
+function IsoMetaChunk:addZone(zone) end
+
+---@public
+---@param arg0 int
+---@return IsoMetaGrid.Zone
+function IsoMetaChunk:getZone(arg0) end

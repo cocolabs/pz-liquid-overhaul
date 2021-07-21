@@ -7,14 +7,6 @@
 WeatherPeriod_StrLerpVal = {}
 
 ---@public
----@return int
-function WeatherPeriod_StrLerpVal:getValue() end
-
----@public
----@return WeatherPeriod.StrLerpVal[]
-function WeatherPeriod_StrLerpVal:values() end
-
----@public
 ---@param arg0 String
 ---@return WeatherPeriod.StrLerpVal
 function WeatherPeriod_StrLerpVal:valueOf(arg0) end
@@ -23,3 +15,11 @@ function WeatherPeriod_StrLerpVal:valueOf(arg0) end
 ---@param arg0 int
 ---@return WeatherPeriod.StrLerpVal
 function WeatherPeriod_StrLerpVal:fromValue(arg0) end
+
+---@public
+---@return int
+function WeatherPeriod_StrLerpVal:getValue() end
+
+---@public
+---@return WeatherPeriod.StrLerpVal[]
+function WeatherPeriod_StrLerpVal:values() end

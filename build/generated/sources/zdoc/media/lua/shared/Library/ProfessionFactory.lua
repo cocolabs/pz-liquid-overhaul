@@ -3,8 +3,8 @@
 ProfessionFactory = {}
 
 ---@public
----@return void
-function ProfessionFactory:init() end
+---@return ArrayList|ProfessionFactory.Profession
+function ProfessionFactory:getProfessions() end
 
 ---@public
 ---@param type String
@@ -15,14 +15,14 @@ function ProfessionFactory:init() end
 function ProfessionFactory:addProfession(type, name, IconPath, points) end
 
 ---@public
----@return ArrayList|ProfessionFactory.Profession
-function ProfessionFactory:getProfessions() end
+---@return void
+function ProfessionFactory:Reset() end
+
+---@public
+---@return void
+function ProfessionFactory:init() end
 
 ---@public
 ---@param type String
 ---@return ProfessionFactory.Profession
 function ProfessionFactory:getProfession(type) end
-
----@public
----@return void
-function ProfessionFactory:Reset() end

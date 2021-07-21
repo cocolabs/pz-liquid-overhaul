@@ -52,191 +52,34 @@
 Food = {}
 
 ---@public
----@return Texture
-function Food:getTex() end
-
----@public
----@return float
-function Food:getInvHeat() end
+---@param onCooked String
+---@return void
+function Food:setOnCooked(onCooked) end
 
 ---Overrides:
 ---
----update in class InventoryItem
----@public
----@return void
-function Food:update() end
-
+---finishupdate in class InventoryItem
 ---@public
 ---@return boolean
-function Food:canBeFrozen() end
-
----Overrides:
----
----updateAge in class InventoryItem
----@public
----@return void
-function Food:updateAge() end
+function Food:finishupdate() end
 
 ---@public
 ---@return String
-function Food:getReplaceOnRotten() end
+function Food:getOnEat() end
 
 ---@public
----@param hungChange float
+---@param bBadCold boolean
 ---@return void
-function Food:setHungChange(hungChange) end
-
----@public
----@return boolean
-function Food:isThawing() end
-
----@public
----@return boolean
-function Food:IsFood() end
-
----@public
----@return boolean
-function Food:isGoodHot() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class InventoryItem
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@param net boolean
----@return void
-function Food:load(input, WorldVersion, net) end
-
----@public
----@param arg0 int
----@return void
-function Food:setFluReduction(arg0) end
-
----@public
----@param removeNegativeEffectOnCooked boolean
----@return void
-function Food:setRemoveNegativeEffectOnCooked(removeNegativeEffectOnCooked) end
+function Food:setBadCold(bBadCold) end
 
 ---@public
 ---@return float
-function Food:getCompostTime() end
-
----@public
----@return int
-function Food:getLastCookMinute() end
-
----@public
----@param arg0 String
----@return void
-function Food:setHerbalistType(arg0) end
-
----@public
----@return void
-function Food:freeze() end
-
----@public
----@return float
-function Food:getFreezingTime() end
-
----@public
----@return String
-function Food:getCustomEatSound() end
-
----Overrides:
----
----CanStack in class InventoryItem
----@public
----@param item InventoryItem
----@return boolean
-function Food:CanStack(item) end
+function Food:getHeat() end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function Food:setCarbohydrates(arg0) end
-
----@public
----@return boolean
-function Food:isRemoveNegativeEffectOnCooked() end
-
----@public
----@return float
-function Food:getWeight() end
-
----Overrides:
----
----getUnhappyChange in class InventoryItem
----@public
----@return float @the unhappyChange
-function Food:getUnhappyChange() end
-
----@public
----@param poisonPower int
----@return void
-function Food:setPoisonPower(poisonPower) end
-
----@public
----@return boolean
-function Food:isSpice() end
-
----@public
----@return boolean
-function Food:isCookedInMicrowave() end
-
----@public
----@param replaceOnCooked List|String
----@return void
-function Food:setReplaceOnCooked(replaceOnCooked) end
-
----Overrides:
----
----getScore in class InventoryItem
----@public
----@param desc SurvivorDesc
----@return float
-function Food:getScore(desc) end
-
----@public
----@param arg0 ArrayList|Unknown
----@return void
-function Food:setSpices(arg0) end
-
----@public
----@return int
-function Food:getPoisonDetectionLevel() end
-
----@public
----@return String
-function Food:getFoodType() end
-
----Overrides:
----
----getBoredomChange in class InventoryItem
----@public
----@return float @the boredomChange
-function Food:getBoredomChange() end
-
----@public
----@param chef String
----@return void
-function Food:setChef(chef) end
-
----@public
----@param rotten boolean
----@return void
-function Food:setRotten(rotten) end
-
----@public
----@return int
-function Food:getPoisonPower() end
-
----@public
----@param arg0 float
----@return void
-function Food:multiplyFoodValues(arg0) end
+function Food:setCalories(arg0) end
 
 ---@public
 ---@return Integer
@@ -245,11 +88,6 @@ function Food:getPoisonLevelForRecipe() end
 ---@public
 ---@return int
 function Food:getUseForPoison() end
-
----@public
----@param baseHunger float
----@return void
-function Food:setBaseHunger(baseHunger) end
 
 ---Overrides:
 ---
@@ -261,29 +99,9 @@ function Food:setBaseHunger(baseHunger) end
 function Food:DoTooltip(tooltipUI, layout) end
 
 ---@public
----@return boolean
-function Food:isFrozen() end
-
----@public
----@return float
-function Food:getEnduranceChange() end
-
----@public
----@return int
-function Food:getSaveType() end
-
----@public
----@return float
-function Food:getHungChange() end
-
----@public
----@return boolean
-function Food:isPoison() end
-
----@public
----@param arg0 String
+---@param chef String
 ---@return void
-function Food:setOnEat(arg0) end
+function Food:setChef(chef) end
 
 ---@public
 ---@param arg0 boolean
@@ -292,108 +110,25 @@ function Food:setCanBeFrozen(arg0) end
 
 ---@public
 ---@return float
-function Food:getEndChange() end
-
----@public
----@param customEatSound String
----@return void
-function Food:setCustomEatSound(customEatSound) end
-
----@public
----@param bDangerousUncooked boolean
----@return void
-function Food:setbDangerousUncooked(bDangerousUncooked) end
-
----@public
----@param poisonDetectionLevel int
----@return void
-function Food:setPoisonDetectionLevel(poisonDetectionLevel) end
-
----@public
----@return boolean
-function Food:isFreezing() end
-
----Overrides:
----
----getStressChange in class InventoryItem
----@public
----@return float @the stressChange
-function Food:getStressChange() end
-
----@public
----@return boolean
-function Food:shouldUpdateInWorld() end
-
----@public
----@return float
-function Food:getHeat() end
-
----@public
----@return List|String
-function Food:getReplaceOnCooked() end
-
----@public
----@return boolean
-function Food:isBadCold() end
-
----@private
----@param arg0 ItemContainer
----@return void
-function Food:updateRotting(arg0) end
-
----@public
----@return float
-function Food:getPainReduction() end
+function Food:getHungerChange() end
 
 ---@public
 ---@return String
-function Food:getUseOnConsume() end
+function Food:getChef() end
 
 ---@public
----@param arg0 float
+---@param baseHunger float
 ---@return void
-function Food:setPainReduction(arg0) end
+function Food:setBaseHunger(baseHunger) end
+
+---@public
+---@param useOnConsume String
+---@return void
+function Food:setUseOnConsume(useOnConsume) end
 
 ---@public
 ---@return float
-function Food:getProteins() end
-
----@private
----@return void
-function Food:destroyThisItem() end
-
----@public
----@return void
-function Food:setAutoAge() end
-
----Overrides:
----
----finishupdate in class InventoryItem
----@public
----@return boolean
-function Food:finishupdate() end
-
----@public
----@param isSpice boolean
----@return void
-function Food:setSpice(isSpice) end
-
----@public
----@return float
-function Food:getLipids() end
-
----@public
----@return String
-function Food:getName() end
-
----@public
----@param bGoodHot boolean
----@return void
-function Food:setGoodHot(bGoodHot) end
-
----@public
----@return int
-function Food:getReduceFoodSickness() end
+function Food:getEnduranceChange() end
 
 ---@public
 ---@param useForPoison int
@@ -402,24 +137,24 @@ function Food:setUseForPoison(useForPoison) end
 
 ---@public
 ---@return float
-function Food:getCarbohydrates() end
+function Food:getLipids() end
 
 ---@public
----@return boolean
-function Food:isRotten() end
-
----@public
----@return ArrayList|Unknown
-function Food:getSpices() end
-
----@public
----@param arg0 int
----@return void
-function Food:setReduceFoodSickness(arg0) end
+---@return List|String
+function Food:getReplaceOnCooked() end
 
 ---@public
 ---@return int
 function Food:getFluReduction() end
+
+---@public
+---@return float
+function Food:getActualWeight() end
+
+---@public
+---@param LastCookMinute int
+---@return void
+function Food:setLastCookMinute(LastCookMinute) end
 
 ---@public
 ---@param arg0 boolean
@@ -427,101 +162,17 @@ function Food:getFluReduction() end
 function Food:setBadInMicrowave(arg0) end
 
 ---@public
----@param arg0 String
----@return void
-function Food:setReplaceOnRotten(arg0) end
-
----@public
----@param Heat float
----@return void
-function Food:setHeat(Heat) end
-
----@public
----@return String
-function Food:getHerbalistType() end
-
----@public
----@return boolean
-function Food:isPackaged() end
-
----@public
----@param endChange float
----@return void
-function Food:setEndChange(endChange) end
-
----@public
----@param arg0 boolean
----@return void
-function Food:setFrozen(arg0) end
-
----@public
----@param arg0 float
----@return void
-function Food:setFreezingTime(arg0) end
-
----@public
----@return boolean
-function Food:isbDangerousUncooked() end
-
----@public
----@return String
-function Food:getOnCooked() end
-
----@public
----@param arg0 ItemContainer
----@return void
-function Food:updateFreezing(arg0) end
-
----@public
----@param arg0 float
----@return void
-function Food:setProteins(arg0) end
-
----@public
----@return boolean
-function Food:isBadInMicrowave() end
-
----@public
----@return float
-function Food:getBaseHunger() end
-
----@public
----@param arg0 float
----@return void
-function Food:setLipids(arg0) end
-
----@public
----@param foodType String
----@return void
-function Food:setFoodType(foodType) end
-
----@public
----@return String
-function Food:getChef() end
-
----@public
----@return float
-function Food:getHungerChange() end
-
----@public
----@param arg0 float
----@return void
-function Food:setCalories(arg0) end
-
----@public
----@param arg0 float
----@return void
-function Food:setRottenTime(arg0) end
-
----@public
 ---@param thirstChange float
 ---@return void
 function Food:setThirstChange(thirstChange) end
 
 ---@public
----@param poisonLevelForRecipe Integer
----@return void
-function Food:setPoisonLevelForRecipe(poisonLevelForRecipe) end
+---@return boolean
+function Food:isRotten() end
+
+---@public
+---@return int
+function Food:getSaveType() end
 
 ---throws java.io.IOException
 ---
@@ -535,30 +186,262 @@ function Food:setPoisonLevelForRecipe(poisonLevelForRecipe) end
 function Food:save(output, net) end
 
 ---@public
----@return float
-function Food:getActualWeight() end
+---@return boolean
+function Food:isGoodHot() end
 
 ---@public
----@return float
-function Food:getRottenTime() end
-
----@public
----@param onCooked String
 ---@return void
-function Food:setOnCooked(onCooked) end
+function Food:setAutoAge() end
+
+---@public
+---@return float
+function Food:getProteins() end
+
+---@public
+---@return boolean
+function Food:shouldUpdateInWorld() end
+
+---@public
+---@return boolean
+function Food:IsFood() end
+
+---Overrides:
+---
+---getStressChange in class InventoryItem
+---@public
+---@return float @the stressChange
+function Food:getStressChange() end
+
+---@public
+---@return float
+function Food:getCarbohydrates() end
 
 ---@public
 ---@return String
-function Food:getOnEat() end
+function Food:getReplaceOnRotten() end
 
 ---@public
----@param LastCookMinute int
+---@param arg0 int
 ---@return void
-function Food:setLastCookMinute(LastCookMinute) end
+function Food:setReduceFoodSickness(arg0) end
+
+---@public
+---@return float
+function Food:getPainReduction() end
+
+---@public
+---@return boolean
+function Food:isRemoveNegativeEffectOnCooked() end
+
+---@public
+---@param bDangerousUncooked boolean
+---@return void
+function Food:setbDangerousUncooked(bDangerousUncooked) end
+
+---@public
+---@return String
+function Food:getName() end
+
+---@public
+---@return boolean
+function Food:isbDangerousUncooked() end
+
+---@public
+---@param arg0 ItemContainer
+---@return void
+function Food:updateFreezing(arg0) end
+
+---@public
+---@param bGoodHot boolean
+---@return void
+function Food:setGoodHot(bGoodHot) end
+
+---@public
+---@return boolean
+function Food:isBadCold() end
+
+---@public
+---@return ArrayList|Unknown
+function Food:getSpices() end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:multiplyFoodValues(arg0) end
+
+---Overrides:
+---
+---updateAge in class InventoryItem
+---@public
+---@return void
+function Food:updateAge() end
+
+---@public
+---@return String
+function Food:getOnCooked() end
+
+---@public
+---@return int
+function Food:getPoisonPower() end
+
+---@public
+---@return boolean
+function Food:isPackaged() end
+
+---@public
+---@return float
+function Food:getHungChange() end
+
+---@public
+---@return String
+function Food:getFoodType() end
+
+---@public
+---@return boolean
+function Food:isFreezing() end
+
+---@public
+---@return void
+function Food:freeze() end
+
+---@public
+---@return String
+function Food:getUseOnConsume() end
+
+---Overrides:
+---
+---getUnhappyChange in class InventoryItem
+---@public
+---@return float @the unhappyChange
+function Food:getUnhappyChange() end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setCarbohydrates(arg0) end
+
+---@public
+---@param removeNegativeEffectOnCooked boolean
+---@return void
+function Food:setRemoveNegativeEffectOnCooked(removeNegativeEffectOnCooked) end
 
 ---@public
 ---@return boolean
 function Food:isFresh() end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setPainReduction(arg0) end
+
+---@public
+---@return boolean
+function Food:isFrozen() end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setLipids(arg0) end
+
+---@public
+---@return int
+function Food:getLastCookMinute() end
+
+---@public
+---@param arg0 String
+---@return void
+function Food:setHerbalistType(arg0) end
+
+---@public
+---@return boolean
+function Food:isSpice() end
+
+---@public
+---@param foodType String
+---@return void
+function Food:setFoodType(foodType) end
+
+---Overrides:
+---
+---CanStack in class InventoryItem
+---@public
+---@param item InventoryItem
+---@return boolean
+function Food:CanStack(item) end
+
+---@public
+---@param arg0 ArrayList|Unknown
+---@return void
+function Food:setSpices(arg0) end
+
+---@public
+---@return float
+function Food:getInvHeat() end
+
+---@public
+---@return boolean
+function Food:canBeFrozen() end
+
+---@public
+---@param arg0 int
+---@return void
+function Food:setFluReduction(arg0) end
+
+---@public
+---@return int
+function Food:getPoisonDetectionLevel() end
+
+---@public
+---@param endChange float
+---@return void
+function Food:setEndChange(endChange) end
+
+---Overrides:
+---
+---getBoredomChange in class InventoryItem
+---@public
+---@return float @the boredomChange
+function Food:getBoredomChange() end
+
+---@public
+---@param rotten boolean
+---@return void
+function Food:setRotten(rotten) end
+
+---@public
+---@return float
+function Food:getBaseHunger() end
+
+---@public
+---@return Texture
+function Food:getTex() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Food:setPackaged(arg0) end
+
+---@public
+---@return boolean
+function Food:isBadInMicrowave() end
+
+---@public
+---@param poisonDetectionLevel int
+---@return void
+function Food:setPoisonDetectionLevel(poisonDetectionLevel) end
+
+---@public
+---@return boolean
+function Food:isPoison() end
+
+---@public
+---@return float
+function Food:getEndChange() end
+
+---@public
+---@param arg0 String
+---@return void
+function Food:setOnEat(arg0) end
 
 ---Overrides:
 ---
@@ -568,13 +451,43 @@ function Food:isFresh() end
 function Food:getWorldTexture() end
 
 ---@public
+---@param hungChange float
+---@return void
+function Food:setHungChange(hungChange) end
+
+---Overrides:
+---
+---update in class InventoryItem
+---@public
+---@return void
+function Food:update() end
+
+---@public
 ---@param arg0 float
 ---@return void
 function Food:setCompostTime(arg0) end
 
 ---@public
+---@param customEatSound String
+---@return void
+function Food:setCustomEatSound(customEatSound) end
+
+---@public
+---@return boolean
+function Food:isThawing() end
+
+---@public
 ---@return float
-function Food:getCalories() end
+function Food:getThirstChange() end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setFreezingTime(arg0) end
+
+---@private
+---@return void
+function Food:destroyThisItem() end
 
 ---This method is annotated as @Deprecated
 ---
@@ -584,9 +497,27 @@ function Food:getCalories() end
 function Food:getBaseHungChange() end
 
 ---@public
----@param arg0 boolean
+---@return float
+function Food:getCalories() end
+
+---@public
+---@return String
+function Food:getHerbalistType() end
+
+---@private
+---@param arg0 ItemContainer
 ---@return void
-function Food:setPackaged(arg0) end
+function Food:updateRotting(arg0) end
+
+---@public
+---@return float
+function Food:getWeight() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function Food:load(arg0, arg1) end
 
 ---Overrides:
 ---
@@ -596,15 +527,78 @@ function Food:setPackaged(arg0) end
 function Food:getCategory() end
 
 ---@public
----@param bBadCold boolean
+---@param poisonPower int
 ---@return void
-function Food:setBadCold(bBadCold) end
+function Food:setPoisonPower(poisonPower) end
 
 ---@public
----@param useOnConsume String
+---@return boolean
+function Food:isCookedInMicrowave() end
+
+---@public
+---@param replaceOnCooked List|String
 ---@return void
-function Food:setUseOnConsume(useOnConsume) end
+function Food:setReplaceOnCooked(replaceOnCooked) end
+
+---@public
+---@return int
+function Food:getReduceFoodSickness() end
+
+---Overrides:
+---
+---getScore in class InventoryItem
+---@public
+---@param desc SurvivorDesc
+---@return float
+function Food:getScore(desc) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Food:setFrozen(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setProteins(arg0) end
 
 ---@public
 ---@return float
-function Food:getThirstChange() end
+function Food:getRottenTime() end
+
+---@public
+---@param isSpice boolean
+---@return void
+function Food:setSpice(isSpice) end
+
+---@public
+---@return String
+function Food:getCustomEatSound() end
+
+---@public
+---@return float
+function Food:getFreezingTime() end
+
+---@public
+---@param poisonLevelForRecipe Integer
+---@return void
+function Food:setPoisonLevelForRecipe(poisonLevelForRecipe) end
+
+---@public
+---@param Heat float
+---@return void
+function Food:setHeat(Heat) end
+
+---@public
+---@param arg0 String
+---@return void
+function Food:setReplaceOnRotten(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function Food:setRottenTime(arg0) end
+
+---@public
+---@return float
+function Food:getCompostTime() end

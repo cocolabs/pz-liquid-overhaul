@@ -9,8 +9,9 @@
 ModelAttachment = {}
 
 ---@public
----@return String
-function ModelAttachment:getBone() end
+---@param arg0 float
+---@return void
+function ModelAttachment:setZOffset(arg0) end
 
 ---@public
 ---@param arg0 boolean
@@ -18,22 +19,13 @@ function ModelAttachment:getBone() end
 function ModelAttachment:setUpdateConstraint(arg0) end
 
 ---@public
+---@param arg0 String
+---@return void
+function ModelAttachment:setId(arg0) end
+
+---@public
 ---@return Vector3f
 function ModelAttachment:getOffset() end
-
----@public
----@param arg0 float
----@return void
-function ModelAttachment:setZOffset(arg0) end
-
----@public
----@param arg0 ArrayList|Unknown
----@return void
-function ModelAttachment:setCanAttach(arg0) end
-
----@public
----@return ArrayList|Unknown
-function ModelAttachment:getCanAttach() end
 
 ---@public
 ---@return float
@@ -44,13 +36,8 @@ function ModelAttachment:getZOffset() end
 function ModelAttachment:getRotate() end
 
 ---@public
----@return String
-function ModelAttachment:getId() end
-
----@public
----@param arg0 String
----@return void
-function ModelAttachment:setId(arg0) end
+---@return boolean
+function ModelAttachment:isUpdateConstraint() end
 
 ---@public
 ---@param arg0 String
@@ -58,5 +45,18 @@ function ModelAttachment:setId(arg0) end
 function ModelAttachment:setBone(arg0) end
 
 ---@public
----@return boolean
-function ModelAttachment:isUpdateConstraint() end
+---@return String
+function ModelAttachment:getId() end
+
+---@public
+---@return ArrayList|Unknown
+function ModelAttachment:getCanAttach() end
+
+---@public
+---@param arg0 ArrayList|Unknown
+---@return void
+function ModelAttachment:setCanAttach(arg0) end
+
+---@public
+---@return String
+function ModelAttachment:getBone() end

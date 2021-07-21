@@ -28,6 +28,7 @@ end
 function ISFixGenerator:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	self.character:reportEvent("EventLootItem")
 end
 
 function ISFixGenerator:stop()
@@ -57,6 +58,7 @@ function ISFixGenerator:new(character, generator, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time - (o.character:getPerkLevel(Perks.Electricity) * 3);
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
     o.caloriesModifier = 4;
 	return o;
 end

@@ -15,30 +15,18 @@
 AnimationViewerState = {}
 
 ---@public
----@param arg0 String
----@return boolean
-function AnimationViewerState:getBoolean(arg0) end
-
----@public
 ---@return void
-function AnimationViewerState:exit() end
+function AnimationViewerState:reenter() end
 
 ---@public
----@return void
-function AnimationViewerState:load() end
-
----@public
----@return int
-function AnimationViewerState:getOptionCount() end
-
----@public
----@return AnimationViewerState
-function AnimationViewerState:checkInstance() end
+---@return GameStateMachine.StateAction
+function AnimationViewerState:update() end
 
 ---@public
 ---@param arg0 String
----@return Object
-function AnimationViewerState:fromLua0(arg0) end
+---@param arg1 boolean
+---@return void
+function AnimationViewerState:setBoolean(arg0, arg1) end
 
 ---@private
 ---@return void
@@ -46,7 +34,29 @@ function AnimationViewerState:updateScene() end
 
 ---@private
 ---@return void
-function AnimationViewerState:restoreGameUI() end
+function AnimationViewerState:renderUI() end
+
+---@public
+---@return void
+function AnimationViewerState:enter() end
+
+---@public
+---@return void
+function AnimationViewerState:load() end
+
+---@public
+---@return void
+function AnimationViewerState:yield() end
+
+---@public
+---@param arg0 String
+---@return Object
+function AnimationViewerState:fromLua0(arg0) end
+
+---@public
+---@param arg0 String
+---@return ConfigOption
+function AnimationViewerState:getOptionByName(arg0) end
 
 ---@private
 ---@return void
@@ -59,49 +69,13 @@ function AnimationViewerState:renderScene() end
 function AnimationViewerState:fromLua1(arg0, arg1) end
 
 ---@public
----@return void
-function AnimationViewerState:reenter() end
-
----@public
----@return void
-function AnimationViewerState:save() end
-
----@public
----@return void
-function AnimationViewerState:enter() end
-
----@public
----@return GameStateMachine.StateAction
-function AnimationViewerState:update() end
-
----@public
----@param arg0 int
----@return ConfigOption
-function AnimationViewerState:getOptionByIndex(arg0) end
-
----@public
 ---@param arg0 String
----@param arg1 boolean
----@return void
-function AnimationViewerState:setBoolean(arg0, arg1) end
-
----@public
----@param arg0 KahluaTable
----@return void
-function AnimationViewerState:setTable(arg0) end
+---@return boolean
+function AnimationViewerState:getBoolean(arg0) end
 
 ---@public
 ---@return void
-function AnimationViewerState:yield() end
-
----@public
----@param arg0 String
----@return ConfigOption
-function AnimationViewerState:getOptionByName(arg0) end
-
----@private
----@return void
-function AnimationViewerState:renderUI() end
+function AnimationViewerState:render() end
 
 ---@private
 ---@return void
@@ -109,4 +83,30 @@ function AnimationViewerState:saveGameUI() end
 
 ---@public
 ---@return void
-function AnimationViewerState:render() end
+function AnimationViewerState:save() end
+
+---@public
+---@param arg0 int
+---@return ConfigOption
+function AnimationViewerState:getOptionByIndex(arg0) end
+
+---@public
+---@return void
+function AnimationViewerState:exit() end
+
+---@public
+---@param arg0 KahluaTable
+---@return void
+function AnimationViewerState:setTable(arg0) end
+
+---@private
+---@return void
+function AnimationViewerState:restoreGameUI() end
+
+---@public
+---@return AnimationViewerState
+function AnimationViewerState:checkInstance() end
+
+---@public
+---@return int
+function AnimationViewerState:getOptionCount() end

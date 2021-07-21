@@ -113,6 +113,10 @@ function ModListBox:onJoypadDirRight(joypadData)
 	updateJoypadFocus(joypadData)
 end
 
+function ModListBox:onJoypadBeforeDeactivate(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
+end
+
 function ModListBox:new(x, y, width, height)
 	local o = ISScrollingListBox.new(self, x, y, width, height)
 	return o
@@ -452,6 +456,15 @@ end
 
 function ModInfoPanel:onJoypadDirLeft(joypadData)
 	self.parent.listbox:setJoypadFocused(true, joypadData)
+end
+
+function ModInfoPanel:onLoseJoypadFocus(joypadData)
+	self:clearJoypadFocus()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function ModInfoPanel:onJoypadBeforeDeactivate(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 function ModInfoPanel:new(x, y, width, height)
@@ -839,6 +852,13 @@ function ModSelector:onResolutionChange(oldw, oldh, neww, newh)
 	self.infoPanel:setX(urlX)
 end
 
+function ModSelector:onJoypadBeforeDeactivate(joypadData)
+	self.backButton:clearJoypadButton()
+	self.hasJoypadFocus = false
+	-- focus is on listbox or infoPanel
+	self.joyfocus = nil
+end
+
 function ModSelector:new(x, y, width, height)
     local o = {}
     --o.data = {}
@@ -897,9 +917,9 @@ function ModSelector.showNagPanel()
 	nagPanel:initialise()
 	nagPanel:addToUIManager()
 	nagPanel:setAlwaysOnTop(true)
-	if JoypadState[1] then
-		JoypadState[1].focus = nagPanel
-		updateJoypadFocus(JoypadState[1])
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then
+		joypadData.focus = nagPanel
+		updateJoypadFocus(joypadData)
 	end
 end
-

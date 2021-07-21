@@ -8,6 +8,11 @@ RDSZombieLockedBathroom = {}
 function RDSZombieLockedBathroom:isDoorToRoom(arg0, arg1) end
 
 ---@private
+---@param arg0 IsoGridSquare
+---@return boolean
+function RDSZombieLockedBathroom:checkIsBathroom(arg0) end
+
+---@private
 ---@param arg0 IsoDoor
 ---@return IsoDeadBody
 function RDSZombieLockedBathroom:addDeadBodyTheOtherSide(arg0) end
@@ -16,8 +21,3 @@ function RDSZombieLockedBathroom:addDeadBodyTheOtherSide(arg0) end
 ---@param arg0 BuildingDef
 ---@return void
 function RDSZombieLockedBathroom:randomizeDeadSurvivor(arg0) end
-
----@private
----@param arg0 IsoGridSquare
----@return boolean
-function RDSZombieLockedBathroom:checkIsBathroom(arg0) end

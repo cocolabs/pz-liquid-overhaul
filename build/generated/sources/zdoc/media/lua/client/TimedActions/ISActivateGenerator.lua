@@ -29,6 +29,7 @@ end
 function ISActivateGenerator:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	self.character:reportEvent("EventLootItem")
 end
 
 function ISActivateGenerator:stop()

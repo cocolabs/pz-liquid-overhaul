@@ -11,7 +11,8 @@ ISMoveableDefinitions.cheat = false;
 local ItemTypeToTag = {
     ["Base.Hammer"] = "Hammer",
     ["Base.Saw"] = "Saw",
-    ["Base.Screwdriver"] = "Screwdriver"
+    ["Base.Screwdriver"] = "Screwdriver",
+    ["Base.Shovel"] = "DigPlow"
 }
 
 function ISMoveableDefinitions:getInstance()
@@ -237,7 +238,7 @@ function ISMoveableDefinitions.load()
     moveableDefinitions.addToolDefinition( "Crowbar",       {"Crowbar"},                                                Perks.Woodwork,         150,    "Hammering",    true  );
     moveableDefinitions.addToolDefinition( "Electrician",   {"Base.Screwdriver"},                                            Perks.Electricity,      100,    "Hammering",    true  );
     moveableDefinitions.addToolDefinition( "Cutter",        {"KitchenKnife","Scissors","HuntingKnife","SharpedStone"},  Perks.Woodwork,         50,     "Hammering",    true  );
-    moveableDefinitions.addToolDefinition( "Shovel",        {"Base.Shovel","farming.HandShovel"},                    Perks.Farming,          100,    "bushes",       false );
+    moveableDefinitions.addToolDefinition( "Shovel",        {"Base.Shovel"},                    Perks.Farming,          100,    "bushes",       false );
     moveableDefinitions.addToolDefinition( "Wrench",        {"Base.Wrench"},                                           nil,                    100,    "Hammering",    true  );
     moveableDefinitions.addToolDefinition( "Metal",   {"Base.Screwdriver"},                                            Perks.MetalWelding,      100,    "Hammering",    true  );
     -- MATERIALS (BREAKAGE):

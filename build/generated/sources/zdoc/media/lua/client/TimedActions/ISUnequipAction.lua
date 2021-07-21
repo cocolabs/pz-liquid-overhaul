@@ -22,10 +22,12 @@ function ISUnequipAction:start()
 		self.hotbar:setAttachAnim(self.item);
 		self:setActionAnim("AttachItem")
 		self:setOverrideHandModels(self.item, nil)
+		self.character:reportEvent("EventAttachItem");
 	elseif self.item:IsClothing() then
 		self:setActionAnim("WearClothing");
 		local location = self.item:getBodyLocation()
 		self:setAnimVariable("WearClothingLocation", WearClothingAnimations[location] or "")
+		self.character:reportEvent("EventWearClothing");
 	elseif self.item:IsInventoryContainer() and self.item:canBeEquipped() ~= "" then
 		self:setActionAnim("WearClothing");
 		local location = self.item:canBeEquipped()

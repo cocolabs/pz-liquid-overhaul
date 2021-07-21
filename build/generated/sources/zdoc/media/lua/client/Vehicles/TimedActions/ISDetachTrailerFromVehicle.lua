@@ -32,7 +32,7 @@ function ISDetachTrailerFromVehicle:stop()
 end
 
 function ISDetachTrailerFromVehicle:perform()
-	self.vehicle:breakConstraint(true)
+	self.vehicle:breakConstraint(true, false)
 	-- needed to remove from queue / start next.
 	ISBaseTimedAction.perform(self)
 end

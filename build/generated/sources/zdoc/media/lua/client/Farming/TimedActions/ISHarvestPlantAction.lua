@@ -25,6 +25,8 @@ end
 function ISHarvestPlantAction:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISHarvestPlantAction:stop()
@@ -53,5 +55,8 @@ function ISHarvestPlantAction:new(character, plant, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
     o.caloriesModifier = 4;
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
 	return o;
 end

@@ -6,47 +6,18 @@
 ---@field public oy float
 IsoPushableObject = {}
 
----Overrides:
----
----DoCollideWorE in class IsoMovingObject
 ---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
 ---@return void
-function IsoPushableObject:DoCollideWorE() end
+function IsoPushableObject:save(arg0, arg1) end
 
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoMovingObject
 ---@public
----@param output ByteBuffer
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
 ---@return void
-function IsoPushableObject:save(output) end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoMovingObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoPushableObject:load(input, WorldVersion) end
-
----Overrides:
----
----Serialize in class IsoObject
----@public
----@return boolean
-function IsoPushableObject:Serialize() end
-
----Overrides:
----
----DoCollideNorS in class IsoMovingObject
----@public
----@return void
-function IsoPushableObject:DoCollideNorS() end
+function IsoPushableObject:load(arg0, arg1, arg2) end
 
 ---Overrides:
 ---
@@ -59,10 +30,10 @@ function IsoPushableObject:getWeight(x, y) end
 
 ---Overrides:
 ---
----update in class IsoMovingObject
+---DoCollideNorS in class IsoMovingObject
 ---@public
 ---@return void
-function IsoPushableObject:update() end
+function IsoPushableObject:DoCollideNorS() end
 
 ---Overrides:
 ---
@@ -70,3 +41,24 @@ function IsoPushableObject:update() end
 ---@public
 ---@return String
 function IsoPushableObject:getObjectName() end
+
+---Overrides:
+---
+---Serialize in class IsoObject
+---@public
+---@return boolean
+function IsoPushableObject:Serialize() end
+
+---Overrides:
+---
+---update in class IsoMovingObject
+---@public
+---@return void
+function IsoPushableObject:update() end
+
+---Overrides:
+---
+---DoCollideWorE in class IsoMovingObject
+---@public
+---@return void
+function IsoPushableObject:DoCollideWorE() end

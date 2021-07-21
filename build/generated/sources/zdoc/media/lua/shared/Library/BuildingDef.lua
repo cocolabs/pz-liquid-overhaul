@@ -23,16 +23,111 @@
 BuildingDef = {}
 
 ---@public
----@return KahluaTable
-function BuildingDef:getTable() end
+---@return int
+function BuildingDef:getX2() end
+
+---@public
+---@return boolean
+function BuildingDef:isAllExplored() end
 
 ---@public
 ---@return int
-function BuildingDef:getY2() end
+function BuildingDef:getKeySpawned() end
+
+---@public
+---@return int
+function BuildingDef:getW() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return boolean
+function BuildingDef:overlapsChunk(arg0, arg1) end
+
+---@public
+---@return ArrayList|RoomDef
+function BuildingDef:getRooms() end
+
+---@public
+---@return void
+function BuildingDef:recalculate() end
+
+---@public
+---@return int
+function BuildingDef:getX() end
+
+---@public
+---@param arg0 int
+---@return RoomDef
+function BuildingDef:getRandomRoom(arg0) end
+
+---@public
+---@return int
+function BuildingDef:getChunkX() end
+
+---@public
+---@return void
+function BuildingDef:refreshSquares() end
+
+---@public
+---@return IsoGridSquare
+function BuildingDef:getFreeSquareInRoom() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BuildingDef:setAlarmed(arg0) end
+
+---@public
+---@return boolean
+function BuildingDef:isAlarmed() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BuildingDef:setHasBeenVisited(arg0) end
+
+---@public
+---@return int
+function BuildingDef:getH() end
+
+---@public
+---@return boolean
+function BuildingDef:isHasBeenVisited() end
+
+---@public
+---@return int
+function BuildingDef:getChunkY() end
 
 ---@public
 ---@return int
 function BuildingDef:getY() end
+
+---@public
+---@param keyId int
+---@return void
+function BuildingDef:setKeyId(keyId) end
+
+---@public
+---@return boolean
+function BuildingDef:isFullyStreamedIn() end
+
+---@public
+---@param arg0 String
+---@return RoomDef
+function BuildingDef:getRoom(arg0) end
+
+---@public
+---@return int
+function BuildingDef:getID() end
+
+---@public
+---@return IsoMetaGrid.Zone
+function BuildingDef:getZone() end
+
+---@public
+---@return RoomDef
+function BuildingDef:getFirstRoom() end
 
 ---@public
 ---@param arg0 ArrayList|Unknown
@@ -46,53 +141,7 @@ function BuildingDef:setKeySpawned(keySpawned) end
 
 ---@public
 ---@return int
-function BuildingDef:getChunkY() end
-
----@public
----@param keyId int
----@return void
-function BuildingDef:setKeyId(keyId) end
-
----@public
----@return void
-function BuildingDef:refreshSquares() end
-
----@public
----@return boolean
-function BuildingDef:isFullyStreamedIn() end
-
----@public
----@return int
-function BuildingDef:getChunkX() end
-
----@public
----@return IsoMetaGrid.Zone
-function BuildingDef:getZone() end
-
----@public
----@return ArrayList|RoomDef
-function BuildingDef:getRooms() end
-
----@public
----@return boolean
-function BuildingDef:isAlarmed() end
-
----@public
----@param b boolean
----@return void
-function BuildingDef:setAllExplored(b) end
-
----@public
----@return RoomDef
-function BuildingDef:getFirstRoom() end
-
----@public
----@return int
-function BuildingDef:getID() end
-
----@public
----@return int
-function BuildingDef:getX() end
+function BuildingDef:getY2() end
 
 ---@public
 ---@param arg0 String
@@ -100,63 +149,14 @@ function BuildingDef:getX() end
 function BuildingDef:containsRoom(arg0) end
 
 ---@public
----@return boolean
-function BuildingDef:isAllExplored() end
-
----@public
----@return int
-function BuildingDef:getW() end
-
----@public
----@param arg0 String
----@return RoomDef
-function BuildingDef:getRoom(arg0) end
-
----@public
+---@param b boolean
 ---@return void
-function BuildingDef:recalculate() end
+function BuildingDef:setAllExplored(b) end
 
 ---@public
----@param arg0 boolean
----@return void
-function BuildingDef:setAlarmed(arg0) end
-
----@public
----@return int
-function BuildingDef:getH() end
+---@return KahluaTable
+function BuildingDef:getTable() end
 
 ---@public
 ---@return int
 function BuildingDef:getKeyId() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return boolean
-function BuildingDef:overlapsChunk(arg0, arg1) end
-
----@public
----@param arg0 int
----@return RoomDef
-function BuildingDef:getRandomRoom(arg0) end
-
----@public
----@return boolean
-function BuildingDef:isHasBeenVisited() end
-
----@public
----@param arg0 boolean
----@return void
-function BuildingDef:setHasBeenVisited(arg0) end
-
----@public
----@return IsoGridSquare
-function BuildingDef:getFreeSquareInRoom() end
-
----@public
----@return int
-function BuildingDef:getKeySpawned() end
-
----@public
----@return int
-function BuildingDef:getX2() end

@@ -30,6 +30,7 @@ function ISDyeHair:perform()
 	end
 	self.hairDye:Use();
 	self.character:resetModel();
+	sendVisual(self.character);
 	triggerEvent("OnClothingUpdated", self.character)
 	
     -- needed to remove from queue / start next.

@@ -17,12 +17,14 @@ end
 
 function ISOpenCloseVehicleWindow:update()
 	-- TODO: animate window + character
+	self.window:setOpenDelta(self.open and self:getJobDelta() or (1 - self:getJobDelta()))
 end
 
 function ISOpenCloseVehicleWindow:start()
 end
 
 function ISOpenCloseVehicleWindow:stop()
+	self.window:setOpenDelta(self.window:isOpen() and 1.0 or 0.0)
 	ISBaseTimedAction.stop(self)
 end
 

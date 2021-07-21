@@ -16,8 +16,8 @@ function CRainBarrelSystem:isValidIsoObject(isoObject)
 	return instanceof(isoObject, "IsoThumpable") and isoObject:getName() == "Rain Collector Barrel"
 end
 
-function CRainBarrelSystem:newLuaObject(isoObject)
-	return CRainBarrelGlobalObject:new(self, isoObject)
+function CRainBarrelSystem:newLuaObject(globalObject)
+	return CRainBarrelGlobalObject:new(self, globalObject)
 end
 
 CGlobalObjectSystem.RegisterSystemClass(CRainBarrelSystem)

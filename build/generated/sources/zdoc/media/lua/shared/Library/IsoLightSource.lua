@@ -24,9 +24,92 @@
 IsoLightSource = {}
 
 ---@public
+---@return int @the radius
+function IsoLightSource:getRadius() end
+
+---@public
+---@param bWasActive boolean @the bWasActive to set
+---@return void
+function IsoLightSource:setWasActive(bWasActive) end
+
+---@public
+---@return float @the r
+function IsoLightSource:getR() end
+
+---@public
+---@return int @the y
+function IsoLightSource:getY() end
+
+---@public
+---@return float @the g
+function IsoLightSource:getG() end
+
+---@public
+---@param radius int @the radius to set
+---@return void
+function IsoLightSource:setRadius(radius) end
+
+---@public
 ---@param switches ArrayList|IsoLightSwitch @the switches to set
 ---@return void
 function IsoLightSource:setSwitches(switches) end
+
+---@public
+---@return boolean @the bActive
+function IsoLightSource:isActive() end
+
+---@public
+---@return boolean
+---@overload fun(minX:int, minY:int, maxX:int, maxY:int)
+function IsoLightSource:isInBounds() end
+
+---@public
+---@param minX int
+---@param minY int
+---@param maxX int
+---@param maxY int
+---@return boolean
+function IsoLightSource:isInBounds(minX, minY, maxX, maxY) end
+
+---@public
+---@return float @the b
+function IsoLightSource:getB() end
+
+---@public
+---@param b float @the b to set
+---@return void
+function IsoLightSource:setB(b) end
+
+---@public
+---@return int @the z
+function IsoLightSource:getZ() end
+
+---@public
+---@param r float @the r to set
+---@return void
+function IsoLightSource:setR(r) end
+
+---@public
+---@param x int @the x to set
+---@return void
+function IsoLightSource:setX(x) end
+
+---@public
+---@return boolean @the bWasActive
+function IsoLightSource:wasActive() end
+
+---@public
+---@return boolean
+function IsoLightSource:isHydroPowered() end
+
+---@public
+---@return void
+function IsoLightSource:clearInfluence() end
+
+---@public
+---@param y int @the y to set
+---@return void
+function IsoLightSource:setY(y) end
 
 ---@public
 ---@param bActive boolean @the bActive to set
@@ -43,55 +126,12 @@ function IsoLightSource:setG(g) end
 function IsoLightSource:update() end
 
 ---@public
----@return int @the z
-function IsoLightSource:getZ() end
-
----@public
----@return void
-function IsoLightSource:clearInfluence() end
-
----@public
----@param x int @the x to set
----@return void
-function IsoLightSource:setX(x) end
-
----@public
----@return int @the y
-function IsoLightSource:getY() end
-
----@public
----@return int @the radius
-function IsoLightSource:getRadius() end
-
----@public
 ---@return IsoBuilding
 function IsoLightSource:getLocalToBuilding() end
 
 ---@public
----@param bWasActive boolean @the bWasActive to set
----@return void
-function IsoLightSource:setWasActive(bWasActive) end
-
----@public
----@return int @the x
-function IsoLightSource:getX() end
-
----@public
----@return boolean
-function IsoLightSource:isHydroPowered() end
-
----@public
----@return boolean
----@overload fun(minX:int, minY:int, maxX:int, maxY:int)
-function IsoLightSource:isInBounds() end
-
----@public
----@param minX int
----@param minY int
----@param maxX int
----@param maxY int
----@return boolean
-function IsoLightSource:isInBounds(minX, minY, maxX, maxY) end
+---@return ArrayList|IsoLightSwitch @the switches
+function IsoLightSource:getSwitches() end
 
 ---@public
 ---@param z int @the z to set
@@ -99,45 +139,5 @@ function IsoLightSource:isInBounds(minX, minY, maxX, maxY) end
 function IsoLightSource:setZ(z) end
 
 ---@public
----@return float @the r
-function IsoLightSource:getR() end
-
----@public
----@return ArrayList|IsoLightSwitch @the switches
-function IsoLightSource:getSwitches() end
-
----@public
----@param radius int @the radius to set
----@return void
-function IsoLightSource:setRadius(radius) end
-
----@public
----@return boolean @the bWasActive
-function IsoLightSource:wasActive() end
-
----@public
----@return boolean @the bActive
-function IsoLightSource:isActive() end
-
----@public
----@return float @the b
-function IsoLightSource:getB() end
-
----@public
----@param y int @the y to set
----@return void
-function IsoLightSource:setY(y) end
-
----@public
----@param r float @the r to set
----@return void
-function IsoLightSource:setR(r) end
-
----@public
----@param b float @the b to set
----@return void
-function IsoLightSource:setB(b) end
-
----@public
----@return float @the g
-function IsoLightSource:getG() end
+---@return int @the x
+function IsoLightSource:getX() end

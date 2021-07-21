@@ -10,6 +10,9 @@ ISWoodenWall = ISBuildingObject:derive("ISWoodenWall");
 --**
 --************************************************************************--
 function ISWoodenWall:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -79,13 +82,18 @@ function ISWoodenWall:onTimedActionStart(action)
 	ISBuildingObject.onTimedActionStart(self, action)
 end
 
-function ISWoodenWall:new(sprite, northSprite, corner)
+function ISWoodenWall:new(sprite, northSprite, corner, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	o:init();
 	o:setSprite(sprite);
 	o:setNorthSprite(northSprite);
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	o.corner = corner;
 	o.canBarricade = true;
 	o.name = "Wooden Wall";

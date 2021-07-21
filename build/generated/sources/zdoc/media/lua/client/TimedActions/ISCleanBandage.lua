@@ -57,6 +57,7 @@ function ISCleanBandage:new(character, item, waterObject, recipe)
 	o.stopOnWalk = true
 	o.stopOnRun = true
 	o.maxTime = recipe:getTimeToMake()
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	o.item = item
 	o.result = recipe:getResult():getType()
 	o.waterObject = waterObject

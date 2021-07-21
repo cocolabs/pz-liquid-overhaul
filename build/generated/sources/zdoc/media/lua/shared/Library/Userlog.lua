@@ -7,9 +7,12 @@
 Userlog = {}
 
 ---@public
----@param arg0 int
----@return void
-function Userlog:setAmount(arg0) end
+---@return int
+function Userlog:getAmount() end
+
+---@public
+---@return String
+function Userlog:getText() end
 
 ---@public
 ---@return String
@@ -17,16 +20,13 @@ function Userlog:getType() end
 
 ---@public
 ---@return String
-function Userlog:getUsername() end
-
----@public
----@return String
 function Userlog:getIssuedBy() end
 
 ---@public
----@return String
-function Userlog:getText() end
+---@param arg0 int
+---@return void
+function Userlog:setAmount(arg0) end
 
 ---@public
----@return int
-function Userlog:getAmount() end
+---@return String
+function Userlog:getUsername() end

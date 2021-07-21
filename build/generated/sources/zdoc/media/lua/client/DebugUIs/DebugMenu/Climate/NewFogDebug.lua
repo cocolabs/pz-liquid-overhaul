@@ -61,17 +61,20 @@ function NewFogDebug:createChildren()
     y, obj = self:addBoolOption("HighQuality",x,y,w);
     y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
 
+    y, obj = self:addBoolOption("EnableLockedEditing",x,y,w);
+    y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
+
     y, obj = ISDebugUtils.addLabel(self,"float_title2",x+(w/2),y,"Locked params:", UIFont.Medium);
     obj.center = true;
     y = ISDebugUtils.addHorzBar(self,y+5)+5;
-
-    y, obj = self:addBoolOption("EnableLockedEditing",x,y,w);
-    y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
 
     y, obj = self:addFloatOption("BaseAlpha",x,y,w, 0,1, 0.01);
     y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
 
     y, obj = self:addFloatOption("RenderXrow",x,y,w, 1,10, 1);
+    y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
+
+    y, obj = self:addFloatOption("RenderXrowFromCenter",x,y,w, 0,20, 1);
     y = ISDebugUtils.addHorzBar(self,y+barMod)+barMod;
 
     y, obj = self:addFloatOption("SecondLayerAlpha",x,y,w, 0,1, 0.05);
@@ -164,6 +167,8 @@ function NewFogDebug:prerender()
             o.slider:setCurrentValue(ImprovedFog.getBaseAlpha());
         elseif k=="RenderXrow" then
             o.slider:setCurrentValue(ImprovedFog.getRenderEveryXRow());
+        elseif k=="RenderXrowFromCenter" then
+            o.slider:setCurrentValue(ImprovedFog.getRenderXRowsFromCenter());
         elseif k=="SecondLayerAlpha" then
             o.slider:setCurrentValue(ImprovedFog.getSecondLayerAlpha());
         elseif k=="TopAlphaHeight" then
@@ -219,6 +224,8 @@ function NewFogDebug:onSliderChange(_newval, _slider)
             ImprovedFog.setBaseAlpha(s.slider:getCurrentValue());
         elseif _slider.customData=="RenderXrow" then
             ImprovedFog.setRenderEveryXRow(s.slider:getCurrentValue());
+        elseif _slider.customData=="RenderXrowFromCenter" then
+            ImprovedFog.setRenderXRowsFromCenter(s.slider:getCurrentValue());
         elseif _slider.customData=="SecondLayerAlpha" then
             ImprovedFog.setSecondLayerAlpha(s.slider:getCurrentValue());
         elseif _slider.customData=="TopAlphaHeight" then

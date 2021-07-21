@@ -59,7 +59,7 @@ function ISDuplicateKeybindDialog:onKeep()
 	-- Assign the pressed key to keybind #1.
 	for i,v in ipairs(MainOptions.keyText) do
 		if not v.value and (v.txt:getName() == self.keybindName) then
-			self:assignKey(v.btn, self.keybindName, self.key)
+			self:assignKey(v, self.keybindName, self.key)
 			break
 		end
 	end
@@ -73,7 +73,7 @@ function ISDuplicateKeybindDialog:onClear()
 	-- Assign the pressed key to keybind #1.
 	for i,v in ipairs(MainOptions.keyText) do
 		if not v.value and (v.txt:getName() == self.keybindName) then
-			self:assignKey(v.btn, self.keybindName, self.key)
+			self:assignKey(v, self.keybindName, self.key)
 			break
 		end
 	end
@@ -81,7 +81,7 @@ function ISDuplicateKeybindDialog:onClear()
 	-- Clear the key assigned to keybind #2.
 	for i,v in ipairs(MainOptions.keyText) do
 		if not v.value and (v.txt:getName() == self.keybind2Name) then
-			self:assignKey(v.btn, self.keybind2Name, 0)
+			self:assignKey(v, self.keybind2Name, 0)
 			break
 		end
 	end
@@ -89,8 +89,9 @@ function ISDuplicateKeybindDialog:onClear()
 	self:nextDuplicate()
 end
 
-function ISDuplicateKeybindDialog:assignKey(button, keybind, key)
-	button:setTitle(getKeyName(key))
+function ISDuplicateKeybindDialog:assignKey(keyText, keybind, key)
+	keyText.keyCode = key
+	keyText.btn:setTitle(getKeyName(key))
 	MainOptions.instance:onKeybindChanged(keybind, key)
 	MainOptions.instance.gameOptions.changed = true
 end

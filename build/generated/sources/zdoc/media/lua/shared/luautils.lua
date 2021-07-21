@@ -196,7 +196,7 @@ function luautils.walkToContainer(container, playerNum)
 end
 
 function luautils.haveToBeTransfered(player, item, dontWalk)
-	if item:getContainer() ~= player:getInventory() then
+	if item and item:getContainer() ~= player:getInventory() then
 		if dontWalk then return true; end
 		luautils.walkToContainer(item:getContainer(), player:getPlayerNum())
 		return true

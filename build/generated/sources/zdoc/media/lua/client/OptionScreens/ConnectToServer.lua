@@ -181,6 +181,7 @@ function ConnectToServer:connect(previousScreen, serverName, userName, password,
 	self.backBtn:setTitle(getText("UI_coopscreen_btn_abort"))
 	self.connecting = true
 	self.isCoop = false
+	self:onResize(self.width, self.height)
 	serverConnect(userName, password, IP, localIP, port, serverPassword)
 end
 
@@ -200,6 +201,7 @@ function ConnectToServer:connectCoop(previousScreen, serverSteamID)
 	self.backBtn:setTitle(getText("UI_coopscreen_btn_abort"))
 	self.connecting = true
 	self.isCoop = true
+	self:onResize(self.width, self.height)
 	serverConnectCoop(serverSteamID)
 end
 
@@ -216,23 +218,24 @@ function ConnectToServer:OnConnected()
 	end
 	self.connecting = false
 	self:setVisible(false)
+	local joypadData = JoypadState.getMainMenuJoypad()
 	if not checkSavePlayerExists() then
 		if MapSpawnSelect.instance:hasChoices() then
 			MapSpawnSelect.instance:fillList()
-			MapSpawnSelect.instance:setVisible(true, JoypadState[1])
+			MapSpawnSelect.instance:setVisible(true, joypadData)
 		elseif WorldSelect.instance:hasChoices() then
 			WorldSelect.instance:fillList()
-			WorldSelect.instance:setVisible(true, JoypadState[1])
+			WorldSelect.instance:setVisible(true, joypadData)
 		else
 			MapSpawnSelect.instance:useDefaultSpawnRegion()
 			MainScreen.instance.charCreationProfession.previousScreen = nil
-			MainScreen.instance.charCreationProfession:setVisible(true, JoypadState[1])
+			MainScreen.instance.charCreationProfession:setVisible(true, joypadData)
 		end
 	else
 		GameWindow.doRenderEvent(false)
+--[[
 		-- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
-		if JoypadState[1] then
-			local joypadData = JoypadState[1]
+		if joypadData then
 			joypadData.focus = nil
 			updateJoypadFocus(joypadData)
 			JoypadState.count = 0
@@ -240,6 +243,7 @@ function ConnectToServer:OnConnected()
 			JoypadState.joypads = {}
 			JoypadState.forceActivate = joypadData.id
 		end
+--]]
 		forceChangeState(GameLoadingState.new())
 	end
 end
@@ -308,4 +312,3 @@ Events.OnConnected.Add(OnConnected)
 Events.OnConnectFailed.Add(OnConnectFailed)
 Events.OnDisconnect.Add(OnConnectFailed)
 Events.OnConnectionStateChanged.Add(OnConnectionStateChanged)
-

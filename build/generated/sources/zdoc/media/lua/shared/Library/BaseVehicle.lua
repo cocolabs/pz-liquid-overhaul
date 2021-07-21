@@ -16,13 +16,8 @@
 ---@field public CENTER_OF_MASS_MAGIC float
 ---@field private vehicleParams float[]
 ---@field public vehicleShadow Texture
----@field public GenericCarEngineData BaseVehicle.EngineRPMData[]
----@field public JeepEngineData BaseVehicle.EngineRPMData[]
----@field public FirebirdEngineData BaseVehicle.EngineRPMData[]
----@field public VanEngineData BaseVehicle.EngineRPMData[]
 ---@field public justBreakConstraintTimer int
 ---@field public wasTowedBy BaseVehicle
----@field public RPMList ArrayList|Unknown
 ---@field protected inf ColorInfo
 ---@field private lowRiderParam float[]
 ---@field private impulseFromServer BaseVehicle.VehicleImpulse
@@ -78,13 +73,14 @@
 ---@field public skidSound long
 ---@field public ramSound long
 ---@field public ramSoundTime long
----@field public engineSound long[]
+---@field private vehicleEngineRPM VehicleEngineRPM
 ---@field public new_EngineSoundId long[]
 ---@field public engineSoundIndex int
 ---@field public hornemitter BaseSoundEmitter
 ---@field public startTime float
 ---@field public headlightsOn boolean
 ---@field public stoplightsOn boolean
+---@field public windowLightsOn boolean
 ---@field public soundHornOn boolean
 ---@field public soundBackMoveOn boolean
 ---@field public lightbarLightsMode LightbarLightsMode
@@ -220,6 +216,13 @@
 ---@field public forcedFriction float
 BaseVehicle = {}
 
+---@protected
+---@param arg0 VehiclePart
+---@param arg1 VehicleScript.Model
+---@param arg2 boolean
+---@return BaseVehicle.ModelInfo
+function BaseVehicle:setModelVisible(arg0, arg1, arg2) end
+
 ---@private
 ---@param arg0 VehiclePart
 ---@param arg1 int
@@ -227,72 +230,94 @@ BaseVehicle = {}
 function BaseVehicle:checkUninstall2(arg0, arg1) end
 
 ---@public
----@param arg0 VehicleScript
+---@param arg0 boolean
 ---@return void
----@overload fun(arg0:VehicleScript.Skin)
-function BaseVehicle:LoadVehicleTextures(arg0) end
-
----@private
----@param arg0 VehicleScript.Skin
----@return void
-function BaseVehicle:LoadVehicleTextures(arg0) end
-
----@public
----@return float
-function BaseVehicle:getRemainingFuelPercentage() end
+function BaseVehicle:setKeyIsOnDoor(arg0) end
 
 ---@public
 ---@param arg0 String
----@return float
-function BaseVehicle:getBloodIntensity(arg0) end
+---@return VehiclePart
+function BaseVehicle:getPartById(arg0) end
 
 ---@public
----@param arg0 VehicleScript.Area
+---@return int
+function BaseVehicle:getEngineQuality() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function BaseVehicle:updateHasExtendOffsetForExitEnd(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 String
+---@return VehicleScript.Position
+function BaseVehicle:getPassengerPosition(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 boolean
+---@return int
+---@overload fun(arg0:IsoMovingObject, arg1:float, arg2:float, arg3:boolean)
+function BaseVehicle:testCollisionWithProneCharacter(arg0, arg1) end
+
+---@public
+---@param arg0 IsoMovingObject
+---@param arg1 float
+---@param arg2 float
+---@param arg3 boolean
+---@return int
+function BaseVehicle:testCollisionWithProneCharacter(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 BaseVehicle
+---@param arg1 String
+---@param arg2 String
+---@param arg3 float
+---@return void
+function BaseVehicle:setVehicleTowedBy(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return void
+function BaseVehicle:releaseAnimationPlayers() end
+
+---@public
+---@return void
+function BaseVehicle:flipUpright() end
+
+---@public
+---@param arg0 String
 ---@return JVector2
----@overload fun(arg0:VehicleScript.Area, arg1:JVector2)
-function BaseVehicle:areaPositionWorld4PlayerInteract(arg0) end
+---@overload fun(arg0:String, arg1:JVector2)
+function BaseVehicle:getAreaCenter(arg0) end
 
 ---@public
----@param arg0 VehicleScript.Area
+---@param arg0 String
 ---@param arg1 JVector2
 ---@return JVector2
-function BaseVehicle:areaPositionWorld4PlayerInteract(arg0, arg1) end
+function BaseVehicle:getAreaCenter(arg0, arg1) end
 
 ---@public
----@param arg0 BaseVehicle
----@param arg1 String
----@param arg2 String
+---@param arg0 float
 ---@return void
----@overload fun(arg0:BaseVehicle, arg1:String, arg2:String, arg3:Float)
-function BaseVehicle:addPointConstraint(arg0, arg1, arg2) end
+function BaseVehicle:setMaxSpeed(arg0) end
 
 ---@public
----@param arg0 BaseVehicle
----@param arg1 String
----@param arg2 String
----@param arg3 Float
+---@param arg0 IsoGameCharacter
+---@param arg1 int
 ---@return void
-function BaseVehicle:addPointConstraint(arg0, arg1, arg2, arg3) end
+function BaseVehicle:switchSeat(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:postupdate() end
 
 ---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
----@param arg3 ColorInfo
----@param arg4 boolean
----@param arg5 boolean
----@param arg6 Shader
 ---@return void
-function BaseVehicle:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
-
----@public
----@param arg0 JVector2
----@param arg1 float
----@param arg2 float
----@param arg3 float
----@param arg4 float
----@return void
-function BaseVehicle:drawDirectionLine(arg0, arg1, arg2, arg3, arg4) end
+function BaseVehicle:setColor(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 float[]
@@ -302,499 +327,90 @@ function BaseVehicle:drawDirectionLine(arg0, arg1, arg2, arg3, arg4) end
 function BaseVehicle:doBloodOverlayLeft(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 String
----@param arg1 IsoObject
----@return long
-function BaseVehicle:playSoundImpl(arg0, arg1) end
-
----@public
 ---@return boolean
-function BaseVehicle:isEngineWorking() end
-
----@public
----@param arg0 String
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getTowingLocalPos(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:engineDoRunning() end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@param arg2 Vector3f
----@return Vector3f
-function BaseVehicle:getPlayerTrailerWorldPos(arg0, arg1, arg2) end
-
----@public
----@param arg0 IsoGameCharacter
----@return int
-function BaseVehicle:getSeat(arg0) end
-
----@public
----@return SurroundVehicle
-function BaseVehicle:getSurroundVehicle() end
-
----@public
----@return void
-function BaseVehicle:updateControls() end
-
----@public
----@return void
-function BaseVehicle:scriptReloaded() end
-
----@public
----@param arg0 String
----@return void
-function BaseVehicle:setZone(arg0) end
-
----@public
----@param arg0 int
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getPassengerLocalPos(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:setFullUpdateFlag() end
-
----@public
----@param arg0 int
----@param arg1 String
----@return void
-function BaseVehicle:transmitCharacterPosition(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:createPhysics() end
-
----@public
----@return boolean
-function BaseVehicle:isInForest() end
-
----@public
----@return boolean
-function BaseVehicle:isBraking() end
-
----@public
----@return void
-function BaseVehicle:checkPhysicsValidWithServer() end
-
----@public
----@return void
-function BaseVehicle:updateSounds() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return boolean
-function BaseVehicle:isIntersectingSquareWithShadow(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function BaseVehicle:isDriveable() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 int
----@return void
-function BaseVehicle:switchSeatRSync(arg0, arg1) end
-
----@private
----@return void
-function BaseVehicle:createParts() end
-
----@public
----@return float
-function BaseVehicle:getInsideTemperature() end
-
----@public
----@param arg0 VehiclePart
----@return void
-function BaseVehicle:transmitPartUsedDelta(arg0) end
-
----@private
----@return void
-function BaseVehicle:updateVelocityMultiplier() end
-
----@public
----@param arg0 IsoGameCharacter
----@return Thumpable
-function BaseVehicle:getThumpableFor(arg0) end
-
----@public
----@return void
----@overload fun(arg0:boolean)
-function BaseVehicle:tryStartEngine() end
+function BaseVehicle:getHeadlightCanEmmitLight() end
 
 ---@public
 ---@param arg0 boolean
----@return void
-function BaseVehicle:tryStartEngine(arg0) end
-
----@public
----@return void
-function BaseVehicle:updateLights() end
-
----@public
----@return boolean
-function BaseVehicle:getHeadlightsOn() end
-
----@public
----@param arg0 int
----@param arg1 IsoGameCharacter
----@param arg2 Vector3f
----@return boolean
-function BaseVehicle:setPassenger(arg0, arg1, arg2) end
-
----@public
----@return void
-function BaseVehicle:addKeyToWorld() end
-
----@public
----@return boolean
-function BaseVehicle:shouldCollideWithObjects() end
-
----@public
----@return int
-function BaseVehicle:getTransmissionNumber() end
-
----@private
----@param arg0 IsoGameCharacter
----@param arg1 VehicleScript.Anim
----@param arg2 boolean
----@return void
-function BaseVehicle:playCharacterAnim(arg0, arg1, arg2) end
-
----@public
----@return void
-function BaseVehicle:drainBatteryUpdateHack() end
-
----@public
----@return void
----@overload fun(arg0:String)
-function BaseVehicle:setScript() end
-
----@public
----@param arg0 String
----@return void
-function BaseVehicle:setScript(arg0) end
-
----@private
----@return void
-function BaseVehicle:doBloodOverlay() end
-
----@public
----@param arg0 String
----@return void
-function BaseVehicle:setVehicleType(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setNeedPartsUpdate(arg0) end
-
----@public
----@param arg0 String
----@return Texture
----@overload fun(arg0:String, arg1:int)
-function BaseVehicle:LoadVehicleTexture(arg0) end
-
----@public
----@param arg0 String
----@param arg1 int
----@return Texture
-function BaseVehicle:LoadVehicleTexture(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:serverUpdateSimulatorState() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 VehiclePart
----@return boolean
-function BaseVehicle:canUninstallPart(arg0, arg1) end
-
----@public
----@param arg0 int
----@return VehiclePart
-function BaseVehicle:getPartByIndex(arg0) end
-
----@public
----@return void
-function BaseVehicle:removeFromWorld() end
-
----@private
----@return void
-function BaseVehicle:tryReconnectToTowedVehicle() end
-
----@public
----@param arg0 IsoGridSquare
----@return boolean
-function BaseVehicle:addKeyToSquare(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@return boolean
-function BaseVehicle:isInBounds(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:Serialize() end
-
----@public
----@param arg0 int
 ---@param arg1 boolean
+---@param arg2 InventoryItem
 ---@return void
-function BaseVehicle:authorizationServerCollide(arg0, arg1) end
+function BaseVehicle:syncKeyInIgnition(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 String
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getTowedByWorldPos(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 int
 ---@return String
-function BaseVehicle:getSwitchSeatAnimName(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:isAtRest() end
-
----@public
----@param arg0 int
----@return boolean
-function BaseVehicle:isExitBlocked(arg0) end
-
----@public
----@param arg0 String
----@param arg1 ByteBuffer
----@return void
-function BaseVehicle:loadChange(arg0, arg1) end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setBaseQuality(arg0) end
-
----@public
----@param arg0 BaseVehicle
----@param arg1 String
----@param arg2 String
----@param arg3 float
----@return void
-function BaseVehicle:setVehicleTowing(arg0, arg1, arg2, arg3) end
-
----@public
----@param arg0 String
----@return void
-function BaseVehicle:setScriptName(arg0) end
-
----@public
----@param arg0 String
----@return boolean
-function BaseVehicle:attachmentExist(arg0) end
-
----@private
----@param arg0 float[]
----@param arg1 float[]
----@param arg2 float
----@return void
-function BaseVehicle:doBloodOverlayRear(arg0, arg1, arg2) end
+function BaseVehicle:getZone() end
 
 ---@public
 ---@param arg0 IsoGameCharacter
----@param arg1 JVector2
----@return void
-function BaseVehicle:getFacingPosition(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:isAnyDoorLocked() end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setStoplightsOn(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:isKeyIsOnDoor() end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:Damage(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:isBackSignalEmitting() end
-
----@public
----@return boolean
-function BaseVehicle:isHotwiredBroken() end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setCurrentSteering(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return boolean
-function BaseVehicle:exitRSync(arg0) end
-
----@public
----@param arg0 int
----@return void
-function BaseVehicle:setLightbarLightsMode(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return boolean
-function BaseVehicle:isCharacterAdjacentTo(arg0) end
-
----@public
----@return float
-function BaseVehicle:getBrakingForce() end
-
----@public
----@param arg0 InventoryItem
----@return void
-function BaseVehicle:putKeyOnDoor(arg0) end
-
----@public
----@param arg0 IsoObject
----@param arg1 float
----@return void
-function BaseVehicle:ApplyImpulse(arg0, arg1) end
-
----@public
----@return float
-function BaseVehicle:getBatteryCharge() end
-
----@public
----@return float
-function BaseVehicle:getBrakeSpeedBetweenUpdate() end
-
----@public
----@return double
-function BaseVehicle:getEngineSpeed() end
-
----@public
----@return void
-function BaseVehicle:updateBulletStats() end
-
----@public
----@return IsoGameCharacter
-function BaseVehicle:getDriver() end
-
----@public
----@param arg0 long
----@return int
-function BaseVehicle:stopSound(arg0) end
-
----@public
----@param arg0 int
 ---@param arg1 int
----@param arg2 int
 ---@return boolean
-function BaseVehicle:isIntersectingSquare(arg0, arg1, arg2) end
+function BaseVehicle:isEnterBlocked2(arg0, arg1) end
 
 ---@public
----@param arg0 String
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getAttachmentWorldPos(arg0, arg1) end
-
----@public
----@return HashMap|Unknown|Unknown
-function BaseVehicle:getChoosenParts() end
-
----@public
----@param arg0 BaseVehicle
----@param arg1 String
----@param arg2 String
----@return boolean
-function BaseVehicle:canAttachTrailer(arg0, arg1, arg2) end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setRust(arg0) end
+---@return String
+function BaseVehicle:getTowAttachmentOther() end
 
 ---@public
 ---@param arg0 Vector3f
----@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getLinearVelocity(arg0) end
+
+---@public
+---@return VehicleScript
+function BaseVehicle:getScript() end
+
+---@private
 ---@return void
-function BaseVehicle:addImpulse(arg0, arg1) end
+function BaseVehicle:doVehicleColor() end
 
 ---@public
 ---@return float
-function BaseVehicle:getMaxSpeed() end
+function BaseVehicle:getRust() end
+
+---@public
+---@param arg0 int
+---@return void
+function BaseVehicle:tryHotwire(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setInitialMass(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getAngleY() end
+
+---@public
+---@param arg0 int
+---@return boolean
+function BaseVehicle:hasRoof(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:getLightbarLightsMode() end
+
+---@public
+---@return int
+function BaseVehicle:getMaxPassengers() end
 
 ---@public
 ---@param arg0 BaseVehicle
 ---@param arg1 String
 ---@param arg2 String
 ---@return void
-function BaseVehicle:addHingeConstraint(arg0, arg1, arg2) end
+---@overload fun(arg0:BaseVehicle, arg1:String, arg2:String, arg3:Float, arg4:Boolean)
+function BaseVehicle:addPointConstraint(arg0, arg1, arg2) end
 
 ---@public
+---@param arg0 BaseVehicle
+---@param arg1 String
+---@param arg2 String
+---@param arg3 Float
+---@param arg4 Boolean
 ---@return void
-function BaseVehicle:transmitEngine() end
-
----@public
----@return BaseVehicle
-function BaseVehicle:getVehicleTowedBy() end
-
----@public
----@return boolean
-function BaseVehicle:isRegulator() end
-
----@public
----@return boolean
-function BaseVehicle:hasHorn() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return void
-function BaseVehicle:playSwitchSeatAnim(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:removeKeyFromIgnition() end
-
----@private
----@param arg0 VehiclePart
----@param arg1 int
----@param arg2 boolean
----@return void
-function BaseVehicle:checkDamage(arg0, arg1, arg2) end
-
----@private
----@return void
-function BaseVehicle:renderIntersectedSquares() end
-
----@public
----@param arg0 int
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getPassengerWorldPos(arg0, arg1) end
-
----@public
----@param arg0 int
----@return IsoGameCharacter
-function BaseVehicle:getCharacter(arg0) end
+function BaseVehicle:addPointConstraint(arg0, arg1, arg2, arg3, arg4) end
 
 ---@private
 ---@param arg0 String
@@ -812,78 +428,20 @@ function BaseVehicle:callLuaVoid(arg0, arg1, arg2) end
 ---@return void
 function BaseVehicle:callLuaVoid(arg0, arg1, arg2, arg3) end
 
----@public
----@return int
-function BaseVehicle:getSkinCount() end
-
----@public
----@return int
-function BaseVehicle:getEnginePower() end
-
----@public
----@param arg0 int
----@param arg1 IsoGameCharacter
----@param arg2 BaseVehicle
----@return boolean
-function BaseVehicle:enterRSync(arg0, arg1, arg2) end
-
----@private
----@param arg0 String
----@param arg1 int
----@return void
-function BaseVehicle:damageHeadlight(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@return VehiclePart
-function BaseVehicle:getNearestBodyworkPart(arg0) end
-
----@public
----@param arg0 int
----@return VehiclePart
-function BaseVehicle:getPassengerDoor2(arg0) end
-
----@public
----@return String
-function BaseVehicle:getScriptName() end
-
----@public
----@return void
-function BaseVehicle:engineDoStartingFailed() end
-
----@private
----@return void
-function BaseVehicle:doOtherBodyWorkDamage() end
-
----@public
----@return float
-function BaseVehicle:getFakeSpeedModifier() end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setBrakingForce(arg0) end
-
----@public
----@param arg0 VehiclePart
----@param arg1 String
----@param arg2 IsoGameCharacter
----@return void
-function BaseVehicle:playActorAnim(arg0, arg1, arg2) end
-
 ---@protected
 ---@return void
 function BaseVehicle:updateTransform() end
 
----@public
----@param arg0 boolean
+---@private
 ---@return void
-function BaseVehicle:setDoColor(arg0) end
+function BaseVehicle:renderIntersectedSquares() end
 
 ---@public
----@param arg0 BaseVehicle
----@return boolean
-function BaseVehicle:testCollisionWithVehicle(arg0) end
+---@param arg0 IsoGameCharacter
+---@param arg1 IsoGameCharacter
+---@param arg2 Vector3f
+---@return Vector3f
+function BaseVehicle:chooseBestAttackPosition(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 boolean
@@ -892,68 +450,55 @@ function BaseVehicle:setHotwiredBroken(arg0) end
 
 ---@public
 ---@return void
-function BaseVehicle:repair() end
-
----@public
----@return void
-function BaseVehicle:constraintChanged() end
-
----@public
----@return void
-function BaseVehicle:engineDoStalling() end
-
----@public
----@param arg0 IsoObject
----@return void
-function BaseVehicle:doChrHitImpulse(arg0) end
-
----@public
----@return VehiclePart
-function BaseVehicle:getHeater() end
-
----@public
----@return float
-function BaseVehicle:getAngleZ() end
-
----@public
----@return void
-function BaseVehicle:engineDoIdle() end
-
----@public
----@param arg0 String
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getAttachmentLocalPos(arg0, arg1) end
+function BaseVehicle:brekingObjects() end
 
 ---@private
 ---@return void
-function BaseVehicle:renderExits() end
+function BaseVehicle:randomizeContainers() end
 
 ---@public
----@return void
-function BaseVehicle:updatePhysics() end
+---@param arg0 String
+---@param arg1 IsoGameCharacter
+---@return boolean
+function BaseVehicle:isInArea(arg0, arg1) end
 
 ---@public
----@return void
-function BaseVehicle:updatePhysicsNetwork() end
+---@return BaseVehicle
+function BaseVehicle:getVehicleTowing() end
 
----@protected
----@param arg0 VehiclePart
----@return BaseVehicle.ModelInfo
-function BaseVehicle:getModelInfoForPart(arg0) end
+---@public
+---@param arg0 IsoGameCharacter
+---@return VehiclePart
+---@overload fun(arg0:IsoGameCharacter, arg1:boolean)
+function BaseVehicle:getUseablePart(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 boolean
+---@return VehiclePart
+function BaseVehicle:getUseablePart(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:updateVelocityMultiplier() end
+
+---@public
+---@return IsoGridSquare
+function BaseVehicle:getSquare() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return int
+function BaseVehicle:getBestSeat(arg0) end
 
 ---@public
 ---@return BaseSoundEmitter
 function BaseVehicle:getEmitter() end
 
 ---@public
----@param arg0 IsoGameCharacter
----@return void
-function BaseVehicle:updateHasExtendOffset(arg0) end
-
----@public
----@return int
-function BaseVehicle:getSkinIndex() end
+---@param arg0 Vector3f
+---@return Vector3f
+function BaseVehicle:getUpVector(arg0) end
 
 ---@protected
 ---@param arg0 AnimationPlayer
@@ -962,12 +507,439 @@ function BaseVehicle:getSkinIndex() end
 function BaseVehicle:updateAnimationPlayer(arg0, arg1) end
 
 ---@public
----@return int
-function BaseVehicle:getJoypad() end
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setHotwired(arg0) end
+
+---@public
+---@param arg0 VehiclePart
+---@return void
+function BaseVehicle:transmitPartItem(arg0) end
 
 ---@public
 ---@return int
-function BaseVehicle:getMaxPassengers() end
+function BaseVehicle:getNumberOfPartsWithContainers() end
+
+---@public
+---@return String
+function BaseVehicle:getVehicleType() end
+
+---@public
+---@return void
+function BaseVehicle:repair() end
+
+---@public
+---@return int
+function BaseVehicle:getEnginePower() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return VehicleScript.Passenger.SwitchSeat
+function BaseVehicle:getPassengerSwitchSeat(arg0, arg1) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setDoColor(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setBraking(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getOffroadEfficiency() end
+
+---@private
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return float
+function BaseVehicle:clamp(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setBrakingForce(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return boolean
+function BaseVehicle:canSwitchSeat(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:doWindowDamage() end
+
+---@public
+---@return float
+function BaseVehicle:getColorSaturation() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoRetryingStarting() end
+
+---@public
+---@param arg0 long
+---@return int
+function BaseVehicle:stopSound(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isOperational() end
+
+---@public
+---@param arg0 int
+---@param arg1 String
+---@return VehicleScript.Anim
+function BaseVehicle:getPassengerAnim(arg0, arg1) end
+
+---@public
+---@param arg0 Vector3f
+---@return Vector3f
+function BaseVehicle:getForwardVector(arg0) end
+
+---@public
+---@param arg0 VehiclePart
+---@param arg1 String
+---@return void
+function BaseVehicle:playPartAnim(arg0, arg1) end
+
+---@public
+---@param arg0 VehiclePart
+---@param arg1 String
+---@return void
+function BaseVehicle:playPartSound(arg0, arg1) end
+
+---@private
+---@param arg0 VehiclePart
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function BaseVehicle:checkDamage2(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 byte
+---@param arg1 int
+---@return void
+function BaseVehicle:netPlayerFromServerUpdate(arg0, arg1) end
+
+---@public
+---@return double
+function BaseVehicle:getEngineSpeed() end
+
+---@public
+---@return void
+function BaseVehicle:updatePhysicsNetwork() end
+
+---@public
+---@param arg0 VehiclePart
+---@param arg1 IsoGameCharacter
+---@param arg2 boolean
+---@return void
+function BaseVehicle:toggleLockedDoor(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function BaseVehicle:putKeyInIgnition(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getAngleZ() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 HandWeapon
+---@return void
+function BaseVehicle:hitVehicle(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return String
+function BaseVehicle:getPassengerArea(arg0) end
+
+---@public
+---@return boolean
+---@overload fun(arg0:boolean, arg1:boolean, arg2:boolean, arg3:boolean)
+function BaseVehicle:isInvalidChunkAround() end
+
+---@public
+---@param arg0 boolean
+---@param arg1 boolean
+---@param arg2 boolean
+---@param arg3 boolean
+---@return boolean
+function BaseVehicle:isInvalidChunkAround(arg0, arg1, arg2, arg3) end
+
+---@private
+---@return void
+function BaseVehicle:tryReconnectToTowedVehicle() end
+
+---@public
+---@return void
+function BaseVehicle:updateBulletStats() end
+
+---@public
+---@return float
+function BaseVehicle:getSpeed2D() end
+
+---@public
+---@param arg0 int
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getPassengerWorldPos(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:engineDoStartingSuccess() end
+
+---@public
+---@return boolean
+function BaseVehicle:getStoplightsOn() end
+
+---@public
+---@return int
+function BaseVehicle:getPartCount() end
+
+---@public
+---@param arg0 Vector3f
+---@param arg1 Vector3f
+---@return Vector3f
+---@overload fun(arg0:float, arg1:float, arg2:float, arg3:Vector3f)
+function BaseVehicle:getLocalPos(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 Vector3f
+---@return Vector3f
+function BaseVehicle:getLocalPos(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return boolean
+function BaseVehicle:hasHorn() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return void
+function BaseVehicle:setEngineFeature(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function BaseVehicle:shutOff() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:debugSetStatic(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setHeadlightsOn(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setRegulator(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isAnyListenerInside() end
+
+---@public
+---@return boolean
+function BaseVehicle:isAnyDoorLocked() end
+
+---@private
+---@return void
+function BaseVehicle:initShadowPoly() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setTrunkLocked(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setDebugZ(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:getLightbarSirenMode() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function BaseVehicle:attachmentExist(arg0) end
+
+---@public
+---@param arg0 int
+---@return boolean
+function BaseVehicle:clearPassenger(arg0) end
+
+---@public
+---@return String
+function BaseVehicle:getSkin() end
+
+---@public
+---@param arg0 String
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getTowingWorldPos(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return BaseVehicle
+---@overload fun(arg0:String, arg1:boolean)
+function BaseVehicle:setSmashed(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@return BaseVehicle
+function BaseVehicle:setSmashed(arg0, arg1) end
+
+---@public
+---@return VehiclePart
+function BaseVehicle:getBattery() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return String
+function BaseVehicle:getSwitchSeatSound(arg0, arg1) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setActiveInBullet(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:getEngineLoudness() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function BaseVehicle:isDriver(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 Object
+---@param arg2 Object
+---@return Boolean
+---@overload fun(arg0:String, arg1:Object, arg2:Object, arg3:Object)
+function BaseVehicle:callLuaBoolean(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 String
+---@param arg1 Object
+---@param arg2 Object
+---@param arg3 Object
+---@return Boolean
+function BaseVehicle:callLuaBoolean(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return float
+function BaseVehicle:getInitialMass() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@return boolean
+function BaseVehicle:isNullChunk(arg0, arg1) end
+
+---@public
+---@return boolean
+function BaseVehicle:isKeyboardControlled() end
+
+---@public
+---@param arg0 long
+---@return void
+function BaseVehicle:lockServerUpdate(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:authorizationClientForecast(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:update() end
+
+---@public
+---@return void
+function BaseVehicle:updateLights() end
+
+---@private
+---@return void
+function BaseVehicle:applyImpulseFromHitZombies() end
+
+---@public
+---@return float
+function BaseVehicle:getCurrentSpeedKmHour() end
+
+---@public
+---@return void
+function BaseVehicle:onHornStart() end
+
+---@public
+---@return boolean
+function BaseVehicle:isDoingOffroad() end
+
+---@public
+---@param arg0 VehiclePart
+---@return void
+function BaseVehicle:transmitPartUsedDelta(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:permanentlyRemove() end
+
+---@public
+---@return boolean
+function BaseVehicle:isEngineStarted() end
+
+---@private
+---@return void
+function BaseVehicle:stopEngineSounds() end
+
+---@private
+---@return void
+function BaseVehicle:renderAreas() end
+
+---@private
+---@param arg0 int
+---@return void
+function BaseVehicle:addDamageRearHitAChr(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 int
+---@return void
+function BaseVehicle:switchSeatRSync(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGridSquare
+---@return void
+function BaseVehicle:putKeyToWorld(arg0) end
+
+---@public
+---@return HashMap|Unknown|Unknown
+function BaseVehicle:getChoosenParts() end
+
+---@public
+---@return boolean
+function BaseVehicle:isHotwired() end
 
 ---@public
 ---@param arg0 VehicleScript.Area
@@ -982,19 +954,362 @@ function BaseVehicle:areaPositionWorld(arg0) end
 function BaseVehicle:areaPositionWorld(arg0, arg1) end
 
 ---@public
----@param arg0 VehiclePart
----@param arg1 IsoGameCharacter
----@return boolean
-function BaseVehicle:canLockDoor(arg0, arg1) end
+---@return void
+function BaseVehicle:doBloodOverlay() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setKeysInIgnition(arg0) end
 
 ---@public
 ---@return boolean
-function BaseVehicle:isRemovedFromWorld() end
+function BaseVehicle:isRegulator() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setNeedPartsUpdate(arg0) end
+
+---@public
+---@return PolygonalMap2.VehiclePoly
+function BaseVehicle:getPoly() end
+
+---@public
+---@param arg0 int
+---@param arg1 IsoGameCharacter
+---@return boolean
+function BaseVehicle:canAccessContainer(arg0, arg1) end
+
+---@public
+---@return float
+function BaseVehicle:getMaxSpeed() end
+
+---@public
+---@return void
+function BaseVehicle:resumeRunningAfterLoad() end
 
 ---@public
 ---@param arg0 String
+---@return void
+function BaseVehicle:setZone(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isInForest() end
+
+---@public
+---@return void
+---@overload fun(arg0:boolean)
+function BaseVehicle:tryStartEngine() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:tryStartEngine(arg0) end
+
+---@public
+---@return String
+function BaseVehicle:getTowAttachmentSelf() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 float
+---@return void
+function BaseVehicle:addRandomDamageFromCrash(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:engineDoRunning() end
+
+---@public
+---@return float
+function BaseVehicle:getRemainingFuelPercentage() end
+
+---@public
+---@return Texture
+function BaseVehicle:getShadowTexture() end
+
+---@public
+---@return int
+function BaseVehicle:getTransmissionNumber() end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function BaseVehicle:setCurrentKey(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return void
+function BaseVehicle:setTireInflation(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBuffer
+---@return void
+function BaseVehicle:netPlayerServerSendAuthorisation(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function BaseVehicle:updateHasExtendOffsetForExit(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoObject
+---@param arg2 JVector2
+---@return void
+function BaseVehicle:checkCollisionWithPlant(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:haveOneDoorUnlocked() end
+
+---@public
+---@param arg0 String
+---@param arg1 IsoObject
+---@return long
+function BaseVehicle:playSoundImpl(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:initPolyPlusRadiusBounds() end
+
+---@public
+---@param arg0 BaseVehicle
+---@return void
+function BaseVehicle:positionTrailer(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:updateSounds() end
+
+---@private
+---@param arg0 int
+---@param arg1 float[]
+---@param arg2 Vector3f
+---@param arg3 float
+---@param arg4 int
+---@param arg5 double
+---@param arg6 double
+---@return void
+function BaseVehicle:updateBulletStatsWheel(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---@public
+---@return int
+function BaseVehicle:getMechanicalID() end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setClientForce(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isGoodCar() end
+
+---@public
+---@return void
+function BaseVehicle:updateParts() end
+
+---@public
+---@param arg0 IsoObject
+---@param arg1 float
+---@param arg2 JVector2
+---@return JVector2
+function BaseVehicle:testCollisionWithObject(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 VehiclePart
+---@return boolean
+function BaseVehicle:updatePart(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 String
+---@return void
+---@overload fun(arg0:int, arg1:String, arg2:IsoGameCharacter)
+function BaseVehicle:playPassengerAnim(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 String
+---@param arg2 IsoGameCharacter
+---@return void
+function BaseVehicle:playPassengerAnim(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:isBackSignalEmitting() end
+
+---@private
+---@return void
+function BaseVehicle:updateEngineStarting() end
+
+---@public
+---@return boolean
+function BaseVehicle:isAlarmed() end
+
+---@private
+---@param arg0 VehicleScript.Area
+---@return JVector2
+---@overload fun(arg0:VehicleScript.Area, arg1:JVector2)
+function BaseVehicle:areaPositionLocal(arg0) end
+
+---@private
+---@param arg0 VehicleScript.Area
+---@param arg1 JVector2
+---@return JVector2
+function BaseVehicle:areaPositionLocal(arg0, arg1) end
+
+---@public
+---@param arg0 boolean
+---@param arg1 boolean
+---@return void
+function BaseVehicle:cheatHotwire(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setRegulatorSpeed(arg0) end
+
+---@public
+---@param arg0 TransmissionNumber
+---@return void
+function BaseVehicle:changeTransmission(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getDebugZ() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoShutingDown() end
+
+---@public
+---@param arg0 VehiclePart
+---@return void
+function BaseVehicle:transmitPartCondition(arg0) end
+
+---@private
+---@param arg0 VehiclePart
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function BaseVehicle:checkDamage(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:getWindowLightsOn() end
+
+---@public
+---@param arg0 int
+---@return void
+function BaseVehicle:setLightbarSirenMode(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:updateControls() end
+
+---@public
+---@param arg0 int
+---@param arg1 String
+---@return void
+function BaseVehicle:transmitCharacterPosition(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:renderlast() end
+
+---@private
+---@param arg0 float[]
+---@param arg1 float[]
+---@param arg2 float
+---@return void
+function BaseVehicle:doBloodOverlayRear(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getPassengerLocalPos(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 boolean
+---@return void
+function BaseVehicle:setTireRemoved(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:updateTotalMass() end
+
+---@public
+---@param arg0 int
+---@param arg1 IsoGameCharacter
+---@return boolean
+---@overload fun(arg0:int, arg1:IsoGameCharacter, arg2:Vector3f)
+function BaseVehicle:enter(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 IsoGameCharacter
+---@param arg2 Vector3f
+---@return boolean
+function BaseVehicle:enter(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:isDoColor() end
+
+---@public
+---@param arg0 String
+---@return void
+function BaseVehicle:playSound(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@param arg2 Vector3f
+---@return Vector3f
+function BaseVehicle:getPlayerTrailerWorldPos(arg0, arg1, arg2) end
+
+---@public
+---@return float
+function BaseVehicle:getAngleX() end
+
+---@public
+---@param arg0 int
 ---@return VehiclePart
-function BaseVehicle:getPartById(arg0) end
+function BaseVehicle:getPartForSeatContainer(arg0) end
+
+---@private
+---@return void
+function BaseVehicle:initParts() end
+
+---@public
+---@return boolean
+function BaseVehicle:hasBackSignal() end
+
+---@public
+---@return float
+function BaseVehicle:getColorHue() end
+
+---@public
+---@param arg0 double
+---@return void
+function BaseVehicle:setSirenStartTime(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:doDamageOverlay() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@return VehicleScript.Passenger.SwitchSeat
+function BaseVehicle:getSwitchSeat(arg0, arg1) end
 
 ---@public
 ---@param arg0 Vector3f
@@ -1030,395 +1345,32 @@ function BaseVehicle:getWorldPos(arg0, arg1, arg2, arg3) end
 function BaseVehicle:getWorldPos(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
----@param arg0 Vector3f
----@return Vector3f
-function BaseVehicle:getUpVector(arg0) end
-
----@public
----@return void
-function BaseVehicle:releaseAnimationPlayers() end
-
----@public
----@return String
-function BaseVehicle:getZone() end
-
----@public
----@return void
-function BaseVehicle:flipUpright() end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setMaxSpeed(arg0) end
-
----@private
----@return void
-function BaseVehicle:doAlarm() end
-
----@public
----@param arg0 VehiclePart
----@return void
-function BaseVehicle:transmitPartModData(arg0) end
-
----@public
----@param arg0 float
----@param arg1 boolean
----@return void
-function BaseVehicle:crash(arg0, arg1) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setGoodCar(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return VehiclePart
----@overload fun(arg0:IsoGameCharacter, arg1:boolean)
-function BaseVehicle:getUseablePart(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 boolean
----@return VehiclePart
-function BaseVehicle:getUseablePart(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:isLocalPhysicSim() end
-
----@public
----@return void
-function BaseVehicle:renderShadow() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return float
-function BaseVehicle:getSwitchSeatAnimRate(arg0, arg1) end
-
----@public
----@return String
-function BaseVehicle:getTowAttachmentOther() end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setMass(arg0) end
-
----@public
----@param arg0 int
----@param arg1 String
----@return VehicleScript.Position
-function BaseVehicle:getPassengerPosition(arg0, arg1) end
-
----@private
----@return void
-function BaseVehicle:initShadowPoly() end
-
----@private
----@param arg0 float[]
----@param arg1 float[]
----@param arg2 float
----@return void
-function BaseVehicle:doBloodOverlayFront(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function BaseVehicle:isKeysInIgnition() end
-
----@private
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
-function BaseVehicle:clamp(arg0, arg1, arg2) end
-
----@private
----@return void
-function BaseVehicle:doWindowDamage() end
-
----@public
----@return VehicleScript
-function BaseVehicle:getScript() end
-
----@public
----@param arg0 int
----@param arg1 Vector3f
----@return void
-function BaseVehicle:getWheelForwardVector(arg0, arg1) end
-
----@public
----@return IsoGridSquare
-function BaseVehicle:getSquare() end
-
----@private
----@return void
-function BaseVehicle:renderAuthorizations() end
-
----@public
----@return float
-function BaseVehicle:getBaseQuality() end
-
----@public
----@return void
-function BaseVehicle:softReset() end
-
----@public
----@param arg0 IsoGameCharacter
----@return VehiclePart
-function BaseVehicle:getClosestWindow(arg0) end
-
----@protected
----@param arg0 int
----@return VehicleScript.Passenger
-function BaseVehicle:getScriptPassenger(arg0) end
-
----@public
----@return void
-function BaseVehicle:addKeyToGloveBox() end
-
----@public
----@return float
-function BaseVehicle:getRegulatorSpeed() end
-
----@private
----@param arg0 VehiclePart
----@param arg1 int
----@param arg2 boolean
----@return void
-function BaseVehicle:checkDamage2(arg0, arg1, arg2) end
-
----@private
----@return void
-function BaseVehicle:drawTowingRope() end
-
----@public
----@return float
-function BaseVehicle:getUpVectorDot() end
-
----@public
----@return void
-function BaseVehicle:trySpawnKey() end
-
----@public
----@return void
-function BaseVehicle:authorizationServerUpdate() end
-
----@public
----@param arg0 float
----@param arg1 float
----@return boolean
-function BaseVehicle:isPositionOnLeftOrRight(arg0, arg1) end
-
----@public
----@param arg0 int
----@return int
-function BaseVehicle:getPassengerSwitchSeatCount(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:getHeadlightCanEmmitLight() end
-
----@private
----@param arg0 IsoGridSquare
----@return void
-function BaseVehicle:playScrapePastPlantSound(arg0) end
-
----@public
----@return void
-function BaseVehicle:postupdate() end
-
----@public
----@param arg0 int
----@param arg1 IsoGameCharacter
----@return boolean
----@overload fun(arg0:int, arg1:IsoGameCharacter, arg2:Vector3f)
-function BaseVehicle:enter(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 IsoGameCharacter
----@param arg2 Vector3f
----@return boolean
-function BaseVehicle:enter(arg0, arg1, arg2) end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setInitialMass(arg0) end
-
----@public
----@return int
-function BaseVehicle:getLightCount() end
-
----@private
----@return void
-function BaseVehicle:applyImpulseFromProneCharacters() end
-
----@public
----@return void
-function BaseVehicle:updatePartStats() end
-
----@public
----@param arg0 String
----@param arg1 float
----@return void
-function BaseVehicle:setBloodIntensity(arg0, arg1) end
-
----@public
----@param arg0 VehiclePart
----@param arg1 IsoGameCharacter
----@return boolean
-function BaseVehicle:canUnlockDoor(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:getKeySpawned() end
-
----@public
----@return PolygonalMap2.VehiclePoly
-function BaseVehicle:getPolyPlusRadius() end
-
----@public
----@return float
-function BaseVehicle:getFudgedMass() end
-
----@public
----@param arg0 VehiclePart
----@return void
-function BaseVehicle:transmitPartWindow(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setPhysicsActive(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setKeyIsOnDoor(arg0) end
-
----@public
----@return void
-function BaseVehicle:transmitBlood() end
-
----@public
----@param arg0 BaseVehicle
----@param arg1 String
----@param arg2 String
----@param arg3 float
----@return void
-function BaseVehicle:setVehicleTowedBy(arg0, arg1, arg2, arg3) end
-
----@public
----@return boolean
-function BaseVehicle:shouldCollideWithCharacters() end
-
----@public
----@param arg0 IsoMovingObject
----@return void
-function BaseVehicle:Thump(arg0) end
-
----@public
----@return String
-function BaseVehicle:getObjectName() end
-
----@public
----@param arg0 String
----@param arg1 IsoGameCharacter
----@return float
-function BaseVehicle:getAreaDist(arg0, arg1) end
-
----@public
----@return InventoryItem
-function BaseVehicle:createVehicleKey() end
-
----@public
----@param arg0 int
----@return boolean
-function BaseVehicle:isExitBlocked2(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return void
-function BaseVehicle:setColorHSV(arg0, arg1, arg2) end
-
----@public
----@return double
-function BaseVehicle:getSirenStartTime() end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setMechanicUIOpen(arg0) end
-
----@private
----@return void
-function BaseVehicle:doVehicleColor() end
-
----@public
----@param arg0 IsoDeadBody
----@param arg1 boolean
----@return int
-function BaseVehicle:testCollisionWithCorpse(arg0, arg1) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:breakConstraint(arg0) end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:damageObjects(arg0) end
-
----@public
----@return float
-function BaseVehicle:getAngleX() end
-
----@public
----@return float
-function BaseVehicle:getCurrentSteering() end
-
----@public
----@return int
-function BaseVehicle:getLightbarSirenMode() end
-
----@public
----@param arg0 Vector3f
----@param arg1 Vector3f
----@return Vector3f
----@overload fun(arg0:float, arg1:float, arg2:float, arg3:Vector3f)
-function BaseVehicle:getLocalPos(arg0, arg1) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 Vector3f
----@return Vector3f
-function BaseVehicle:getLocalPos(arg0, arg1, arg2, arg3) end
-
----@public
----@return String
-function BaseVehicle:getTowAttachmentSelf() end
-
----@public
 ---@param arg0 int
 ---@param arg1 String
 ---@return void
 function BaseVehicle:playPassengerSound(arg0, arg1) end
 
 ---@public
+---@param arg0 int
+---@return BaseVehicle.Passenger
+function BaseVehicle:getPassenger(arg0) end
+
+---@private
 ---@return void
-function BaseVehicle:shutOff() end
+function BaseVehicle:doDoorDamage() end
 
 ---@public
 ---@return boolean
-function BaseVehicle:getStoplightsOn() end
+function BaseVehicle:isEngineRunning() end
+
+---@public
+---@param arg0 UdpConnection
+---@return boolean
+function BaseVehicle:authorizationServerOnOwnerData(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isMechanicUIOpen() end
 
 ---@public
 ---@param arg0 int
@@ -1426,223 +1378,74 @@ function BaseVehicle:getStoplightsOn() end
 function BaseVehicle:getPassengerDoor(arg0) end
 
 ---@public
----@param arg0 Transform
----@return void
-function BaseVehicle:setWorldTransform(arg0) end
-
----@public
----@return CarController
-function BaseVehicle:getController() end
+---@return boolean
+function BaseVehicle:needPartsUpdate() end
 
 ---@public
 ---@return void
-function BaseVehicle:triggerAlarm() end
+function BaseVehicle:authorizationServerOnSeat() end
+
+---@public
+---@return String
+function BaseVehicle:getTransmissionNumberLetter() end
 
 ---@public
 ---@param arg0 int
----@return void
-function BaseVehicle:setMechanicalID(arg0) end
+---@return boolean
+function BaseVehicle:isSeatInstalled(arg0) end
 
 ---@public
----@param arg0 long
+---@return SurroundVehicle
+function BaseVehicle:getSurroundVehicle() end
+
+---@public
+---@return boolean
+function BaseVehicle:isTrunkLocked() end
+
+---@public
+---@param arg0 int
+---@return boolean
+function BaseVehicle:isSeatOccupied(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getFakeSpeedModifier() end
+
+---@public
+---@param arg0 IsoGameCharacter
 ---@return void
-function BaseVehicle:lockServerUpdate(arg0) end
+function BaseVehicle:hitCharacter(arg0) end
 
 ---@public
 ---@param arg0 VehiclePart
----@param arg1 String
----@return void
-function BaseVehicle:playPartSound(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:engineDoRetryingStarting() end
-
----@private
----@param arg0 int
----@return void
-function BaseVehicle:addDamageFront(arg0) end
+---@param arg1 IsoGameCharacter
+---@return boolean
+function BaseVehicle:canLockDoor(arg0, arg1) end
 
 ---@public
 ---@return boolean
-function BaseVehicle:isKeyboardControlled() end
+function BaseVehicle:isHotwiredBroken() end
 
 ---@public
----@param arg0 IsoObject
----@param arg1 float
----@param arg2 JVector2
----@return JVector2
-function BaseVehicle:testCollisionWithObject(arg0, arg1, arg2) end
-
----@public
----@param arg0 Vector3f
----@return Vector3f
-function BaseVehicle:getForwardVector(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:isOperational() end
-
----@public
----@return float
-function BaseVehicle:getColorSaturation() end
-
----@public
----@return float
-function BaseVehicle:getOffroadEfficiency() end
-
----@public
----@param arg0 boolean
 ---@return void
-function BaseVehicle:setBraking(arg0) end
+function BaseVehicle:transmitRust() end
 
 ---@public
----@param arg0 IsoZombie
 ---@return void
-function BaseVehicle:putKeyToZombie(arg0) end
+function BaseVehicle:removeKeyFromDoor() end
 
 ---@public
----@return boolean
-function BaseVehicle:isInvalidChunkAround() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return boolean
-function BaseVehicle:canSwitchSeat(arg0, arg1) end
-
----@public
----@param arg0 float
----@return void
-function BaseVehicle:setClientForce(arg0) end
-
----@public
----@param arg0 ItemContainer
----@param arg1 IsoGridSquare
----@param arg2 IsoObject
----@return void
-function BaseVehicle:putKeyToContainer(arg0, arg1, arg2) end
-
----@public
----@return float
-function BaseVehicle:getMass() end
-
----@public
----@return InventoryItem
-function BaseVehicle:getCurrentKey() end
-
----@public
----@return short
-function BaseVehicle:getId() end
-
----@private
----@return void
-function BaseVehicle:renderUsableArea() end
+---@return double
+function BaseVehicle:getSirenStartTime() end
 
 ---@public
 ---@param arg0 VehiclePart
----@param arg1 String
 ---@return void
-function BaseVehicle:playPartAnim(arg0, arg1) end
+function BaseVehicle:transmitPartModData(arg0) end
 
 ---@public
----@param arg0 int
----@param arg1 String
----@return void
----@overload fun(arg0:int, arg1:String, arg2:IsoGameCharacter)
-function BaseVehicle:playPassengerAnim(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 String
----@param arg2 IsoGameCharacter
----@return void
-function BaseVehicle:playPassengerAnim(arg0, arg1, arg2) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setHeadlightsOn(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 HandWeapon
----@return void
-function BaseVehicle:hitVehicle(arg0, arg1) end
-
----@public
----@param arg0 IsoGridSquare
----@return void
-function BaseVehicle:putKeyToWorld(arg0) end
-
----@public
----@param arg0 int
----@param arg1 String
----@return VehicleScript.Anim
-function BaseVehicle:getPassengerAnim(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
 ---@return boolean
-function BaseVehicle:couldCrawlerAttackPassenger(arg0) end
-
----@public
----@return int
-function BaseVehicle:windowsOpen() end
-
----@public
----@param arg0 ByteBuffer
----@return void
-function BaseVehicle:save(arg0) end
-
----@private
----@param arg0 VehicleScript.Area
----@return JVector2
----@overload fun(arg0:VehicleScript.Area, arg1:JVector2)
-function BaseVehicle:areaPositionLocal(arg0) end
-
----@private
----@param arg0 VehicleScript.Area
----@param arg1 JVector2
----@return JVector2
-function BaseVehicle:areaPositionLocal(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@return int
-function BaseVehicle:getBestSeat(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return boolean
-function BaseVehicle:exit(arg0) end
-
----@public
----@return void
-function BaseVehicle:engineDoStartingSuccess() end
-
----@public
----@return void
-function BaseVehicle:updateParts() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 boolean
----@return int
----@overload fun(arg0:IsoMovingObject, arg1:float, arg2:float, arg3:boolean)
-function BaseVehicle:testCollisionWithProneCharacter(arg0, arg1) end
-
----@public
----@param arg0 IsoMovingObject
----@param arg1 float
----@param arg2 float
----@param arg3 boolean
----@return int
-function BaseVehicle:testCollisionWithProneCharacter(arg0, arg1, arg2, arg3) end
-
----@public
----@return void
-function BaseVehicle:resumeRunningAfterLoad() end
+function BaseVehicle:isLocalPhysicSim() end
 
 ---@private
 ---@param arg0 float[]
@@ -1652,266 +1455,184 @@ function BaseVehicle:resumeRunningAfterLoad() end
 function BaseVehicle:doBloodOverlayRight(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 IsoGameCharacter
----@param arg1 float
----@param arg2 JVector2
----@return JVector2
-function BaseVehicle:testCollisionWithCharacter(arg0, arg1, arg2) end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 int
----@return void
-function BaseVehicle:load(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:updateTotalMass() end
-
----@public
----@param arg0 Transform
----@return Transform
-function BaseVehicle:getWorldTransform(arg0) end
-
----@public
----@return int
-function BaseVehicle:getSqlId() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 int
----@return boolean
-function BaseVehicle:isEnterBlocked(arg0, arg1) end
-
----@public
----@return boolean
-function BaseVehicle:isHotwired() end
-
----@public
 ---@param arg0 int
----@return boolean
-function BaseVehicle:hasRoof(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:authorizationClientForecast(arg0) end
-
----@public
----@param arg0 InventoryItem
----@return void
-function BaseVehicle:setCurrentKey(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
-function BaseVehicle:updateHasExtendOffsetForExit(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
 ---@param arg1 int
----@param arg2 String
----@return void
-function BaseVehicle:setCharacterPosition(arg0, arg1, arg2) end
-
----@private
----@param arg0 int
----@return void
-function BaseVehicle:addDamageFrontHitAChr(arg0) end
-
----@public
 ---@return float
-function BaseVehicle:getAngleY() end
+function BaseVehicle:getSwitchSeatAnimRate(arg0, arg1) end
 
----@public
----@param arg0 IsoGameCharacter
----@param arg1 int
----@param arg2 String
----@return void
-function BaseVehicle:setCharacterPositionToAnim(arg0, arg1, arg2) end
-
----@public
----@param arg0 String
----@param arg1 Vector3f
----@return Vector3f
-function BaseVehicle:getTowedByLocalPos(arg0, arg1) end
-
----@public
----@return void
-function BaseVehicle:onBackMoveSignalStop() end
-
----@public
----@param arg0 String
----@param arg1 IsoGameCharacter
----@return boolean
-function BaseVehicle:isInArea(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 int
----@return VehicleScript.Passenger.SwitchSeat
-function BaseVehicle:getPassengerSwitchSeat(arg0, arg1) end
-
----@public
----@param arg0 int
----@return VehiclePart
-function BaseVehicle:getLightByIndex(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@return void
-function BaseVehicle:setGeneralPartCondition(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@return boolean
-function BaseVehicle:isDriver(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return void
-function BaseVehicle:setColor(arg0, arg1, arg2) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 int
----@return boolean
-function BaseVehicle:isEnterBlocked2(arg0, arg1) end
+---@protected
+---@param arg0 VehiclePart
+---@return BaseVehicle.ModelInfo
+function BaseVehicle:getModelInfoForPart(arg0) end
 
 ---@public
 ---@return boolean
-function BaseVehicle:isEngineStarted() end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setRegulator(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setActiveInBullet(arg0) end
-
----@public
----@return float
-function BaseVehicle:getInitialMass() end
-
----@public
----@param arg0 IsoObject
----@param arg1 float
----@return void
-function BaseVehicle:ApplyImpulse4Break(arg0, arg1) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setAlarmed(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:isStarting() end
-
----@public
----@return void
-function BaseVehicle:engineDoStartingFailedNoPower() end
-
----@private
----@return void
-function BaseVehicle:doDoorDamage() end
-
----@public
----@param arg0 int
----@return String
-function BaseVehicle:getPassengerArea(arg0) end
-
----@private
----@param arg0 int
----@return void
-function BaseVehicle:addDamageRear(arg0) end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@param arg2 Vector3f
----@return Vector3f
-function BaseVehicle:getPlayerTrailerLocalPos(arg0, arg1, arg2) end
-
----@private
----@return void
-function BaseVehicle:initParts() end
-
----@public
----@param arg0 int
----@return void
-function BaseVehicle:setSkinIndex(arg0) end
-
----@public
----@return int
-function BaseVehicle:getEngineLoudness() end
-
----@public
----@return float
-function BaseVehicle:getCurrentSpeedKmHour() end
-
----@public
----@param arg0 BaseVehicle
----@return void
-function BaseVehicle:updateConstraint(arg0) end
+function BaseVehicle:getKeySpawned() end
 
 ---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
----@return void
-function BaseVehicle:setEngineFeature(arg0, arg1, arg2) end
+---@return boolean
+function BaseVehicle:blocked(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 byte
----@param arg1 int
+---@param arg0 InventoryItem
 ---@return void
-function BaseVehicle:netPlayerFromServerUpdate(arg0, arg1) end
+function BaseVehicle:putKeyOnDoor(arg0) end
 
 ---@public
----@return VehiclePart
-function BaseVehicle:getBattery() end
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setStoplightsOn(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getBrakingForce() end
+
+---@public
+---@return void
+function BaseVehicle:removeKeyFromIgnition() end
 
 ---@private
----@param arg0 int
+---@param arg0 VehicleScript.Skin
 ---@return void
-function BaseVehicle:addDamageRearHitAChr(arg0) end
+---@overload fun(arg0:VehicleScript)
+function BaseVehicle:LoadVehicleTextures(arg0) end
 
 ---@public
----@param arg0 int
----@param arg1 int
----@return String
-function BaseVehicle:getSwitchSeatSound(arg0, arg1) end
+---@param arg0 VehicleScript
+---@return void
+function BaseVehicle:LoadVehicleTextures(arg0) end
 
 ---@public
----@return boolean
-function BaseVehicle:isAnyListenerInside() end
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setAddThumpWorldSound(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:addToWorld() end
+
+---@public
+---@return void
+function BaseVehicle:onHornStop() end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function BaseVehicle:setDebugZ(arg0) end
+function BaseVehicle:setBaseQuality(arg0) end
 
 ---@public
----@return BaseVehicle.MinMaxPosition
-function BaseVehicle:getMinMaxPosition() end
+---@param arg0 Vector3f
+---@param arg1 Vector3f
+---@return void
+function BaseVehicle:addImpulse(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 KahluaTable
+---@param arg2 ByteBuffer
+---@return void
+function BaseVehicle:saveChange(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 IsoMovingObject
+---@return void
+function BaseVehicle:Thump(arg0) end
+
+---@public
+---@return IsoGameCharacter
+function BaseVehicle:getDriver() end
+
+---@protected
+---@param arg0 IsoObject
+---@return float
+function BaseVehicle:getObjectX(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 boolean
+---@return void
+function BaseVehicle:crash(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:renderUsableArea() end
+
+---@private
+---@return void
+function BaseVehicle:applyImpulseFromProneCharacters() end
+
+---@public
+---@param arg0 IsoObject
+---@param arg1 float
+---@return void
+function BaseVehicle:ApplyImpulse(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 float
+---@return boolean
+function BaseVehicle:circleIntersects(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@param arg0 String
 ---@param arg1 Vector3f
 ---@return Vector3f
-function BaseVehicle:getTowingWorldPos(arg0, arg1) end
+function BaseVehicle:getAttachmentLocalPos(arg0, arg1) end
 
 ---@public
----@param arg0 IsoGameCharacter
 ---@return void
-function BaseVehicle:updateHasExtendOffsetForExitEnd(arg0) end
+function BaseVehicle:drainBatteryUpdateHack() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoStarting() end
+
+---@public
+---@return boolean
+function BaseVehicle:Serialize() end
+
+---@protected
+---@param arg0 int
+---@return VehicleScript.Passenger
+function BaseVehicle:getScriptPassenger(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getTowedByWorldPos(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:trySpawnKey() end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setCurrentSteering(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:removeFromWorld() end
+
+---@public
+---@return boolean
+function BaseVehicle:hasLightbar() end
+
+---@public
+---@param arg0 String
+---@param arg1 ByteBuffer
+---@return void
+function BaseVehicle:loadChange(arg0, arg1) end
+
+---@public
+---@return float
+function BaseVehicle:getColorValue() end
 
 ---@public
 ---@param arg0 VehicleScript.Position
@@ -1929,11 +1650,117 @@ function BaseVehicle:getPassengerPositionWorldPos(arg0, arg1) end
 function BaseVehicle:getPassengerPositionWorldPos(arg0, arg1, arg2, arg3) end
 
 ---@public
----@param arg0 float
----@param arg1 float
+---@return float
+function BaseVehicle:getBatteryCharge() end
+
+---@public
+---@return float
+function BaseVehicle:getInsideTemperature() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return String
+function BaseVehicle:getSwitchSeatAnimName(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 HandWeapon
+---@return void
+function BaseVehicle:WeaponHit(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function BaseVehicle:exitRSync(arg0) end
+
+---@private
+---@param arg0 float[]
+---@param arg1 float[]
 ---@param arg2 float
 ---@return void
-function BaseVehicle:setAngles(arg0, arg1, arg2) end
+function BaseVehicle:doBloodOverlayAux(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@return void
+function BaseVehicle:setScriptName(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:areAllDoorsLocked() end
+
+---@public
+---@return String
+function BaseVehicle:getScriptName() end
+
+---@public
+---@return int
+function BaseVehicle:getKeyId() end
+
+---@public
+---@return void
+function BaseVehicle:onBackMoveSignalStart() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 VehiclePart
+---@return boolean
+function BaseVehicle:canInstallPart(arg0, arg1) end
+
+---@public
+---@return boolean
+function BaseVehicle:sirenShutoffTimeExpired() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoIdle() end
+
+---@public
+---@return VehiclePart
+function BaseVehicle:getHeater() end
+
+---@public
+---@param arg0 VehiclePart
+---@param arg1 String
+---@param arg2 IsoGameCharacter
+---@return void
+function BaseVehicle:playActorAnim(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@return Texture
+---@overload fun(arg0:String, arg1:int)
+function BaseVehicle:LoadVehicleTexture(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@return Texture
+function BaseVehicle:LoadVehicleTexture(arg0, arg1) end
+
+---@public
+---@return BaseVehicle
+function BaseVehicle:getVehicleTowedBy() end
+
+---@public
+---@param arg0 IsoObject
+---@param arg1 float
+---@return void
+function BaseVehicle:ApplyImpulse4Break(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGridSquare
+---@return boolean
+function BaseVehicle:addKeyToSquare(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:getSkinCount() end
+
+---@public
+---@return boolean
+function BaseVehicle:isDriveable() end
 
 ---@public
 ---@param arg0 float
@@ -1941,54 +1768,39 @@ function BaseVehicle:setAngles(arg0, arg1, arg2) end
 function BaseVehicle:damagePlayers(arg0) end
 
 ---@public
----@param arg0 VehiclePart
----@param arg1 IsoGameCharacter
----@param arg2 boolean
----@return void
-function BaseVehicle:toggleLockedDoor(arg0, arg1, arg2) end
-
----@public
----@param arg0 int
----@return boolean
-function BaseVehicle:clearPassenger(arg0) end
-
----@public
 ---@param arg0 boolean
 ---@return void
-function BaseVehicle:setTrunkLocked(arg0) end
-
----@public
----@return String
-function BaseVehicle:getSkin() end
+function BaseVehicle:setAlarmed(arg0) end
 
 ---@public
 ---@return void
-function BaseVehicle:onBackMoveSignalStart() end
-
----@public
----@return int
-function BaseVehicle:getKeyId() end
-
----@public
----@param arg0 UdpConnection
----@return boolean
-function BaseVehicle:authorizationServerOnOwnerData(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:hasLightbar() end
+function BaseVehicle:checkPhysicsValidWithServer() end
 
 ---@public
 ---@return void
-function BaseVehicle:authorizationServerOnSeat() end
+function BaseVehicle:serverUpdateSimulatorState() end
 
 ---@public
+---@param arg0 IsoGameCharacter
 ---@return int
-function BaseVehicle:getNumberOfPartsWithContainers() end
+function BaseVehicle:getSeat(arg0) end
 
 ---@public
 ---@return boolean
-function BaseVehicle:isDoColor() end
+function BaseVehicle:isInvalidChunkAhead() end
+
+---@public
+---@return AnimationPlayer
+function BaseVehicle:getAnimationPlayer() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function BaseVehicle:updateHasExtendOffset(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:getSkinIndex() end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -1997,8 +1809,178 @@ function BaseVehicle:isDoColor() end
 function BaseVehicle:isPassengerUseDoor2(arg0, arg1) end
 
 ---@public
+---@param arg0 VehicleScript.Area
+---@return JVector2
+---@overload fun(arg0:VehicleScript.Area, arg1:JVector2)
+function BaseVehicle:areaPositionWorld4PlayerInteract(arg0) end
+
+---@public
+---@param arg0 VehicleScript.Area
+---@param arg1 JVector2
+---@return JVector2
+function BaseVehicle:areaPositionWorld4PlayerInteract(arg0, arg1) end
+
+---@public
+---@return boolean
+function BaseVehicle:shouldCollideWithObjects() end
+
+---@protected
+---@param arg0 IsoObject
+---@return float
+function BaseVehicle:getObjectY(arg0) end
+
+---@public
+---@param arg0 String
 ---@return void
-function BaseVehicle:update() end
+function BaseVehicle:setVehicleType(arg0) end
+
+---@public
+---@return BaseVehicle.MinMaxPosition
+function BaseVehicle:getMinMaxPosition() end
+
+---@public
+---@param arg0 BaseVehicle
+---@param arg1 String
+---@param arg2 String
+---@return boolean
+function BaseVehicle:canAttachTrailer(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function BaseVehicle:addKeyToWorld() end
+
+---@public
+---@return boolean
+function BaseVehicle:isEngineWorking() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoStartingFailed() end
+
+---@public
+---@param arg0 int
+---@return void
+function BaseVehicle:setLightbarLightsMode(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function BaseVehicle:isCharacterAdjacentTo(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@return void
+function BaseVehicle:setGeneralPartCondition(arg0, arg1) end
+
+---@private
+---@param arg0 VehiclePart
+---@param arg1 ItemPickerJava.ItemPickerRoom
+---@return void
+function BaseVehicle:randomizeContainer(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:updatePhysics() end
+
+---@public
+---@param arg0 int
+---@return VehiclePart
+function BaseVehicle:getPassengerDoor2(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getBrakeSpeedBetweenUpdate() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return void
+function BaseVehicle:playSwitchSeatAnim(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getTowedByLocalPos(arg0, arg1) end
+
+---@public
+---@return void
+function BaseVehicle:setFullUpdateFlag() end
+
+---@public
+---@return boolean
+function BaseVehicle:isKeyIsOnDoor() end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:Damage(arg0) end
+
+---@public
+---@param arg0 int
+---@return IsoGameCharacter
+function BaseVehicle:getCharacter(arg0) end
+
+---@private
+---@param arg0 int
+---@return void
+function BaseVehicle:addDamageFront(arg0) end
+
+---@private
+---@return void
+function BaseVehicle:drawTowingRope() end
+
+---@public
+---@return void
+function BaseVehicle:engineDoStalling() end
+
+---@public
+---@param arg0 int
+---@return void
+function BaseVehicle:setSkinIndex(arg0) end
+
+---@public
+---@return boolean
+function BaseVehicle:isAtRest() end
+
+---@private
+---@param arg0 boolean
+---@return int
+function BaseVehicle:caclulateDamageWithBodies(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:onBackMoveSignalStop() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return boolean
+function BaseVehicle:isIntersectingSquare(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 BaseVehicle
+---@return void
+function BaseVehicle:updateConstraint(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setRust(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@param arg2 Vector3f
+---@return Vector3f
+function BaseVehicle:getPlayerTrailerLocalPos(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@return boolean
+function BaseVehicle:isExitBlocked(arg0) end
 
 ---@public
 ---@param arg0 VehiclePart
@@ -2010,446 +1992,524 @@ function BaseVehicle:transmitPartDoor(arg0) end
 function BaseVehicle:hasHeadlights() end
 
 ---@public
----@return AnimationPlayer
-function BaseVehicle:getAnimationPlayer() end
+---@return boolean
+function BaseVehicle:isStarting() end
+
+---@public
+---@return void
+function BaseVehicle:transmitEngine() end
+
+---@public
+---@return float
+function BaseVehicle:getFudgedMass() end
+
+---@public
+---@param arg0 int
+---@param arg1 boolean
+---@return void
+function BaseVehicle:authorizationServerCollide(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@return boolean
+function BaseVehicle:isPositionOnLeftOrRight(arg0, arg1) end
 
 ---@private
 ---@return void
-function BaseVehicle:applyImpulseFromHitZombies() end
-
----@protected
----@param arg0 IsoObject
----@return float
-function BaseVehicle:getObjectX(arg0) end
+function BaseVehicle:doOtherBodyWorkDamage() end
 
 ---@public
+---@return InventoryItem
+function BaseVehicle:createVehicleKey() end
+
+---@public
+---@param arg0 boolean
+---@param arg1 boolean
+---@return void
+function BaseVehicle:breakConstraint(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
 ---@return boolean
-function BaseVehicle:sirenShutoffTimeExpired() end
+function BaseVehicle:isInBounds(arg0, arg1) end
 
 ---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
----@param arg3 float
----@return boolean
-function BaseVehicle:circleIntersects(arg0, arg1, arg2, arg3) end
-
----@public
----@return BaseVehicle
-function BaseVehicle:getVehicleTowing() end
-
----@public
----@return float
-function BaseVehicle:getDebugZ() end
-
----@private
 ---@return void
-function BaseVehicle:renderAreas() end
+function BaseVehicle:setAngles(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:isInvalidChunkBehind() end
 
 ---@public
 ---@return String
-function BaseVehicle:getVehicleType() end
+function BaseVehicle:getObjectName() end
+
+---@public
+---@return void
+---@overload fun(arg0:String)
+function BaseVehicle:setScript() end
+
+---@public
+---@param arg0 String
+---@return void
+function BaseVehicle:setScript(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function BaseVehicle:exit(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 int
+---@param arg2 String
+---@return void
+function BaseVehicle:setCharacterPositionToAnim(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function BaseVehicle:engineDoStartingFailedNoPower() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return Thumpable
+function BaseVehicle:getThumpableFor(arg0) end
+
+---@public
+---@return int
+function BaseVehicle:windowsOpen() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 int
+---@return boolean
+function BaseVehicle:isEnterBlocked(arg0, arg1) end
+
+---@public
+---@return int
+function BaseVehicle:getSqlId() end
+
+---@public
+---@return boolean
+function BaseVehicle:isKeysInIgnition() end
+
+---@public
+---@param arg0 String
+---@param arg1 IsoGameCharacter
+---@return float
+function BaseVehicle:getAreaDist(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function BaseVehicle:couldCrawlerAttackPassenger(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 IsoGameCharacter
+---@param arg2 Vector3f
+---@return boolean
+function BaseVehicle:setPassenger(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function BaseVehicle:getHeadlightsOn() end
+
+---@private
+---@return VehicleEngineRPM
+function BaseVehicle:getVehicleEngineRPM() end
+
+---@public
+---@param arg0 BaseVehicle
+---@param arg1 String
+---@param arg2 String
+---@return void
+function BaseVehicle:addHingeConstraint(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@return void
+function BaseVehicle:damageHeadlight(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:doAlarm() end
+
+---@public
+---@param arg0 String
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getAttachmentWorldPos(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 int
+---@param arg2 String
+---@return void
+function BaseVehicle:setCharacterPosition(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setGoodCar(arg0) end
+
+---@public
+---@param arg0 int
+---@return VehiclePart
+function BaseVehicle:getPartByIndex(arg0) end
+
+---@public
+---@return CarController
+function BaseVehicle:getController() end
+
+---@public
+---@param arg0 String
+---@param arg1 Vector3f
+---@return Vector3f
+function BaseVehicle:getTowingLocalPos(arg0, arg1) end
+
+---@public
+---@return float
+function BaseVehicle:getCurrentSteering() end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return void
+function BaseVehicle:playScrapePastPlantSound(arg0) end
+
+---@public
+---@return short
+function BaseVehicle:getId() end
+
+---@public
+---@return InventoryItem
+function BaseVehicle:getCurrentKey() end
+
+---@public
+---@param arg0 float
+---@return void
+function BaseVehicle:setMass(arg0) end
 
 ---@private
 ---@param arg0 int
----@param arg1 int
----@return boolean
-function BaseVehicle:isNullChunk(arg0, arg1) end
+---@return void
+function BaseVehicle:addDamageRear(arg0) end
 
 ---@public
----@param arg0 InventoryItem
+---@param arg0 BaseVehicle
+---@param arg1 String
+---@param arg2 String
+---@param arg3 float
 ---@return void
-function BaseVehicle:putKeyInIgnition(arg0) end
+function BaseVehicle:setVehicleTowing(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return void
+function BaseVehicle:renderShadow() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 float
+---@param arg2 JVector2
+---@return JVector2
+function BaseVehicle:testCollisionWithCharacter(arg0, arg1, arg2) end
+
+---@public
+---@return float
+function BaseVehicle:getUpVectorDot() end
 
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@param arg1 VehiclePart
 ---@return boolean
-function BaseVehicle:canInstallPart(arg0, arg1) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setHotwired(arg0) end
-
----@protected
----@param arg0 VehiclePart
----@param arg1 VehicleScript.Model
----@param arg2 boolean
----@return BaseVehicle.ModelInfo
-function BaseVehicle:setModelVisible(arg0, arg1, arg2) end
-
----@public
----@return float
-function BaseVehicle:getColorValue() end
-
----@public
----@return void
-function BaseVehicle:removeKeyFromDoor() end
-
----@private
----@param arg0 int
----@param arg1 int
----@return VehicleScript.Passenger.SwitchSeat
-function BaseVehicle:getSwitchSeat(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 IsoGameCharacter
----@param arg2 Vector3f
----@return Vector3f
-function BaseVehicle:chooseBestAttackPosition(arg0, arg1, arg2) end
-
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoObject
----@param arg2 JVector2
----@return void
-function BaseVehicle:checkCollisionWithPlant(arg0, arg1, arg2) end
-
----@public
----@return int
-function BaseVehicle:getPartCount() end
-
----@public
----@param arg0 String
----@param arg1 KahluaTable
----@param arg2 ByteBuffer
----@return void
-function BaseVehicle:saveChange(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function BaseVehicle:areAllDoorsLocked() end
-
----@public
----@return boolean
-function BaseVehicle:isGoodCar() end
-
----@public
----@param arg0 String
----@return void
-function BaseVehicle:playSound(arg0) end
-
----@public
----@param arg0 BaseVehicle
----@return void
-function BaseVehicle:positionTrailer(arg0) end
-
----@public
----@return int
-function BaseVehicle:getMechanicalID() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 float
----@return void
-function BaseVehicle:addRandomDamageFromCrash(arg0, arg1) end
-
----@public
----@param arg0 ByteBuffer
----@return void
-function BaseVehicle:netPlayerServerSendAuthorisation(arg0) end
-
----@public
----@return int
-function BaseVehicle:getLightbarLightsMode() end
-
----@public
----@return float
-function BaseVehicle:getSpeed2D() end
-
----@public
----@return void
-function BaseVehicle:transmitRust() end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 int
----@return void
-function BaseVehicle:switchSeat(arg0, arg1) end
-
----@private
----@return void
-function BaseVehicle:updateEngineStarting() end
-
----@public
----@param arg0 int
----@param arg1 float
----@return void
-function BaseVehicle:setTireInflation(arg0, arg1) end
+function BaseVehicle:canUninstallPart(arg0, arg1) end
 
 ---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
 ---@return boolean
-function BaseVehicle:blocked(arg0, arg1, arg2) end
+function BaseVehicle:isIntersectingSquareWithShadow(arg0, arg1, arg2) end
 
 ---@public
+---@param arg0 JVector2
+---@param arg1 float
+---@param arg2 float
+---@param arg3 float
+---@param arg4 float
 ---@return void
-function BaseVehicle:engineDoStarting() end
+function BaseVehicle:drawDirectionLine(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
 ---@param arg0 int
----@param arg1 IsoGameCharacter
+---@return VehiclePart
+function BaseVehicle:getLightByIndex(arg0) end
+
+---@public
+---@param arg0 IsoZombie
+---@return void
+function BaseVehicle:putKeyToZombie(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function BaseVehicle:setMechanicalID(arg0) end
+
+---@public
 ---@return boolean
-function BaseVehicle:canAccessContainer(arg0, arg1) end
+function BaseVehicle:isRemovedFromWorld() end
 
 ---@public
----@param arg0 String
----@return JVector2
----@overload fun(arg0:String, arg1:JVector2)
-function BaseVehicle:getAreaCenter(arg0) end
+---@return void
+function BaseVehicle:softReset() end
 
 ---@public
----@param arg0 String
+---@return void
+function BaseVehicle:triggerAlarm() end
+
+---@public
+---@param arg0 IsoGameCharacter
 ---@param arg1 JVector2
----@return JVector2
-function BaseVehicle:getAreaCenter(arg0, arg1) end
-
----@public
----@return float
-function BaseVehicle:getRust() end
-
----@public
----@param arg0 int
 ---@return void
-function BaseVehicle:tryHotwire(arg0) end
-
----@public
----@param arg0 int
----@return boolean
-function BaseVehicle:isSeatInstalled(arg0) end
-
----@public
----@return void
-function BaseVehicle:onHornStop() end
+function BaseVehicle:getFacingPosition(arg0, arg1) end
 
 ---@public
 ---@return void
 function BaseVehicle:LoadAllVehicleTextures() end
 
 ---@private
----@param arg0 String
----@param arg1 Object
----@param arg2 Object
----@return Boolean
----@overload fun(arg0:String, arg1:Object, arg2:Object, arg3:Object)
-function BaseVehicle:callLuaBoolean(arg0, arg1, arg2) end
-
----@private
----@param arg0 String
----@param arg1 Object
----@param arg2 Object
----@param arg3 Object
----@return Boolean
-function BaseVehicle:callLuaBoolean(arg0, arg1, arg2, arg3) end
-
----@public
----@param arg0 boolean
----@param arg1 boolean
----@param arg2 InventoryItem
----@return void
-function BaseVehicle:syncKeyInIgnition(arg0, arg1, arg2) end
-
----@private
----@return void
-function BaseVehicle:initPolyPlusRadiusBounds() end
-
----@public
----@return boolean
-function BaseVehicle:haveOneDoorUnlocked() end
-
----@private
----@param arg0 VehiclePart
----@return boolean
-function BaseVehicle:updatePart(arg0) end
-
----@public
----@param arg0 VehiclePart
----@return void
-function BaseVehicle:transmitPartItem(arg0) end
-
----@public
----@return void
-function BaseVehicle:brekingObjects() end
-
----@public
----@return void
-function BaseVehicle:permanentlyRemove() end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
-function BaseVehicle:hitCharacter(arg0) end
-
----@protected
----@param arg0 IsoObject
----@return float
-function BaseVehicle:getObjectY(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 HandWeapon
----@return void
-function BaseVehicle:WeaponHit(arg0, arg1) end
-
----@private
----@param arg0 boolean
----@return int
-function BaseVehicle:caclulateDamageWithBodies(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function BaseVehicle:setKeysInIgnition(arg0) end
-
----@public
----@return void
-function BaseVehicle:renderlast() end
-
----@public
----@return boolean
-function BaseVehicle:needPartsUpdate() end
-
----@public
----@return void
-function BaseVehicle:addToWorld() end
-
----@public
----@param arg0 int
----@return void
-function BaseVehicle:setLightbarSirenMode(arg0) end
-
----@public
----@param arg0 VehiclePart
----@return void
-function BaseVehicle:transmitPartCondition(arg0) end
-
----@public
----@param arg0 boolean
----@param arg1 boolean
----@return void
-function BaseVehicle:cheatHotwire(arg0, arg1) end
-
----@public
----@param arg0 Vector3f
----@return Vector3f
-function BaseVehicle:getLinearVelocity(arg0) end
-
----@private
 ---@param arg0 float[]
 ---@param arg1 float[]
 ---@param arg2 float
 ---@return void
-function BaseVehicle:doBloodOverlayAux(arg0, arg1, arg2) end
+function BaseVehicle:doBloodOverlayFront(arg0, arg1, arg2) end
 
 ---@private
----@param arg0 VehiclePart
+---@param arg0 int
 ---@return void
-function BaseVehicle:randomizeContainer(arg0) end
+function BaseVehicle:addDamageFrontHitAChr(arg0) end
+
+---@private
+---@return void
+function BaseVehicle:renderAuthorizations() end
 
 ---@public
----@return boolean
-function BaseVehicle:isTrunkLocked() end
+---@return int
+function BaseVehicle:getJoypad() end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
-function BaseVehicle:setAddThumpWorldSound(arg0) end
+function BaseVehicle:setMechanicUIOpen(arg0) end
 
 ---@public
----@param arg0 double
 ---@return void
-function BaseVehicle:setSirenStartTime(arg0) end
+function BaseVehicle:constraintChanged() end
 
 ---@public
----@param arg0 int
----@return boolean
-function BaseVehicle:isSeatOccupied(arg0) end
+---@return void
+function BaseVehicle:scriptReloaded() end
 
 ---@public
----@return String
-function BaseVehicle:getTransmissionNumberLetter() end
+---@param arg0 Transform
+---@return Transform
+function BaseVehicle:getWorldTransform(arg0) end
+
+---@public
+---@param arg0 Transform
+---@return void
+function BaseVehicle:setWorldTransform(arg0) end
 
 ---@private
----@param arg0 int
----@param arg1 float[]
----@param arg2 Vector3f
----@param arg3 float
----@param arg4 int
----@param arg5 double
----@param arg6 double
+---@param arg0 IsoGameCharacter
+---@param arg1 VehicleScript.Anim
+---@param arg2 boolean
 ---@return void
-function BaseVehicle:updateBulletStatsWheel(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+function BaseVehicle:playCharacterAnim(arg0, arg1, arg2) end
 
 ---@public
----@return boolean
-function BaseVehicle:hasBackSignal() end
-
----@public
----@return PolygonalMap2.VehiclePoly
-function BaseVehicle:getPoly() end
-
----@public
----@param arg0 int
----@return BaseVehicle.Passenger
-function BaseVehicle:getPassenger(arg0) end
-
----@public
----@return void
-function BaseVehicle:engineDoShutingDown() end
-
----@public
----@param arg0 TransmissionNumber
----@return void
-function BaseVehicle:changeTransmission(arg0) end
-
----@public
----@return void
-function BaseVehicle:onHornStart() end
-
----@public
----@return float
-function BaseVehicle:getColorHue() end
-
----@public
----@return void
-function BaseVehicle:doDamageOverlay() end
-
----@public
----@return boolean
-function BaseVehicle:isMechanicUIOpen() end
-
----@public
----@param arg0 int
+---@param arg0 IsoGameCharacter
 ---@return VehiclePart
-function BaseVehicle:getPartForSeatContainer(arg0) end
+function BaseVehicle:getNearestBodyworkPart(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 float
+---@return void
+function BaseVehicle:setBloodIntensity(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 ColorInfo
+---@param arg4 boolean
+---@param arg5 boolean
+---@param arg6 Shader
+---@return void
+function BaseVehicle:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---@public
+---@param arg0 String
+---@return float
+function BaseVehicle:getBloodIntensity(arg0) end
+
+---@public
+---@param arg0 int
+---@param arg1 IsoGameCharacter
+---@param arg2 BaseVehicle
+---@return boolean
+function BaseVehicle:enterRSync(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 VehiclePart
+---@return void
+function BaseVehicle:transmitPartWindow(arg0) end
 
 ---@public
 ---@return boolean
-function BaseVehicle:isAlarmed() end
+function BaseVehicle:shouldCollideWithCharacters() end
 
 ---@public
+---@return void
+function BaseVehicle:addKeyToGloveBox() end
+
+---@public
+---@return void
+function BaseVehicle:authorizationServerUpdate() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function BaseVehicle:save(arg0, arg1) end
+
+---@private
+---@return void
+function BaseVehicle:createParts() end
+
+---@public
+---@param arg0 IsoDeadBody
+---@param arg1 boolean
+---@return int
+function BaseVehicle:testCollisionWithCorpse(arg0, arg1) end
+
+---@public
+---@param arg0 IsoObject
+---@return void
+function BaseVehicle:doChrHitImpulse(arg0) end
+
+---@private
+---@return void
+function BaseVehicle:renderExits() end
+
+---@public
+---@param arg0 int
 ---@return boolean
-function BaseVehicle:isDoingOffroad() end
+function BaseVehicle:isExitBlocked2(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setWindowLightsOn(arg0) end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function BaseVehicle:setRegulatorSpeed(arg0) end
-
----@public
----@return boolean
-function BaseVehicle:isEngineRunning() end
+function BaseVehicle:damageObjects(arg0) end
 
 ---@public
 ---@param arg0 int
----@param arg1 boolean
+---@param arg1 Vector3f
 ---@return void
-function BaseVehicle:setTireRemoved(arg0, arg1) end
+function BaseVehicle:getWheelForwardVector(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function BaseVehicle:load(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 ItemContainer
+---@param arg1 IsoGridSquare
+---@param arg2 IsoObject
+---@return void
+function BaseVehicle:putKeyToContainer(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return void
+function BaseVehicle:setColorHSV(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 VehiclePart
+---@param arg1 IsoGameCharacter
+---@return boolean
+function BaseVehicle:canUnlockDoor(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return int
+function BaseVehicle:getPassengerSwitchSeatCount(arg0) end
+
+---@public
+---@return void
+function BaseVehicle:createPhysics() end
 
 ---@public
 ---@return int
-function BaseVehicle:getEngineQuality() end
+function BaseVehicle:getLightCount() end
+
+---@public
+---@return boolean
+function BaseVehicle:isBraking() end
+
+---@public
+---@return float
+function BaseVehicle:getMass() end
+
+---@public
+---@return PolygonalMap2.VehiclePoly
+function BaseVehicle:getPolyPlusRadius() end
+
+---@public
+---@return void
+function BaseVehicle:updatePartStats() end
+
+---@public
+---@param arg0 BaseVehicle
+---@return boolean
+function BaseVehicle:testCollisionWithVehicle(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getBaseQuality() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return VehiclePart
+function BaseVehicle:getClosestWindow(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function BaseVehicle:setPhysicsActive(arg0) end
+
+---@public
+---@return float
+function BaseVehicle:getRegulatorSpeed() end
+
+---@public
+---@return void
+function BaseVehicle:transmitBlood() end

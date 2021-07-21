@@ -11,50 +11,49 @@
 IsoCamera = {}
 
 ---@public
----@return int @the TargetTileY
-function IsoCamera:getTargetTileY() end
-
----@public
----@param aCamCharacter IsoGameCharacter @the CamCharacter to set
----@return void
-function IsoCamera:setCamCharacter(aCamCharacter) end
-
----@public
----@param aLastOffX float @the lastOffX to set
----@return void
-function IsoCamera:setLastOffX(aLastOffX) end
-
----@public
----@return float @the OffY
-function IsoCamera:getOffY() end
+---@param playerIndex int
+---@return int
+function IsoCamera:getOffscreenLeft(playerIndex) end
 
 ---@public
 ---@return float
-function IsoCamera:getTOffX() end
+function IsoCamera:getRightClickOffX() end
 
 ---@public
----@param aTargetTileY int @the TargetTileY to set
+---@param aFakePos JVector2 @the FakePos to set
 ---@return void
-function IsoCamera:setTargetTileY(aTargetTileY) end
+function IsoCamera:setFakePos(aFakePos) end
+
+---@public
+---@param aOffX float @the OffX to set
+---@return void
+function IsoCamera:setOffX(aOffX) end
+
+---@public
+---@param aFakePosVec JVector2 @the FakePosVec to set
+---@return void
+function IsoCamera:setFakePosVec(aFakePosVec) end
+
+---@public
+---@return int @the TargetTileX
+function IsoCamera:getTargetTileX() end
+
+---@public
+---@return JVector2 @the FakePosVec
+function IsoCamera:getFakePosVec() end
+
+---@public
+---@return void
+function IsoCamera:init() end
+
+---@public
+---@return void
+function IsoCamera:updateAll() end
 
 ---@public
 ---@param playerIndex int
 ---@return int
-function IsoCamera:getOffscreenWidth(playerIndex) end
-
----@public
----@param playerIndex int
----@return int
-function IsoCamera:getScreenHeight(playerIndex) end
-
----@public
----@return float
-function IsoCamera:getTOffY() end
-
----@public
----@param aLastOffY float @the lastOffY to set
----@return void
-function IsoCamera:setLastOffY(aLastOffY) end
+function IsoCamera:getScreenTop(playerIndex) end
 
 ---@public
 ---@return float @the OffX
@@ -66,30 +65,49 @@ function IsoCamera:getOffX() end
 function IsoCamera:getScreenWidth(playerIndex) end
 
 ---@public
+---@param aTargetTileY int @the TargetTileY to set
+---@return void
+function IsoCamera:setTargetTileY(aTargetTileY) end
+
+---@public
+---@param aLastOffY float @the lastOffY to set
+---@return void
+function IsoCamera:setLastOffY(aLastOffY) end
+
+---@public
+---@return int @the TargetTileY
+function IsoCamera:getTargetTileY() end
+
+---@public
+---@param playerIndex int
+---@return int
+function IsoCamera:getScreenHeight(playerIndex) end
+
+---@public
 ---@return float @the lastOffX
 function IsoCamera:getLastOffX() end
 
 ---@public
 ---@return float
-function IsoCamera:getRightClickOffY() end
+function IsoCamera:getTOffY() end
 
 ---@public
+---@return JVector2 @the FakePos
+function IsoCamera:getFakePos() end
+
+---@public
+---@param aLastOffX float @the lastOffX to set
 ---@return void
-function IsoCamera:init() end
+function IsoCamera:setLastOffX(aLastOffX) end
 
 ---@public
----@param playerIndex int
----@return int
-function IsoCamera:getScreenTop(playerIndex) end
-
----@public
----@param aOffY float @the OffY to set
+---@param aCamCharacter IsoGameCharacter @the CamCharacter to set
 ---@return void
-function IsoCamera:setOffY(aOffY) end
+function IsoCamera:setCamCharacter(aCamCharacter) end
 
 ---@public
----@return float @the lastOffY
-function IsoCamera:getLastOffY() end
+---@return IsoGameCharacter @the CamCharacter
+function IsoCamera:getCamCharacter() end
 
 ---@public
 ---@param playerIndex int
@@ -97,35 +115,26 @@ function IsoCamera:getLastOffY() end
 function IsoCamera:getOffscreenHeight(playerIndex) end
 
 ---@public
----@return JVector2 @the FakePos
-function IsoCamera:getFakePos() end
+---@return float @the OffY
+function IsoCamera:getOffY() end
 
 ---@public
+---@param aTargetTileX int @the TargetTileX to set
 ---@return void
-function IsoCamera:updateAll() end
+function IsoCamera:setTargetTileX(aTargetTileX) end
 
 ---@public
----@param aFakePosVec JVector2 @the FakePosVec to set
----@return void
-function IsoCamera:setFakePosVec(aFakePosVec) end
+---@param playerIndex int
+---@return int
+function IsoCamera:getOffscreenWidth(playerIndex) end
+
+---@public
+---@return float @the lastOffY
+function IsoCamera:getLastOffY() end
 
 ---@public
 ---@return float
-function IsoCamera:getRightClickOffX() end
-
----@public
----@return JVector2 @the FakePosVec
-function IsoCamera:getFakePosVec() end
-
----@public
----@param playerIndex int
----@return int
-function IsoCamera:getOffscreenLeft(playerIndex) end
-
----@public
----@param playerIndex int
----@return int
-function IsoCamera:getScreenLeft(playerIndex) end
+function IsoCamera:getRightClickOffY() end
 
 ---@public
 ---@param playerIndex int
@@ -142,24 +151,15 @@ function IsoCamera:SetCharacterToFollow(GameChar) end
 function IsoCamera:update() end
 
 ---@public
----@param aOffX float @the OffX to set
+---@param aOffY float @the OffY to set
 ---@return void
-function IsoCamera:setOffX(aOffX) end
+function IsoCamera:setOffY(aOffY) end
 
 ---@public
----@return IsoGameCharacter @the CamCharacter
-function IsoCamera:getCamCharacter() end
+---@return float
+function IsoCamera:getTOffX() end
 
 ---@public
----@return int @the TargetTileX
-function IsoCamera:getTargetTileX() end
-
----@public
----@param aTargetTileX int @the TargetTileX to set
----@return void
-function IsoCamera:setTargetTileX(aTargetTileX) end
-
----@public
----@param aFakePos JVector2 @the FakePos to set
----@return void
-function IsoCamera:setFakePos(aFakePos) end
+---@param playerIndex int
+---@return int
+function IsoCamera:getScreenLeft(playerIndex) end

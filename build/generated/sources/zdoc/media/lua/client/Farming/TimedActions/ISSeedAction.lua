@@ -30,6 +30,9 @@ end
 function ISSeedAction:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	
+	-- used to send loot position
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISSeedAction:stop()
@@ -62,5 +65,8 @@ function ISSeedAction:new(character, seeds, nbOfSeed, typeOfSeed, plant, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
 	return o;
 end

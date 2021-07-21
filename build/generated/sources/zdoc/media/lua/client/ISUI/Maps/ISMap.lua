@@ -7,6 +7,13 @@ require "ISUI/ISPanelJoypad"
 ---@class ISMap : ISPanelJoypad
 ISMap = ISPanelJoypad:derive("ISMap");
 
+ISMapWrapper = ISCollapsableWindow:derive("ISMapWrapper");
+ISMapWrapper.__index = ISMapWrapper;
+
+function ISMapWrapper:new(x, y, width, height)
+	local o = ISCollapsableWindow.new(self, x, y, width, height)
+	return o
+end
 
 --************************************************************************--
 --** ISMap:initialise
@@ -108,13 +115,13 @@ function ISMap:destroy()
     end
 end
 
-function ISMap:isKeyConsumed(key)
+function ISMapWrapper:isKeyConsumed(key)
     return key == Keyboard.KEY_ESCAPE;
 end
 
-function ISMap:onKeyRelease(key)
+function ISMapWrapper:onKeyRelease(key)
     if key == Keyboard.KEY_ESCAPE then
-        self.wrap:close();
+        self:close();
     end
 end
 
@@ -231,7 +238,7 @@ function ISMap:onMouseUpMap()
     self.parent:onMouseUp();
 end
 
-function ISMap:setWrapVisible(bVisible)
+function ISMapWrapper:setVisible(bVisible)
     if self.javaObject then
         self.javaObject:setVisible(bVisible)
         if not bVisible then
@@ -525,7 +532,7 @@ function ISMap:trueRender()
     self:renderMouseIcons();
 end
 
-function ISMap:prerenderWrap()
+function ISMapWrapper:prerender()
     ISCollapsableWindow.prerender(self);
     self.closeButton:prerender();
     self.collapseButton:prerender();
@@ -533,7 +540,7 @@ function ISMap:prerenderWrap()
     self.infoButton:prerender();
 end
 
-function ISMap:renderWrap()
+function ISMapWrapper:render()
 --    print("render col")
     ISCollapsableWindow.render(self);
     self.mapUI:trueRender();
@@ -545,7 +552,7 @@ function ISMap:renderWrap()
 	self.mapUI:updateJoypad();
 end
 
-function ISMap:closeWrap()
+function ISMapWrapper:close()
 	self:setVisible(false)
 	self:removeFromUIManager()
 end

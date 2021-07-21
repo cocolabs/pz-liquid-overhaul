@@ -41,7 +41,7 @@ function ISInventoryPane:createChildren()
 
     self:addChild(self.expandAll);
 
-    self.column2 = math.ceil(self.column2*self.zoom);
+    self.column2 = 48; --math.ceil(self.column2*self.zoom);
     self.column3 = math.ceil(self.column3*self.zoom);
 	self.column3 = self.column3 + 100;
 
@@ -56,6 +56,13 @@ function ISInventoryPane:createChildren()
    -- self.collapseAll.backgroundColorMouseOver.a = 0;
     self.collapseAll:setImage(self.collapseicon);
     self:addChild(self.collapseAll);
+
+    self.filterMenu = ISButton:new(30, 0, 15, 17, "", self, ISInventoryPane.onFilterMenu);
+    self.filterMenu:initialise();
+    self.filterMenu.borderColor.a = 0.0;
+    -- self.collapseAll.backgroundColorMouseOver.a = 0;
+    self.filterMenu:setImage(self.filtericon);
+    self:addChild(self.filterMenu);
 
     self.headerHgt = fontHgtSmall + 1
 
@@ -186,6 +193,52 @@ function ISInventoryPane:expandAll(button)
         self.collapsed[k] = false;
     end
     self:refreshContainer();
+end
+
+function ISInventoryPane:onFilterMenu(button)
+    local playerObj = getSpecificPlayer(self.player)
+    local playerInv = playerObj:getInventory()
+    if playerObj:isAsleep() then return end
+
+    local x = button:getAbsoluteX();
+    local y = button:getAbsoluteY();
+    local context = ISContextMenu.get(self.player, x, y);
+
+    getCell():setDrag(nil, self.player);
+
+    local weight = context:addOption(getText("Weight"), nil, nil);
+    local subMenuWeight = ISContextMenu:getNew(context);
+    context:addSubMenu(weight, subMenuWeight);
+
+    subMenuWeight:addOption(getText("Ascending"), self, ISInventoryPane.sortByWeight, true);
+    subMenuWeight:addOption(getText("Descending"), self, ISInventoryPane.sortByWeight, false);
+end
+
+function ISInventoryPane:sortByWeight(_isAscending)
+    if _isAscending and self.itemSortFunc ~= ISInventoryPane.itemSortByWeightAsc then
+        self.itemSortFunc = ISInventoryPane.itemSortByWeightAsc;
+        self:refreshContainer();
+    end
+    if (not _isAscending) and self.itemSortFunc ~= ISInventoryPane.itemSortByWeightDesc then
+        self.itemSortFunc = ISInventoryPane.itemSortByWeightDesc;
+        self:refreshContainer();
+    end
+end
+
+ISInventoryPane.itemSortByWeightAsc = function(a,b)
+    if a.equipped and not b.equipped then return false end
+    if b.equipped and not a.equipped then return true end
+    --if a.cat == b.cat then return not string.sort(a.name, b.name) end
+    --return not string.sort(a.cat, b.cat);
+    return a.weight < b.weight;
+end
+
+ISInventoryPane.itemSortByWeightDesc = function(a,b)
+    if a.equipped and not b.equipped then return false end
+    if b.equipped and not a.equipped then return true end
+    --if a.cat == b.cat then return not string.sort(a.name, b.name) end
+    --return string.sort(a.cat, b.cat);
+    return a.weight > b.weight;
 end
 
 ISInventoryPane.itemSortByNameInc = function(a,b)
@@ -739,6 +792,9 @@ function ISInventoryPane:onMouseMove(dx, dy)
 end
 
 function ISInventoryPane:updateTooltip()
+	if not self:isReallyVisible() then
+		return -- in the main menu
+	end
 	local item = nil
 	if self.doController and self.joyselection then
 		if self.joyselection < 0 then self.joyselection = #self.items - 1 end
@@ -881,12 +937,15 @@ function ISInventoryPane:doContextualDblClick(item)
 		end
 	end
 	if instanceof(item, "Food") and item:getHungChange() < 0 then
-		ISInventoryPaneContextMenu.onEatItems({item}, 1, self.player);
+        if playerObj:getMoodles():getMoodleLevel(MoodleType.FoodEaten) < 3 or playerObj:getNutrition():getCalories() < 1000 then
+            ISInventoryPaneContextMenu.onEatItems({item}, 1, self.player);
+        end
+
 	end
 end
 
 function ISInventoryPane:onMouseDoubleClick(x, y)
-	if not isShiftKeyDown() and self.items and self.mouseOverOption and self.previousMouseUp == self.mouseOverOption then
+	if self.items and self.mouseOverOption and self.previousMouseUp == self.mouseOverOption then
 		if getCore():getGameMode() == "Tutorial" then
 			if TutorialData.chosenTutorial.doubleClickInventory(self, x, y, self.mouseOverOption) then
 				return
@@ -897,6 +956,7 @@ function ISInventoryPane:onMouseDoubleClick(x, y)
 		local lootInv = getPlayerLoot(self.player).inventory;
 		local item = self.items[self.mouseOverOption];
 		local doWalk = true
+        local shiftHeld = isShiftKeyDown()
 		if item and not instanceof(item, "InventoryItem") then
 			-- expand or collapse...
 			if x < self.column2 then
@@ -918,6 +978,9 @@ function ISInventoryPane:onMouseDoubleClick(x, y)
 							doWalk = false
 						end
 						ISTimedActionQueue.add(ISInventoryTransferAction:new(playerObj, v, v:getContainer(), playerInv))
+                        if instanceof(v, "Clothing") and shiftHeld then
+                            ISTimedActionQueue.add(ISWearClothing:new(playerObj, v, 50))
+                        end
 					elseif k ~= 1 and v:getContainer() == playerInv then
 						local tItem = v;
 						self:doContextualDblClick(tItem);
@@ -1644,17 +1707,20 @@ function ISInventoryPane:refreshContainer()
         if v ~= nil then
             table.insert(self.itemslist, v);
             local count = 1;
+            local weight = 0;
             for k2, v2 in ipairs(v.items) do
                 if v2 == nil then
                     table.remove(v.items, k2);
                 else
                     count = count + 1;
+                    weight = weight + v2:getUnequippedWeight();
                 end
             end
             v.count = count;
             v.invPanel = self;
             v.name = k -- v.items[1]:getName();
             v.cat = v.items[1]:getDisplayCategory() or v.items[1]:getCategory();
+            v.weight = weight;
             if self.collapsed[v.name] == nil then
                 self.collapsed[v.name] = true;
             end
@@ -2224,6 +2290,7 @@ function ISInventoryPane:new (x, y, width, height, inventory, zoom)
     o.treeexpicon = getTexture("media/ui/TreeExpanded.png");
     o.treecolicon = getTexture("media/ui/TreeCollapsed.png");
     o.expandicon = getTexture("media/ui/TreeExpandAll.png");
+    o.filtericon = getTexture("media/ui/TreeFilter.png");
     o.collapseicon = getTexture("media/ui/TreeCollapseAll.png");
 	o.equippedItemIcon = getTexture("media/ui/icon.png");
 	o.equippedInHotbar = getTexture("media/ui/iconInHotbar.png");

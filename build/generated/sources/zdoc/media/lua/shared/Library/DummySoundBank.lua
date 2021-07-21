@@ -3,6 +3,15 @@ DummySoundBank = {}
 
 ---@public
 ---@param arg0 String
+---@param arg1 String
+---@param arg2 String
+---@param arg3 String
+---@param arg4 String
+---@return void
+function DummySoundBank:addFootstep(arg0, arg1, arg2, arg3, arg4) end
+
+---@public
+---@param arg0 String
 ---@return FMODVoice
 function DummySoundBank:getVoice(arg0) end
 
@@ -10,15 +19,6 @@ function DummySoundBank:getVoice(arg0) end
 ---@param arg0 String
 ---@return FMODFootstep
 function DummySoundBank:getFootstep(arg0) end
-
----@public
----@param arg0 String
----@param arg1 String
----@param arg2 String
----@param arg3 String
----@param arg4 String
----@return void
-function DummySoundBank:addFootstep(arg0, arg1, arg2, arg3, arg4) end
 
 ---@public
 ---@param arg0 String

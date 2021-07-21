@@ -18,6 +18,7 @@ end
 function ISAttachItemHotbar:start()
 	self:setActionAnim("AttachItem")
 	self:setOverrideHandModels(self.item, nil)
+	self.character:reportEvent("EventAttachItem");
 end
 
 function ISAttachItemHotbar:stop()

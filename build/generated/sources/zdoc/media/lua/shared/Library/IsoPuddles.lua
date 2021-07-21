@@ -32,10 +32,6 @@
 ---@field private climateFloats IsoPuddles.PuddlesFloat[]
 IsoPuddles = {}
 
----@public
----@return Vector4f
-function IsoPuddles:getShaderOffset() end
-
 ---@private
 ---@param arg0 int
 ---@param arg1 String
@@ -43,20 +39,27 @@ function IsoPuddles:getShaderOffset() end
 function IsoPuddles:initClimateFloat(arg0, arg1) end
 
 ---@public
+---@param arg0 ClimateManager
+---@return void
+function IsoPuddles:update(arg0) end
+
+---@public
+---@return int
+function IsoPuddles:getBoolMax() end
+
+---@public
 ---@return void
 function IsoPuddles:puddlesProjection() end
 
----@public
----@return float
-function IsoPuddles:getRainIntensity() end
+---@private
+---@param arg0 int
+---@param arg1 int
+---@return int
+function IsoPuddles:renderSome(arg0, arg1) end
 
----@public
----@return float
-function IsoPuddles:getShaderTime() end
-
----@public
+---@private
 ---@return void
-function IsoPuddles:applyPuddlesQuality() end
+function IsoPuddles:setup() end
 
 ---@public
 ---@param arg0 int
@@ -64,13 +67,26 @@ function IsoPuddles:applyPuddlesQuality() end
 function IsoPuddles:puddlesGeometry(arg0) end
 
 ---@public
----@param arg0 ClimateManager
 ---@return void
-function IsoPuddles:update(arg0) end
+function IsoPuddles:applyPuddlesQuality() end
+
+---@public
+---@param arg0 int
+---@return FloatBuffer
+function IsoPuddles:getPuddlesParams(arg0) end
 
 ---@public
 ---@return boolean
 function IsoPuddles:getShaderEnable() end
+
+---@public
+---@param arg0 int
+---@return IsoPuddles.PuddlesFloat
+function IsoPuddles:getPuddlesFloat(arg0) end
+
+---@public
+---@return int
+function IsoPuddles:getFloatMax() end
 
 ---@public
 ---@return ITexture
@@ -83,37 +99,21 @@ function IsoPuddles:getHMTexture() end
 function IsoPuddles:render(arg0, arg1) end
 
 ---@public
----@return int
-function IsoPuddles:getBoolMax() end
+---@return float
+function IsoPuddles:getRainIntensity() end
 
 ---@public
 ---@return float
-function IsoPuddles:getPuddlesSize() end
-
----@public
----@param arg0 int
----@return FloatBuffer
-function IsoPuddles:getPuddlesParams(arg0) end
-
----@public
----@return int
-function IsoPuddles:getFloatMax() end
+function IsoPuddles:getShaderTime() end
 
 ---@public
 ---@return IsoPuddles
 function IsoPuddles:getInstance() end
 
----@private
----@return void
-function IsoPuddles:setup() end
-
----@private
----@param arg0 int
----@param arg1 int
----@return int
-function IsoPuddles:renderSome(arg0, arg1) end
+---@public
+---@return Vector4f
+function IsoPuddles:getShaderOffset() end
 
 ---@public
----@param arg0 int
----@return IsoPuddles.PuddlesFloat
-function IsoPuddles:getPuddlesFloat(arg0) end
+---@return float
+function IsoPuddles:getPuddlesSize() end

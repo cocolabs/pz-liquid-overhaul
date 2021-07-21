@@ -17,7 +17,33 @@ RadarPanel = {}
 
 ---@public
 ---@return void
+function RadarPanel:render() end
+
+---@private
+---@return void
+function RadarPanel:stencilOn() end
+
+---@private
+---@return void
+function RadarPanel:stencilOff() end
+
+---@private
+---@param arg0 float
+---@return float
+function RadarPanel:worldToScreenX(arg0) end
+
+---@private
+---@param arg0 float
+---@return float
+function RadarPanel:worldToScreenY(arg0) end
+
+---@public
+---@return void
 function RadarPanel:update() end
+
+---@private
+---@return void
+function RadarPanel:renderBuildings() end
 
 ---@private
 ---@param arg0 float
@@ -34,29 +60,3 @@ function RadarPanel:renderRect(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) e
 ---@private
 ---@return void
 function RadarPanel:renderZombies() end
-
----@private
----@return void
-function RadarPanel:renderBuildings() end
-
----@private
----@param arg0 float
----@return float
-function RadarPanel:worldToScreenY(arg0) end
-
----@public
----@return void
-function RadarPanel:render() end
-
----@private
----@return void
-function RadarPanel:stencilOn() end
-
----@private
----@return void
-function RadarPanel:stencilOff() end
-
----@private
----@param arg0 float
----@return float
-function RadarPanel:worldToScreenX(arg0) end

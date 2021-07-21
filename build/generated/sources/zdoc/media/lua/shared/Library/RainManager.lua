@@ -39,15 +39,25 @@
 ---@field AdjustedRainSplashTintMod ColorInfo
 RainManager = {}
 
+---@public
+---@return void
+function RainManager:stopRaining() end
+
+---@public
+---@param cell IsoCell
+---@param gridSquare IsoGridSquare
+---@param CanSee boolean
+---@return void
+function RainManager:StartRainSplash(cell, gridSquare, CanSee) end
+
+---@public
+---@return Boolean
+function RainManager:isRaining() end
+
 ---@private
 ---@param arg0 IsoPlayer
 ---@return boolean
 function RainManager:interruptSleep(arg0) end
-
----@public
----@param DyingRainSplash IsoRainSplash
----@return void
-function RainManager:RemoveRainSplash(DyingRainSplash) end
 
 ---@public
 ---@param cell IsoCell
@@ -63,68 +73,12 @@ function RainManager:RemoveAllOn(sq) end
 
 ---@public
 ---@return void
-function RainManager:AddSplashes() end
-
----@public
----@param pRandRainMax int
----@return void
-function RainManager:setRandRainMax(pRandRainMax) end
-
----@public
----@return void
 function RainManager:startRaining() end
-
----@public
----@param cell IsoCell
----@param gridSquare IsoGridSquare
----@param CanSee boolean
----@return void
-function RainManager:StartRainSplash(cell, gridSquare, CanSee) end
-
----@public
----@param sq IsoGridSquare
----@return boolean
-function RainManager:inBounds(sq) end
-
----@public
----@param pRandRainMin int
----@return void
-function RainManager:setRandRainMin(pRandRainMin) end
-
----@public
----@return Boolean
-function RainManager:isRaining() end
-
----@public
----@param NewRaindrop IsoRaindrop
----@return void
-function RainManager:AddRaindrop(NewRaindrop) end
-
----@public
----@return void
-function RainManager:Update() end
-
----@public
----@return void
-function RainManager:UpdateServer() end
 
 ---@public
 ---@param NewRainSplash IsoRainSplash
 ---@return void
 function RainManager:AddRainSplash(NewRainSplash) end
-
----@public
----@param DyingRaindrop IsoRaindrop
----@return void
-function RainManager:RemoveRaindrop(DyingRaindrop) end
-
----@public
----@return float
-function RainManager:getRainIntensity() end
-
----@public
----@return void
-function RainManager:reset() end
 
 ---@private
 ---@return void
@@ -137,5 +91,51 @@ function RainManager:removeAll() end
 function RainManager:SetPlayerLocation(arg0, arg1) end
 
 ---@public
+---@param pRandRainMax int
 ---@return void
-function RainManager:stopRaining() end
+function RainManager:setRandRainMax(pRandRainMax) end
+
+---@public
+---@param NewRaindrop IsoRaindrop
+---@return void
+function RainManager:AddRaindrop(NewRaindrop) end
+
+---@public
+---@return float
+function RainManager:getRainIntensity() end
+
+---@public
+---@return void
+function RainManager:UpdateServer() end
+
+---@public
+---@param pRandRainMin int
+---@return void
+function RainManager:setRandRainMin(pRandRainMin) end
+
+---@public
+---@return void
+function RainManager:Update() end
+
+---@public
+---@param sq IsoGridSquare
+---@return boolean
+function RainManager:inBounds(sq) end
+
+---@public
+---@param DyingRaindrop IsoRaindrop
+---@return void
+function RainManager:RemoveRaindrop(DyingRaindrop) end
+
+---@public
+---@param DyingRainSplash IsoRainSplash
+---@return void
+function RainManager:RemoveRainSplash(DyingRainSplash) end
+
+---@public
+---@return void
+function RainManager:reset() end
+
+---@public
+---@return void
+function RainManager:AddSplashes() end

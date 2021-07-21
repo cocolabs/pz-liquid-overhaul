@@ -117,6 +117,7 @@ function ISSkillProgressBar:renderPerkRect()
 	if self.level ~= self.char:getPerkLevel(self.perk:getType()) then
 		self.level = self.char:getPerkLevel(self.perk:getType())
 		self.xpForLvl = ISSkillProgressBar.getXpForLvl(self.perk, self.level)
+		self.parent.lastLeveledUpPerk = self.perk
 	end
 	
 	-- how much xp we already aquire for this perk
@@ -130,7 +131,11 @@ function ISSkillProgressBar:renderPerkRect()
 	-- ex : if we're lvl 3, we gonna render 2 (lvl 1 and 2) white rect
 	for i=0,self.level - 1 do
 --~ 		self:drawRect(x, y, 19, 19, 1.0, 1.0, 1.0, 1.0);
-		self:drawTexture(self.UnlockedSkill, x, y, 1,1,1,1);
+		if self.parent.lastLeveledUpPerk == self.perk then
+			self:drawTexture(self.UnlockedSkill, x, y, 1,0,1,0);
+		else
+			self:drawTexture(self.UnlockedSkill, x, y, 1,1,1,1);
+		end
 		x = x + 20;
 	end
 	-- the most important square : the one in progress !
@@ -186,7 +191,7 @@ function ISSkillProgressBar.updateAlpha()
 	end
 end
 
-function ISSkillProgressBar:new (x, y, width, height, playerNum, perk)
+function ISSkillProgressBar:new (x, y, width, height, playerNum, perk, parent)
 	local o = {};
 	o = ISPanel:new(x, y, 200, 19);
 	setmetatable(o, self);
@@ -194,6 +199,7 @@ function ISSkillProgressBar:new (x, y, width, height, playerNum, perk)
 	o.playerNum = playerNum
 	o.char = getSpecificPlayer(playerNum)
 	o.perk = perk;
+	o.parent = parent;
 	o.xp = 0;
 	o.message = nil;
 	o.tooltip = nil;

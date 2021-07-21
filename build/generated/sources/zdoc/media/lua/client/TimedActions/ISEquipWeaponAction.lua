@@ -33,8 +33,10 @@ function ISEquipWeaponAction:start()
 	if self.fromHotbar then
 		self.hotbar:setAttachAnim(self.item);
 		self:setActionAnim("DetachItem")
+		self.character:reportEvent("EventAttachItem");
 	else
 		self:setActionAnim("EquipItem");
+		self.character:reportEvent("EventAttachItem");
 	end
 	
 end

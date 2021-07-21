@@ -1415,11 +1415,12 @@ function ISUIElement:getScrollAreaHeight()
 	return self:getHeight()
 end
 
-function ISUIElement:wrapInCollapsableWindow(title, resizable)
+function ISUIElement:wrapInCollapsableWindow(title, resizable, subClass)
 
 	local titleBarHeight = 16
 	local resizeWidgetHeight = (resizable == nil or resizable == true) and 8 or 0
-	local o = ISCollapsableWindow:new(self.x, self.y, self.width, self.height + titleBarHeight + resizeWidgetHeight);
+	subClass = subClass or ISCollapsableWindow
+	local o = subClass:new(self.x, self.y, self.width, self.height + titleBarHeight + resizeWidgetHeight);
 	o.title = title;
 	o:setResizable(resizable == nil or resizable == true)
 	o:initialise();

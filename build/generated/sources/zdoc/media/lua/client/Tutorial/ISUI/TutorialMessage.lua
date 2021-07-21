@@ -64,7 +64,7 @@ function TutorialMessage:render()
 
     self:drawTextureScaled(TutorialMessage.spiffo, self.width - 43, -60, 256/2, 364/2, 1, 1, 1, 1);
     
-    if JoypadState[1] and self.clickToSkip and getJoypadFocus(0) ~= self and not Tutorial1.disableMsgFocus then
+    if JoypadState.players[1] and self.clickToSkip and getJoypadFocus(0) ~= self and not Tutorial1.disableMsgFocus then
         setJoypadFocus(0, self)
     end
 

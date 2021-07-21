@@ -88,22 +88,23 @@ function SaveInfoPanel:setRichText()
 	end
 	text = text .. " <INDENT:0> <H2> "
 
+	local canNotLoadText = " <LINE> <CENTER> <H1> <RED> " .. getText("UI_worldscreen_SaveCannotBeLoaded")
+	local versionText = " <LINE> <LINE> " .. getText("UI_worldscreen_SavefileVersion", selectedItem.item.worldVersion or '???', IsoWorld.getWorldVersion())
+
 	text = text .. getText("UI_WorldVersion") ..selectedItem.item.worldVersion .. " <LINE> "
 	local worldVersion = tonumber(selectedItem.item.worldVersion)
 	if not worldVersion or not selectedItem.item.mapName then
-		text = text .. " <TEXT> <RED> " .. getText("UI_mainscreen_SavefileNotFound") .. " <RGB:1,1,1> <H2> <LINE> "
+		text = text .. canNotLoadText .. " <TEXT> <LINE> <RED> " .. getText("UI_mainscreen_SavefileNotFound") .. " <RGB:1,1,1> <H2> <LINE> "
 	elseif not selectedItem.item.mapsAvailable then
-		text = text .. " <TEXT> <RED> " .. getText("UI_worldscreen_MapNotFound") .. " <RGB:1,1,1> <H2> <LINE> "
+		text = text .. canNotLoadText .. " <TEXT> <LINE> <RED> " .. getText("UI_worldscreen_MapNotFound") .. " <RGB:1,1,1> <H2> <LINE> "
 	elseif selectedItem.item.worldVersion == 0 then
-		text = text .. " <TEXT> <RED> " .. getText("UI_worldscreen_SavefileCorrupt") .. " <RGB:1,1,1> <H2> <LINE> "
-	elseif selectedItem.item.worldVersion <= 23 then
-		text = text .. " <TEXT> <RED> " .. getText("UI_worldscreen_SavefileOld") .. " <RGB:1,1,1> <H2> <LINE> "
-	elseif selectedItem.item.worldVersion <= 115 then
-		text = text .. " <LINE> <CENTER> <H1> <RED> " .. getText("UI_worldscreen_SaveCannotBeLoaded") .. " <LINE> <TEXT> <RED> " .. getText("UI_worldscreen_SavefileVehicle",selectedItem.item.worldVersion, IsoWorld.getWorldVersion()) .. " <RGB:1,1,1> <H2> <LINE> "
-	elseif selectedItem.item.worldVersion <= 143 then
-		text = text .. " <LINE> <CENTER> <H1> <RED> " .. getText("UI_worldscreen_SaveCannotBeLoaded") .. " <LINE> <TEXT> <RED> " .. getText("UI_worldscreen_SavefileAnimation", selectedItem.item.worldVersion, IsoWorld.getWorldVersion()) .. " <RGB:1,1,1> <H2> <LINE> "
+		text = text .. canNotLoadText .. " <TEXT> <RED> " .. getText("UI_worldscreen_SavefileCorrupt") .. " <RGB:1,1,1> <H2> <LINE> "
+	elseif selectedItem.item.worldVersion == 175 then
+		text = text .. canNotLoadText .. " <TEXT> <LINE> <RED> " .. getText("UI_worldscreen_SavefileOld") .. " <LINE> " .. getText("UI_worldscreen_SavefileUseBeta41_50") .. versionText .. " <RGB:1,1,1> <H2> <LINE> "
+	elseif selectedItem.item.worldVersion < 175 then
+		text = text .. canNotLoadText .. " <TEXT> <LINE> <RED> " .. getText("UI_worldscreen_SavefileOld") .. versionText .. " <RGB:1,1,1> <H2> <LINE> "
 	elseif selectedItem.item.worldVersion > IsoWorld.getWorldVersion() then
-		text = text .. " <TEXT> <RED> " .. getText("UI_worldscreen_SavefileNewerThanGame") .. " <RGB:1,1,1> <H2> <LINE> "
+		text = text .. canNotLoadText .. " <TEXT> <LINE> <RED> " .. getText("UI_worldscreen_SavefileNewerThanGame") .. versionText .. " <RGB:1,1,1> <H2> <LINE> "
 	end
 
 	self.richText.text = text
@@ -207,13 +208,17 @@ function ConfigPanel:createChildren()
 
 	-----
 
-	richText = self:createRichText(x, y + 10, getText("UI_LoadGameScreen_BrowseFilesText"))
-	y = richText:getBottom()
+	if isDesktopOpenSupported() then
+		richText = self:createRichText(x, y + 10, getText("UI_LoadGameScreen_BrowseFilesText"))
+		y = richText:getBottom()
 
-	self.buttonBrowse = self:createButton(x, y, buttonWid, buttonHgt,
-		getText("UI_LoadGameScreen_ButtonBrowseFiles"),
-		ConfigPanel.onBrowseFiles)
-	y = self.buttonBrowse:getBottom()
+		self.buttonBrowse = self:createButton(x, y, buttonWid, buttonHgt,
+			getText("UI_LoadGameScreen_ButtonBrowseFiles"),
+			ConfigPanel.onBrowseFiles)
+		y = self.buttonBrowse:getBottom()
+	end
+
+	-----
 
 	if getDebug() then
 		local richText = self:createRichText(x, y + 10, "DEBUG: Delete selected files from this savefile.")
@@ -225,6 +230,7 @@ function ConfigPanel:createChildren()
 		combo:addOptionWithData("chunkdata_x_y.bin", "DeleteChunkDataXYBin")
 		combo:addOptionWithData("map_x_y.bin", "DeleteMapXYBin")
 		combo:addOptionWithData("map_meta.bin", "DeleteMapMetaBin")
+		combo:addOptionWithData("map_zone.bin", "DeleteMapZoneBin")
 		combo:addOptionWithData("map_t.bin", "DeleteMapTBin")
 		combo:addOptionWithData("players.db", "DeletePlayersDB")
 		combo:addOptionWithData("reanimated.bin", "DeleteReanimatedBin")
@@ -244,9 +250,11 @@ function ConfigPanel:createChildren()
 	self:setScrollHeight(y + 20)
 
 	self:insertNewLineOfButtons(self.buttonMods)
+	self:insertNewLineOfButtons(self.comboPlayer1, self.buttonNewPlayer)
 	self:insertNewLineOfButtons(self.buttonBrowse)
 	self.joypadIndexY = 1
 	self.joypadIndex = 1
+	self.joypadButtons = self.joypadButtonsY[self.joypadIndexY]
 end
 
 function ConfigPanel:createRichText(x, y, richText1)
@@ -428,6 +436,7 @@ function LoadGameScreen:create()
     self.listbox:setOnMouseDownFunction(self, LoadGameScreen.onClickWorld);
 	self.listbox.onGainJoypadFocus = self.onGainJoypadFocus_child
 	self.listbox.onLoseJoypadFocus = self.onLoseJoypadFocus_child
+	self.listbox.onJoypadBeforeDeactivate = self.onJoypadBeforeDeactivate_child
 	self.listbox.onJoypadDirRight = self.onJoypadDirRight_child
 	self:addChild(self.listbox);
 
@@ -441,6 +450,7 @@ function LoadGameScreen:create()
 	self.configPanel.onGainJoypadFocus = self.onGainJoypadFocus_child
 	self.configPanel.onLoseJoypadFocus = self.onLoseJoypadFocus_child
 	self.configPanel.onJoypadDirRight = self.onJoypadDirRight_child
+	self.configPanel.onJoypadBeforeDeactivate = self.onJoypadBeforeDeactivate_child
 	self:addChild(self.configPanel)
 	self.configPanel:setVisible(false)
 
@@ -682,9 +692,22 @@ end
 
 function LoadGameScreen:onGainJoypadFocus(joypadData)
     ISPanelJoypad.onGainJoypadFocus(self, joypadData);
-    joypadData.focus = self.listbox;
-    self.listbox.joypadFocused = true
+    if self.listbox:isVisible() then
+		joypadData.focus = self.listbox;
+		self.listbox.joypadFocused = true;
+	else
+		joypadData.focus = self.configPanel;
+    end
     updateJoypadFocus(joypadData);
+end
+
+function LoadGameScreen:onJoypadBeforeDeactivate(joypadData)
+	self.playButton:clearJoypadButton()
+	self.backButton:clearJoypadButton()
+	self.configButton:clearJoypadButton()
+	self.deleteButton:clearJoypadButton()
+	self.listbox.joypadFocused = false
+	self.joyfocus = nil
 end
 
 function LoadGameScreen:onGainJoypadFocus_child(joypadData)
@@ -696,13 +719,21 @@ function LoadGameScreen:onGainJoypadFocus_child(joypadData)
 	if self == self.parent.listbox then
 		self.joypadFocused = true
 	end
+	if #self.joypadButtons >= 1 and self.joypadIndex <= #self.joypadButtons then
+		self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
+	end
 end
 
 function LoadGameScreen:onLoseJoypadFocus_child(joypadData)
 	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	self:clearJoypadFocus()
 	if self == self.parent.listbox then
 		self.joypadFocused = false
 	end
+end
+
+function LoadGameScreen:onJoypadBeforeDeactivate_child(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 function LoadGameScreen:onJoypadDirLeft_child(joypadData)
@@ -711,6 +742,11 @@ function LoadGameScreen:onJoypadDirLeft_child(joypadData)
 end
 
 function LoadGameScreen:onJoypadDirRight_child(joypadData)
+	local children = self:getVisibleChildren(self.joypadIndexY)
+	if #children > 0 and self.joypadIndex ~= #children then
+		ISPanelJoypad.onJoypadDirRight(self)
+		return
+	end
 	self.parent.listbox.joypadFocused = false
 	joypadData.focus = self.parent.infoPanel
 	updateJoypadFocus(joypadData)
@@ -765,7 +801,7 @@ function LoadGameScreen:disableBtn()
 			self.playButton:setEnable(false)
 		elseif worldVersion > IsoWorld.getWorldVersion() then
 			self.playButton:setEnable(false)
-		elseif worldVersion <= 143 then
+		elseif worldVersion <= 175 then
 			self.playButton:setEnable(false)
 		elseif not self:checkMapsAvailable(sel.item) then
 			self.playButton:setEnable(false)
@@ -826,11 +862,13 @@ end
 
 function LoadGameScreen.OnKeyPressed(key)
 	if LoadGameScreen.instance and LoadGameScreen.instance:isVisible() then
+		local listbox = LoadGameScreen.instance.listbox
+
+		if not listbox:isReallyVisible() then return end
+
 		if (key == Keyboard.KEY_DELETE) then
 			LoadGameScreen.instance.deleteButton:forceClick()
 		end
-
-		local listbox = LoadGameScreen.instance.listbox
 
 		if (key == Keyboard.KEY_UP) then
 			listbox.selected = listbox.selected - 1

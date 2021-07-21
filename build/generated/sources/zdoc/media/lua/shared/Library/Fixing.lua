@@ -8,36 +8,6 @@
 ---@field private s_InventoryItems ArrayList|Unknown
 Fixing = {}
 
----@public
----@return LinkedList|Fixing.Fixer
-function Fixing:getFixers() end
-
----@public
----@return String
-function Fixing:getName() end
-
----@public
----@param chr IsoGameCharacter
----@param fixer Fixing.Fixer
----@param brokenObject InventoryItem
----@return InventoryItem
-function Fixing:haveThisFixer(chr, fixer, brokenObject) end
-
----@public
----@param itemType InventoryItem
----@param chr IsoGameCharacter
----@return Fixing.Fixer
-function Fixing:usedInFixer(itemType, chr) end
-
----@public
----@param arg0 Fixing.Fixer
----@return void
-function Fixing:setGlobalItem(arg0) end
-
----@public
----@return Fixing.Fixer
-function Fixing:getGlobalItem() end
-
 ---@private
 ---@param arg0 InventoryItem
 ---@return int
@@ -52,37 +22,28 @@ function Fixing:countUses(arg0) end
 function Fixing:countUses(chr, fixer, brokenObject) end
 
 ---@public
----@param name String
----@return void
-function Fixing:setName(name) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 Fixing.Fixer
----@param arg2 InventoryItem
----@param arg3 ArrayList|Unknown
----@return ArrayList|Unknown
-function Fixing:getRequiredFixerItems(arg0, arg1, arg2, arg3) end
-
----@public
 ---@param arg0 IsoGameCharacter
 ---@param arg1 Fixing.Fixer
 ---@param arg2 InventoryItem
 ---@return ArrayList|Unknown
 function Fixing:getRequiredItems(arg0, arg1, arg2) end
 
----Overrides:
----
----Load in class BaseScriptObject
 ---@public
----@param name String
----@param strArray String[]
+---@return LinkedList|Fixing.Fixer
+function Fixing:getFixers() end
+
+---@public
+---@param arg0 float
 ---@return void
-function Fixing:Load(name, strArray) end
+function Fixing:setConditionModifier(arg0) end
 
 ---@public
 ---@return ArrayList|Unknown
 function Fixing:getRequiredItem() end
+
+---@public
+---@return String
+function Fixing:getName() end
 
 ---@public
 ---@return float
@@ -94,11 +55,50 @@ function Fixing:getConditionModifier() end
 function Fixing:addRequiredItem(arg0) end
 
 ---@public
+---@param itemType InventoryItem
+---@param chr IsoGameCharacter
+---@return Fixing.Fixer
+function Fixing:usedInFixer(itemType, chr) end
+
+---@public
+---@param arg0 Fixing.Fixer
+---@return void
+function Fixing:setGlobalItem(arg0) end
+
+---@public
+---@param chr IsoGameCharacter
+---@param fixer Fixing.Fixer
+---@param brokenObject InventoryItem
+---@return InventoryItem
+function Fixing:haveThisFixer(chr, fixer, brokenObject) end
+
+---@public
 ---@param arg0 IsoGameCharacter
 ---@return InventoryItem
 function Fixing:haveGlobalItem(arg0) end
 
 ---@public
----@param arg0 float
+---@param arg0 IsoGameCharacter
+---@param arg1 Fixing.Fixer
+---@param arg2 InventoryItem
+---@param arg3 ArrayList|Unknown
+---@return ArrayList|Unknown
+function Fixing:getRequiredFixerItems(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return Fixing.Fixer
+function Fixing:getGlobalItem() end
+
+---@public
+---@param name String
 ---@return void
-function Fixing:setConditionModifier(arg0) end
+function Fixing:setName(name) end
+
+---Overrides:
+---
+---Load in class BaseScriptObject
+---@public
+---@param name String
+---@param strArray String[]
+---@return void
+function Fixing:Load(name, strArray) end

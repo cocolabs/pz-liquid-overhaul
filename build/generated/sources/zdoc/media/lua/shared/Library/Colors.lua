@@ -1,5 +1,8 @@
 ---@class Colors : zombie.core.Colors
 ---@field private colors ArrayList|Unknown
+---@field private colorMap HashMap|Unknown|Unknown
+---@field private colorNames ArrayList|Unknown
+---@field private colorSet HashSet|Unknown
 ---@field public IndianRed Color
 ---@field public LightCoral Color
 ---@field public Salmon Color
@@ -116,10 +119,34 @@
 Colors = {}
 
 ---@private
----@param arg0 Color
+---@param arg0 String
+---@param arg1 Color
 ---@return Color
-function Colors:addColor(arg0) end
+function Colors:addColor(arg0, arg1) end
+
+---@public
+---@return ArrayList|Unknown
+function Colors:GetColorNames() end
+
+---@public
+---@return int
+function Colors:GetColorsCount() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function Colors:ColorExists(arg0) end
 
 ---@public
 ---@return Color
 function Colors:GetRandomColor() end
+
+---@public
+---@param arg0 String
+---@return Color
+function Colors:GetColorByName(arg0) end
+
+---@public
+---@param arg0 int
+---@return Color
+function Colors:GetColorFromIndex(arg0) end

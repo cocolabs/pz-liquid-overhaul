@@ -31,6 +31,16 @@ function ISTransferWaterAction:start()
 	    
 	    self.itemFrom:setJobDelta(0.0);
 	    self.itemTo:setJobDelta(0.0);
+	
+		self:setAnimVariable("FoodType", self.itemTo:getEatType());
+		self:setActionAnim("Pour");
+		if not self.itemTo:getEatType() then
+			self:setOverrideHandModels(self.itemTo:getStaticModel(), nil)
+		else
+			self:setOverrideHandModels(nil, self.itemTo:getStaticModel())
+		end
+	
+		self.character:reportEvent("EventTakeWater");
     end
 end
 
@@ -80,6 +90,6 @@ function ISTransferWaterAction:new (character, itemFrom, itemTo, itemFromEndingD
 	o.itemToEndingDelta = itemToEndingDelta;
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
-	o.maxTime = ((itemFrom:getUsedDelta() - itemFromEndingDelta) / itemFrom:getUseDelta()) * 5;
+	o.maxTime = ((itemFrom:getUsedDelta() - itemFromEndingDelta) / itemFrom:getUseDelta()) * 30;
 	return o
 end

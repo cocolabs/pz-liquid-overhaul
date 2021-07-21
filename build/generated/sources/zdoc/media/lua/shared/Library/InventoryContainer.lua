@@ -6,59 +6,6 @@
 InventoryContainer = {}
 
 ---@public
----@return ItemContainer
-function InventoryContainer:getItemContainer() end
-
----@public
----@return int
-function InventoryContainer:getCapacity() end
-
----@public
----@param capacity int
----@return void
-function InventoryContainer:setCapacity(capacity) end
-
----@public
----@param arg0 float
----@return void
-function InventoryContainer:setBloodLevel(arg0) end
-
----@public
----@return String
-function InventoryContainer:getClothingExtraSubmenu() end
-
----@public
----@param weightReduction int
----@return void
-function InventoryContainer:setWeightReduction(weightReduction) end
-
----@public
----@return int
-function InventoryContainer:getWeightReduction() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class InventoryItem
----@public
----@param output ByteBuffer
----@param net boolean
----@return void
-function InventoryContainer:save(output, net) end
-
----Overrides:
----
----getContentsWeight in class InventoryItem
----@public
----@return float
-function InventoryContainer:getContentsWeight() end
-
----@public
----@return void
-function InventoryContainer:updateAge() end
-
----@public
 ---@return boolean
 function InventoryContainer:IsInventoryContainer() end
 
@@ -80,21 +27,27 @@ function InventoryContainer:DoTooltip(tooltipUI) end
 ---@return void
 function InventoryContainer:DoTooltip(tooltipUI, layout) end
 
----Overrides:
----
----getCategory in class InventoryItem
 ---@public
----@return String
-function InventoryContainer:getCategory() end
+---@param arg0 ItemContainer
+---@return void
+function InventoryContainer:setItemContainer(arg0) end
 
 ---@public
 ---@return ItemContainer
 function InventoryContainer:getInventory() end
 
 ---@public
----@param chr IsoGameCharacter
----@return int
-function InventoryContainer:getEffectiveCapacity(chr) end
+---@return ItemContainer
+function InventoryContainer:getItemContainer() end
+
+---@public
+---@param capacity int
+---@return void
+function InventoryContainer:setCapacity(capacity) end
+
+---@public
+---@return void
+function InventoryContainer:updateAge() end
 
 ---@public
 ---@param canBeEquipped String
@@ -106,24 +59,28 @@ function InventoryContainer:setCanBeEquipped(canBeEquipped) end
 function InventoryContainer:canBeEquipped() end
 
 ---@public
----@return int
-function InventoryContainer:getSaveType() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class InventoryItem
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@param net boolean
+---@param weightReduction int
 ---@return void
-function InventoryContainer:load(input, WorldVersion, net) end
+function InventoryContainer:setWeightReduction(weightReduction) end
+
+---@public
+---@return int
+function InventoryContainer:getWeightReduction() end
 
 ---@public
 ---@return float
 function InventoryContainer:getBloodLevel() end
+
+---Overrides:
+---
+---getContentsWeight in class InventoryItem
+---@public
+---@return float
+function InventoryContainer:getContentsWeight() end
+
+---@public
+---@return int
+function InventoryContainer:getCapacity() end
 
 ---Overrides:
 ---
@@ -136,7 +93,44 @@ function InventoryContainer:getEquippedWeight() end
 ---@return float
 function InventoryContainer:getInventoryWeight() end
 
+---Overrides:
+---
+---getCategory in class InventoryItem
 ---@public
----@param arg0 ItemContainer
+---@return String
+function InventoryContainer:getCategory() end
+
+---@public
+---@param chr IsoGameCharacter
+---@return int
+function InventoryContainer:getEffectiveCapacity(chr) end
+
+---@public
+---@param arg0 float
 ---@return void
-function InventoryContainer:setItemContainer(arg0) end
+function InventoryContainer:setBloodLevel(arg0) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function InventoryContainer:load(arg0, arg1) end
+
+---@public
+---@return String
+function InventoryContainer:getClothingExtraSubmenu() end
+
+---throws java.io.IOException
+---
+---Overrides:
+---
+---save in class InventoryItem
+---@public
+---@param output ByteBuffer
+---@param net boolean
+---@return void
+function InventoryContainer:save(output, net) end
+
+---@public
+---@return int
+function InventoryContainer:getSaveType() end

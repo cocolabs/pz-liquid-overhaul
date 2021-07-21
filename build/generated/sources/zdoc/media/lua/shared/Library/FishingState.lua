@@ -1,17 +1,13 @@
 ---@class FishingState : zombie.ai.states.FishingState
 ---@field private _instance FishingState
 ---@field pauseTime float
+---@field private stage String
 FishingState = {}
 
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@return void
-function FishingState:exit(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@return void
-function FishingState:enter(arg0) end
+function FishingState:execute(arg0) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -26,4 +22,9 @@ function FishingState:instance() end
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@return void
-function FishingState:execute(arg0) end
+function FishingState:enter(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return void
+function FishingState:exit(arg0) end

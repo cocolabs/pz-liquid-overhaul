@@ -170,18 +170,21 @@ function ISDestroyCursor:getAPrompt()
 		end
 		return getText("ContextMenu_Destroy")
 	end
+	return nil
 end
 
 function ISDestroyCursor:getLBPrompt()
 	if #self:getObjectList() > 1 then
 		return "Previous Object"
 	end
+	return nil
 end
 
 function ISDestroyCursor:getRBPrompt()
 	if #self:getObjectList() > 1 then
 		return "Next Object"
 	end
+	return nil
 end
 
 function ISDestroyCursor:couldSeeOpposite(object, square)

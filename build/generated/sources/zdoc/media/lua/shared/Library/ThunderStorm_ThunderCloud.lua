@@ -19,24 +19,12 @@
 ThunderStorm_ThunderCloud = {}
 
 ---@public
----@return boolean
-function ThunderStorm_ThunderCloud:isRunning() end
-
----@public
----@return float
-function ThunderStorm_ThunderCloud:getStrength() end
-
----@public
 ---@return double
 function ThunderStorm_ThunderCloud:lifeTime() end
 
 ---@public
----@return int
-function ThunderStorm_ThunderCloud:getCurrentY() end
-
----@public
----@return int
-function ThunderStorm_ThunderCloud:getCurrentX() end
+---@return boolean
+function ThunderStorm_ThunderCloud:isRunning() end
 
 ---@public
 ---@param arg0 int
@@ -48,3 +36,15 @@ function ThunderStorm_ThunderCloud:setCenter(arg0, arg1, arg2) end
 ---@public
 ---@return float
 function ThunderStorm_ThunderCloud:getRadius() end
+
+---@public
+---@return float
+function ThunderStorm_ThunderCloud:getStrength() end
+
+---@public
+---@return int
+function ThunderStorm_ThunderCloud:getCurrentX() end
+
+---@public
+---@return int
+function ThunderStorm_ThunderCloud:getCurrentY() end

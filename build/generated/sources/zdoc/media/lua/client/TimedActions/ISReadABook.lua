@@ -128,6 +128,8 @@ function ISReadABook:start()
     self:setActionAnim(CharacterActionAnims.Read);
     self:setOverrideHandModels(nil, self.item);
     self.character:setReading(true)
+    
+    self.character:reportEvent("EventRead");
 
     if not SkillBook[self.item:getSkillTrained()] then
         self.stats = {}

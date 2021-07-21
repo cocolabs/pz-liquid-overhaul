@@ -1,11 +1,15 @@
+--***********************************************************
+--**                    THE INDIE STONE                    **
+--***********************************************************
+
+if isServer() then return end
+
 ---@class JoypadState
 JoypadState = {}
-JoypadState.count = 0
+JoypadState.controllers = {}
 JoypadState.players = {}
 JoypadState.joypads = {}
-JoypadState.uiActive = true;
 JoypadState.forceActivate = nil;
-JoypadState.ignoreActivateTime = 0
 
 Joypad = {}
 Joypad.AButton = 0;
@@ -39,247 +43,217 @@ Joypad.Texture.RTrigger = getTexture("media/ui/xbox/xbox_righttrigger.png")
 
 joypad = {}
 joypad.wantNoise = getDebug()
-local noise = function(msg)
-	if (joypad.wantNoise) then print('joypad: '..tostring(msg)) end
+
+local noise = function(fmt, arg1, arg2, arg3, arg4)
+    if not joypad.wantNoise then return end
+    local msg = string.format(fmt, arg1, arg2, arg3, arg4)
+    print('joypad: '..tostring(msg))
 end
 
-function getFocusForPlayer(player)
-    if JoypadState.players[player+1] == nil then return nil; end
-    return JoypadState.players[player+1].focus;
+local function uiToString(ui)
+    return ui and ui:toString() or "nil"
 end
 
-local function fillJoypadListBox(joypadData)
-    local listBox = joypadData.listBox
-    listBox:clear()
-    listBox:setScrollHeight(0)
-    if JoypadState.players[1] == nil and getSpecificPlayer(0) and getSpecificPlayer(0):isAlive() then
-        listBox:addItem(getText("IGUI_Controller_TakeOverPlayer"), { cmd = "takeover" });
+-----
+
+JoypadControllerData = ISBaseObject:derive("JoypadControllerData")
+
+function JoypadControllerData:setJoypad(joypadData)
+    if joypadData.controller then
+        joypadData.controller:clearJoypad()
     end
-    if not isDemo() then
-    listBox:addItem(getText("IGUI_Controller_AddNewPlayer"), { cmd = "addnew" });
-    if Core.isLastStand() then
-        local players = LastStandPlayerSelect:getAllSavedPlayers()
-        for _,player in ipairs(players) do
-            local inUse = false
-            for playerNum=0,getNumActivePlayers()-1 do
-                local playerObj = getSpecificPlayer(playerNum)
-                if playerObj and not playerObj:isDead() then
-                    if playerObj:getDescriptor():getForename() == player.forename and playerObj:getDescriptor():getSurname() == player.surname then
-                        inUse = true
-                        break
-                    end
-                end
-            end
-            if not inUse then
-                local label = getText("IGUI_Controller_AddSavedPlayer", player.forename, player.surname)
-                listBox:addItem(label, { cmd = "addsaved", player = player })
-            end
-        end
-    else
-        local players = IsoPlayer.getAllSavedPlayers()
-        for n=1,players:size() do
-            local player = players:get(n-1)
-            if not player:isSaveFileInUse() and player:isSaveFileIPValid() then
-                local label = getText("IGUI_Controller_AddSavedPlayer", player:getDescriptor():getForename(), player:getDescriptor():getSurname())
-                listBox:addItem(label, { cmd = "addsaved", player = player })
-            end
-        end
-    end
-    end
-    listBox:addItem(getText("UI_Cancel"), { cmd = "cancel" });
-    listBox.selected = 1
-    listBox:setHeight(math.min(listBox:getScrollHeight(), getCore():getScreenHeight()))
+    self.joypad = joypadData
+    joypadData.id = self.id
+    joypadData.controller = self
 end
 
-function JoypadState.getUserNameCallback(target, button, playerObj, joypadData)
-    if button.internal == "OK" then
-        local username = button.parent.entry:getText()
-        if username and username ~= "" then
-            for i=0,getMaxActivePlayers()-1 do
-                local player = getSpecificPlayer(i)
-                if not player or player:isDead() then
-                    joypadData.player = i
-                    break
-                end
-            end
-            --joypadData.player = 3;
-            JoypadState.players[joypadData.player+1] = joypadData
-            local joypadIndex = joypadData.id
-            setPlayerJoypad(joypadData.player, joypadIndex, playerObj, username)
-        else
-            joypadData.focus = joypadData.listBox
-            joypadData.cancelled = true
-        end
-    end
-    if button.internal == "CANCEL" then
-        joypadData.focus = joypadData.listBox
-        joypadData.cancelled = true
+function JoypadControllerData:clearJoypad()
+    local joypad = self.joypad
+    self.joypad = nil
+    if joypad then
+        joypad:clearController()
     end
 end
 
-local function onPauseButtonPressed(joypadData)
+function JoypadControllerData:new(id)
+    local o = ISBaseObject.new(self)
+    o.id = id
+    o.pressed = {}
+    o.wasPressed = {}
+    for n = 1,getButtonCount(id) do
+        o.pressed[n-1] = isJoypadPressed(id, n-1)
+    end
+    o.connected = isJoypadConnected(id)
+    o.joypad = nil
+    return o
+end
+
+-----
+
+JoypadData = ISBaseObject:derive("JoypadData")
+
+function JoypadData:setController(controller)
+    if controller.joypad then
+        controller.joypad:clearController()
+    end
+    self.id = controller.id
+    self.controller = controller
+    controller.joypad = self
+end
+
+function JoypadData:clearController()
+    local controller = self.controller
+    self.id = -1
+    self.controller = nil
+    if controller then
+        controller:clearJoypad()
+    end
+end
+
+function JoypadData:setActive(isActive)
+    self.isActive = isActive
+end
+
+function JoypadData:new()
+    local o = ISBaseObject.new(self)
+    o.id = -1 -- same as controller.id
+    o.player = nil
+    o.controller = nil
+    o.focus = nil
+    o.lastfocus = nil
+    o.prevfocus = nil
+    o.prevprevfocus = nil
+    o.isActive = false
+    o.inMainMenu = false
+    o.listBox = nil
+    return o
+end
+
+-----
+
+-- GLFW supports 16 controllers.
+for i=1,16 do
+    JoypadState.controllers[i-1] = JoypadControllerData:new(i-1)
+end
+
+for i=1,getMaxActivePlayers() do
+    JoypadState.joypads[i] = JoypadData:new()
+end
+
+-----
+
+function getFocusForPlayer(playerNum)
+    local joypadData = JoypadState.players[playerNum+1]
+    return joypadData and joypadData.focus or nil;
+end
+
+function JoypadControllerData:onPauseButtonPressed()
+    local joypadData = self.joypad
     if UIManager.getSpeedControls() and not isClient() then
         if UIManager.getSpeedControls():getCurrentGameSpeed() == 0 or getGameTime():getTrueMultiplier() > 1 then
-            if MainScreen.instance and MainScreen.instance.inGame and MainScreen.instance:getIsVisible() then
+            if MainScreen.instance and MainScreen.instance.inGame and MainScreen.instance:isReallyVisible() then
                 -- return to game below
-            elseif joypadData.pauseKeyTime and (joypadData.pauseKeyTime + 750 > Calendar.getInstance():getTimeInMillis()) then
+            elseif joypadData.pauseKeyTime and (joypadData.pauseKeyTime + 750 > getTimestampMs()) then
                 -- double-tap, go to main menu below
             else
                 UIManager.getSpeedControls():ButtonClicked("Play")
                 return
             end
         else
-            joypadData.pauseKeyTime = Calendar.getInstance():getTimeInMillis()
+            joypadData.pauseKeyTime = getTimestampMs()
             UIManager.getSpeedControls():ButtonClicked("Pause")
             return
         end
     end
     if MainScreen.instance and MainScreen.instance.inGame then
-        ISUIHandler.setVisibleAllUI(MainScreen.instance:getIsVisible())
-        if MainScreen.instance:getIsVisible() then
+        ISUIHandler.setVisibleAllUI(MainScreen.instance:isVisible())
+        if MainScreen.instance:isVisible() then
             MainScreen.instance:setVisible(false)
             MainScreen.instance:removeFromUIManager()
         else
             MainScreen.instance:setVisible(true)
             MainScreen.instance:addToUIManager()
         end
-        if MainScreen.instance:getIsVisible() then
+        if MainScreen.instance:isVisible() then
             getCell():setDrag(nil, 0)
             setGameSpeed(0)
             setShowPausedMessage(false)
             JoypadState.saveAllFocus()
             joypadData.focus = MainScreen.instance
+            joypadData.inMainMenu = true
             MainScreen.instance:onEnterFromGame()
         else
             MainScreen.instance:onReturnToGame()
             setGameSpeed(1);
             setShowPausedMessage(true)
+            joypadData.inMainMenu = false
             JoypadState.restoreAllFocus()
         end
     end
 end
 
-function onJoypadPressButton(joypadIndex, joypadData, button)
-    if MainScreen.instance and MainScreen.instance.inGame and MainScreen.instance:getIsVisible() then
-        if button == Joypad.Start and joypadData.focus == MainScreen.instance then
-            onPauseButtonPressed(joypadData)
-        elseif joypadData.focus then
-            joypadData.focus:onJoypadDown(button, joypadData)
+function JoypadControllerData:onPressButtonNoFocus(button)
+    local joypadData = self.joypad
+
+    local activeWhilePaused = joypadData.activeWhilePaused
+
+    local displayListBox = button == Joypad.AButton and not joypadData.player and not IsoPlayer.allPlayersDead()
+    if displayListBox then
+        activeWhilePaused = true
+    end
+    
+    if not activeWhilePaused and isGamePaused() and button ~= Joypad.Start and button ~= Joypad.Back then
+        return
+    end
+
+    -----
+    -- Case 1: In the main menu.
+    -----
+
+    if MainScreen.instance and MainScreen.instance:isReallyVisible() then
+        -- Activating a controller in the main menu does not display the JoypadListBox.
+        -- Also, the controller is not assigned to any player.
+        if button == Joypad.AButton then
+            local focus = MainScreen.instance:getCurrentFocusForController()
+            if focus == nil then return end
+            joypadData.inMainMenu = true
+            joypadData.focus = focus
+            updateJoypadFocus(joypadData)
+            return
         end
         return
     end
-    
-    if not joypadData.activeWhilePaused and UIManager.getSpeedControls() and UIManager.getSpeedControls():getCurrentGameSpeed() == 0 and button ~= Joypad.Start and button ~= Joypad.Back then
-        return;
-    end
+
+    -----
+    -- Case 2: In game.
+    -----
 
     if joypadData.player and getCell() and getCell():getDrag(joypadData.player) then
         getCell():getDrag(joypadData.player):onJoypadPressButton(joypadIndex, joypadData, button);
         return;
     end
 
-    if button == Joypad.AButton and joypadData.cancelled and not IsoPlayer.allPlayersDead() then
-        -- The listBox was previously shown, but the user chose "Cancel"
-        noise('showing listBox again')
-        joypadData.cancelled = nil
-        joypadData.focus = joypadData.listBox
-        fillJoypadListBox(joypadData)
+    if displayListBox then
+        local playerNum
+        if joypadData == JoypadState.joypads[1] then
+            playerNum = 0
+        elseif joypadData == JoypadState.joypads[2] then
+            playerNum = 1
+        elseif joypadData == JoypadState.joypads[3] then
+            playerNum = 2
+        else
+            playerNum = 3
+        end
+        joypadData.listBox = ISJoypadListBox.Create(playerNum, joypadData)
+        joypadData.listBox:fill()
         joypadData.listBox:setVisible(true)
         joypadData.listBox:addToUIManager()
+        joypadData.focus = joypadData.listBox
+        joypadData.activeWhilePaused = true
         return
     end
 
-    if button == Joypad.AButton and joypadData.focus and joypadData.focus == joypadData.listBox and joypadData.focus:getIsVisible() then
-        local item = joypadData.listBox.items[joypadData.listBox.selected].item
-        if item.cmd == "takeover" then
-            if not (getSpecificPlayer(0) and getSpecificPlayer(0):isAlive()) then return end
-            joypadData.player = 0;
-            JoypadState.players[1] = joypadData;
-            setPlayerJoypad(0, joypadIndex, getSpecificPlayer(0), nil);
-            createPlayerData(0);
-
-            getPlayerInventory(0):setController(joypadIndex);
-            getPlayerLoot(0):setController(joypadIndex);
-        elseif item.cmd == "addnew" then
-            CoopCharacterCreation.newPlayer(joypadIndex, joypadData)
-            return
-        elseif item.cmd == "addsaved" then
-            if isClient() then
-                joypadData.listBox:setVisible(false)
-                joypadData.listBox:removeFromUIManager()
-                local x = (getCore():getScreenWidth() - 260) / 2
-                local y = (getCore():getScreenHeight() - 120) / 2
-                local username = item.player:getModData().username or ("Player" .. joypadData.player)
-                local modal = ISTextBox:new(x, y, 260, 120, getText("UI_servers_username"), username, nil, JoypadState.getUserNameCallback, 0, item.player, joypadData)
-                modal:initialise()
-                modal:addToUIManager()
-                joypadData.focus = modal
-                return
-            end
-            for i=0,getMaxActivePlayers()-1 do
-                local player = getSpecificPlayer(i)
-                if not player or player:isDead() then
-                    joypadData.player = i
-                    break
-                end
-            end
---joypadData.player = 3;
-            JoypadState.players[joypadData.player+1] = joypadData;
-            if Core.isLastStand() then
-                local desc = LastStandPlayerSelect:createSurvivorDescFromData(item.player)
-                getWorld():setLuaPlayerDesc(desc)
-                for i,v in ipairs(item.player.traits) do
-                    getWorld():addLuaTrait(v)
-                end
-                item.player = nil
-            end
-            setPlayerJoypad(joypadData.player, joypadIndex, item.player, nil);
-        elseif item.cmd == "cancel" then
-            joypadData.listBox:setVisible(false)
-            joypadData.listBox:removeFromUIManager()
-            joypadData.cancelled = true
-            return
-        end
-        joypadData.listBox:setVisible(false);
-        joypadData.listBox:removeFromUIManager();
-        joypadData.focus = nil;
-
-        if(joypadData.player == nil) then
-            noise("ERROR: PLAYER # NOT SET FOR JOYPAD");
-        end
-    end
-
-
-    local justOpened = false;
-    if not JoypadState.disableYInventory and  button == Joypad.YButton and joypadData.player and getPlayerData(joypadData.player) and getSpecificPlayer(joypadData.player) then
-        -- do inventory stuff. naughty...
-        local loot = getPlayerLoot(joypadData.player);
-        local inv = getPlayerInventory(joypadData.player);
-        if joypadData.focus == nil and getButtonPrompts(joypadData.player):isLootIcon() then
-	        joypadData.focus = loot;
-	        justOpened = true;
-
-        elseif joypadData.focus == nil then
-            joypadData.focus = inv;
-	        justOpened = true;
-        end
-		
-		if getSpecificPlayer(joypadData.player):isAsleep() then
-			justOpened = false;
-        end
-
-        if joypadData.focus ~= nil and justOpened then
-            setJoypadFocus(joypadData.player, joypadData.focus);
-            joypadData.focus:setVisible(true);
-            getSpecificPlayer(joypadData.player):setBannedAttacking(true);
-        else
-	        getSpecificPlayer(joypadData.player):setBannedAttacking(false);
-        end
-
-        updateJoypadFocus(joypadData);
-    end
-
-    if button == Joypad.Back and joypadData.focus == nil and joypadData.player and getSpecificPlayer(joypadData.player) then
+    if button == Joypad.Back and joypadData.player and getSpecificPlayer(joypadData.player) then
         local wheel = getPlayerBackButtonWheel(joypadData.player)
         wheel:addCommands()
         wheel:addToUIManager(true)
@@ -289,40 +263,72 @@ function onJoypadPressButton(joypadIndex, joypadData, button)
         return
     end
 
-    if button == Joypad.Start and joypadData.focus == nil and joypadData.player and getSpecificPlayer(joypadData.player) then
-        onPauseButtonPressed(joypadData)
+    if button == Joypad.Start and joypadData.player and getSpecificPlayer(joypadData.player) then
+        self:onPauseButtonPressed()
         return
     end
 
-   if joypadData.focus ~= nil and not justOpened then
-        joypadData.focus:onJoypadDown(button, joypadData);
-   elseif joypadData.focus == nil and joypadData.player and getPlayerData(joypadData.player) then
-        local buts = getButtonPrompts(joypadData.player);
-
+    if joypadData.player and getPlayerData(joypadData.player) then
+        local buts = getButtonPrompts(joypadData.player)
         if button == Joypad.AButton then
-            buts:onAPress();
+            buts:onAPress()
         end
         if button == Joypad.BButton then
-            buts:onBPress();
+            buts:onBPress()
         end
         if button == Joypad.XButton then
-            buts:onXPress();
+            buts:onXPress()
         end
         if button == Joypad.YButton then
-            buts:onYPress();
+            buts:onYPress()
         end
         if button == Joypad.LBumper then
-            buts:onLBPress();
+            buts:onLBPress()
         end
         if button == Joypad.RBumper then
-            buts:onRBPress();
+            buts:onRBPress()
         end
     end
-
 end
 
-function onJoypadReleaseButton(joypadIndex, joypadData, button)
-    if joypadData.player and getPlayerData(joypadData.player) then
+function JoypadControllerData:onPressButton(button)
+    local joypadData = self.joypad
+
+    if not joypadData then return end
+
+    if not joypadData.focus then
+        self:onPressButtonNoFocus(button)
+        return
+    end
+    if MainScreen.instance and MainScreen.instance.inGame and MainScreen.instance:isReallyVisible() then
+        if button == Joypad.Start and joypadData.focus == MainScreen.instance then
+            self:onPauseButtonPressed()
+        else
+            joypadData.focus:onJoypadDown(button, joypadData)
+        end
+        return
+    end
+
+    if not joypadData.activeWhilePaused and isGamePaused() then
+        return;
+    end
+
+    joypadData.focus:onJoypadDown(button, joypadData);
+end
+
+function JoypadControllerData:onReleaseButton(button)
+    local joypadData = self.joypad
+
+    -- This controller isn't assigned to any player or the main menu.
+    if not joypadData then
+        return
+    end
+
+    if not joypadData.player then
+        return
+    end
+
+    if getPlayerData(joypadData.player) then
         local buts = getButtonPrompts(joypadData.player)
         buts:onJoypadButtonReleased(button)
         local wheel = getPlayerBackButtonWheel(joypadData.player)
@@ -343,33 +349,24 @@ end
 
 function getJoypadFocus(playerID)
 	local joypadData = JoypadState.players[playerID+1];
-
-	return joypadData.focus;
+	return joypadData and joypadData.focus or nil;
 end
 
 function setJoypadFocus(playerID, control)
     local joypadData = JoypadState.players[playerID+1];
+    if not joypadData then return end
 
-    print("set joypad focus", control)
+    noise("set focus to %s for player %d", uiToString(control), playerID)
 
     if control ~= nil and control ~= joypadData.focus then
         noise("focus changed - bumping down prevs");
-        if joypadData.focus then
-            noise("current: "..joypadData.focus:toString());
-        else
-            noise("current: nil");
-        end
-        if joypadData.prevfocus then
-            noise("prev: "..joypadData.prevfocus:toString());
-        else
-            noise("prev: nil");
-        end
-    
+        noise("current: %s", uiToString(joypadData.focus));
+        noise("prev: %s", uiToString(joypadData.prevfocus));
         joypadData.prevprevfocus = joypadData.prevfocus;
         joypadData.prevfocus = joypadData.focus;
     end
     if control then
-        noise("new: "..control:toString());
+        noise("new: %s", uiToString(control));
     end
     joypadData.focus = control;
 
@@ -378,11 +375,10 @@ end
 
 function setPrevFocusForPlayer(playerID)
     local joypadData = JoypadState.players[playerID+1];
-    noise("set previous focus");
-    noise("current:");
-    noise(joypadData.focus);
-    noise("prev:");
-    noise(joypadData.prevfocus);
+    if not joypadData then return end
+    noise("set focus to previous for player %d", playerID);
+    noise("current: %s", uiToString(joypadData.focus));
+    noise("prev: %s", uiToString(joypadData.prevfocus));
     joypadData.focus = joypadData.prevfocus;
     joypadData.prevfocus = joypadData.prevprevfocus;
     joypadData.prevprevfocus = nil;
@@ -394,11 +390,10 @@ end
 
 function setPrevPrevFocusForPlayer(playerID)
     local joypadData = JoypadState.players[playerID+1];
-    noise("set previous focus");
-    noise("current:");
-    noise(joypadData.focus);
-    noise("prev:");
-    noise(joypadData.prevfocus);
+    if not joypadData then return end
+    noise("set focus to previous-previous for player %d", playerID);
+    noise("current: %s", uiToString(joypadData.focus));
+    noise("prev: %s", uiToString(joypadData.prevfocus));
     joypadData.focus = joypadData.prevprevfocus;
     joypadData.prevfocus = nil;
     joypadData.prevprevfocus = nil;
@@ -410,22 +405,19 @@ end
 function updateJoypadFocus(joypadData)
 
     if joypadData.lastfocus ~= joypadData.focus then
-        print("new focus", joypadData.lastfocus, joypadData.focus)
-        if joypadData.focus then
-            print("update focus new should be ", joypadData.focus)
-        end
+        noise("change focus from %s to %s",
+            uiToString(joypadData.lastfocus),
+            uiToString(joypadData.focus))
         local lastfocus = joypadData.lastfocus
         joypadData.lastfocus = nil
         if joypadData.focus ~= nil then
-            noise("focus in "..joypadData.focus:toString())
+            noise("focus in %s", uiToString(joypadData.focus))
             joypadData.focus:onGainJoypadFocus(joypadData);
         end
-
         if lastfocus ~= nil then
-            noise("focus out "..lastfocus:toString())
+            noise("focus out %s", uiToString(lastfocus))
             lastfocus:onLoseJoypadFocus(joypadData);
         end
-
     end
 
     if joypadData.player ~= nil and getSpecificPlayer(joypadData.player) then
@@ -464,12 +456,21 @@ function updateJoypadFocus(joypadData)
     end
 end
 
-function onJoypadPressUp(joypadIndex, joypadData)
+function JoypadControllerData:onPressUp()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
     if joypadData.focus ~= nil then
-        if joypadData.focus:getIsVisible() then
+        if joypadData.focus:isVisible() then
             joypadData.focus:onJoypadDirUp(joypadData);
         end
-    elseif getCell():getDrag(joypadData.player) then
+        return
+    end
+    if not joypadData.player then
+        return
+    end
+    if getCell():getDrag(joypadData.player) then
         getCell():getDrag(joypadData.player):onJoypadDirUp(joypadData);
     elseif ISVehicleRegulator.onJoypadPressUp(joypadData) then
         -- increase regulator speed
@@ -480,21 +481,35 @@ function onJoypadPressUp(joypadIndex, joypadData)
     end
 end
 
-function onJoypadReleaseUp(joypadIndex, joypadData)
-    if joypadData.player then
-        local wheel = getPlayerRadialMenu(joypadData.player)
-        if joypadData.focus == wheel and wheel:getIsVisible() then
-            wheel:onJoypadButtonReleased(Joypad.DPadUp, joypadData)
-        end
+function JoypadControllerData:onReleaseUp()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
+    if not joypadData.player then
+        return
+    end
+    local wheel = getPlayerRadialMenu(joypadData.player)
+    if joypadData.focus == wheel and wheel:isVisible() then
+        wheel:onJoypadButtonReleased(Joypad.DPadUp, joypadData)
     end
 end
 
-function onJoypadPressDown(joypadIndex, joypadData)
+function JoypadControllerData:onPressDown()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
     if joypadData.focus ~= nil then
-        if joypadData.focus:getIsVisible() then
+        if joypadData.focus:isVisible() then
             joypadData.focus:onJoypadDirDown(joypadData);
         end
-    elseif getCell():getDrag(joypadData.player) then
+        return
+    end
+    if not joypadData.player then
+        return
+    end
+    if getCell():getDrag(joypadData.player) then
         getCell():getDrag(joypadData.player):onJoypadDirDown(joypadData);
     elseif ISVehicleRegulator.onJoypadPressDown(joypadData) then
         -- decrease regulator speed
@@ -503,21 +518,35 @@ function onJoypadPressDown(joypadIndex, joypadData)
     end
 end
 
-function onJoypadReleaseDown(joypadIndex, joypadData)
-    if joypadData.player then
-        local wheel = getPlayerRadialMenu(joypadData.player)
-        if joypadData.focus == wheel and wheel:getIsVisible() then
-            wheel:onJoypadButtonReleased(Joypad.DPadDown, joypadData)
-        end
+function JoypadControllerData:onReleaseDown()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
+    if not joypadData.player then
+        return
+    end
+    local wheel = getPlayerRadialMenu(joypadData.player)
+    if joypadData.focus == wheel and wheel:isVisible() then
+        wheel:onJoypadButtonReleased(Joypad.DPadDown, joypadData)
     end
 end
 
-function onJoypadPressLeft(joypadIndex, joypadData)
+function JoypadControllerData:onPressLeft()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
     if joypadData.focus ~= nil then
-        if joypadData.focus:getIsVisible() then
+        if joypadData.focus:isVisible() then
             joypadData.focus:onJoypadDirLeft(joypadData);
         end
-    elseif getCell():getDrag(joypadData.player) then
+        return
+    end
+    if not joypadData.player then
+        return
+    end
+    if getCell():getDrag(joypadData.player) then
         getCell():getDrag(joypadData.player):onJoypadDirLeft(joypadData);
     else
         ISDPadWheels.onDisplayLeft(joypadData)
@@ -526,21 +555,35 @@ function onJoypadPressLeft(joypadIndex, joypadData)
     end
 end
 
-function onJoypadReleaseLeft(joypadIndex, joypadData)
-    if joypadData.player then
-        local wheel = getPlayerRadialMenu(joypadData.player)
-        if joypadData.focus == wheel and wheel:getIsVisible() then
-            wheel:onJoypadButtonReleased(Joypad.DPadLeft, joypadData)
-        end
+function JoypadControllerData:onReleaseLeft()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
+    if not joypadData.player then
+        return
+    end
+    local wheel = getPlayerRadialMenu(joypadData.player)
+    if joypadData.focus == wheel and wheel:isVisible() then
+        wheel:onJoypadButtonReleased(Joypad.DPadLeft, joypadData)
     end
 end
 
-function onJoypadPressRight(joypadIndex, joypadData)
+function JoypadControllerData:onPressRight()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
     if joypadData.focus ~= nil then
-        if joypadData.focus:getIsVisible() then
+        if joypadData.focus:isVisible() then
             joypadData.focus:onJoypadDirRight(joypadData);
         end
-    elseif getCell():getDrag(joypadData.player) then
+        return
+    end
+    if not joypadData.player then
+        return
+    end
+    if getCell():getDrag(joypadData.player) then
         getCell():getDrag(joypadData.player):onJoypadDirRight(joypadData);
     else
         ISDPadWheels.onDisplayRight(joypadData)
@@ -549,12 +592,17 @@ function onJoypadPressRight(joypadIndex, joypadData)
     end
 end
 
-function onJoypadReleaseRight(joypadIndex, joypadData)
-    if joypadData.player then
-        local wheel = getPlayerRadialMenu(joypadData.player)
-        if joypadData.focus == wheel and wheel:getIsVisible() then
-            wheel:onJoypadButtonReleased(Joypad.DPadRight, joypadData)
-        end
+function JoypadControllerData:onReleaseRight()
+    if not self.joypad then
+        return
+    end
+    local joypadData = self.joypad
+    if not joypadData.player then
+        return
+    end
+    local wheel = getPlayerRadialMenu(joypadData.player)
+    if joypadData.focus == wheel and wheel:isVisible() then
+        wheel:onJoypadButtonReleased(Joypad.DPadRight, joypadData)
     end
 end
 
@@ -570,201 +618,289 @@ local function translateButton(joypad, button)
     return Joypad.Other
 end
 
-function onJoypadRenderTick(ticks)
-    if JoypadState.controllerTest then return end
-    if  getCore() and getCore():isDedicated() then return end
-    local t = getTimestampMs()
-    for i, v in pairs(JoypadState.joypads) do
-		if isJoypadDown(i) then
-			if not v.down then	v.timedown = t; v.timedownproc = 0 end
-			v.down = true
-			v.dtdown = t - v.timedown
-			v.dtprocdown = t - v.timedownproc
-		else 
-			v.timedown = 0
-			v.down = false
-		end
-		if isJoypadUp(i) then
-			if not v.up then	v.timeup = t; v.timeupproc = 0 end
-			v.up = true
-			v.dtup = t - v.timeup
-			v.dtprocup = t - v.timeupproc
-		else 
-			v.timeup = 0
-			v.up = false
-		end
+function JoypadControllerData:update(time)
+    if not self.connected then
+        return
+    end
 
-        if isJoypadLeft(i) then
-            if not v.left then
-                v.timeleft = t
-                v.timeleftproc = 0
-            end
-            v.left = true
-            v.dtleft = t - v.timeleft
-            v.dtprocleft = t - v.timeleftproc
-        else 
-            v.timeleft = 0
-            v.left = false
-        end
+    local i = self.id
+    local v = self
+    local t = time
+    
+    if isJoypadDown(i) then
+        if not v.down then	v.timedown = t; v.timedownproc = 0 end
+        v.down = true
+        v.dtdown = t - v.timedown
+        v.dtprocdown = t - v.timedownproc
+    else 
+        v.timedown = 0
+        v.down = false
+    end
 
-        if isJoypadRight(i) then
-            if not v.right then
-                v.timeright = t
-                v.timerightproc = 0
-            end
-            v.right = true
-            v.dtright = t - v.timeright
-            v.dtprocright = t - v.timerightproc
-        else 
-            v.timeright = 0
-            v.right = false
-        end
-		
-		--print("DEBUG: v.down="..tostring(v.down).." v.dtdown="..tostring(v.dtdown).." v.timedown="..tostring(v.timedown).." v.dtprocdown="..tostring(v.dtprocdown))
-		--print("DEBUG: v.up="..tostring(v.up).." v.dtup="..tostring(v.dtup).." v.timeup="..tostring(v.timeup).." v.dtprocup="..tostring(v.dtprocup))
-        if v.down and v.dtprocdown>300 then
-            onJoypadPressDown(i, v);
-			v.timedownproc = t
-        elseif v.down and v.dtdown>900 and v.dtprocdown>110 then
-            onJoypadPressDown(i, v);
-			v.timedownproc = t
-        elseif v.down and v.dtdown>3000 and v.dtprocdown>50 then
-            onJoypadPressDown(i, v);
-			v.timedownproc = t
-        elseif not v.down and v.timedownproc ~= 0 then
-			onJoypadReleaseDown(i, v)
-			v.timedownproc = 0
-		end
-        if v.up and v.dtprocup>300 then
-            onJoypadPressUp(i, v);
-			v.timeupproc = t
-        elseif v.up and v.dtup>900 and v.dtprocup>110 then
-            onJoypadPressUp(i, v);
-			v.timeupproc = t
-        elseif v.up and v.dtup>3000 and v.dtprocup>50 then
-            onJoypadPressUp(i, v);
-			v.timeupproc = t
-        elseif not v.up and v.timeupproc ~= 0 then
-			onJoypadReleaseUp(i, v)
-			v.timeupproc = 0
-		end
+    if isJoypadUp(i) then
+        if not v.up then	v.timeup = t; v.timeupproc = 0 end
+        v.up = true
+        v.dtup = t - v.timeup
+        v.dtprocup = t - v.timeupproc
+    else 
+        v.timeup = 0
+        v.up = false
+    end
 
-        if v.left and v.dtprocleft > 300 then
-            onJoypadPressLeft(i, v)
-            v.timeleftproc = t
-        elseif v.left and v.dtleft > 900 and v.dtprocleft > 110 then
-            onJoypadPressLeft(i, v)
-            v.timeleftproc = t
-        elseif v.left and v.dtleft > 3000 and v.dtprocleft > 50 then
-            onJoypadPressLeft(i, v)
-            v.timeleftproc = t
-        elseif not v.left and v.timeleftproc ~= 0 then
-            onJoypadReleaseLeft(i, v)
+    if isJoypadLeft(i) then
+        if not v.left then
+            v.timeleft = t
             v.timeleftproc = 0
         end
+        v.left = true
+        v.dtleft = t - v.timeleft
+        v.dtprocleft = t - v.timeleftproc
+    else 
+        v.timeleft = 0
+        v.left = false
+    end
 
-        if v.right and v.dtprocright > 300 then
-            onJoypadPressRight(i, v)
-            v.timerightproc = t
-        elseif v.right and v.dtright > 900 and v.dtprocright > 110 then
-            onJoypadPressRight(i, v)
-            v.timerightproc = t
-        elseif v.right and v.dtright > 3000 and v.dtprocright > 50 then
-            onJoypadPressRight(i, v)
-            v.timerightproc = t
-        elseif not v.right and v.timerightproc ~= 0 then
-            onJoypadReleaseRight(i, v)
+    if isJoypadRight(i) then
+        if not v.right then
+            v.timeright = t
             v.timerightproc = 0
         end
+        v.right = true
+        v.dtright = t - v.timeright
+        v.dtprocright = t - v.timerightproc
+    else 
+        v.timeright = 0
+        v.right = false
+    end
+    
+    --print("DEBUG: v.down="..tostring(v.down).." v.dtdown="..tostring(v.dtdown).." v.timedown="..tostring(v.timedown).." v.dtprocdown="..tostring(v.dtprocdown))
+    --print("DEBUG: v.up="..tostring(v.up).." v.dtup="..tostring(v.dtup).." v.timeup="..tostring(v.timeup).." v.dtprocup="..tostring(v.dtprocup))
 
-        for n = 0,getButtonCount(i)-1 do
-            if v.pressed[n] == nil then v.pressed[n] = true; end
-            v.wasPressed[n] = v.pressed[n];
-            v.pressed[n] = isJoypadPressed(i, n);
-            if v.pressed[n] and not v.wasPressed[n] then
-                local button = translateButton(v.id, n)
-                onJoypadPressButton(i, v, button)
-            elseif v.wasPressed[n] and not v.pressed[n] then
-                local button = translateButton(v.id, n)
-                onJoypadReleaseButton(i, v, button)
-            end
+    if v.down and v.dtprocdown>300 then
+        v:onPressDown();
+        v.timedownproc = t
+    elseif v.down and v.dtdown>900 and v.dtprocdown>110 then
+        v:onPressDown();
+        v.timedownproc = t
+    elseif v.down and v.dtdown>3000 and v.dtprocdown>50 then
+        v:onPressDown();
+        v.timedownproc = t
+    elseif not v.down and v.timedownproc ~= 0 then
+        v:onReleaseDown()
+        v.timedownproc = 0
+    end
+
+    if v.up and v.dtprocup>300 then
+        v:onPressUp();
+        v.timeupproc = t
+    elseif v.up and v.dtup>900 and v.dtprocup>110 then
+        v:onPressUp();
+        v.timeupproc = t
+    elseif v.up and v.dtup>3000 and v.dtprocup>50 then
+        v:onPressUp();
+        v.timeupproc = t
+    elseif not v.up and v.timeupproc ~= 0 then
+        v:onReleaseUp()
+        v.timeupproc = 0
+    end
+
+    if v.left and v.dtprocleft > 300 then
+        v:onPressLeft()
+        v.timeleftproc = t
+    elseif v.left and v.dtleft > 900 and v.dtprocleft > 110 then
+        v:onPressLeft()
+        v.timeleftproc = t
+    elseif v.left and v.dtleft > 3000 and v.dtprocleft > 50 then
+        v:onPressLeft()
+        v.timeleftproc = t
+    elseif not v.left and v.timeleftproc ~= 0 then
+        v:onReleaseLeft()
+        v.timeleftproc = 0
+    end
+
+    if v.right and v.dtprocright > 300 then
+        v:onPressRight()
+        v.timerightproc = t
+    elseif v.right and v.dtright > 900 and v.dtprocright > 110 then
+        v:onPressRight()
+        v.timerightproc = t
+    elseif v.right and v.dtright > 3000 and v.dtprocright > 50 then
+        v:onPressRight()
+        v.timerightproc = t
+    elseif not v.right and v.timerightproc ~= 0 then
+        v:onReleaseRight()
+        v.timerightproc = 0
+    end
+
+    for n = 0,getButtonCount(i)-1 do
+        if v.pressed[n] == nil then v.pressed[n] = true; end
+        v.wasPressed[n] = v.pressed[n];
+        v.pressed[n] = isJoypadPressed(i, n);
+        if v.pressed[n] and not v.wasPressed[n] then
+            local button = translateButton(v.id, n)
+            v:onPressButton(button)
+        elseif v.wasPressed[n] and not v.pressed[n] then
+            local button = translateButton(v.id, n)
+            v:onReleaseButton(button)
         end
+    end
 
-        updateJoypadFocus(v);
+    if v.joypad then
+        updateJoypadFocus(v.joypad)
     end
 end
 
+function onJoypadRenderTick(ticks)
+    if JoypadState.controllerTest then return end
+    local t = getTimestampMs()
+    for i=1,16 do
+        local controller = JoypadState.controllers[i-1]
+        controller:update(t)
+    end
+end
+
+function JoypadState.onGamepadConnect(id)
+    JoypadState.controllers[id].connected = true
+end
+
+function JoypadState.onGamepadDisconnect(id)
+    JoypadState.controllers[id].connected = false
+end
 
 function onJoypadActivate(id)
     if JoypadState.controllerTest then return end
 --    if getCore():getGameMode() == "Tutorial" then return end
-   if getPlayer() == nil then
-        return;
-   end
-   if JoypadState.joypads[id] == nil then
-        if JoypadState.ignoreActivateTime > Calendar.getInstance():getTimeInMillis() then
+    local controller = JoypadState.controllers[id]
+    if controller.joypad ~= nil then return end
+
+    noise("activate %d", id)
+    
+    if MainScreen.instance and MainScreenInstance.inGame then
+        local numPlayers = getNumActivePlayers() + 1
+        local maxPlayer = math.min(numPlayers, getMaxActivePlayers())
+        for i=1,maxPlayer do
+            if not JoypadState.players[i] then
+                joypadData = JoypadState.joypads[i]
+                break
+            end
+        end
+        if not joypadData then
+            -- All player slots have controllers.
             return
         end
-        local joypadData = {}
-        local listBox = ISScrollingListBox:new(0, 0, 200, 400);
-        listBox:initialise();
-        listBox:instantiate();
-        listBox:setUIName("JoypadListbox"..id)
-        listBox:setAnchorLeft(true);
-        listBox:setAnchorRight(true);
-        listBox:setAnchorTop(true);
-        listBox:setAnchorBottom(true);
-        listBox:setAlwaysOnTop(true)
-        listBox.selected = 1;
-        listBox:setVisible(true);
-        joypadData.id = id;
-        joypadData.pressed = {}
-        joypadData.wasPressed = {}
-        for n = 1,getButtonCount(id) do
-            joypadData.pressed[n-1] = isJoypadPressed(id, n-1)
-        end
-        joypadData.focusList = LuaList:new();
-        listBox:setController(id);
-        joypadData.listBox = listBox
-        joypadData.focus = joypadData.listBox;
-		joypadData.timepressdown = 0
-		joypadData.timepressup = 0
-        JoypadState.joypads[id] = joypadData
-        JoypadState.count = JoypadState.count + 1
-        JoypadState[JoypadState.count] = joypadData
-        fillJoypadListBox(joypadData)
-        listBox:addToUIManager();
+    else
+        joypadData = JoypadState.joypads[1]
     end
+
+    joypadData:setActive(true)
+    controller:setJoypad(joypadData)
 end
 
 function onJoypadActivateUI(id)
-    if JoypadState.controllerTest then return end
-    if JoypadState.uiActive and getPlayer() == nil then
-        if JoypadState.joypads[id] == nil then
-            local focus = nil
-            if MainScreen.instance and MainScreen.instance.bottomPanel:isVisible() then
-                focus = MainScreen.instance
-            elseif NewGameScreen.instance and NewGameScreen.instance:isVisible() then
-                focus = NewGameScreen.instance
-            end
+    onJoypadActivate(id)
+end
+
+function onJoypadBeforeDeactivate(id)
+    local joypadData = JoypadState.controllers[id].joypad
+    if joypadData == nil then
+        return
+    end
+    if joypadData.focus and joypadData.focus.onJoypadBeforeDeactivate then
+        joypadData.focus:onJoypadBeforeDeactivate(joypadData)
+    end
+end
+
+function onJoypadDeactivate(id)
+    local controller = JoypadState.controllers[id]
+    local joypadData = controller.joypad
+    if joypadData == nil then
+        return
+    end
+    joypadData:setActive(false)
+    if joypadData.inMainMenu and joypadData.focus ~= nil and MainScreen.instance and MainScreen.instance:isReallyVisible() then
+        joypadData.focus:onLoseJoypadFocus(joypadData)
+        joypadData.focus = nil
+        joypadData.lastfocus = nil
+    end
+    if joypadData.listBox then
+        if joypadData.focus == joypadData.listBox then
+            joypadData.focus = nil
+            joypadData.lastfocus = nil
+        end
+        joypadData.listBox:removeFromUIManager()
+        joypadData.listBox = nil
+    end
+    if joypadData.player == nil then
+        return
+    end
+    local ui = ISJoypadDisconnectedUI:new(joypadData.player)
+    ui:setAlwaysOnTop(true)
+    ui:addToUIManager()
+    joypadData.disconnectedUI = ui
+end
+
+function onJoypadBeforeReactivate(id)
+    local joypadData = JoypadState.controllers[id].joypad
+    if joypadData == nil then
+        return
+    end
+    if joypadData.focus and joypadData.focus.onJoypadBeforeReactivate then
+        joypadData.focus:onJoypadBeforeReactivate(joypadData)
+    end
+end
+
+function onJoypadReactivate(id)
+    local controller = JoypadState.controllers[id]
+    local joypadData = controller.joypad
+    if joypadData == nil then return end
+    joypadData:setActive(true)
+    if joypadData.disconnectedUI then
+        joypadData.disconnectedUI:removeFromUIManager()
+        joypadData.disconnectedUI = nil
+    end
+    if joypadData.focus and joypadData.focus.onJoypadReactivate then
+        joypadData.focus:onJoypadReactivate(joypadData)
+    end
+    if joypadData.inMainMenu then
+        if MainScreen.instance and MainScreen.instance:isReallyVisible() then
+            local focus = MainScreen.instance:getCurrentFocusForController()
             if focus == nil then return end
-            local joypadData = {}
-            joypadData = {}
-            joypadData.id = id
-            joypadData.pressed = {}
-            joypadData.wasPressed = {}
-            for n = 1,getButtonCount(id) do
-                joypadData.pressed[n-1] = isJoypadPressed(id, n-1)
-            end
-            joypadData.focusList = LuaList:new()
-            JoypadState.joypads[id] = joypadData
-            JoypadState.count = JoypadState.count + 1
-            JoypadState[JoypadState.count] = joypadData
             joypadData.focus = focus
             updateJoypadFocus(joypadData)
-            JoypadState.uiActive = false
+            return
         end
     end
+end
+
+-- Player 0 controller was disconnected, and they chose to use keyboard and mouse.
+function JoypadState.useKeyboardMouse()
+    local playerNum = 0
+    local joypadData = JoypadState.players[playerNum+1]
+    JoypadState.players[playerNum+1] = nil
+    joypadData.player = nil
+    if joypadData.focus ~= nil then
+        joypadData.focus:onLoseJoypadFocus(joypadData)
+        joypadData.focus = nil
+    end
+    local playerObj = getSpecificPlayer(playerNum)
+    if playerObj then
+        -- See inventory handling in JoypadControllerData:onPressButton().
+        playerObj:setBannedAttacking(false)
+    end
+    if joypadData.listBox then
+        joypadData.listBox:removeFromUIManager()
+        joypadData.listBox = nil
+    end
+    revertToKeyboardAndMouse()
+end
+
+function JoypadState.getMainMenuJoypad()
+    for _,joypadData in ipairs(JoypadState.joypads) do
+        if joypadData.inMainMenu then
+            return joypadData
+        end
+    end
+    return nil
 end
 
 function JoypadState.saveAllFocus()
@@ -775,57 +911,86 @@ function JoypadState.saveAllFocus()
 end
 
 function JoypadState.restoreAllFocus()
+    if not JoypadState.saveFocus then return end
     for i,joypadData in pairs(JoypadState.joypads) do
-        if JoypadState.saveFocus[i] and JoypadState.saveFocus[i]:getIsVisible() then
+        if JoypadState.saveFocus[i] and JoypadState.saveFocus[i]:isVisible() then
             joypadData.focus = JoypadState.saveFocus[i]
         else
             joypadData.focus = nil
         end
     end
-
-    for k in pairs (JoypadState.saveFocus) do
-        JoypadState.saveFocus [k] = nil
-    end
-
+    table.wipe(JoypadState.saveFocus)
 end
 
 function JoypadState.onPlayerDeath(playerObj)
     local playerNum = playerObj:getPlayerNum()
     local joypadData = JoypadState.players[playerNum+1]
     if joypadData then
-        noise('removing joypad player '..playerNum)
+        noise('removing joypad player %d', playerNum)
         joypadData.player = nil
-        joypadData.focusList:clear()
-        joypadData.focus = joypadData.listBox
+        joypadData.focus = nil
         joypadData.lastfocus = nil
         joypadData.prevfocus = nil
         joypadData.prevprevfocus = nil
-        joypadData.cancelled = true
     end
 end
 
 function JoypadState.onCoopJoinFailed(playerNum)
     local joypadData = JoypadState.players[playerNum+1]
     if joypadData then
-        joypadData.focus = joypadData.listBox
-        joypadData.cancelled = true
+        joypadData.focus = nil
+        if joypadData.player then error "joypadData.player ~= nil" end
     end
 end
 
 JoypadState.onGameStart = function()
---    if getCore():getGameMode() == "Tutorial" then return end
-    if JoypadState.forceActivate then
+    local playerNum = 0
+    local joypadData = JoypadState.joypads[playerNum+1]
+    local controller = joypadData.controller
+    if controller then
         noise("force activate")
-        onJoypadActivate(JoypadState.forceActivate)
-        JoypadState.forceActivate = nil
-        updateJoypadFocus(JoypadState[1])
-        onJoypadPressButton(JoypadState[1].id, JoypadState[1], Joypad.AButton)
+        joypadData.inMainMenu = false
+        joypadData.focus = nil
+        joypadData.lastfocus = nil
+        joypadData.prevfocus = nil
+        joypadData.prevprevfocus = nil
+        joypadData.player = playerNum
+        JoypadState.players[playerNum+1] = joypadData
+        local playerObj = getSpecificPlayer(playerNum)
+        setPlayerJoypad(playerNum, joypadData.id, playerObj, nil)
+        createPlayerData(playerNum)
+        -- FIXME: obsolete?
+        getPlayerInventory(playerNum):setController(joypadData.id)
+        getPlayerLoot(playerNum):setController(joypadData.id)
+--[[
+        -- Display JoypadListBox.
+        controller:onPressButton(Joypad.AButton)
+        updateJoypadFocus(joypadData)
+        -- Take over player 1.
+        controller:onPressButton(Joypad.AButton)
+--]]
     end
 end
 
+function JoypadState.onRenderUI()
+    if JoypadState.debugUI == nil then
+        JoypadState.debugUI = ISJoypadDebugUI:new()
+        JoypadState.debugUI:initialise()
+        JoypadState.debugUI:instantiate()
+    end
+    JoypadState.debugUI:render()
+end
+
+Events.OnGamepadConnect.Add(JoypadState.onGamepadConnect)
+Events.OnGamepadDisconnect.Add(JoypadState.onGamepadDisconnect)
 Events.OnJoypadActivate.Add(onJoypadActivate);
 Events.OnJoypadActivateUI.Add(onJoypadActivateUI);
+Events.OnJoypadBeforeDeactivate.Add(onJoypadBeforeDeactivate);
+Events.OnJoypadDeactivate.Add(onJoypadDeactivate);
+Events.OnJoypadBeforeReactivate.Add(onJoypadBeforeReactivate);
+Events.OnJoypadReactivate.Add(onJoypadReactivate);
 Events.OnRenderTick.Add(onJoypadRenderTick);
 Events.OnGameStart.Add(JoypadState.onGameStart);
 --Events.OnPlayerDeath.Add(JoypadState.onPlayerDeath);
 Events.OnCoopJoinFailed.Add(JoypadState.onCoopJoinFailed)
+Events.OnJoypadRenderUI.Add(JoypadState.onRenderUI)

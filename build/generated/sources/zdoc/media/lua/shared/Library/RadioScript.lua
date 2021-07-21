@@ -17,38 +17,48 @@ RadioScript = {}
 function RadioScript:getNextBroadcast() end
 
 ---@public
----@return ArrayList|Unknown
-function RadioScript:getExitOptions() end
+---@return RadioBroadCast
+function RadioScript:getValidAirBroadcastDebug() end
 
 ---@public
----@param arg0 int
 ---@return void
-function RadioScript:setStartDayStamp(arg0) end
-
----@public
----@return int
-function RadioScript:getStartDayStamp() end
-
----@public
----@return String
-function RadioScript:GetGUID() end
-
----@public
----@return RadioScript.ExitOption
-function RadioScript:getNextScript() end
+function RadioScript:Reset() end
 
 ---@public
 ---@return int
 function RadioScript:getLoopMin() end
 
 ---@public
----@return int
-function RadioScript:getStartDay() end
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@return void
+function RadioScript:AddExitOption(arg0, arg1, arg2) end
+
+---@public
+---@return RadioBroadCast
+function RadioScript:getCurrentBroadcast() end
 
 ---@public
 ---@param arg0 String
 ---@return RadioBroadCast
 function RadioScript:getBroadcastWithID(arg0) end
+
+---@public
+---@return RadioBroadCast
+function RadioScript:getValidAirBroadcast() end
+
+---@public
+---@return ArrayList|Unknown
+function RadioScript:getBroadcastList() end
+
+---@public
+---@return ArrayList|Unknown
+function RadioScript:getExitOptions() end
+
+---@public
+---@return int
+function RadioScript:getLoopMax() end
 
 ---@public
 ---@param arg0 RadioBroadCast
@@ -63,45 +73,35 @@ function RadioScript:AddBroadcast(arg0) end
 function RadioScript:AddBroadcast(arg0, arg1) end
 
 ---@public
----@return RadioBroadCast
-function RadioScript:getValidAirBroadcast() end
+---@param arg0 int
+---@return boolean
+function RadioScript:UpdateScript(arg0) end
 
 ---@public
 ---@return String
 function RadioScript:GetName() end
 
 ---@public
+---@return int
+function RadioScript:getStartDayStamp() end
+
+---@public
 ---@param arg0 int
----@return boolean
-function RadioScript:UpdateScript(arg0) end
-
----@public
----@return RadioBroadCast
-function RadioScript:getValidAirBroadcastDebug() end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
 ---@return void
-function RadioScript:AddExitOption(arg0, arg1, arg2) end
+function RadioScript:setStartDayStamp(arg0) end
 
 ---@public
 ---@return void
 function RadioScript:clearExitOptions() end
 
 ---@public
----@return RadioBroadCast
-function RadioScript:getCurrentBroadcast() end
+---@return String
+function RadioScript:GetGUID() end
 
 ---@public
----@return ArrayList|Unknown
-function RadioScript:getBroadcastList() end
+---@return RadioScript.ExitOption
+function RadioScript:getNextScript() end
 
 ---@public
 ---@return int
-function RadioScript:getLoopMax() end
-
----@public
----@return void
-function RadioScript:Reset() end
+function RadioScript:getStartDay() end

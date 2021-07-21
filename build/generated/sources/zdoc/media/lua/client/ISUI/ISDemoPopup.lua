@@ -79,13 +79,14 @@ ISDemoPopup.getInstance = function()
     ISDemoPopup.instance = ISDemoPopup:new(x, y, 330, 140);
     ISDemoPopup.instance:initialise();
     ISDemoPopup.instance:addToUIManager();
-    if JoypadState[1] then
-        if not JoypadState[1].player then
-            JoypadState.forceActivate = JoypadState[1].id
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if joypadData then
+        if not joypadData.player then
+            JoypadState.forceActivate = joypadData.id
             JoypadState.onGameStart()
         end
-        JoypadState[1].focus = ISDemoPopup.instance
-        updateJoypadFocus(JoypadState[1])
+        joypadData.focus = ISDemoPopup.instance
+        updateJoypadFocus(joypadData)
     end
    -- SurvivalGuideManager.instance.panel:setVisible(false);
     return ISDemoPopup.instance;

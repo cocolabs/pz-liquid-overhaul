@@ -15,68 +15,6 @@
 WorldFlares_Flare = {}
 
 ---@public
----@return float
-function WorldFlares_Flare:getX() end
-
----@public
----@return float
-function WorldFlares_Flare:getWindSpeed() end
-
----@public
----@return boolean
-function WorldFlares_Flare:isHasLaunched() end
-
----@public
----@return float
-function WorldFlares_Flare:getPercent() end
-
----@public
----@return float
-function WorldFlares_Flare:getMaxLifeTime() end
-
----@public
----@param arg0 int
----@return float
-function WorldFlares_Flare:getIntensityPlayer(arg0) end
-
----@private
----@return void
-function WorldFlares_Flare:update() end
-
----@public
----@return float
-function WorldFlares_Flare:getIntensity() end
-
----@private
----@param arg0 RenderSettings.PlayerRenderSettings
----@param arg1 int
----@param arg2 IsoPlayer
----@return void
-function WorldFlares_Flare:applyFlare(arg0, arg1, arg2) end
-
----@public
----@return int
-function WorldFlares_Flare:getRange() end
-
----@public
----@param arg0 int
----@return float
-function WorldFlares_Flare:getDistModPlayer(arg0) end
-
----@public
----@return float
-function WorldFlares_Flare:getY() end
-
----@public
----@return int
-function WorldFlares_Flare:getId() end
-
----@public
----@param arg0 int
----@return ClimateColorInfo
-function WorldFlares_Flare:getColorPlayer(arg0) end
-
----@public
 ---@return ClimateColorInfo
 function WorldFlares_Flare:getColor() end
 
@@ -89,9 +27,26 @@ function WorldFlares_Flare:getColor() end
 function WorldFlares_Flare:GetDistance(arg0, arg1, arg2, arg3) end
 
 ---@public
+---@return float
+function WorldFlares_Flare:getIntensity() end
+
+---@public
+---@return float
+function WorldFlares_Flare:getX() end
+
+---@public
 ---@param arg0 int
 ---@return float
-function WorldFlares_Flare:getLerpPlayer(arg0) end
+function WorldFlares_Flare:getDistModPlayer(arg0) end
+
+---@public
+---@param arg0 int
+---@return float
+function WorldFlares_Flare:getIntensityPlayer(arg0) end
+
+---@public
+---@return int
+function WorldFlares_Flare:getRange() end
 
 ---@public
 ---@param arg0 int
@@ -99,5 +54,50 @@ function WorldFlares_Flare:getLerpPlayer(arg0) end
 function WorldFlares_Flare:getOutColorPlayer(arg0) end
 
 ---@public
+---@return boolean
+function WorldFlares_Flare:isHasLaunched() end
+
+---@private
+---@param arg0 RenderSettings.PlayerRenderSettings
+---@param arg1 int
+---@param arg2 IsoPlayer
+---@return void
+function WorldFlares_Flare:applyFlare(arg0, arg1, arg2) end
+
+---@private
+---@return void
+function WorldFlares_Flare:update() end
+
+---@public
+---@return float
+function WorldFlares_Flare:getWindSpeed() end
+
+---@public
 ---@return float
 function WorldFlares_Flare:getLifeTime() end
+
+---@public
+---@return int
+function WorldFlares_Flare:getId() end
+
+---@public
+---@param arg0 int
+---@return float
+function WorldFlares_Flare:getLerpPlayer(arg0) end
+
+---@public
+---@return float
+function WorldFlares_Flare:getMaxLifeTime() end
+
+---@public
+---@return float
+function WorldFlares_Flare:getPercent() end
+
+---@public
+---@return float
+function WorldFlares_Flare:getY() end
+
+---@public
+---@param arg0 int
+---@return ClimateColorInfo
+function WorldFlares_Flare:getColorPlayer(arg0) end

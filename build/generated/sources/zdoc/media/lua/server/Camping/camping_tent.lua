@@ -30,6 +30,22 @@ function camping.findTentSprites(sprite)
 	return nil
 end
 
+local function addTentObject(grid, sprite, modData)
+	local tent = IsoThumpable.new(getCell(), grid, sprite, false, {})
+	tent:setName("Tent")
+	tent:setThumpDmg(1)
+	tent:setHealth(10)
+	tent:setMaxHealth(10)
+	tent:setBlockAllTheSquare(true)
+	tent:setIsThumpable(true)
+	if modData then
+		tent:setModData(modData)
+	end
+	grid:AddSpecialObject(tent)
+	tent:transmitCompleteItemToClients()
+	return tent
+end
+
 -- add a tent to the ground
 function camping.addTent(grid, sprite)
 	if not grid then return end
@@ -38,9 +54,13 @@ function camping.addTent(grid, sprite)
 	local tentSprites = camping.findTentSprites(sprite)
 	if not tentSprites then return end
 
-	local tent = IsoObject.new(grid, sprite, "Tent")
-	grid:AddTileObject(tent)
-	tent:transmitCompleteItemToClients()
+	local modData = {}
+	modData["need:Base.Tarp"] = 1
+	-- FIXME: could be Stake instead of TentPeg.
+	modData["need:camping.TentPeg"] = 4
+	modData["need:Base.WoodenStick"] = 2
+
+	local tent = addTentObject(grid, sprite, modData)
 
 	local dx = 0
 	local dy = 0
@@ -55,9 +75,7 @@ function camping.addTent(grid, sprite)
 	end
 
 	grid = getCell():getGridSquare(grid:getX() + dx, grid:getY() + dy, grid:getZ())
-	tent = IsoObject.new(grid, sprite, "Tent")
-	grid:AddTileObject(tent)
-	tent:transmitCompleteItemToClients()
+	tent = addTentObject(grid, sprite, nil)
 
 	return tent;
 end
@@ -70,15 +88,48 @@ end
 
 -- remove a tent
 function camping.removeTent(tent)
-	if not tent then return end
+	local objects = camping.getTentObjects(tent)
+	for _,object in ipairs(objects) do
+		local square = object:getSquare()
+		square:transmitRemoveItemFromSquare(object)
+	end
+end
+
+function camping.destroyTent(tent)
+	local objects = camping.getTentObjects(tent)
+	for _,object in ipairs(objects) do
+		local square = object:getSquare()
+		if object:hasModData() then
+			-- Copied from ISBuildingObject.onDestroy()
+			for index,value in pairs(object:getModData()) do
+				if luautils.stringStarts(index, "need:") then
+					local itemFullType = luautils.split(index, ":")[2]
+					for i=1,tonumber(value) do
+						if ZombRand(2) == 0 then
+							-- item destroyed
+						else
+							square:AddWorldInventoryItem(itemFullType, 0.0, 0.0, 0.0)
+						end
+					end
+				end
+			end
+		end
+		square:transmitRemoveItemFromSquare(object)
+	end
+end
+
+function camping.getTentObjects(tent)
+	local objects = {}
+	if not tent then return objects end
+
 	local grid = tent:getSquare()
-	if not grid then return end
+	if not grid then return objects end
 
 	local spriteName = spriteNameOf(tent)
 	local tentSprites = camping.findTentSprites(spriteName)
-	if not tentSprites then return end
+	if not tentSprites then return objects end
 
-	grid:transmitRemoveItemFromSquare(tent)
+	table.insert(objects, tent)
 
 	local dx = 0
 	local dy = 0
@@ -94,8 +145,11 @@ function camping.removeTent(tent)
 
 	grid = getCell():getGridSquare(grid:getX() + dx, grid:getY() + dy, grid:getZ())
 	tent = camping.findTentObject(grid)
-	if not tent then return end
-	grid:transmitRemoveItemFromSquare(tent)
+	if tent then
+		table.insert(objects, tent)
+	end
+
+	return objects
 end
 
 function camping.isTentObject(object)

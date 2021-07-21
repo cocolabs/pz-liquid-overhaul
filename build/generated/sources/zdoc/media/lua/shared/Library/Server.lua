@@ -21,121 +21,9 @@
 Server = {}
 
 ---@public
----@return String
-function Server:getServerPassword() end
-
----@public
----@param version String
----@return void
-function Server:setVersion(version) end
-
----@public
----@param open boolean
----@return void
-function Server:setOpen(open) end
-
----@public
----@return String
-function Server:getIp() end
-
----@public
----@param arg0 String
----@return void
-function Server:setServerPassword(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function Server:setPublic(arg0) end
-
----@public
----@return String
-function Server:getVersion() end
-
----@public
----@param maxPlayers String
----@return void
-function Server:setMaxPlayers(maxPlayers) end
-
----@public
----@param userName String
----@return void
-function Server:setUserName(userName) end
-
----@public
----@return String
-function Server:getUserName() end
-
----@public
----@param lastUpdate int
----@return void
-function Server:setLastUpdate(lastUpdate) end
-
----@public
----@return String
-function Server:getPwd() end
-
----@public
----@param players String
----@return void
-function Server:setPlayers(players) end
-
----@public
----@return String
-function Server:getName() end
-
----@public
----@param arg0 boolean
----@return void
-function Server:setPasswordProtected(arg0) end
-
----@public
----@param arg0 String
----@return void
-function Server:setSteamId(arg0) end
-
----@public
 ---@param arg0 String
 ---@return void
 function Server:setLocalIP(arg0) end
-
----@public
----@return String
-function Server:getMods() end
-
----@public
----@return String
-function Server:getDescription() end
-
----@public
----@return String
-function Server:getPlayers() end
-
----@public
----@return boolean
-function Server:isPasswordProtected() end
-
----@public
----@return String
-function Server:getSteamId() end
-
----@public
----@return String
-function Server:getLocalIP() end
-
----@public
----@param port String
----@return void
-function Server:setPort(port) end
-
----@public
----@return boolean
-function Server:isPublic() end
-
----@public
----@param pwd String
----@return void
-function Server:setPwd(pwd) end
 
 ---@public
 ---@param ip String
@@ -143,39 +31,52 @@ function Server:setPwd(pwd) end
 function Server:setIp(ip) end
 
 ---@public
----@param arg0 boolean
+---@param arg0 String
 ---@return void
-function Server:setHosted(arg0) end
+function Server:setSteamId(arg0) end
 
 ---@public
----@return String
-function Server:getPort() end
+---@param description String
+---@return void
+function Server:setDescription(description) end
+
+---@public
+---@param name String
+---@return void
+function Server:setName(name) end
 
 ---@public
 ---@return String
 function Server:getPing() end
 
 ---@public
----@param mods String
----@return void
-function Server:setMods(mods) end
+---@return boolean
+function Server:isHosted() end
+
+---@public
+---@return boolean
+function Server:isPasswordProtected() end
 
 ---@public
 ---@return boolean
 function Server:isOpen() end
 
 ---@public
+---@param pwd String
+---@return void
+function Server:setPwd(pwd) end
+
+---@public
+---@return String
+function Server:getIp() end
+
+---@public
 ---@return boolean
-function Server:isHosted() end
+function Server:isPublic() end
 
 ---@public
 ---@return String
 function Server:getMaxPlayers() end
-
----@public
----@param description String
----@return void
-function Server:setDescription(description) end
 
 ---@public
 ---@param arg0 String
@@ -187,6 +88,105 @@ function Server:setPing(arg0) end
 function Server:getLastUpdate() end
 
 ---@public
----@param name String
+---@param arg0 boolean
 ---@return void
-function Server:setName(name) end
+function Server:setHosted(arg0) end
+
+---@public
+---@param version String
+---@return void
+function Server:setVersion(version) end
+
+---@public
+---@return String
+function Server:getDescription() end
+
+---@public
+---@param userName String
+---@return void
+function Server:setUserName(userName) end
+
+---@public
+---@param mods String
+---@return void
+function Server:setMods(mods) end
+
+---@public
+---@return String
+function Server:getMods() end
+
+---@public
+---@param lastUpdate int
+---@return void
+function Server:setLastUpdate(lastUpdate) end
+
+---@public
+---@return String
+function Server:getPort() end
+
+---@public
+---@return String
+function Server:getVersion() end
+
+---@public
+---@param players String
+---@return void
+function Server:setPlayers(players) end
+
+---@public
+---@return String
+function Server:getServerPassword() end
+
+---@public
+---@param open boolean
+---@return void
+function Server:setOpen(open) end
+
+---@public
+---@param maxPlayers String
+---@return void
+function Server:setMaxPlayers(maxPlayers) end
+
+---@public
+---@return String
+function Server:getLocalIP() end
+
+---@public
+---@return String
+function Server:getSteamId() end
+
+---@public
+---@return String
+function Server:getPwd() end
+
+---@public
+---@return String
+function Server:getUserName() end
+
+---@public
+---@param arg0 String
+---@return void
+function Server:setServerPassword(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Server:setPasswordProtected(arg0) end
+
+---@public
+---@param port String
+---@return void
+function Server:setPort(port) end
+
+---@public
+---@return String
+function Server:getName() end
+
+---@public
+---@return String
+function Server:getPlayers() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Server:setPublic(arg0) end

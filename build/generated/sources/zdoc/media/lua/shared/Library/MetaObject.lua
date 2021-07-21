@@ -7,10 +7,6 @@
 MetaObject = {}
 
 ---@public
----@return RoomDef
-function MetaObject:getRoom() end
-
----@public
 ---@return int
 function MetaObject:getX() end
 
@@ -19,14 +15,18 @@ function MetaObject:getX() end
 function MetaObject:getY() end
 
 ---@public
+---@param bUsed boolean
+---@return void
+function MetaObject:setUsed(bUsed) end
+
+---@public
+---@return RoomDef
+function MetaObject:getRoom() end
+
+---@public
 ---@return boolean
 function MetaObject:getUsed() end
 
 ---@public
 ---@return int
 function MetaObject:getType() end
-
----@public
----@param bUsed boolean
----@return void
-function MetaObject:setUsed(bUsed) end

@@ -19,6 +19,28 @@
 IsoObjectPicker = {}
 
 ---@public
+---@param xx int
+---@param yy int
+---@return IsoMovingObject
+function IsoObjectPicker:PickTarget(xx, yy) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return IsoObject
+function IsoObjectPicker:PickWindowFrame(arg0, arg1) end
+
+---@public
+---@param xx int
+---@param yy int
+---@return IsoObjectPicker.ClickObject
+function IsoObjectPicker:Pick(xx, yy) end
+
+---@public
+---@return void
+function IsoObjectPicker:StartRender() end
+
+---@public
 ---@param arg0 int
 ---@param arg1 int
 ---@param arg2 int
@@ -32,16 +54,20 @@ IsoObjectPicker = {}
 function IsoObjectPicker:Add(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
 ---@public
----@param arg0 int
----@param arg1 int
----@return IsoObject
-function IsoObjectPicker:PickTree(arg0, arg1) end
+---@return IsoObjectPicker
+function IsoObjectPicker:getInstance() end
 
 ---@public
----@param xx int
----@param yy int
----@return IsoObjectPicker.ClickObject
-function IsoObjectPicker:Pick(xx, yy) end
+---@param screenX int
+---@param screenY int
+---@return IsoObject
+function IsoObjectPicker:PickCorpse(screenX, screenY) end
+
+---@public
+---@param screenX int
+---@param screenY int
+---@return IsoObject
+function IsoObjectPicker:PickWindow(screenX, screenY) end
 
 ---@public
 ---@param screenX int
@@ -51,13 +77,14 @@ function IsoObjectPicker:PickThumpable(screenX, screenY) end
 
 ---@public
 ---@return void
-function IsoObjectPicker:StartRender() end
+function IsoObjectPicker:Init() end
 
 ---@public
----@param screenX int
----@param screenY int
+---@param arg0 int
+---@param arg1 int
+---@param arg2 boolean
 ---@return IsoObject
-function IsoObjectPicker:PickCorpse(screenX, screenY) end
+function IsoObjectPicker:PickDoor(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 int
@@ -66,33 +93,13 @@ function IsoObjectPicker:PickCorpse(screenX, screenY) end
 function IsoObjectPicker:PickVehicle(arg0, arg1) end
 
 ---@public
+---@param arg0 int
+---@param arg1 int
+---@return IsoObject
+function IsoObjectPicker:PickTree(arg0, arg1) end
+
+---@public
 ---@param screenX int
 ---@param screenY int
 ---@return IsoObjectPicker.ClickObject
 function IsoObjectPicker:ContextPick(screenX, screenY) end
-
----@public
----@param arg0 int
----@param arg1 int
----@return IsoObject
-function IsoObjectPicker:PickWindowFrame(arg0, arg1) end
-
----@public
----@param xx int
----@param yy int
----@return IsoMovingObject
-function IsoObjectPicker:PickTarget(xx, yy) end
-
----@public
----@return IsoObjectPicker
-function IsoObjectPicker:getInstance() end
-
----@public
----@param screenX int
----@param screenY int
----@return IsoObject
-function IsoObjectPicker:PickWindow(screenX, screenY) end
-
----@public
----@return void
-function IsoObjectPicker:Init() end

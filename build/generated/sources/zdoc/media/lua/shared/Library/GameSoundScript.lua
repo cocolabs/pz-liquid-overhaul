@@ -3,8 +3,10 @@
 GameSoundScript = {}
 
 ---@public
+---@param arg0 String
+---@param arg1 String
 ---@return void
-function GameSoundScript:reset() end
+function GameSoundScript:Load(arg0, arg1) end
 
 ---@private
 ---@param arg0 ScriptParser.Block
@@ -12,7 +14,5 @@ function GameSoundScript:reset() end
 function GameSoundScript:LoadClip(arg0) end
 
 ---@public
----@param arg0 String
----@param arg1 String
 ---@return void
-function GameSoundScript:Load(arg0, arg1) end
+function GameSoundScript:reset() end

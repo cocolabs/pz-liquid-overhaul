@@ -93,6 +93,18 @@ AttachedWeaponDefinitions.axeBack = {
 	},
 }
 
+-- hunting knife (better quality) in the back
+AttachedWeaponDefinitions.huntingKnifeBack = {
+	chance = 5,
+	weaponLocation = {"Knife in Back"},
+	bloodLocations = {"Back"},
+	addHoles = false,
+	daySurvived = 10,
+	weapons = {
+		"Base.HuntingKnife",
+	},
+}
+
 -- random knife (better quality) in the back
 AttachedWeaponDefinitions.knifeBack = {
 	chance = 10,
@@ -101,7 +113,6 @@ AttachedWeaponDefinitions.knifeBack = {
 	addHoles = false,
 	daySurvived = 10,
 	weapons = {
-		"Base.HuntingKnife",
 		"Base.BreadKnife",
 		"Base.KitchenKnife",
 	},
@@ -124,6 +135,18 @@ AttachedWeaponDefinitions.knifeLowQualityLeftLeg = {
 	},
 }
 
+-- hunting knife (better quality) in the left leg
+AttachedWeaponDefinitions.huntingKnifeLeftLeg = {
+	chance = 5,
+	weaponLocation = {"Knife Left Leg"},
+	bloodLocations = {"UpperLeg_L"},
+	addHoles = false,
+	daySurvived = 10,
+	weapons = {
+		"Base.HuntingKnife",
+	},
+}
+
 -- random knife (better quality) in the left leg
 AttachedWeaponDefinitions.knifeLeftLeg = {
 	chance = 10,
@@ -132,7 +155,6 @@ AttachedWeaponDefinitions.knifeLeftLeg = {
 	addHoles = false,
 	daySurvived = 10,
 	weapons = {
-		"Base.HuntingKnife",
 		"Base.BreadKnife",
 		"Base.KitchenKnife",
 	},
@@ -155,6 +177,18 @@ AttachedWeaponDefinitions.knifeLowQualityLeftLeg = {
 	},
 }
 
+-- hunting knife (better quality) in the right leg
+AttachedWeaponDefinitions.huntingKnifeRightLeg = {
+	chance = 5,
+	weaponLocation = {"Knife Right Leg"},
+	bloodLocations = {"UpperRight_L"},
+	addHoles = false,
+	daySurvived = 10,
+	weapons = {
+		"Base.HuntingKnife",
+	},
+}
+
 -- random knife (better quality) in the right leg
 AttachedWeaponDefinitions.knifeRightLeg = {
 	chance = 10,
@@ -163,7 +197,6 @@ AttachedWeaponDefinitions.knifeRightLeg = {
 	addHoles = false,
 	daySurvived = 10,
 	weapons = {
-		"Base.HuntingKnife",
 		"Base.BreadKnife",
 		"Base.KitchenKnife",
 	},
@@ -186,6 +219,19 @@ AttachedWeaponDefinitions.knifeLowQualityShoulder = {
 	},
 }
 
+-- hunting knife (better quality) in the shoulder
+AttachedWeaponDefinitions.huntingKnifeShoulder = {
+	chance = 5,
+	weaponLocation = {"Knife Shoulder"},
+	bloodLocations = {"UpperArm_L", "Torso_Upper"},
+	addHoles = false,
+	daySurvived = 10,
+	weapons = {
+		"Base.HuntingKnife",
+	},
+}
+
+
 -- random knife (better quality) in the shoulder
 AttachedWeaponDefinitions.knifeShoulder = {
 	chance = 10,
@@ -194,7 +240,6 @@ AttachedWeaponDefinitions.knifeShoulder = {
 	addHoles = false,
 	daySurvived = 10,
 	weapons = {
-		"Base.HuntingKnife",
 		"Base.BreadKnife",
 		"Base.KitchenKnife",
 	},
@@ -230,6 +275,19 @@ AttachedWeaponDefinitions.knifeLowQualityStomach = {
 	},
 }
 
+-- hunting knife (better quality) in the stomach
+AttachedWeaponDefinitions.huntingKnifeStomach = {
+	chance = 5,
+	weaponLocation = {"Knife Stomach"},
+	bloodLocations = {"Torso_Lower", "Back"},
+	addHoles = false,
+	daySurvived = 10,
+	weapons = {
+		"Base.HuntingKnife",
+	},
+}
+
+
 -- random knife (better quality) in the stomach
 AttachedWeaponDefinitions.knifeStomach = {
 	chance = 10,
@@ -238,7 +296,6 @@ AttachedWeaponDefinitions.knifeStomach = {
 	addHoles = false,
 	daySurvived = 10,
 	weapons = {
-		"Base.HuntingKnife",
 		"Base.BreadKnife",
 		"Base.KitchenKnife",
 	},

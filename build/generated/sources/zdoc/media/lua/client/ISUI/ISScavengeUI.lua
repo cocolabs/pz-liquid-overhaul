@@ -153,6 +153,10 @@ function ISScavengeUI:prerender()
         self.ISButtonA = nil
         self.ok.isJoypad = false
     end
+
+    if self.player:getVehicle() then
+        self.close:forceClick()
+    end
 end
 
 function ISScavengeUI:updateButtons(currentAction)

@@ -299,9 +299,9 @@ function ISFishingUI:prerender()
     self:drawRect(0, 0, self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
     self:drawRectBorder(0, 0, self.width, self.height, self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b);
     self:drawTextCentre(getText("ContextMenu_Fishing"), self.width/2, self.titleY, 1,1,1,1, UIFont.Medium);
-    if self.joyfocus and self:getJoypadFocus() == self.ok then
+    if self.joyfocus and self:getJoypadFocus() == self.ok and self.joyfocus.isActive then
         self:setISButtonForA(self.ok)
-    else
+    elseif self.ok.isJoypad then
         self.ISButtonA = nil
         self.ok.isJoypad = false
     end
@@ -461,6 +461,18 @@ function ISFishingUI:onGainJoypadFocus(joypadData)
     self.joypadButtons[self.joypadIndex]:setJoypadFocused(true)
     self:setISButtonForB(self.cancel)
     self:setISButtonForY(self.close)
+end
+
+function ISFishingUI:onJoypadBeforeDeactivate(joypadData)
+    self.cancel:clearJoypadButton()
+    self.close:clearJoypadButton()
+    self:clearJoypadFocus(joypadData)
+end
+
+function ISFishingUI:onJoypadBeforeReactivate(joypadData)
+    self:setISButtonForB(self.cancel)
+    self:setISButtonForY(self.close)
+    self:restoreJoypadFocus(joypadData)
 end
 
 function ISFishingUI:onJoypadDown(button)

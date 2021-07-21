@@ -136,7 +136,7 @@ end
 
 function ISFarmingInfo:update()
 	ISPanelJoypad.update(self)
-	if self.parent:getIsVisible() and not self:isPlantValid() then
+	if not self.plant or (self.parent:getIsVisible() and not self:isPlantValid()) then
 		if self.joyfocus then
 			self.joyfocus.focus = nil
 			updateJoypadFocus(self.joyfocus)

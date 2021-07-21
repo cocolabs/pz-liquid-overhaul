@@ -14,6 +14,13 @@ ISObjectClickHandler.doRDoubleClick = function (object, x, y)
 
 end
 
+local function tableContains( _table, _item )
+    for _,v in pairs(_table) do
+        if v == _item then return true end
+    end
+    return false
+end
+
 ISObjectClickHandler.doRClick = function (object, x, y)
     local sq = object:getSquare();
     if instanceof(object, "IsoMovingObject") then
@@ -23,6 +30,10 @@ ISObjectClickHandler.doRClick = function (object, x, y)
     local objects = {}
     if (sq and sq:isSeen(0)) or instanceof(object, "IsoWindow") or instanceof(object, "IsoDoor") or instanceof(object, "IsoThumpable") or instanceof(object, "IsoTree") then
         table.insert(objects, object);
+    end
+    local doorTrans = IsoObjectPicker.Instance:PickDoor(x, y, true)
+    if doorTrans ~= nil and not tableContains(objects, doorTrans) then
+        table.insert(objects, doorTrans)
     end
     local window = IsoObjectPicker.Instance:PickWindow(x, y)
     if window ~= nil then

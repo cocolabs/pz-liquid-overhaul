@@ -582,26 +582,20 @@ function MainScreen:instantiate()
             self.survivalOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
             labelY = labelY + labelHgt
 
---            self.onlineOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_online2"), 1, 1, 1, 1, UIFont.Large, true);
-            self.onlineOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_online2"), 1, 1, 1, 0.5, UIFont.Large, true);
+            self.onlineOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_online2"), 1, 1, 1, 1, UIFont.Large, true);
             self.onlineOption.internal = "JOINSERVER";
             self.onlineOption:initialise();
-            self.onlineOption.tooltip = getText("UI_multiplayer_Disabled");
             self.bottomPanel:addChild(self.onlineOption);
-            if getDebug() then
-                self.onlineOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
-            end
+            self.onlineOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
+            self.onlineOption:setVisible(false)
             labelY = labelY + labelHgt
 
---            self.onlineCoopOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_coop"), 1, 1, 1, 1, UIFont.Large, true);
-            self.onlineCoopOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_coop"), 1, 1, 1, 0.5, UIFont.Large, true);
+            self.onlineCoopOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_coop"), 1, 1, 1, 1, UIFont.Large, true);
             self.onlineCoopOption.internal = "COOP";
             self.onlineCoopOption:initialise();
-            self.onlineCoopOption.tooltip = getText("UI_multiplayer_Disabled");
             self.bottomPanel:addChild(self.onlineCoopOption);
-            if getDebug() then
-                self.onlineCoopOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
-            end
+            self.onlineCoopOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
+            self.onlineCoopOption:setVisible(false)
             labelY = labelY + labelHgt
 
             labelY = labelY + labelSeparator
@@ -648,16 +642,16 @@ function MainScreen:instantiate()
             self.scoreOption.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
             labelY = labelY + labelHgt
 
-            self.adminPanel = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_adminpanel"), 1, 1, 1, 1, UIFont.Large, true);
-            self.adminPanel.internal = "ADMINPANEL";
-            self.adminPanel:initialise();
-            self.bottomPanel:addChild(self.adminPanel);
-            self.adminPanel.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
-            self.adminPanel:setVisible(false);
-            if canSeePlayerStats() or isCoopHost() then
-                labelY = labelY + labelHgt
-                self.adminPanel:setVisible(true);
-            end
+--            self.adminPanel = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_adminpanel"), 1, 1, 1, 1, UIFont.Large, true);
+--            self.adminPanel.internal = "ADMINPANEL";
+--            self.adminPanel:initialise();
+--            self.bottomPanel:addChild(self.adminPanel);
+--            self.adminPanel.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
+--            self.adminPanel:setVisible(false);
+--            if canSeePlayerStats() or isCoopHost() then
+--                labelY = labelY + labelHgt
+--                self.adminPanel:setVisible(true);
+--            end
 
             if canInviteFriends() then
                 self.inviteOption = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_invite"), 1, 1, 1, 1, UIFont.Large, true);
@@ -668,12 +662,12 @@ function MainScreen:instantiate()
                 labelY = labelY + labelHgt
             end
 
-            self.userPanel = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_userpanel"), 1, 1, 1, 1, UIFont.Large, true);
-            self.userPanel.internal = "USERPANEL";
-            self.userPanel:initialise();
-            self.bottomPanel:addChild(self.userPanel);
-            self.userPanel.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
-            labelY = labelY + labelHgt
+--            self.userPanel = ISLabel:new(labelX, labelY, labelHgt, getText("UI_mainscreen_userpanel"), 1, 1, 1, 1, UIFont.Large, true);
+--            self.userPanel.internal = "USERPANEL";
+--            self.userPanel:initialise();
+--            self.bottomPanel:addChild(self.userPanel);
+--            self.userPanel.onMouseDown = MainScreen.onMenuItemMouseDownMainMenu;
+--            labelY = labelY + labelHgt
 
             labelY = labelY + labelSeparator
         end
@@ -808,6 +802,7 @@ function MainScreen:instantiate()
             self.animPopup:setY(getCore():getScreenHeight()/2-(self.animPopup:getHeight()/2));
             self.animPopup:setVisible(true);
             self.animPopup:addToUIManager();
+            self.animPopup.prevFocus = self;
             getCore():setAnimPopupDone(true)
         end
     
@@ -859,20 +854,20 @@ function MainScreen:render()
     if self.inGame and isClient() then
         local labelSeparator = 16
         local newY = self.scoreOption:getBottom()
-        if canSeePlayerStats() or isCoopHost() then
-            self.adminPanel:setVisible(true);
-            newY = self.adminPanel:getBottom()
-        else
-            self.adminPanel:setVisible(false);
-        end
+--        if canSeePlayerStats() or isCoopHost() then
+--            self.adminPanel:setVisible(true);
+--            newY = self.adminPanel:getBottom()
+--        else
+--            self.adminPanel:setVisible(false);
+--        end
         if self.inviteOption then
             self.inviteOption:setY(newY)
             newY = self.inviteOption:getBottom()
         end
-        if self.userPanel then
-            self.userPanel:setY(newY)
-            newY = self.userPanel:getBottom()
-        end
+--        if self.userPanel then
+--            self.userPanel:setY(newY)
+--            newY = self.userPanel:getBottom()
+--        end
         newY = newY + labelSeparator
         self.optionsOption:setY(newY)
         newY = self.optionsOption:getBottom()
@@ -1076,9 +1071,10 @@ MainScreen.checkTutorial = function(button)
         modal:initialise();
         modal:addToUIManager();
         modal:setAlwaysOnTop(true);
-        if JoypadState[1] then
-            JoypadState[1].focus = modal;
-            updateJoypadFocus(JoypadState[1])
+        local joypadData = JoypadState.getMainMenuJoypad()
+        if joypadData then
+            joypadData.focus = modal;
+            updateJoypadFocus(joypadData)
         end
         return false;
     end
@@ -1089,9 +1085,10 @@ function MainScreen:onTutorialModalClick(button)
     local tutorialButton = MainScreen.instance.tutorialButton
     MainScreen.instance.tutorialButton = nil
 
-    if JoypadState[1] then
-        JoypadState[1].focus = MainScreen.instance
-        updateJoypadFocus(JoypadState[1])
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if joypadData then
+        joypadData.focus = MainScreen.instance
+        updateJoypadFocus(joypadData)
         if button.internal == "YES" then
             MainScreen.onTutorialControllerWarn()
             return
@@ -1113,13 +1110,17 @@ function MainScreen.onTutorialControllerWarn()
     modal:initialise()
     modal:addToUIManager()
     modal:setAlwaysOnTop(true)
-    JoypadState[1].focus = modal
-    updateJoypadFocus(JoypadState[1])
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if joypadData then
+        joypadData.focus = modal
+        updateJoypadFocus(joypadData)
+    end
 end
 
 function MainScreen:onTutorialControllerWarn2(button)
-    JoypadState[1].focus = MainScreen.instance
-    updateJoypadFocus(JoypadState[1])
+    local joypadData = JoypadState.getMainMenuJoypad()
+    joypadData.focus = MainScreen.instance
+    updateJoypadFocus(joypadData)
 
     if button.internal == "YES" then
         MainScreen.startTutorial()
@@ -1142,6 +1143,7 @@ MainScreen.startTutorial = function()
     TutorialData = {}
     TutorialData.chosenTutorial = Tutorial1;
     createWorld(worldName);
+--[[
     -- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
     if MainScreen.instance.joyfocus then
         local joypadData = MainScreen.instance.joyfocus
@@ -1152,6 +1154,7 @@ MainScreen.startTutorial = function()
         JoypadState.joypads = {};
         JoypadState.forceActivate = joypadData.id;
     end
+--]]
     GameWindow.doRenderEvent(false);
     forceChangeState(GameLoadingState.new());
 end
@@ -1191,6 +1194,9 @@ function MainScreen.checkSaveFile()
     local errorMsg = nil
     local lastPlayed = getLastPlayedDate(saveInfo.gameMode .. "/" .. getWorld():getWorld())
     local mapAvailable = {}
+
+    local versionText = " <LINE> <LINE> " .. getText("UI_worldscreen_SavefileVersion", worldVersion or '???', IsoWorld.getWorldVersion())
+
     if not worldVersion or not saveInfo.mapName then
         worldVersion = worldVersion or '???'
         saveInfo.mapName = saveInfo.mapName or '???'
@@ -1199,14 +1205,12 @@ function MainScreen.checkSaveFile()
         errorMsg = getText("UI_worldscreen_MapNotFound")
     elseif worldVersion == 0 then
         errorMsg = getText("UI_worldscreen_SavefileCorrupt")
-    elseif worldVersion <= 23 then
-        errorMsg = getText("UI_worldscreen_SavefileOld")
-    elseif worldVersion <= 115 then
-        errorMsg = getText("UI_worldscreen_SavefileVehicle",worldVersion, IsoWorld.getWorldVersion());
-    elseif worldVersion <= 143 then
-        errorMsg = " <LINE> <CENTER> <H1> <RED> " .. getText("UI_worldscreen_SaveCannotBeLoaded") .. " <LINE> <TEXT> <RED> " .. getText("UI_worldscreen_SavefileAnimation", worldVersion, IsoWorld.getWorldVersion());
+    elseif worldVersion == 175 then
+        errorMsg = getText("UI_worldscreen_SavefileOld") .. " <LINE> " .. getText("UI_worldscreen_SavefileUseBeta41_50") .. versionText
+    elseif worldVersion < 175 then
+        errorMsg = getText("UI_worldscreen_SavefileOld") .. versionText
     elseif worldVersion > IsoWorld.getWorldVersion() then
-        errorMsg = getText("UI_worldscreen_SavefileNewerThanGame")
+        errorMsg = getText("UI_worldscreen_SavefileNewerThanGame") .. versionText
     end
     if errorMsg then
         local text = " <H1> " .. getText("UI_mainscreen_ErrorLoadingSavefile") .. " <H2> <LINE> <LINE> "
@@ -1268,9 +1272,10 @@ function MainScreen.displayCheckSavefileModal(text)
     modal:initialise()
     modal:addToUIManager()
     modal:setAlwaysOnTop(true)
-    if JoypadState[1] then
-        JoypadState[1].focus = modal
-        updateJoypadFocus(JoypadState[1])
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if joypadData then
+        joypadData.focus = modal
+        updateJoypadFocus(joypadData)
     end
     MainScreen.instance.checkSavefileModal = modal
 end
@@ -1291,9 +1296,10 @@ function MainScreen.onCheckSavefileModalClick(button)
     MainScreen.resetLuaIfNeeded()
 
     MainScreen.instance.checkSavefileModal = nil
-    if JoypadState[1] then
-        JoypadState[1].focus = MainScreen.instance
-        updateJoypadFocus(JoypadState[1])
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if joypadData then
+        joypadData.focus = MainScreen.instance
+        updateJoypadFocus(joypadData)
     end
 end
 
@@ -1322,16 +1328,18 @@ function MainScreen.continueLatestSaveAux(fromResetLua)
 
     MainScreen.instance.bottomPanel:setVisible(false)
 
+    local joypadData = JoypadState.getMainMenuJoypad()
+
 	if not checkSavePlayerExists() then
         MainScreen.instance.createWorld = false
         if getCore():isChallenge() then
             if MapSpawnSelect.instance:hasChoices() then
                 MapSpawnSelect.instance:fillList()
                 MapSpawnSelect.instance.previousScreen = "LoadGameScreen"
-                MapSpawnSelect.instance:setVisible(true, MainScreen.instance.joyfocus)
+                MapSpawnSelect.instance:setVisible(true, joypadData)
             else
                 MainScreen.instance.charCreationProfession.previousScreen = "LoadGameScreen"
-                MainScreen.instance.charCreationProfession:setVisible(true, MainScreen.instance.joyfocus)
+                MainScreen.instance.charCreationProfession:setVisible(true, joypadData)
             end
             return
         end
@@ -1346,13 +1354,14 @@ function MainScreen.continueLatestSaveAux(fromResetLua)
         if MapSpawnSelect.instance:hasChoices() then
             MapSpawnSelect.instance:fillList()
             MapSpawnSelect.instance.previousScreen = "LoadGameScreen"
-            MapSpawnSelect.instance:setVisible(true, MainScreen.instance.joyfocus)
+            MapSpawnSelect.instance:setVisible(true, joypadData)
         else
             MapSpawnSelect.instance:useDefaultSpawnRegion()
             MainScreen.instance.charCreationProfession.previousScreen = "LoadGameScreen"
-            MainScreen.instance.charCreationProfession:setVisible(true, MainScreen.instance.joyfocus)
+            MainScreen.instance.charCreationProfession:setVisible(true, joypadData)
         end
 	else
+--[[
 		-- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
 		if MainScreen.instance.joyfocus then
 			local joypadData = MainScreen.instance.joyfocus
@@ -1363,6 +1372,7 @@ function MainScreen.continueLatestSaveAux(fromResetLua)
 			JoypadState.joypads = {}
 			JoypadState.forceActivate = joypadData.id
 		end
+--]]
 		GameWindow.doRenderEvent(false)
 		forceChangeState(GameLoadingState.new())
 	end
@@ -1463,11 +1473,6 @@ end
 MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
     print("EXITDEBUG: onMenuItemMouseDownMainMenu 1 (item="..tostring(item.internal)..")")
 
-    --as soon as multiplayer is to be enabled, remove the following 3 lines
-    if item.internal == "COOP" or item.internal == "JOINSERVER" then
-        return;
-    end
-
     if DebugScenarios.instance ~= nil then
         MainScreen.instance:removeChild(DebugScenarios.instance);
         DebugScenarios.instance = nil;
@@ -1489,6 +1494,8 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
         MainScreen.continueLatestSave(MainScreen.latestSaveGameMode, MainScreen.latestSaveWorld)
         return
     end
+
+    local joypadData = JoypadState.getMainMenuJoypad()
 
     if item.internal == "EXIT" then
         print("EXITDEBUG: onMenuItemMouseDownMainMenu 2")
@@ -1516,38 +1523,39 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
         ToggleEscapeMenu(getCore():getKey("Main Menu"))
         return
     end
-    --[[ as soon as multiplayer is to be enabled, please uncomment the following code
+
     if item.internal == "JOINSERVER" then
         MainScreen.instance.bottomPanel:setVisible(false);
         MainScreen.instance.joinServer:pingServers(true);
-        MainScreen.instance.joinServer:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.joinServer:setVisible(true, joypadData);
     end
     if item.internal == "COOP" then
         MainScreen.instance.bottomPanel:setVisible(false);
         MainScreen.instance.onlineCoopScreen:aboutToShow()
-        MainScreen.instance.onlineCoopScreen:setVisible(true, MainScreen.instance.joyfocus);
-    end]]
+        MainScreen.instance.onlineCoopScreen:setVisible(true, joypadData);
+    end
+	
     if item.internal == "SCOREBOARD" then
-        MainScreen.instance.scoreboard:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.scoreboard:setVisible(true, joypadData);
         scoreboardUpdate()
     end
 
     if item.internal == "OPTIONS" then
         MainScreen.instance.mainOptions:toUI()
-        MainScreen.instance.mainOptions:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.mainOptions:setVisible(true, joypadData);
     end
     if item.internal == "SOLO" then
         ActiveMods.getById("currentGame"):copyFrom(ActiveMods.getById("default"))
-        MainScreen.instance.soloScreen:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.soloScreen:setVisible(true, joypadData);
         MainScreen.instance.soloScreen.onMenuItemMouseDown(MainScreen.instance.soloScreen.survival,0,0);
     end
     if item.internal == "LOAD" then
         MainScreen.instance.loadScreen:setSaveGamesList();
-        MainScreen.instance.loadScreen:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.loadScreen:setVisible(true, joypadData);
     end
     if item.internal == "MODS" then
         MainScreen.instance.modSelect.isNewGame = false
-        MainScreen.instance.modSelect:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.modSelect:setVisible(true, joypadData);
         MainScreen.instance.modSelect:populateListBox(getModDirectoryTable());
         ModSelector.showNagPanel()
     end
@@ -1576,7 +1584,7 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
         return
     end
     if item.internal == "TUTORIAL" then
-        if JoypadState[1] then
+        if joypadData then
             MainScreen.onTutorialControllerWarn()
             return
         end
@@ -1589,6 +1597,7 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
             getWorld():setWorld("demo");
             deleteSave("Sandbox/demo");
             createWorld("demo");
+--[[
             -- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
             if MainScreen.instance.joyfocus then
                 local joypadData = MainScreen.instance.joyfocus
@@ -1599,6 +1608,7 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
                 JoypadState.joypads = {};
                 JoypadState.forceActivate = joypadData.id;
             end
+--]]
             GameWindow.doRenderEvent(false);
             forceChangeState(GameLoadingState.new());
     end
@@ -1606,12 +1616,12 @@ MainScreen.onMenuItemMouseDownMainMenu = function(item, x, y)
     if item.internal == "INVITE" then
         InviteFriends.instance:fillList();
 --        InviteFriends.instance:setVisible(true);
-        MainScreen.instance.inviteFriends:setVisible(true, MainScreen.instance.joyfocus);
+        MainScreen.instance.inviteFriends:setVisible(true, joypadData);
     end
 
     if item.internal == "WORKSHOP" then
         MainScreen.instance.workshopSubmit:fillList()
-        MainScreen.instance.workshopSubmit:setVisible(true, MainScreen.instance.joyfocus)
+        MainScreen.instance.workshopSubmit:setVisible(true, joypadData)
     end
 
     MainScreen.instance.bottomPanel:setVisible(false);
@@ -1626,6 +1636,9 @@ function MainScreen:quitToDesktopFunc()
     local x = getPlayerScreenLeft(player) + (getPlayerScreenWidth(player) - width) / 2
     local height = 120;
     local y = getPlayerScreenTop(player) + (getPlayerScreenHeight(player) - height) / 2
+    if not self.inGame then
+        player = nil
+    end
     local modal = ISModalDialog:new(x,y, width, height, getText("IGUI_ConfirmQuitToDesktop"), true, self, MainScreen.onConfirmQuitToDesktop, player);
     modal:initialise()
     self.quitToDesktopDialog = modal
@@ -1633,9 +1646,16 @@ function MainScreen:quitToDesktopFunc()
     modal:setAlwaysOnTop(true)
     modal:bringToTop()
     MainScreen.instance.bottomPanel:setVisible(false)
-    if JoypadState.players[player+1] then
+    if player and JoypadState.players[player+1] then
         modal.prevFocus = JoypadState.players[player+1].focus
         setJoypadFocus(player, modal)
+    else
+        local joypadData = JoypadState.getMainMenuJoypad()
+        if joypadData then
+            modal.prevFocus = joypadData.focus
+            joypadData.focus = modal
+            updateJoypadFocus(joypadData)
+        end
     end
 end
 
@@ -2008,23 +2028,28 @@ ToggleEscapeMenu = function (key)
         print("EXITDEBUG: ToggleEscapeMenu 1")
 		if getCell() and getCell():getDrag(0) then -- if we press escape we first try to remove the dragged item (carpentry for exemple)
             print("EXITDEBUG: ToggleEscapeMenu 2 (getCell.getDrag("..tostring(getCell():getDrag(0)).."))")
+            if getCell():getDrag(0).close then
+                getCell():getDrag(0):close();
+            end
 			getCell():setDrag(nil, 0);
 		elseif MainScreen.instance ~= nil and MainScreen.instance.inGame == true then
             print("EXITDEBUG: ToggleEscapeMenu 3")
 			if MainOptions.instance and MainOptions.instance.modal then return end -- confirm-changes dialog
             print("EXITDEBUG: ToggleEscapeMenu 4")
-			ISUIHandler.setVisibleAllUI(MainScreen.instance:getIsVisible())
+			ISUIHandler.setVisibleAllUI(MainScreen.instance:isVisible())
 
-			MainScreen.instance:setVisible(not MainScreen.instance:getIsVisible());
+			MainScreen.instance:setVisible(not MainScreen.instance:isVisible());
 
-			if MainScreen.instance:getIsVisible() then
+			if MainScreen.instance:isVisible() then
                 print("EXITDEBUG: ToggleEscapeMenu 5")
 				MainScreen.instance:addToUIManager()
 				setGameSpeed(0);
 				setShowPausedMessage(false);
 				JoypadState.saveAllFocus()
-				if JoypadState[1] then
-					JoypadState[1].focus = MainScreen.instance
+				local joypadData = JoypadState.getMainMenuJoypad()
+				if joypadData then
+					joypadData.inMainMenu = true
+					joypadData.focus = MainScreen.instance
 				end
 				MainScreen.instance:onEnterFromGame()
 			else
@@ -2033,6 +2058,10 @@ ToggleEscapeMenu = function (key)
 				MainScreen.instance:onReturnToGame()
 				setGameSpeed(1);
 				setShowPausedMessage(true);
+				local joypadData = JoypadState.getMainMenuJoypad()
+				if joypadData then
+					joypadData.inMainMenu = false
+				end
 				JoypadState.restoreAllFocus()
 			end
 		end
@@ -2053,9 +2082,10 @@ LoadMainScreenPanelInt = function (ingame)
     if ingame then
         panel2:setVisible(false);
     end
-    if not ingame and JoypadState[1] ~= nil then
-        JoypadState[1].focus = MainScreen.instance;
-        updateJoypadFocus(JoypadState[1]);
+    local joypadData = JoypadState.getMainMenuJoypad()
+    if not ingame and joypadData ~= nil then
+        joypadData.focus = MainScreen.instance.animPopup or MainScreen.instance;
+        updateJoypadFocus(joypadData);
     end
     if not ingame and not isDemo() then
         local argsServer = getServerAddressFromArgs();
@@ -2123,9 +2153,9 @@ function MainScreen:onGainJoypadFocus(joypadData)
 		{ self.onlineCoopOption },
 		{ self.returnOption },
 		{ self.scoreOption },
-		{ self.adminPanel },
+--		{ self.adminPanel },
 		{ self.inviteOption },
-		{ self.userPanel },
+--		{ self.userPanel },
 		{ self.optionsOption },
 		{ self.modsOption },
 		{ self.exitOption },
@@ -2166,7 +2196,7 @@ function MainScreen:onLoseJoypadFocus(joypadData)
 	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
 end
 
-function MainScreen:onJoypadDown(button)
+function MainScreen:onJoypadDown(button, joypadData)
     if button == Joypad.AButton and self.joypadButtonsY[self.joypadIndex] then
         MainScreen.onMenuItemMouseDownMainMenu(self.joypadButtons[self.joypadIndex], 0,0);
     end
@@ -2275,6 +2305,13 @@ function MainScreen.onResolutionChange(oldw, oldh, neww, newh)
 	if self.serverSettingsScreen then
 		self.serverSettingsScreen:onResolutionChange(oldw, oldh, neww, newh)
 	end
+	if DebugScenarios.instance ~= nil then
+		DebugScenarios.instance:onResolutionChange(oldw, oldh, neww, newh)
+	end
+	if self.animPopup ~= nil then
+		self.animPopup:setX(neww/2-350)
+		self.animPopup:setY(newh/2-300)
+	end
 end
 
 function MainScreen:showInviteFailDialog(message)
@@ -2286,17 +2323,19 @@ function MainScreen:showInviteFailDialog(message)
 	modal:setCapture(true)
 	modal:setAlwaysOnTop(true)
 	modal:addToUIManager()
-	if JoypadState[1] then
-		modal.param1 = JoypadState[1].focus
-		JoypadState[1].focus = modal
-		updateJoypadFocus(JoypadState[1])
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then
+		modal.param1 = joypadData.focus
+		joypadData.focus = modal
+		updateJoypadFocus(joypadData)
 	end
 end
 
 function MainScreen:onInviteFailDialogButton(button, focus)
-	if JoypadState[1] then
-		JoypadState[1].focus = focus
-		updateJoypadFocus(JoypadState[1])
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then
+		joypadData.focus = focus
+		updateJoypadFocus(joypadData)
 	end
 end
 
@@ -2320,6 +2359,58 @@ function MainScreen.onAcceptInvite(connectionString)
     end
 end
 
+function MainScreen:getAllUIs()
+	return {
+		self.animPopup,
+		self.scoreboard,
+		self.joinServer,
+		self.joinPublicServer,
+		self.onlineCoopScreen,
+		self.soloScreen,
+		self.loadScreen,
+		self.sandOptions,
+		self.worldSelect,
+		self.mapSpawnSelect,
+		self.charCreationProfession,
+		self.charCreationMain,
+		self.inviteFriends,
+		self.modSelect,
+		self.lastStandPlayerSelect,
+		self.mainOptions,
+		self.mainOptions.gameSounds,
+		self.workshopSubmit,
+		self.serverWorkshopItem,
+		self.serverSettingsScreen
+	}
+end
+
+function MainScreen.OnJoypadBeforeDeactivate(index)
+	local self = MainScreen.instance
+	if not self then return end
+	if self.joyfocus and self.joyfocus.id == index then
+		
+	end
+	if CoopCharacterCreation.instance then
+		CoopCharacterCreation.instance:OnJoypadBeforeDeactivate(index)
+	end
+end
+
+function MainScreen:getCurrentFocusForController()
+	if self.animPopup and self.animPopup:isReallyVisible() then
+		return self.animPopup
+	end
+	if self.bottomPanel:isVisible() then
+		return self
+	end
+	local uis = self:getAllUIs()
+	for _,ui in pairs(uis) do
+		if ui:isReallyVisible() then
+			return ui
+		end
+	end
+	return nil
+end
+
 Events.OnResolutionChange.Add(MainScreen.onResolutionChange)
 
 Events.OnMainMenuEnter.Add(LoadMainScreenPanel);
@@ -2337,3 +2428,4 @@ Events.OnAcceptInvite.Add(MainScreen.onAcceptInvite);
 
 Events.OnSteamGameJoin.Add(MainScreenPanelJoinSteam);
 
+Events.OnJoypadBeforeDeactivate.Add(MainScreen.OnJoypadBeforeDeactivate);

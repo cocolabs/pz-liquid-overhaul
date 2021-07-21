@@ -6,16 +6,15 @@
 IsoSpriteManager = {}
 
 ---@public
----@param tex String
+---@param gid String
 ---@return IsoSprite
----@overload fun(tex:String, ID:int)
-function IsoSpriteManager:AddSprite(tex) end
+---@overload fun(gid:int)
+function IsoSpriteManager:getSprite(gid) end
 
 ---@public
----@param tex String
----@param ID int
+---@param gid int
 ---@return IsoSprite
-function IsoSpriteManager:AddSprite(tex, ID) end
+function IsoSpriteManager:getSprite(gid) end
 
 ---@public
 ---@param tex String
@@ -30,15 +29,16 @@ function IsoSpriteManager:getOrAddSpriteCache(tex) end
 function IsoSpriteManager:getOrAddSpriteCache(tex, col) end
 
 ---@public
----@param gid int
+---@param tex String
 ---@return IsoSprite
----@overload fun(gid:String)
-function IsoSpriteManager:getSprite(gid) end
+---@overload fun(tex:String, ID:int)
+function IsoSpriteManager:AddSprite(tex) end
 
 ---@public
----@param gid String
+---@param tex String
+---@param ID int
 ---@return IsoSprite
-function IsoSpriteManager:getSprite(gid) end
+function IsoSpriteManager:AddSprite(tex, ID) end
 
 ---@public
 ---@return void

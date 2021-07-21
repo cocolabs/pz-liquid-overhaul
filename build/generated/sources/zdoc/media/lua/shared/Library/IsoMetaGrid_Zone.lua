@@ -20,9 +20,101 @@
 IsoMetaGrid_Zone = {}
 
 ---@public
+---@return ArrayList|IsoGridSquare
+function IsoMetaGrid_Zone:getSquares() end
+
+---@public
+---@return float
+function IsoMetaGrid_Zone:getHoursSinceLastSeen() end
+
+---@public
+---@return void
+function IsoMetaGrid_Zone:sendToServer() end
+
+---@public
+---@return int
+function IsoMetaGrid_Zone:getX() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoMetaGrid_Zone:setY(arg0) end
+
+---@public
+---@return int
+function IsoMetaGrid_Zone:getZombieDensity() end
+
+---@public
+---@return IsoGridSquare
+function IsoMetaGrid_Zone:getRandomUnseenSquareInZone() end
+
+---@public
+---@return boolean
+function IsoMetaGrid_Zone:haveCons() end
+
+---@public
+---@param have boolean
+---@return void
+function IsoMetaGrid_Zone:setHaveConstruction(have) end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoMetaGrid_Zone:setOriginalName(arg0) end
+
+---@public
+---@return int
+function IsoMetaGrid_Zone:getY() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoMetaGrid_Zone:setPickedXForZoneStory(arg0) end
+
+---@public
+---@return String
+function IsoMetaGrid_Zone:getName() end
+
+---@public
+---@return String
+function IsoMetaGrid_Zone:getOriginalName() end
+
+---@public
+---@param sq IsoGridSquare
+---@return void
+function IsoMetaGrid_Zone:removeSquare(sq) end
+
+---@public
+---@return int
+function IsoMetaGrid_Zone:getLastActionTimestamp() end
+
+---@public
+---@return IsoGridSquare
+function IsoMetaGrid_Zone:getRandomSquareInZone() end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@param w int
+---@param h int
+---@return boolean
+function IsoMetaGrid_Zone:intersects(x, y, z, w, h) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoMetaGrid_Zone:setH(arg0) end
+
+---@public
 ---@param type String
 ---@return void
 function IsoMetaGrid_Zone:setType(type) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoMetaGrid_Zone:setW(arg0) end
 
 ---@public
 ---@param arg0 int
@@ -36,30 +128,31 @@ function IsoMetaGrid_Zone:contains(arg0, arg1, arg2) end
 function IsoMetaGrid_Zone:getHeight() end
 
 ---@public
----@return String
-function IsoMetaGrid_Zone:getType() end
+---@return int
+function IsoMetaGrid_Zone:getWidth() end
+
+---@public
+---@return void
+function IsoMetaGrid_Zone:setHourSeenToCurrent() end
+
+---@public
+---@param lastActionTimestamp int
+---@return void
+function IsoMetaGrid_Zone:setLastActionTimestamp(lastActionTimestamp) end
+
+---@public
+---@param sq IsoGridSquare
+---@return void
+function IsoMetaGrid_Zone:addSquare(sq) end
 
 ---@public
 ---@param arg0 int
 ---@return void
-function IsoMetaGrid_Zone:setPickedXForZoneStory(arg0) end
-
----@public
----@return int
-function IsoMetaGrid_Zone:getY() end
+function IsoMetaGrid_Zone:setX(arg0) end
 
 ---@public
 ---@return String
-function IsoMetaGrid_Zone:getName() end
-
----@public
----@return int
-function IsoMetaGrid_Zone:getLastActionTimestamp() end
-
----@public
----@param name String
----@return void
-function IsoMetaGrid_Zone:setName(name) end
+function IsoMetaGrid_Zone:getType() end
 
 ---@public
 ---@param arg0 int
@@ -72,104 +165,11 @@ function IsoMetaGrid_Zone:setName(name) end
 function IsoMetaGrid_Zone:difference(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return int
-function IsoMetaGrid_Zone:getX() end
-
----@public
----@return int
-function IsoMetaGrid_Zone:getWidth() end
-
----@public
----@param arg0 int
----@return void
-function IsoMetaGrid_Zone:setY(arg0) end
-
----@public
----@param arg0 int
----@return void
-function IsoMetaGrid_Zone:setH(arg0) end
-
----@public
----@param have boolean
----@return void
-function IsoMetaGrid_Zone:setHaveConstruction(have) end
-
----@public
----@param arg0 int
----@return void
-function IsoMetaGrid_Zone:setX(arg0) end
-
----@public
 ---@param arg0 int
 ---@return void
 function IsoMetaGrid_Zone:setPickedYForZoneStory(arg0) end
 
 ---@public
+---@param name String
 ---@return void
-function IsoMetaGrid_Zone:sendToServer() end
-
----@public
----@return float
-function IsoMetaGrid_Zone:getHoursSinceLastSeen() end
-
----@public
----@return String
-function IsoMetaGrid_Zone:getOriginalName() end
-
----@public
----@return int
-function IsoMetaGrid_Zone:getZombieDensity() end
-
----@public
----@param arg0 String
----@return void
-function IsoMetaGrid_Zone:setOriginalName(arg0) end
-
----@public
----@param sq IsoGridSquare
----@return void
-function IsoMetaGrid_Zone:addSquare(sq) end
-
----@public
----@param lastActionTimestamp int
----@return void
-function IsoMetaGrid_Zone:setLastActionTimestamp(lastActionTimestamp) end
-
----@public
----@param x int
----@param y int
----@param z int
----@param w int
----@param h int
----@return boolean
-function IsoMetaGrid_Zone:intersects(x, y, z, w, h) end
-
----@public
----@return void
-function IsoMetaGrid_Zone:setHourSeenToCurrent() end
-
----@public
----@param sq IsoGridSquare
----@return void
-function IsoMetaGrid_Zone:removeSquare(sq) end
-
----@public
----@return IsoGridSquare
-function IsoMetaGrid_Zone:getRandomSquareInZone() end
-
----@public
----@return ArrayList|IsoGridSquare
-function IsoMetaGrid_Zone:getSquares() end
-
----@public
----@return IsoGridSquare
-function IsoMetaGrid_Zone:getRandomUnseenSquareInZone() end
-
----@public
----@return boolean
-function IsoMetaGrid_Zone:haveCons() end
-
----@public
----@param arg0 int
----@return void
-function IsoMetaGrid_Zone:setW(arg0) end
+function IsoMetaGrid_Zone:setName(name) end

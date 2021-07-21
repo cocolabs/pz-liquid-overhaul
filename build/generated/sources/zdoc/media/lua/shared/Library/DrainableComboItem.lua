@@ -16,90 +16,37 @@
 DrainableComboItem = {}
 
 ---@public
----@param arg0 float
----@return void
-function DrainableComboItem:setRainFactor(arg0) end
-
----@public
----@return String @the ReplaceOnDeplete
-function DrainableComboItem:getReplaceOnDeplete() end
+---@return boolean
+function DrainableComboItem:isUseWhileUnequiped() end
 
 ---@public
 ---@return int
-function DrainableComboItem:getSaveType() end
+function DrainableComboItem:getRemainingUses() end
 
 ---@public
----@param arg0 boolean
+---@return int @the ticksPerEquipUse
+function DrainableComboItem:getTicksPerEquipUse() end
+
+---@public
+---@param arg0 float
 ---@return void
-function DrainableComboItem:setCanConsolidate(arg0) end
-
----@public
----@return float
-function DrainableComboItem:getRainFactor() end
-
----@public
----@param ReplaceOnDeplete String
----@return void
-function DrainableComboItem:setReplaceOnDeplete(ReplaceOnDeplete) end
-
----@public
----@return float @the useDelta
-function DrainableComboItem:getUseDelta() end
-
----Specified by:
----
----getUsedDelta in interface Drainable
----@public
----@return float
-function DrainableComboItem:getUsedDelta() end
-
----@public
----@return float
-function DrainableComboItem:getInvHeat() end
+function DrainableComboItem:setHeat(arg0) end
 
 ---@public
 ---@param useDelta float @the useDelta to set
 ---@return void
 function DrainableComboItem:setUseDelta(useDelta) end
 
----@public
----@return boolean
-function DrainableComboItem:shouldUpdateInWorld() end
-
----Specified by:
----
----renderlast in interface IUpdater
----@public
----@return void
-function DrainableComboItem:renderlast() end
-
----@public
----@return int
-function DrainableComboItem:getDrainableUsesInt() end
-
 ---Overrides:
 ---
----CanStack in class InventoryItem
----@public
----@param item InventoryItem
----@return boolean
-function DrainableComboItem:CanStack(item) end
-
+---update in class InventoryItem
+---
 ---Specified by:
 ---
----render in interface IUpdater
+---update in interface IUpdater
 ---@public
 ---@return void
-function DrainableComboItem:render() end
-
----@public
----@return boolean @the bUseWhileEquiped
-function DrainableComboItem:isUseWhileEquiped() end
-
----@public
----@param ticksPerEquipUse int @the ticksPerEquipUse to set
----@return void
-function DrainableComboItem:setTicksPerEquipUse(ticksPerEquipUse) end
+function DrainableComboItem:update() end
 
 ---@public
 ---@param arg0 float
@@ -107,16 +54,13 @@ function DrainableComboItem:setTicksPerEquipUse(ticksPerEquipUse) end
 function DrainableComboItem:setWeightEmpty(arg0) end
 
 ---@public
+---@param arg0 boolean
+---@return void
+function DrainableComboItem:setUseWhileUnequiped(arg0) end
+
+---@public
 ---@return float
 function DrainableComboItem:getWeightEmpty() end
-
----@public
----@return void
-function DrainableComboItem:updateWeight() end
-
----@public
----@return float
-function DrainableComboItem:getHeat() end
 
 ---Overrides:
 ---
@@ -130,25 +74,28 @@ function DrainableComboItem:Use() end
 function DrainableComboItem:getReplaceOnDepleteFullType() end
 
 ---@public
----@param arg0 float
+---@param arg0 boolean
 ---@return void
-function DrainableComboItem:setHeat(arg0) end
+function DrainableComboItem:setCanConsolidate(arg0) end
 
 ---@public
----@return float @the delta
-function DrainableComboItem:getDelta() end
+---@param ticks float @the ticks to set
+---@return void
+function DrainableComboItem:setTicks(ticks) end
 
 ---@public
----@return boolean
-function DrainableComboItem:isUseWhileUnequiped() end
+---@return String @the ReplaceOnDeplete
+function DrainableComboItem:getReplaceOnDeplete() end
 
 ---@public
----@return boolean
-function DrainableComboItem:canConsolidate() end
+---@param ReplaceOnDeplete String
+---@return void
+function DrainableComboItem:setReplaceOnDeplete(ReplaceOnDeplete) end
 
 ---@public
----@return int
-function DrainableComboItem:getRemainingUses() end
+---@param bUseWhileEquiped boolean @the bUseWhileEquiped to set
+---@return void
+function DrainableComboItem:setUseWhileEquiped(bUseWhileEquiped) end
 
 ---Overrides:
 ---
@@ -156,11 +103,6 @@ function DrainableComboItem:getRemainingUses() end
 ---@public
 ---@return boolean
 function DrainableComboItem:finishupdate() end
-
----@public
----@param bUseWhileEquiped boolean @the bUseWhileEquiped to set
----@return void
-function DrainableComboItem:setUseWhileEquiped(bUseWhileEquiped) end
 
 ---Specified by:
 ---
@@ -175,39 +117,97 @@ function DrainableComboItem:setUsedDelta(usedDelta) end
 function DrainableComboItem:getTicks() end
 
 ---@public
----@return boolean
-function DrainableComboItem:IsDrainable() end
+---@return float
+function DrainableComboItem:getRainFactor() end
+
+---@public
+---@return float
+function DrainableComboItem:getHeat() end
 
 ---@public
 ---@param delta float @the delta to set
 ---@return void
 function DrainableComboItem:setDelta(delta) end
 
+---Specified by:
+---
+---renderlast in interface IUpdater
 ---@public
----@return int @the ticksPerEquipUse
-function DrainableComboItem:getTicksPerEquipUse() end
+---@return void
+function DrainableComboItem:renderlast() end
 
 ---@public
 ---@return float
 function DrainableComboItem:getDrainableUsesFloat() end
 
+---Overrides:
+---
+---CanStack in class InventoryItem
 ---@public
----@param ticks float @the ticks to set
----@return void
-function DrainableComboItem:setTicks(ticks) end
+---@param item InventoryItem
+---@return boolean
+function DrainableComboItem:CanStack(item) end
 
 ---@public
----@param arg0 boolean
+---@param ticksPerEquipUse int @the ticksPerEquipUse to set
 ---@return void
-function DrainableComboItem:setUseWhileUnequiped(arg0) end
+function DrainableComboItem:setTicksPerEquipUse(ticksPerEquipUse) end
 
 ---Specified by:
 ---
----update in interface IUpdater
----
----Overrides:
----
----update in class InventoryItem
+---getUsedDelta in interface Drainable
+---@public
+---@return float
+function DrainableComboItem:getUsedDelta() end
+
+---@public
+---@return boolean
+function DrainableComboItem:IsDrainable() end
+
+---@public
+---@return float @the useDelta
+function DrainableComboItem:getUseDelta() end
+
+---@public
+---@return boolean
+function DrainableComboItem:canConsolidate() end
+
+---@public
+---@param arg0 float
+---@return void
+function DrainableComboItem:setRainFactor(arg0) end
+
+---@public
+---@return float @the delta
+function DrainableComboItem:getDelta() end
+
+---@public
+---@return int
+function DrainableComboItem:getSaveType() end
+
+---@public
+---@return int
+function DrainableComboItem:getDrainableUsesInt() end
+
 ---@public
 ---@return void
-function DrainableComboItem:update() end
+function DrainableComboItem:updateWeight() end
+
+---@public
+---@return boolean
+function DrainableComboItem:shouldUpdateInWorld() end
+
+---@public
+---@return boolean @the bUseWhileEquiped
+function DrainableComboItem:isUseWhileEquiped() end
+
+---Specified by:
+---
+---render in interface IUpdater
+---@public
+---@return void
+function DrainableComboItem:render() end
+
+---@public
+---@return float
+function DrainableComboItem:getInvHeat() end

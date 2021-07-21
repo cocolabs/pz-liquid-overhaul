@@ -6,25 +6,10 @@
 ---@field private leftStr String
 AttackState = {}
 
----Overrides:
----
----enter in class State
 ---@public
----@param owner IsoGameCharacter
----@return void
-function AttackState:enter(owner) end
-
----@public
----@return AttackState
-function AttackState:instance() end
-
----Overrides:
----
----execute in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function AttackState:execute(owner) end
+---@param arg0 IsoGameCharacter
+---@return boolean
+function AttackState:isAttacking(arg0) end
 
 ---Overrides:
 ---
@@ -34,19 +19,34 @@ function AttackState:execute(owner) end
 ---@return void
 function AttackState:exit(owner) end
 
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 AnimEvent
+---@return void
+function AttackState:animEvent(arg0, arg1) end
+
 ---@private
 ---@param arg0 String
 ---@param arg1 IsoGameCharacter
 ---@return void
 function AttackState:triggerPlayerReaction(arg0, arg1) end
 
+---Overrides:
+---
+---enter in class State
 ---@public
----@param arg0 IsoGameCharacter
----@return boolean
-function AttackState:isAttacking(arg0) end
+---@param owner IsoGameCharacter
+---@return void
+function AttackState:enter(owner) end
+
+---Overrides:
+---
+---execute in class State
+---@public
+---@param owner IsoGameCharacter
+---@return void
+function AttackState:execute(owner) end
 
 ---@public
----@param arg0 IsoGameCharacter
----@param arg1 AnimEvent
----@return void
-function AttackState:animEvent(arg0, arg1) end
+---@return AttackState
+function AttackState:instance() end

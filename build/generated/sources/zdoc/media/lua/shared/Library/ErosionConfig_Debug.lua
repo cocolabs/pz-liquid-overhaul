@@ -5,13 +5,13 @@
 ErosionConfig_Debug = {}
 
 ---@public
----@return boolean
-function ErosionConfig_Debug:getEnabled() end
-
----@public
 ---@return int
 function ErosionConfig_Debug:getStartMonth() end
 
 ---@public
 ---@return int
 function ErosionConfig_Debug:getStartDay() end
+
+---@public
+---@return boolean
+function ErosionConfig_Debug:getEnabled() end

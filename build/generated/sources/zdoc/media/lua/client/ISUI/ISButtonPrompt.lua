@@ -3,6 +3,7 @@ require "ISUI/ISUIElement"
 ---@class ISButtonPrompt : ISUIElement
 ISButtonPrompt = ISUIElement:derive("ISButtonPrompt");
 
+local FONT_HGT_LARGE = getTextManager():getFontHeight(UIFont.Large)
 
 --************************************************************************--
 --** ISPanel:initialise
@@ -21,6 +22,18 @@ function ISButtonPrompt:prerender()
 
     if self.player ~= nil and (getFocusForPlayer(self.player) ~= nil and not getFocusForPlayer(self.player).overrideBPrompt) then
         return;
+    end
+
+    local joypadData = self.player and JoypadState.players[self.player+1] or nil
+    local joypadID = (joypadData and joypadData.player) and joypadData.id or nil
+
+    if not joypadID then
+        -- Player 0 reverted to keyboard and mouse
+        return
+    end
+
+    if joypadID and not isJoypadConnected(joypadID) then
+        return
     end
 
     local focus = getFocusForPlayer(self.player);
@@ -50,11 +63,12 @@ function ISButtonPrompt:prerender()
     self.rmargin = 16;
 
     local clock = UIManager.getClock()
-    if clock and getNumActivePlayers() > 1 and y + h > clock:getY() then
+    local clockWidth = clock:getWidth()
+    if clock and clock:isVisible() and getNumActivePlayers() > 1 and y + h > clock:getY() then
         if x < clock:getX() then
-            self.rmargin = self.rmargin + 50
+            self.rmargin = self.rmargin + clockWidth / 2
         else
-            self.lmargin = self.lmargin + 50
+            self.lmargin = self.lmargin + clockWidth / 2
         end
     end
 
@@ -73,8 +87,6 @@ function ISButtonPrompt:prerender()
     local rowHgt = 32
     local shift = 16
     local textPadX = 11
-
-    local joypadID = (self.player and JoypadState.players[self.player+1]) and JoypadState.players[self.player+1].id or nil
 
     x = self.x1 + self.lmargin;
     if self.xPrompt ~= nil then
@@ -117,7 +129,9 @@ function ISButtonPrompt:prerender()
     x = self.x2 + self.w2 - self.rmargin - buttonWid;
     if self.aPrompt ~= nil then
         buttonHgt = self.buttonA:getHeight()
-        self:drawTexture(self.buttonA, x - shift, self.y1 + rowHgt + (rowHgt - buttonHgt) / 2, 0.9, 1, 1, 1);
+        local dx,dy = 0,0
+        if joypadID and isJoypadPressed(joypadID, getJoypadAButton(joypadID)) then dx,dy = 3,3 end
+        self:drawTexture(self.buttonA, x - shift + dx, self.y1 + rowHgt + (rowHgt - buttonHgt) / 2 + dy, 0.9, 1, 1, 1);
         self:drawTextRight(self.aPrompt, x - textPadX - shift, self.y1 + rowHgt + (rowHgt - fontHgt) / 2, 1, 1, 1, 0.9, UIFont.NewLarge);
     end
     if self.bPrompt ~= nil then
@@ -135,7 +149,7 @@ end
 function ISButtonPrompt:update()
     if not self.player then return end
     local joypadData = JoypadState.players[self.player+1]
-    if not joypadData then return end
+    if not joypadData or not joypadData.isActive then return end
     if isJoypadRBPressed(joypadData.id) then
         ISFirearmRadialMenu.onRepeatRBumper(self)
     end
@@ -217,6 +231,26 @@ function ISButtonPrompt:sleep()
 
 --~ 	local player = getSpecificPlayer(self.player);
     ISWorldObjectContextMenu.onSleep(nil, self.player, true);
+end
+
+function ISButtonPrompt:cmdShowInventory()
+    local playerObj = getSpecificPlayer(self.player)
+    local ui = getPlayerInventory(self.player)
+    ui:setVisible(true)
+    local joypadData = JoypadState.players[self.player+1]
+    joypadData.focus = ui
+    updateJoypadFocus(joypadData)
+    playerObj:setBannedAttacking(true)
+end
+
+function ISButtonPrompt:cmdShowLoot()
+    local playerObj = getSpecificPlayer(self.player)
+    local ui = getPlayerLoot(self.player)
+    ui:setVisible(true)
+    local joypadData = JoypadState.players[self.player+1]
+    joypadData.focus = ui
+    updateJoypadFocus(joypadData)
+    playerObj:setBannedAttacking(true)
 end
 
 function ISButtonPrompt:cmdToggleLight(light)
@@ -697,14 +731,18 @@ function ISButtonPrompt:getBestYButtonAction(dir)
     end
 
     if getCell():getDrag(self.player) then
-        self:setYPrompt(nil, nil, nil);
+        self:setYPrompt(getCell():getDrag(self.player):getYPrompt(), nil);
         return;
+    end
+
+    if JoypadState.players[self.player+1].disableYInventory then
+        return
     end
 
     local playerObj = getSpecificPlayer(self.player)
     if playerObj:getVehicle() then
         self.isLoot = false
-        self:setYPrompt(getText("IGUI_Controller_Inventory"), nil, nil)
+        self:setYPrompt(getText("IGUI_Controller_Inventory"), ISButtonPrompt.cmdShowInventory, nil)
         return
     end
 
@@ -795,12 +833,12 @@ function ISButtonPrompt:getBestYButtonAction(dir)
 
     if loot then
 	    self.isLoot = true;
-        self:setYPrompt(getText("IGUI_Controller_Loot"), nil, nil);
+        self:setYPrompt(getText("IGUI_Controller_Loot"), ISButtonPrompt.cmdShowLoot, nil);
 
     else
 		if not getSpecificPlayer(self.player):isAsleep() then
 			self.isLoot = false;
-			self:setYPrompt(getText("IGUI_Controller_Inventory"), nil, nil);
+			self:setYPrompt(getText("IGUI_Controller_Inventory"), ISButtonPrompt.cmdShowInventory, nil);
         end
     end
 end
@@ -816,8 +854,13 @@ function ISButtonPrompt:getBestXButtonAction(dir)
         self:setXPrompt(nil, nil, nil);
     end
 
-    if getCell():getDrag(self.player) then
-        self:setXPrompt(nil, nil, nil);
+    local drag = getCell():getDrag(self.player)
+    if drag then
+        if drag.getXPrompt then
+            self:setXPrompt(drag:getXPrompt(), nil, nil);
+        else
+            self:setXPrompt(nil, nil, nil);
+        end
         return;
     end
 

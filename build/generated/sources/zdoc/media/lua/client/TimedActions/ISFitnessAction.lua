@@ -12,6 +12,9 @@ function ISFitnessAction:isValid()
 end
 
 function ISFitnessAction:update()
+	if self.character:isClimbing() then
+		self:forceStop();
+	end
 	if self.character:pressedMovement(true) or self.character:getMoodles():getMoodleLevel(MoodleType.Endurance) > ISFitnessUI.enduranceLevelTreshold then
 		self.character:setVariable("ExerciseStarted", false);
 		self.character:setVariable("ExerciseEnded", true);
@@ -29,10 +32,12 @@ end
 function ISFitnessAction:start()
 	self.action:setUseProgressBar(false)
 	if self.character:getCurrentState() ~= FitnessState.instance() then
-		self.character:reportEvent("EventFitness");
 		self.character:setVariable("ExerciseType", self.exercise);
+		self.character:reportEvent("EventFitness");
 		self.character:clearVariable("ExerciseStarted");
 		self.character:clearVariable("ExerciseEnded");
+		
+		self.character:reportEvent("EventUpdateFitness");
 	end
 	
 --	self:showHandModel();
@@ -103,6 +108,7 @@ function ISFitnessAction:animEvent(event, parameter)
 				end
 			end
 		end
+		self.character:reportEvent("EventUpdateFitness");
 --		print("loopityloop", self.exeData.prop)
 	end
 end

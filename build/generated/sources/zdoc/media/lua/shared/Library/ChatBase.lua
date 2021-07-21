@@ -18,29 +18,50 @@
 ChatBase = {}
 
 ---@public
----@param arg0 ChatMessage
 ---@return void
----@overload fun(arg0:ServerChatMessage)
-function ChatBase:sendMessageToChatMembers(arg0) end
+function ChatBase:close() end
 
 ---@public
----@param arg0 ServerChatMessage
+---@param arg0 Integer
 ---@return void
-function ChatBase:sendMessageToChatMembers(arg0) end
+---@overload fun(arg0:UdpConnection)
+function ChatBase:sendPlayerLeaveChatPacket(arg0) end
 
 ---@public
----@return int
-function ChatBase:getID() end
+---@param arg0 UdpConnection
+---@return void
+function ChatBase:sendPlayerLeaveChatPacket(arg0) end
 
 ---@public
----@param arg0 ChatMessage
+---@param arg0 boolean
+---@return void
+function ChatBase:setShowTitle(arg0) end
+
+---@protected
+---@return boolean
+function ChatBase:isAllowChatIcons() end
+
+---@protected
 ---@return String
-function ChatBase:getMessageTextWithPrefix(arg0) end
+function ChatBase:getFontSize() end
+
+---@protected
+---@return boolean
+function ChatBase:isAllowBBcode() end
+
+---@protected
+---@return boolean
+function ChatBase:isAllowColors() end
+
+---@private
+---@param arg0 ArrayList|Unknown
+---@return void
+function ChatBase:syncMembers(arg0) end
 
 ---@public
----@param arg0 ChatMessage
+---@param arg0 Integer
 ---@return void
-function ChatBase:sendToServer(arg0) end
+function ChatBase:removeMember(arg0) end
 
 ---@public
 ---@param arg0 ChatMessage
@@ -57,107 +78,80 @@ function ChatBase:addMember(arg0) end
 function ChatBase:isSendingToRadio() end
 
 ---@protected
----@return IsoPlayer
-function ChatBase:getChatOwner() end
+---@return String
+---@overload fun(arg0:Color)
+function ChatBase:getColorTag() end
 
 ---@protected
+---@param arg0 Color
+---@return String
+function ChatBase:getColorTag(arg0) end
+
+---@public
+---@param arg0 UdpConnection
+---@param arg1 ChatMessage
+---@return void
+---@overload fun(arg0:int, arg1:ChatMessage)
+function ChatBase:sendMessageToPlayer(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 ChatMessage
+---@return void
+function ChatBase:sendMessageToPlayer(arg0, arg1) end
+
+---@public
+---@return String
+function ChatBase:getTitleID() end
+
+---@public
+---@return boolean
+function ChatBase:isEnabled() end
+
+---@public
+---@return ChatMode
+function ChatBase:getMode() end
+
+---@public
+---@return ArrayList|Unknown
+function ChatBase:getJustAddedMembers() end
+
+---@protected
+---@return boolean
+function ChatBase:isAllowImages() end
+
+---@protected
+---@return boolean
+function ChatBase:isAllowFonts() end
+
+---@public
 ---@param arg0 ByteBufferWriter
----@return void
-function ChatBase:packChat(arg0) end
-
----@private
----@param arg0 ArrayList|Unknown
----@return void
-function ChatBase:syncMembers(arg0) end
-
----@public
----@param arg0 Integer
----@return void
-function ChatBase:leaveMember(arg0) end
-
----@public
----@param arg0 UdpConnection
----@return void
----@overload fun(arg0:Integer)
-function ChatBase:sendPlayerLeaveChatPacket(arg0) end
-
----@public
----@param arg0 Integer
----@return void
-function ChatBase:sendPlayerLeaveChatPacket(arg0) end
-
----@protected
----@return boolean
-function ChatBase:isShowAuthor() end
-
----@public
----@param arg0 String
----@return void
-function ChatBase:setFontSize(arg0) end
-
----@protected
----@return boolean
-function ChatBase:isAllowChatIcons() end
-
----@protected
----@return boolean
-function ChatBase:isAllowBBcode() end
-
----@public
----@param arg0 boolean
----@return void
-function ChatBase:setShowTimestamp(arg0) end
-
----@private
----@param arg0 int
----@return boolean
-function ChatBase:hasMember(arg0) end
-
----@protected
----@return boolean
-function ChatBase:isShowTimestamp() end
-
----@protected
----@return boolean
-function ChatBase:isEqualizeLineHeights() end
-
----@public
----@param arg0 int
 ---@param arg1 ChatMessage
 ---@return void
----@overload fun(arg0:UdpConnection, arg1:ChatMessage)
-function ChatBase:sendMessageToPlayer(arg0, arg1) end
+function ChatBase:packMessage(arg0, arg1) end
 
 ---@public
----@param arg0 UdpConnection
----@param arg1 ChatMessage
+---@return Color
+function ChatBase:getColor() end
+
+---@protected
+---@return boolean
+function ChatBase:isShowTitle() end
+
+---@public
+---@param arg0 ServerChatMessage
 ---@return void
-function ChatBase:sendMessageToPlayer(arg0, arg1) end
+---@overload fun(arg0:ChatMessage)
+function ChatBase:sendMessageToChatMembers(arg0) end
+
+---@public
+---@param arg0 ChatMessage
+---@return void
+function ChatBase:sendMessageToChatMembers(arg0) end
 
 ---@protected
 ---@return boolean
 function ChatBase:hasChatTab() end
-
----@public
----@param arg0 Integer
----@return void
-function ChatBase:removeMember(arg0) end
-
----@public
----@return float
-function ChatBase:getRange() end
-
----@public
----@param arg0 String
----@return ChatMessage
----@overload fun(arg0:String, arg1:String)
-function ChatBase:createMessage(arg0) end
-
----@private
----@param arg0 String
----@param arg1 String
----@return ChatMessage
-function ChatBase:createMessage(arg0, arg1) end
 
 ---@public
 ---@param arg0 ChatMessage
@@ -171,9 +165,20 @@ function ChatBase:showMessage(arg0) end
 ---@return void
 function ChatBase:showMessage(arg0, arg1) end
 
----@protected
----@return boolean
-function ChatBase:isAllowImages() end
+---@public
+---@param arg0 Integer
+---@return void
+function ChatBase:leaveMember(arg0) end
+
+---@public
+---@param arg0 String
+---@return ServerChatMessage
+function ChatBase:createServerMessage(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ChatBase:setShowTimestamp(arg0) end
 
 ---@private
 ---@param arg0 short
@@ -183,52 +188,85 @@ function ChatBase:isAllowImages() end
 function ChatBase:sendMessagePacket(arg0, arg1, arg2) end
 
 ---@protected
----@return String
-function ChatBase:getTitle() end
-
----@protected
----@return String
----@overload fun(arg0:Color)
-function ChatBase:getColorTag() end
-
----@protected
----@param arg0 Color
----@return String
-function ChatBase:getColorTag(arg0) end
-
----@protected
 ---@return boolean
-function ChatBase:isShowTitle() end
+function ChatBase:isShowTimestamp() end
 
 ---@public
 ---@param arg0 String
----@return ServerChatMessage
-function ChatBase:createServerMessage(arg0) end
+---@return ChatMessage
+---@overload fun(arg0:String, arg1:String)
+function ChatBase:createMessage(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 String
+---@return ChatMessage
+function ChatBase:createMessage(arg0, arg1) end
 
 ---@protected
 ---@return boolean
-function ChatBase:isAllowFonts() end
+function ChatBase:isEqualizeLineHeights() end
+
+---@protected
+---@return boolean
+function ChatBase:isShowAuthor() end
+
+---@protected
+---@return String
+function ChatBase:getFontSizeTag() end
+
+---@public
+---@return float
+function ChatBase:getZombieAttractionRange() end
+
+---@public
+---@return float
+function ChatBase:getRange() end
+
+---@protected
+---@param arg0 ByteBufferWriter
+---@return void
+function ChatBase:packChat(arg0) end
+
+---@public
+---@return ChatType
+function ChatBase:getType() end
+
+---@protected
+---@return IsoPlayer
+function ChatBase:getChatOwner() end
+
+---@public
+---@param arg0 ChatMessage
+---@return String
+function ChatBase:getMessageTextWithPrefix(arg0) end
+
+---@public
+---@param arg0 UdpConnection
+---@return void
+function ChatBase:sendPlayerJoinChatPacket(arg0) end
+
+---@protected
+---@return String
+function ChatBase:getChatSettingsTags() end
 
 ---@public
 ---@return short
 function ChatBase:getTabID() end
 
----@public
----@return ArrayList|Unknown
-function ChatBase:getJustAddedMembers() end
-
----@public
----@return void
-function ChatBase:close() end
+---@private
+---@param arg0 int
+---@return boolean
+function ChatBase:hasMember(arg0) end
 
 ---@public
 ---@param arg0 ByteBuffer
 ---@return ChatMessage
 function ChatBase:unpackMessage(arg0) end
 
----@protected
----@return String
-function ChatBase:getFontSize() end
+---@public
+---@return ArrayList|Unknown
+function ChatBase:getJustRemovedMembers() end
 
 ---@public
 ---@param arg0 ChatSettings
@@ -237,56 +275,17 @@ function ChatBase:setSettings(arg0) end
 
 ---@protected
 ---@return String
-function ChatBase:getChatSettingsTags() end
+function ChatBase:getChatOwnerName() end
 
 ---@public
----@param arg0 boolean
+---@param arg0 ChatMessage
 ---@return void
-function ChatBase:setShowTitle(arg0) end
-
----@protected
----@return boolean
-function ChatBase:isAllowColors() end
+function ChatBase:sendToServer(arg0) end
 
 ---@public
 ---@param arg0 ArrayList|Unknown
 ---@return void
 function ChatBase:syncMembersByUsernames(arg0) end
-
----@public
----@param arg0 ByteBufferWriter
----@param arg1 ChatMessage
----@return void
-function ChatBase:packMessage(arg0, arg1) end
-
----@public
----@return boolean
-function ChatBase:isEnabled() end
-
----@public
----@return float
-function ChatBase:getZombieAttractionRange() end
-
----@public
----@param arg0 UdpConnection
----@return void
-function ChatBase:sendPlayerJoinChatPacket(arg0) end
-
----@public
----@return ArrayList|Unknown
-function ChatBase:getJustRemovedMembers() end
-
----@public
----@return ChatType
-function ChatBase:getType() end
-
----@protected
----@return String
-function ChatBase:getFontSizeTag() end
-
----@public
----@return Color
-function ChatBase:getColor() end
 
 ---@protected
 ---@return boolean
@@ -294,12 +293,13 @@ function ChatBase:isCustomSettings() end
 
 ---@protected
 ---@return String
-function ChatBase:getChatOwnerName() end
+function ChatBase:getTitle() end
 
 ---@public
----@return String
-function ChatBase:getTitleID() end
+---@return int
+function ChatBase:getID() end
 
 ---@public
----@return ChatMode
-function ChatBase:getMode() end
+---@param arg0 String
+---@return void
+function ChatBase:setFontSize(arg0) end

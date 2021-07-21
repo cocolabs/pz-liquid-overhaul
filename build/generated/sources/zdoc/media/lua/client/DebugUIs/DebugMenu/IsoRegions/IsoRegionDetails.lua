@@ -10,10 +10,14 @@ require "ISUI/ISCollapsableWindow"
 IsoRegionDetails = ISCollapsableWindow:derive("IsoRegionDetails");
 IsoRegionDetails.instance = nil;
 IsoRegionDetails.shiftDown = 0;
+IsoRegionDetails.lastX = false;
+IsoRegionDetails.lastY = false;
 
 function IsoRegionDetails.OnOpenPanel()
     if IsoRegionDetails.instance==nil then
-        IsoRegionDetails.instance = IsoRegionDetails:new (0, 100, 200, 500, getPlayer());
+        local x = IsoRegionDetails.lastX or 0;
+        local y = IsoRegionDetails.lastY or 100;
+        IsoRegionDetails.instance = IsoRegionDetails:new (x, y, 200, 500, getPlayer());
         IsoRegionDetails.instance:initialise();
         IsoRegionDetails.instance:instantiate();
     end
@@ -64,39 +68,40 @@ function IsoRegionDetails:readRegion( _x, _y, _z, _o )
         self:addLine("Y",_y);
         self:addLine("Z",_z);
         local gs = getCell():getGridSquare(_x,_y,_z);
-        --local ds = IsoRegion.getDataSquare(_x,_y,_z);
+        --local ds = IsoRegions.getDataSquare(_x,_y,_z);
         self:addLine("hasGridsquare",gs and "true" or "false");
         if gs then
             self:addLine("isSolidFloor",gs:Is(IsoFlagType.solidfloor) and "true" or "false");
             --self:addLine("hasDataSquare",gs:getDataSquare() and "true" or "false");
-            self:addLine("hasMasterRegion",gs:getMasterRegion() and tostring(gs:getMasterRegion():getID()) or "false");
+            self:addLine("hasWorldRegion",gs:getIsoWorldRegion() and tostring(gs:getIsoWorldRegion():getID()) or "false");
         else
             self:addLine("isSolidFloor","false");
             --[[self:addLine("found DataSquare",ds and "true" or "false");
             if ds then
                 self:addLine("found Region",ds:getRegion() and tostring(ds:getRegion():getID()) or "false");
-                local mr = ds:getRegion() and ds:getRegion():getMasterRegion();
+                local mr = ds:getRegion() and ds:getRegion():getIsoWorldRegion();
                 if mr then
-                    self:addLine("found MasterRegion",mr and tostring(mr:getID()) or "false");
+                    self:addLine("found WorldRegion",mr and tostring(mr:getID()) or "false");
                 end
             end--]]
         end
 
-        local ds = IsoRegion.getSquareFlags(_x % 10,_y % 10,_z);
-        local chunk = IsoRegion.getDataChunk(_x/10,_y/10);
+        local ds = IsoRegions.getSquareFlags(_x,_y,_z);
+        local chunk = IsoRegions.getDataChunk(_x/10,_y/10);
+        print("ds = "..tostring(ds)..", chunk = "..tostring(chunk))
         if ds>=0 and chunk then
-            chunk:setSelectedFlags(_x,_y,_z);
+            chunk:setSelectedFlags(_x% 10,_y% 10,_z);
             self:addTitle("BitFlags");
-            if chunk:selectedHasFlags(IsoRegion.BIT_WALL_N) then self:addLine("BIT_WALL_N",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_WALL_W) then self:addLine("BIT_WALL_W",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_PATH_WALL_N) then self:addLine("BIT_PATH_WALL_N",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_PATH_WALL_W) then self:addLine("BIT_PATH_WALL_W",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_HAS_FLOOR) then self:addLine("BIT_HAS_FLOOR",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_STAIRCASE) then self:addLine("BIT_STAIRCASE",""); end
-            if chunk:selectedHasFlags(IsoRegion.BIT_HAS_ROOF) then self:addLine("BIT_HAS_ROOF",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_WALL_N) then self:addLine("BIT_WALL_N",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_WALL_W) then self:addLine("BIT_WALL_W",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_PATH_WALL_N) then self:addLine("BIT_PATH_WALL_N",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_PATH_WALL_W) then self:addLine("BIT_PATH_WALL_W",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_HAS_FLOOR) then self:addLine("BIT_HAS_FLOOR",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_STAIRCASE) then self:addLine("BIT_STAIRCASE",""); end
+            if chunk:selectedHasFlags(IsoRegions.BIT_HAS_ROOF) then self:addLine("BIT_HAS_ROOF",""); end
         end
 
-        if instanceof(_o, "ChunkRegion") then
+        if instanceof(_o, "IsoChunkRegion") then
             self:addTitle("ChunkRegion");
             self:addLine("ID",_o:getID());
             self:addLine("SquareSize",_o:getSquareSize());
@@ -106,7 +111,7 @@ function IsoRegionDetails:readRegion( _x, _y, _z, _o )
             self:addLine("ChunkBorderConnCnt",_o:getChunkBorderSquaresCnt());
 
             local neighbors = _o:getDebugConnectedNeighborCopy();
-            self:addTitle("Neighbors");
+            self:addTitle("ChunkRegion - Neighbors");
             self:addLine("Count",neighbors and neighbors:size() or 0);
             if neighbors and neighbors:size()>0 then
                 for i=0,neighbors:size()-1 do
@@ -114,8 +119,8 @@ function IsoRegionDetails:readRegion( _x, _y, _z, _o )
                 end
             end
 
-            local mr = _o:getMasterRegion();
-            self:addTitle("MasterRegion");
+            local mr = _o:getIsoWorldRegion();
+            self:addTitle("WorldRegion");
             self:addLine("Found",mr and "yes" or "no");
             if mr then
                 self:addLine("ID",mr:getID());
@@ -126,7 +131,7 @@ function IsoRegionDetails:readRegion( _x, _y, _z, _o )
             end
 
             local neighbors = mr:getDebugConnectedNeighborCopy();
-            self:addTitle("MasterRegion - Neighbors");
+            self:addTitle("WorldRegion - Neighbors");
             self:addLine("Count",neighbors and neighbors:size() or 0);
             if neighbors and neighbors:size()>0 then
                 for i=0,neighbors:size()-1 do
@@ -138,8 +143,8 @@ function IsoRegionDetails:readRegion( _x, _y, _z, _o )
                 end
             end
 
-            local regions = mr:getDebugChunkRegionCopy();
-            self:addTitle("MasterRegion - regions");
+            local regions = mr:getDebugIsoChunkRegionCopy();
+            self:addTitle("WorldRegion - regions");
             if regions then
                 for i=0,regions:size()-1 do
                     self:addLine("region-id",regions:get(i):getID());
@@ -188,6 +193,8 @@ end
 
 function IsoRegionDetails:update()
     ISCollapsableWindow.update(self);
+    IsoRegionDetails.lastX = self:getAbsoluteX();
+    IsoRegionDetails.lastY = self:getAbsoluteY();
 end
 
 function IsoRegionDetails:prerender()

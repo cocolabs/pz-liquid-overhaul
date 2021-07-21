@@ -8,10 +8,6 @@ ObservationFactory = {}
 function ObservationFactory:getObservation(name) end
 
 ---@public
----@return void
-function ObservationFactory:init() end
-
----@public
 ---@param type String
 ---@param name String
 ---@param desc String
@@ -23,3 +19,7 @@ function ObservationFactory:addObservation(type, name, desc) end
 ---@param b String
 ---@return void
 function ObservationFactory:setMutualExclusive(a, b) end
+
+---@public
+---@return void
+function ObservationFactory:init() end

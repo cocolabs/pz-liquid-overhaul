@@ -28,6 +28,9 @@ function ISFertilizeAction:start()
 	self.item:setJobDelta(0.0);
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	
+	-- used to send loot position
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISFertilizeAction:stop()

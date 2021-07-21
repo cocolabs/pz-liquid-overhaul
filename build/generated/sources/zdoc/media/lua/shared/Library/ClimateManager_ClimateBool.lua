@@ -11,18 +11,63 @@
 ---@field private name String
 ClimateManager_ClimateBool = {}
 
+---@public
+---@return boolean
+function ClimateManager_ClimateBool:getOverride() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager_ClimateBool:setEnableAdmin(arg0) end
+
+---@public
+---@return int
+function ClimateManager_ClimateBool:getID() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager_ClimateBool:setEnableOverride(arg0) end
+
+---@public
+---@return boolean
+function ClimateManager_ClimateBool:isEnableOverride() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager_ClimateBool:setEnableModded(arg0) end
+
 ---@private
 ---@param arg0 ByteBuffer
 ---@return void
 function ClimateManager_ClimateBool:readAdmin(arg0) end
 
----@public
----@return boolean
-function ClimateManager_ClimateBool:isEnableAdmin() end
+---@private
+---@return void
+function ClimateManager_ClimateBool:calculate() end
 
 ---@public
 ---@return boolean
 function ClimateManager_ClimateBool:getInternalValue() end
+
+---@private
+---@param arg0 ByteBuffer
+---@return void
+function ClimateManager_ClimateBool:writeAdmin(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function ClimateManager_ClimateBool:setOverride(arg0) end
+
+---@public
+---@return boolean
+function ClimateManager_ClimateBool:getAdminValue() end
+
+---@public
+---@return String
+function ClimateManager_ClimateBool:getName() end
 
 ---@public
 ---@param arg0 boolean
@@ -38,20 +83,7 @@ function ClimateManager_ClimateBool:init(arg0, arg1) end
 ---@public
 ---@param arg0 boolean
 ---@return void
-function ClimateManager_ClimateBool:setModdedValue(arg0) end
-
----@public
----@return boolean
-function ClimateManager_ClimateBool:isEnableOverride() end
-
----@public
----@return boolean
-function ClimateManager_ClimateBool:getModdedValue() end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager_ClimateBool:setEnableOverride(arg0) end
+function ClimateManager_ClimateBool:setAdminValue(arg0) end
 
 ---@private
 ---@param arg0 DataInputStream
@@ -60,51 +92,19 @@ function ClimateManager_ClimateBool:setEnableOverride(arg0) end
 function ClimateManager_ClimateBool:loadAdmin(arg0, arg1) end
 
 ---@public
+---@return boolean
+function ClimateManager_ClimateBool:getModdedValue() end
+
+---@public
 ---@param arg0 boolean
 ---@return void
-function ClimateManager_ClimateBool:setEnableAdmin(arg0) end
-
----@private
----@param arg0 ByteBuffer
----@return void
-function ClimateManager_ClimateBool:writeAdmin(arg0) end
+function ClimateManager_ClimateBool:setModdedValue(arg0) end
 
 ---@public
 ---@return boolean
-function ClimateManager_ClimateBool:getAdminValue() end
+function ClimateManager_ClimateBool:isEnableAdmin() end
 
 ---@private
 ---@param arg0 DataOutputStream
 ---@return void
 function ClimateManager_ClimateBool:saveAdmin(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager_ClimateBool:setOverride(arg0) end
-
----@public
----@return String
-function ClimateManager_ClimateBool:getName() end
-
----@public
----@return int
-function ClimateManager_ClimateBool:getID() end
-
----@public
----@return boolean
-function ClimateManager_ClimateBool:getOverride() end
-
----@private
----@return void
-function ClimateManager_ClimateBool:calculate() end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager_ClimateBool:setAdminValue(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function ClimateManager_ClimateBool:setEnableModded(arg0) end

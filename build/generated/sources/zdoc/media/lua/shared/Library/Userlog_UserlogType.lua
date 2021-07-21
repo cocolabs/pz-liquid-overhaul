@@ -9,14 +9,8 @@
 Userlog_UserlogType = {}
 
 ---@public
----@param arg0 String
----@return Userlog.UserlogType
-function Userlog_UserlogType:valueOf(arg0) end
-
----@public
----@param arg0 int
----@return Userlog.UserlogType
-function Userlog_UserlogType:fromIndex(arg0) end
+---@return Userlog.UserlogType[]
+function Userlog_UserlogType:values() end
 
 ---@public
 ---@param arg0 String
@@ -24,9 +18,15 @@ function Userlog_UserlogType:fromIndex(arg0) end
 function Userlog_UserlogType:FromString(arg0) end
 
 ---@public
+---@param arg0 String
+---@return Userlog.UserlogType
+function Userlog_UserlogType:valueOf(arg0) end
+
+---@public
 ---@return int
 function Userlog_UserlogType:index() end
 
 ---@public
----@return Userlog.UserlogType[]
-function Userlog_UserlogType:values() end
+---@param arg0 int
+---@return Userlog.UserlogType
+function Userlog_UserlogType:fromIndex(arg0) end

@@ -70,6 +70,16 @@
 ---@field private alphaIncrease boolean
 MoodlesUI = {}
 
+---@public
+---@param arg0 double
+---@param arg1 double
+---@return void
+function MoodlesUI:onMouseMoveOutside(arg0, arg1) end
+
+---@public
+---@return MoodlesUI
+function MoodlesUI:getInstance() end
+
 ---Overrides:
 ---
 ---update in class UIElement
@@ -78,15 +88,20 @@ MoodlesUI = {}
 function MoodlesUI:update() end
 
 ---@public
----@param arg0 MoodleType
+---@param chr IsoGameCharacter
 ---@return void
-function MoodlesUI:wiggle(arg0) end
+function MoodlesUI:setCharacter(chr) end
 
 ---@public
----@param arg0 double
----@param arg1 double
----@return Boolean
-function MoodlesUI:onMouseMove(arg0, arg1) end
+---@return boolean
+function MoodlesUI:CurrentlyAnimating() end
+
+---Overrides:
+---
+---render in class UIElement
+---@public
+---@return void
+function MoodlesUI:render() end
 
 ---@public
 ---@param el UIElement
@@ -98,27 +113,12 @@ function MoodlesUI:onMouseMove(arg0, arg1) end
 function MoodlesUI:Nest(el, t, r, b, l) end
 
 ---@public
----@return boolean
-function MoodlesUI:CurrentlyAnimating() end
-
----@public
 ---@param arg0 double
 ---@param arg1 double
----@return void
-function MoodlesUI:onMouseMoveOutside(arg0, arg1) end
-
----Overrides:
----
----render in class UIElement
----@public
----@return void
-function MoodlesUI:render() end
+---@return Boolean
+function MoodlesUI:onMouseMove(arg0, arg1) end
 
 ---@public
----@return MoodlesUI
-function MoodlesUI:getInstance() end
-
----@public
----@param chr IsoGameCharacter
+---@param arg0 MoodleType
 ---@return void
-function MoodlesUI:setCharacter(chr) end
+function MoodlesUI:wiggle(arg0) end

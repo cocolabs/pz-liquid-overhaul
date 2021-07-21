@@ -15,27 +15,11 @@ ClimateForecaster_ForecastValue = {}
 
 ---@public
 ---@return float
-function ClimateForecaster_ForecastValue:getTotalMax() end
+function ClimateForecaster_ForecastValue:getNightMax() end
 
 ---@public
 ---@return float
-function ClimateForecaster_ForecastValue:getNightMin() end
-
----@public
----@return float
-function ClimateForecaster_ForecastValue:getDayMean() end
-
----@protected
----@return void
-function ClimateForecaster_ForecastValue:reset() end
-
----@public
----@return float
-function ClimateForecaster_ForecastValue:getDayMin() end
-
----@protected
----@return void
-function ClimateForecaster_ForecastValue:calculate() end
+function ClimateForecaster_ForecastValue:getTotalMean() end
 
 ---@public
 ---@return float
@@ -43,7 +27,27 @@ function ClimateForecaster_ForecastValue:getTotalMin() end
 
 ---@public
 ---@return float
-function ClimateForecaster_ForecastValue:getNightMax() end
+function ClimateForecaster_ForecastValue:getDayMax() end
+
+---@protected
+---@return void
+function ClimateForecaster_ForecastValue:calculate() end
+
+---@public
+---@return float
+function ClimateForecaster_ForecastValue:getDayMean() end
+
+---@public
+---@return float
+function ClimateForecaster_ForecastValue:getNightMin() end
+
+---@protected
+---@return void
+function ClimateForecaster_ForecastValue:reset() end
+
+---@public
+---@return float
+function ClimateForecaster_ForecastValue:getNightMean() end
 
 ---@protected
 ---@param arg0 float
@@ -53,12 +57,8 @@ function ClimateForecaster_ForecastValue:add(arg0, arg1) end
 
 ---@public
 ---@return float
-function ClimateForecaster_ForecastValue:getTotalMean() end
+function ClimateForecaster_ForecastValue:getDayMin() end
 
 ---@public
 ---@return float
-function ClimateForecaster_ForecastValue:getNightMean() end
-
----@public
----@return float
-function ClimateForecaster_ForecastValue:getDayMax() end
+function ClimateForecaster_ForecastValue:getTotalMax() end

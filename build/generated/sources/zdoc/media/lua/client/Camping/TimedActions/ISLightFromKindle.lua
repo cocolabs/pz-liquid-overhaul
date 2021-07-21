@@ -53,8 +53,6 @@ end
 function ISLightFromKindle:start()
 	self.item:setJobType(campingText.lightCampfire);
 	self.item:setJobDelta(0.0);
-	self.plank:setJobType(campingText.lightCampfire);
-	self.plank:setJobDelta(0.0);
 end
 
 function ISLightFromKindle:stop()

@@ -20,14 +20,28 @@
 BodyPartType = {}
 
 ---@public
----@param BPT BodyPartType
----@return int
-function BodyPartType:ToIndex(BPT) end
+---@param arg0 int
+---@return float
+function BodyPartType:getBleedingTimeModifyer(arg0) end
 
 ---@public
----@param arg0 BodyPartType
+---@return String
+function BodyPartType:getBandageModel() end
+
+---@public
+---@param arg0 boolean
+---@return String
+function BodyPartType:getCutWoundModel(arg0) end
+
+---@public
+---@param BPT BodyPartType
+---@return String
+function BodyPartType:getDisplayName(BPT) end
+
+---@public
+---@param index int
 ---@return float
-function BodyPartType:GetSkinSurface(arg0) end
+function BodyPartType:getDamageModifyer(index) end
 
 ---@public
 ---@param arg0 BodyPartType
@@ -35,9 +49,14 @@ function BodyPartType:GetSkinSurface(arg0) end
 function BodyPartType:GetUmbrellaMod(arg0) end
 
 ---@public
+---@param index int
+---@return BodyPartType
+function BodyPartType:FromIndex(index) end
+
+---@public
 ---@param arg0 BodyPartType
 ---@return float
-function BodyPartType:GetMaxActionPenalty(arg0) end
+function BodyPartType:GetSkinSurface(arg0) end
 
 ---Returns the enum constant of this type with the specified name.
 ---
@@ -52,9 +71,14 @@ function BodyPartType:GetMaxActionPenalty(arg0) end
 function BodyPartType:valueOf(name) end
 
 ---@public
----@param BPT BodyPartType
+---@param arg0 BodyPartType
+---@return float
+function BodyPartType:GetDistToCore(arg0) end
+
+---@public
+---@param arg0 boolean
 ---@return String
-function BodyPartType:getDisplayName(BPT) end
+function BodyPartType:getScratchWoundModel(arg0) end
 
 ---@public
 ---@return int
@@ -66,62 +90,9 @@ function BodyPartType:index() end
 function BodyPartType:ToString(BPT) end
 
 ---@public
----@param index int
----@return BodyPartType
-function BodyPartType:FromIndex(index) end
-
----@public
----@param arg0 int
----@return float
-function BodyPartType:getBleedingTimeModifyer(arg0) end
-
----@public
----@param index int
----@return float
-function BodyPartType:getDamageModifyer(index) end
-
----@public
----@param arg0 boolean
----@return String
-function BodyPartType:getBiteWoundModel(arg0) end
-
----@public
 ---@param str String
 ---@return BodyPartType
 function BodyPartType:FromString(str) end
-
----@public
----@param arg0 BodyPartType
----@return float
-function BodyPartType:GetDistToCore(arg0) end
-
----@public
----@param index int
----@return float
-function BodyPartType:getPainModifyer(index) end
-
----@public
----@param arg0 BodyPartType
----@return float
-function BodyPartType:GetMaxMovementPenalty(arg0) end
-
----@public
----@return String
-function BodyPartType:getBandageModel() end
-
----@public
----@param arg0 boolean
----@return String
-function BodyPartType:getScratchWoundModel(arg0) end
-
----@public
----@return BodyPartType
-function BodyPartType:getRandom() end
-
----@public
----@param arg0 boolean
----@return String
-function BodyPartType:getCutWoundModel(arg0) end
 
 ---Returns an array containing the constants of this enum type, in
 ---
@@ -139,3 +110,32 @@ function BodyPartType:getCutWoundModel(arg0) end
 ---@public
 ---@return BodyPartType[] @an array containing the constants of this enum type, in the order they are declared
 function BodyPartType:values() end
+
+---@public
+---@param arg0 boolean
+---@return String
+function BodyPartType:getBiteWoundModel(arg0) end
+
+---@public
+---@return BodyPartType
+function BodyPartType:getRandom() end
+
+---@public
+---@param arg0 BodyPartType
+---@return float
+function BodyPartType:GetMaxActionPenalty(arg0) end
+
+---@public
+---@param arg0 BodyPartType
+---@return float
+function BodyPartType:GetMaxMovementPenalty(arg0) end
+
+---@public
+---@param index int
+---@return float
+function BodyPartType:getPainModifyer(index) end
+
+---@public
+---@param BPT BodyPartType
+---@return int
+function BodyPartType:ToIndex(BPT) end

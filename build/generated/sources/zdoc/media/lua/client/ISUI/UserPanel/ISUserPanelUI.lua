@@ -60,6 +60,16 @@ function ISUserPanelUI:create()
     self:addChild(self.factionBtn);
     y = y + btnHgt + 5;
 
+    if SafeHouse.hasSafehouse(self.player) then
+        self.safehouseBtn = ISButton:new(10, y, btnWid, btnHgt, getText("IGUI_SafehouseUI_Safehouse"), self, ISUserPanelUI.onOptionMouseDown);
+        self.safehouseBtn.internal = "SAFEHOUSEPANEL";
+        self.safehouseBtn:initialise();
+        self.safehouseBtn:instantiate();
+        self.safehouseBtn.borderColor = self.buttonBorderColor;
+        self:addChild(self.safehouseBtn);
+        y = y + btnHgt + 5;
+    end
+
     self.ticketsBtn = ISButton:new(10, y, btnWid, btnHgt, getText("UI_userpanel_tickets"), self, ISUserPanelUI.onOptionMouseDown);
     self.ticketsBtn.internal = "TICKETS";
     self.ticketsBtn:initialise();
@@ -76,6 +86,14 @@ function ISUserPanelUI:create()
         end
         self.factionBtn:setWidthToTitle(self.factionBtn.width)
     end
+    
+    self.serverOptionBtn = ISButton:new(10, y, btnWid, btnHgt, getText("IGUI_AdminPanel_SeeServerOptions"), self, ISUserPanelUI.onOptionMouseDown);
+    self.serverOptionBtn.internal = "SERVEROPTIONS";
+    self.serverOptionBtn:initialise();
+    self.serverOptionBtn:instantiate();
+    self.serverOptionBtn.borderColor = self.buttonBorderColor;
+    self:addChild(self.serverOptionBtn);
+    y = y + btnHgt + 5;
 
     local width = 0
     for _,child in pairs(self:getChildren()) do
@@ -108,6 +126,13 @@ function ISUserPanelUI:updateButtons()
 end
 
 function ISUserPanelUI:onOptionMouseDown(button, x, y)
+    if button.internal == "SAFEHOUSEPANEL" then
+        if SafeHouse.hasSafehouse(self.player) then
+            local modal = ISSafehouseUI:new(getCore():getScreenWidth() / 2 - 250, getCore():getScreenHeight() / 2 - 225, 500, 450, SafeHouse.hasSafehouse(self.player), self.player);
+            modal:initialise();
+            modal:addToUIManager();
+        end
+    end
     if button.internal == "FACTIONPANEL" then
         if ISFactionUI.instance then
             ISFactionUI.instance:close()
@@ -133,6 +158,14 @@ function ISUserPanelUI:onOptionMouseDown(button, x, y)
         modal:initialise();
         modal:addToUIManager();
     end
+    if button.internal == "SERVEROPTIONS" then
+        if ISServerOptions.instance then
+            ISServerOptions.instance:close()
+        end
+        local ui = ISServerOptions:new(50,50,600,600, self.player)
+        ui:initialise();
+        ui:addToUIManager();
+    end
     if button.internal == "CANCEL" then
         self:close()
     end
@@ -141,6 +174,7 @@ end
 function ISUserPanelUI:close()
     self:setVisible(false)
     self:removeFromUIManager()
+    ISUserPanelUI.instance = nil;
 end
 
 function ISUserPanelUI:new(x, y, width, height, player)

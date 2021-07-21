@@ -1,16 +1,15 @@
 ---@class IsoWindowFrame : zombie.iso.objects.IsoWindowFrame
 IsoWindowFrame = {}
 
----@public
----@param arg0 IsoObject
----@param arg1 IsoGameCharacter
----@return boolean
-function IsoWindowFrame:canClimbThrough(arg0, arg1) end
-
 ---@private
 ---@param arg0 IsoObject
 ---@return IsoWindowFrame.Direction
 function IsoWindowFrame:getDirection(arg0) end
+
+---@public
+---@param arg0 IsoObject
+---@return boolean
+function IsoWindowFrame:canAddSheetRope(arg0) end
 
 ---@public
 ---@param arg0 IsoObject
@@ -26,8 +25,14 @@ function IsoWindowFrame:isWindowFrame(arg0, arg1) end
 
 ---@public
 ---@param arg0 IsoObject
----@return int
-function IsoWindowFrame:countAddSheetRope(arg0) end
+---@return boolean
+function IsoWindowFrame:haveSheetRope(arg0) end
+
+---@public
+---@param arg0 IsoObject
+---@param arg1 IsoPlayer
+---@return boolean
+function IsoWindowFrame:removeSheetRope(arg0, arg1) end
 
 ---@public
 ---@param arg0 IsoObject
@@ -38,16 +43,11 @@ function IsoWindowFrame:addSheetRope(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 IsoObject
----@return boolean
-function IsoWindowFrame:canAddSheetRope(arg0) end
+---@return int
+function IsoWindowFrame:countAddSheetRope(arg0) end
 
 ---@public
 ---@param arg0 IsoObject
----@param arg1 IsoPlayer
+---@param arg1 IsoGameCharacter
 ---@return boolean
-function IsoWindowFrame:removeSheetRope(arg0, arg1) end
-
----@public
----@param arg0 IsoObject
----@return boolean
-function IsoWindowFrame:haveSheetRope(arg0) end
+function IsoWindowFrame:canClimbThrough(arg0, arg1) end

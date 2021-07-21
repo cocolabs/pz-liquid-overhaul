@@ -10,6 +10,9 @@ ISDoubleTileFurniture = ISBuildingObject:derive("ISDoubleTileFurniture");
 --**
 --************************************************************************--
 function ISDoubleTileFurniture:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self:setInfo(self.sq, north, sprite, self);
@@ -90,7 +93,7 @@ function ISDoubleTileFurniture:removeFromGround(square)
 	end
 end
 
-function ISDoubleTileFurniture:new(name, sprite1, sprite2, northSprite1, northSprite2)
+function ISDoubleTileFurniture:new(name, sprite1, sprite2, northSprite1, northSprite2, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -105,6 +108,11 @@ function ISDoubleTileFurniture:new(name, sprite1, sprite2, northSprite1, northSp
 	o.blockAllTheSquare = true;
 	o.canBeAlwaysPlaced = true;
 	o.buildLow = true;
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

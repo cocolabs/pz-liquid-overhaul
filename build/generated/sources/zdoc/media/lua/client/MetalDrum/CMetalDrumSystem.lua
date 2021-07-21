@@ -16,8 +16,8 @@ function CMetalDrumSystem:isValidIsoObject(isoObject)
 	return instanceof(isoObject, "IsoThumpable") and isoObject:getName() == "MetalDrum"
 end
 
-function CMetalDrumSystem:newLuaObject(isoObject)
-	return CMetalDrumGlobalObject:new(self, isoObject)
+function CMetalDrumSystem:newLuaObject(globalObject)
+	return CMetalDrumGlobalObject:new(self, globalObject)
 end
 
 CGlobalObjectSystem.RegisterSystemClass(CMetalDrumSystem)

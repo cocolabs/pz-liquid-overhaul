@@ -7,8 +7,8 @@ require "Map/CGlobalObject"
 ---@class CMetalDrumGlobalObject : CGlobalObject
 CMetalDrumGlobalObject = CGlobalObject:derive("CMetalDrumGlobalObject")
 
-function CMetalDrumGlobalObject:new(luaSystem, isoObject)
-	local o = CGlobalObject.new(self, luaSystem, isoObject)
+function CMetalDrumGlobalObject:new(luaSystem, globalObject)
+	local o = CGlobalObject.new(self, luaSystem, globalObject)
 	return o
 end
 

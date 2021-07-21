@@ -6,6 +6,19 @@
 WorldFlares = {}
 
 ---@public
+---@return int
+function WorldFlares:getFlareCount() end
+
+---@public
+---@return void
+function WorldFlares:debugRender() end
+
+---@public
+---@param arg0 int
+---@return WorldFlares.Flare
+function WorldFlares:getFlareID(arg0) end
+
+---@public
 ---@return void
 function WorldFlares:update() end
 
@@ -15,32 +28,13 @@ function WorldFlares:update() end
 function WorldFlares:getFlare(arg0) end
 
 ---@public
+---@return boolean
+function WorldFlares:getDebugDraw() end
+
+---@public
 ---@param arg0 boolean
 ---@return void
 function WorldFlares:setDebugDraw(arg0) end
-
----@public
----@return void
-function WorldFlares:Clear() end
-
----@public
----@param arg0 RenderSettings.PlayerRenderSettings
----@param arg1 int
----@param arg2 IsoPlayer
----@return void
-function WorldFlares:applyFlaresForPlayer(arg0, arg1, arg2) end
-
----@public
----@return void
-function WorldFlares:debugRender() end
-
----@public
----@return int
-function WorldFlares:getFlareCount() end
-
----@public
----@return boolean
-function WorldFlares:getDebugDraw() end
 
 ---@public
 ---@param arg0 float
@@ -72,6 +66,12 @@ function WorldFlares:launchFlare(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7,
 function WorldFlares:DrawIsoLine(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
 ---@public
----@param arg0 int
----@return WorldFlares.Flare
-function WorldFlares:getFlareID(arg0) end
+---@param arg0 RenderSettings.PlayerRenderSettings
+---@param arg1 int
+---@param arg2 IsoPlayer
+---@return void
+function WorldFlares:applyFlaresForPlayer(arg0, arg1, arg2) end
+
+---@public
+---@return void
+function WorldFlares:Clear() end

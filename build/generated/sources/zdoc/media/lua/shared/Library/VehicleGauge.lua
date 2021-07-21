@@ -9,6 +9,11 @@
 VehicleGauge = {}
 
 ---@public
+---@param arg0 Texture
+---@return void
+function VehicleGauge:setTexture(arg0) end
+
+---@public
 ---@return void
 function VehicleGauge:render() end
 
@@ -21,8 +26,3 @@ function VehicleGauge:setValue(arg0) end
 ---@param arg0 int
 ---@return void
 function VehicleGauge:setNeedleWidth(arg0) end
-
----@public
----@param arg0 Texture
----@return void
-function VehicleGauge:setTexture(arg0) end

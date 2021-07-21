@@ -16,8 +16,11 @@ function ISVehiclePartMenu.getNearbyFuelPump(vehicle)
 		for dx=-2,2 do
 			-- TODO: check line-of-sight between 2 squares
 			local square2 = getCell():getGridSquare(square:getX() + dx, square:getY() + dy, square:getZ())
-			if square2 and square2:getProperties():Is("fuelAmount") and tonumber(square2:getProperties():Val("fuelAmount")) > 0 then
-				return square2
+			for i=0, square2:getObjects():size()-1 do
+				local obj = square2:getObjects():get(i);
+				if obj:getPipedFuelAmount() > 0 then
+					return obj
+				end
 			end
 		end
 	end
@@ -178,12 +181,15 @@ function ISVehiclePartMenu.onPumpGasoline(playerObj, part)
 	if playerObj:getVehicle() then
 		ISVehicleMenu.onExit(playerObj)
 	end
-	local square = ISVehiclePartMenu.getNearbyFuelPump(part:getVehicle())
-	if square then
-		local action = ISPathFindAction:pathToVehicleArea(playerObj, part:getVehicle(), part:getArea())
-		action:setOnFail(ISVehiclePartMenu.onPumpGasolinePathFail, playerObj)
-		ISTimedActionQueue.add(action)
-		ISTimedActionQueue.add(ISRefuelFromGasPump:new(playerObj, part, square, 100))
+	local fuelStation = ISVehiclePartMenu.getNearbyFuelPump(part:getVehicle())
+	if fuelStation then
+		local square = fuelStation:getSquare();
+		if square then
+			local action = ISPathFindAction:pathToVehicleArea(playerObj, part:getVehicle(), part:getArea())
+			action:setOnFail(ISVehiclePartMenu.onPumpGasolinePathFail, playerObj)
+			ISTimedActionQueue.add(action)
+			ISTimedActionQueue.add(ISRefuelFromGasPump:new(playerObj, part, fuelStation, 100))
+		end
 	end
 end
 

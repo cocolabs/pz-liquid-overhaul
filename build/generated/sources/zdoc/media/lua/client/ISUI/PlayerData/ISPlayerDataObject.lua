@@ -15,15 +15,16 @@ function ISPlayerDataObject:createInventoryInterface()
     local playerObj = getSpecificPlayer(self.id);
 
     local bind = playerObj:getJoypadBind();
+--[[
     if self.id > 0 and bind == -1 then
 	    return;
     end
-    local isMouse = false;
-    local register = true;
-    if(bind == -1) then
+--]]
+    local isMouse = self.id == 0 and bind == -1;
+    local register = self.id == 0;
+    if isMouse then
 	    print("player ".. self.id .. " is mouse");
         zoom = 1.34;
-        isMouse = true;
     else
         register = false;
     end
@@ -140,7 +141,7 @@ zoom = 1.34
         self.playerHotbar = ISHotbar:new(playerObj)
         self.playerHotbar:initialise();
         self.playerHotbar:addToUIManager();
-        self.playerHotbar:setVisible(true);
+        self.playerHotbar:setVisible(isMouse);
     end
 
     self.craftingUI = ISCraftingUI:new(0, 0, 800, 600, playerObj)
@@ -186,8 +187,8 @@ end
 function ISPlayerDataObject:placeInventoryScreens(playerID, totalPlayers, mouse)
     local x = getPlayerScreenLeft(playerID)
     local y = getPlayerScreenTop(playerID)
-    local w = getCore():getScreenWidth();
-    local h = getCore():getScreenHeight();
+    local w = getPlayerScreenWidth(playerID)
+    local h = getPlayerScreenHeight(playerID)
 
     if mouse then
 
@@ -204,7 +205,7 @@ function ISPlayerDataObject:placeInventoryScreens(playerID, totalPlayers, mouse)
         end
         
         self.x1 = x + w / 2 - divwid;
-        self.x1left = 0;
+        self.x1left = x;
         self.y1top = y;
         self.y1 = self.y1top;
         self.w1 = divwid;
@@ -217,12 +218,6 @@ function ISPlayerDataObject:placeInventoryScreens(playerID, totalPlayers, mouse)
     else
         local ww = w
         local hh = h
-        if totalPlayers > 1 then
-            ww = w / 2
-        end
-        if totalPlayers > 2 then
-            hh = h / 2
-        end
         self.x1left = x;
         self.x1 = x;
         self.y1top = y;

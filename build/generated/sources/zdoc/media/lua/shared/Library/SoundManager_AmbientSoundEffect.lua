@@ -8,26 +8,17 @@
 SoundManager_AmbientSoundEffect = {}
 
 ---@public
+---@param arg0 float
 ---@return void
-function SoundManager_AmbientSoundEffect:update() end
-
----@public
----@param arg0 String
----@return void
-function SoundManager_AmbientSoundEffect:setName(arg0) end
+function SoundManager_AmbientSoundEffect:setVolume(arg0) end
 
 ---@public
 ---@return void
 function SoundManager_AmbientSoundEffect:pause() end
 
 ---@public
----@param arg0 float
----@return void
-function SoundManager_AmbientSoundEffect:setVolume(arg0) end
-
----@public
----@return boolean
-function SoundManager_AmbientSoundEffect:isPlaying() end
+---@return String
+function SoundManager_AmbientSoundEffect:getName() end
 
 ---@public
 ---@return void
@@ -38,5 +29,14 @@ function SoundManager_AmbientSoundEffect:start() end
 function SoundManager_AmbientSoundEffect:stop() end
 
 ---@public
----@return String
-function SoundManager_AmbientSoundEffect:getName() end
+---@return void
+function SoundManager_AmbientSoundEffect:update() end
+
+---@public
+---@return boolean
+function SoundManager_AmbientSoundEffect:isPlaying() end
+
+---@public
+---@param arg0 String
+---@return void
+function SoundManager_AmbientSoundEffect:setName(arg0) end

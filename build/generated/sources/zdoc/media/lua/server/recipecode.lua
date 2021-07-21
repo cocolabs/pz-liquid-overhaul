@@ -805,6 +805,7 @@ function Recipe.OnCreate.RipClothing(items, result, player, selectedItem)
             thread:Use();
         end
         player:getInventory():AddItem(thread);
+        player:getXp():AddXP(Perks.Tailoring, 1);
     end
 end
 
@@ -973,6 +974,52 @@ end
 function Recipe.OnCanPerform.HockeyMaskSmashBottle(recipe, playerObj)
 	local wornItem = playerObj:getWornItem("MaskEyes")
 	return (wornItem ~= nil) and (wornItem:getType() == "Hat_HockeyMask")
+end
+
+function Recipe.OnCreate.DynamicMovable(items, result, player, selectedItem)
+    if instanceof(selectedItem, "Moveable") then
+        local sprite = selectedItem:getWorldSprite();
+        --print("onCreate sprite = "..tostring(sprite));
+        local props = ISMoveableSpriteProps.new( sprite );
+
+        local items = props:getScrapItemsList(player);
+
+        local added = 0;
+
+        for k,v in ipairs(items.usable) do
+            --print(" - adding usable = "..tostring(v));
+            local item 	= instanceItem( v );
+            if item then
+                if props.keyId and props.keyId ~= -1 then
+                    if item:getType() == "Doorknob" then
+                        item:setKeyId(props.keyId)
+                    end
+                end
+                player:getInventory():AddItem(item);
+                added = added +1;
+            end
+        end
+        for k,v in ipairs(items.unusable) do
+            --print(" - adding unusable = "..tostring(v));
+            if v then
+                player:getInventory():AddItem(v);
+            end
+        end
+
+        props:scrapHaloNoteCheck(player, added)
+    else
+        print("Recipe.OnCreate.DynamicMovable, this isnt a movable item?")
+    end
+end
+function Recipe.OnGiveXP.DynamicMovable(recipe, ingredients, result, player)
+    if instanceof(recipe, "MovableRecipe") then
+        local sprite = recipe:getWorldSprite();
+        --print("onXp sprite = "..tostring(sprite));
+        local props = ISMoveableSpriteProps.new( sprite );
+        props:scrapGiveXp(player, false);
+    else
+        print("Recipe.OnGiveXP.DynamicMovable, this isnt a Movable recipe?")
+    end
 end
 
 -- These functions are defined to avoid breaking mods.

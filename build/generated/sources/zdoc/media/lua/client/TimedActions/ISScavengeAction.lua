@@ -12,16 +12,16 @@ function ISScavengeAction:isValid()
 end
 
 function ISScavengeAction:update()
-    if self.character:getAccessLevel() ~= "None" then
-        if self.currentTime == 0 then
-            self.currentTime = 1
-            -- maxTime=1 for admins, maxTime=800 for non-admins
-            for i=1,math.floor(800/150) do
-                self:scavenge()
-            end
-        end
-        return
-    end
+--    if self.character:getAccessLevel() ~= "None" then
+--        if self.currentTime == 0 then
+--            self.currentTime = 1
+--            -- maxTime=1 for admins, maxTime=800 for non-admins
+--            for i=1,math.floor(800/150) do
+--                self:scavenge()
+--            end
+--        end
+--        return
+--    end
 
     self.currentTime = self.currentTime + getGameTime():getMultiplier();
     if self.currentTime >= 150 then

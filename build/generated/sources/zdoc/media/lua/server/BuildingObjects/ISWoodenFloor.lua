@@ -10,6 +10,9 @@ ISWoodenFloor = ISBuildingObject:derive("ISWoodenFloor");
 --**
 --************************************************************************--
 function ISWoodenFloor:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	self.sq = getWorld():getCell():getGridSquare(x, y, z);
 	self.javaObject = self.sq:addFloor(sprite);
 	buildUtil.consumeMaterial(self);
@@ -31,13 +34,18 @@ function ISWoodenFloor:create(x, y, z, north, sprite)
     sendClientCommand(nil, 'erosion', 'disableForSquare', args)
 end
 
-function ISWoodenFloor:new(sprite, northSprite)
+function ISWoodenFloor:new(sprite, northSprite, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	o:init();
 	o:setSprite(sprite);
 	o:setNorthSprite(northSprite);
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	o.buildLow = true;
 	o.floor = true;
 	return o;

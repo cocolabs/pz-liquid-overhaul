@@ -89,7 +89,7 @@ function TrapBO:isValid(square, north)
     if not self.character:getInventory():contains(self.trap) then return false end
     if CTrapSystem.instance:getLuaObjectAt(square:getX(), square:getY(), square:getZ()) then return false end
     if square:Has(IsoObjectType.tree) then return false end
-    if STrapGlobalObject.checkForWallExploit(nil, square) then
+    if CTrapGlobalObject.checkForWallExploit(nil, square) then
         return false;
     end
     return not square:Is(IsoFlagType.solid) and not square:Is(IsoFlagType.solidtrans) and square:Is(IsoFlagType.solidfloor)

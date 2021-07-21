@@ -5,6 +5,28 @@ BeardStyles = {}
 
 ---@public
 ---@param arg0 String
+---@return BeardStyles
+function BeardStyles:Parse(arg0) end
+
+---@public
+---@param arg0 String
+---@return BeardStyles
+function BeardStyles:parse(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function BeardStyles:getAllStyles() end
+
+---@public
+---@return void
+function BeardStyles:init() end
+
+---@public
+---@return void
+function BeardStyles:Reset() end
+
+---@public
+---@param arg0 String
 ---@return String
 function BeardStyles:getRandomStyle(arg0) end
 
@@ -14,27 +36,5 @@ function BeardStyles:getInstance() end
 
 ---@public
 ---@param arg0 String
----@return BeardStyles
-function BeardStyles:parse(arg0) end
-
----@public
----@param arg0 String
 ---@return BeardStyle
 function BeardStyles:FindStyle(arg0) end
-
----@public
----@param arg0 String
----@return BeardStyles
-function BeardStyles:Parse(arg0) end
-
----@public
----@return ArrayList|Unknown
-function BeardStyles:getAllStyles() end
-
----@public
----@return void
-function BeardStyles:Reset() end
-
----@public
----@return void
-function BeardStyles:init() end

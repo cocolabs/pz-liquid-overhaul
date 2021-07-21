@@ -8,7 +8,7 @@ require "ISBaseObject"
 CGlobalObjectSystem = ISBaseObject:derive("CGlobalObjectSystem")
 
 function CGlobalObjectSystem:noise(message)
-	if self.wantNoise then print(self.systemName..': '..message) end
+	if self.wantNoise then print('C ' .. self.systemName..': '..message) end
 end
 
 function CGlobalObjectSystem:new(name)
@@ -22,10 +22,27 @@ function CGlobalObjectSystem:new(name)
 	o.systemName = name
 	o.wantNoise = getDebug()
 	o:initSystem()
+	o:initLuaObjects()
 	return o
 end
 
 function CGlobalObjectSystem:initSystem()
+end
+
+function CGlobalObjectSystem:initLuaObjects()
+	for i=1,self.system:getObjectCount() do
+		local globalObject = self.system:getObjectByIndex(i-1)
+		local luaObject = self:newLuaObject(globalObject)
+		self:noise('added luaObject '..luaObject.x..','..luaObject.y..','..luaObject.z)
+	end
+end
+
+function CGlobalObjectSystem:getLuaObjectCount()
+	return self.system:getObjectCount()
+end
+
+function CGlobalObjectSystem:getLuaObjectByIndex(index)
+	return self.system:getObjectByIndex(index-1):getModData()
 end
 
 function CGlobalObjectSystem:isValidIsoObject(isoObject)
@@ -48,22 +65,46 @@ function CGlobalObjectSystem:getIsoObjectAt(x, y, z)
 	return self:getIsoObjectOnSquare(square)
 end
 
-function CGlobalObjectSystem:newLuaObject(isoObject)
+function CGlobalObjectSystem:newLuaObject(globalObject)
 	-- Return an object derived from CGlobalObject
 	error "override this method"
 end
 
+function CGlobalObjectSystem:newLuaObjectAt(x, y, z)
+	local globalObject = self.system:newObject(x, y, z)
+	return self:newLuaObject(globalObject)
+end
+
+function CGlobalObjectSystem:removeLuaObject(luaObject)
+	if not luaObject or (luaObject.luaSystem ~= self) then return end
+	self:noise('removing luaObject '..luaObject.x..','..luaObject.y..','..luaObject.z)
+	self.system:removeObject(luaObject.globalObject)
+	self:noise('#objects='..self.system:getObjectCount())
+end
+
+function CGlobalObjectSystem:removeLuaObjectAt(x, y, z)
+	local luaObject = self:getLuaObjectAt(x, y, z)
+	self:removeLuaObject(luaObject)
+end
+
 function CGlobalObjectSystem:getLuaObjectAt(x, y, z)
-	local isoObject = self:getIsoObjectAt(x, y, z)
-	if not isoObject then return nil end
-	-- The client doesn't have an SGlobalObjectSystem Java object, so create a
-	-- new luaObject every time.
-	return self:newLuaObject(isoObject)
+	local globalObject = self.system:getObjectAt(x, y, z)
+-- This used to be done in CGlobalObject:new()
+if globalObject then
+	local luaObject = globalObject:getModData()
+	luaObject:updateFromIsoObject()
+end
+	return globalObject and globalObject:getModData() or nil
 end
 
 function CGlobalObjectSystem:getLuaObjectOnSquare(square)
 	if not square then return nil end
 	return self:getLuaObjectAt(square:getX(), square:getY(), square:getZ())
+end
+
+function CGlobalObjectSystem:OnLuaObjectUpdated(luaObject)
+	-- luaObject fields were updated with new values from the server
+	self:noise('OnLuaObjectUpdated')
 end
 
 function CGlobalObjectSystem:sendCommand(playerObj, command, args)
@@ -73,6 +114,10 @@ end
 function CGlobalObjectSystem:OnServerCommand(command, args)
 	-- SGlobalObjectSystem:sendCommand() arguments are routed to this method
 	-- in both singleplayer *and* multiplayer.
+	if "xxx" == command then
+	else
+		error("unknown server command '"..command.."'")
+	end
 end
 
 local function OnCGlobalObjectSystemInit(luaClass)

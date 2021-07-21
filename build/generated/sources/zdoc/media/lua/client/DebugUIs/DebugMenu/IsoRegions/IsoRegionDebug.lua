@@ -114,10 +114,10 @@ function IsoRegionDebug:createChildren()
 
     y = self.buttonToggleInvalidRegions:getY() + self.buttonToggleInvalidRegions:getHeight();
 
-    local booltxt = IsoRegion.isDebugLoadAllChunks() and "TRUE" or "FALSE";
+    local booltxt = IsoRegions.isDebugLoadAllChunks() and "TRUE" or "FALSE";
     self.buttonToggleLoadAllChunks = ISButton:new(x+5, y+2, self.cam.width-10,18,"load all chunks around plr = "..booltxt,self, IsoRegionDebug.onButton);
     self.buttonToggleLoadAllChunks:initialise();
-    if IsoRegion.isDebugLoadAllChunks() then
+    if IsoRegions.isDebugLoadAllChunks() then
         self.buttonToggleLoadAllChunks.backgroundColor = {r=0.0, g=0.8, b=0, a=1.0};
     else
         self.buttonToggleLoadAllChunks.backgroundColor = {r=0.8, g=0.0, b=0, a=1.0};
@@ -183,8 +183,8 @@ function IsoRegionDebug:onButton(_btn)
         end
     end
     if _btn.btnStringID == "ToggleLoadAllChunks" then
-        IsoRegion.setDebugLoadAllChunks(not IsoRegion.isDebugLoadAllChunks());
-        if IsoRegion.isDebugLoadAllChunks() then
+        IsoRegions.setDebugLoadAllChunks(not IsoRegions.isDebugLoadAllChunks());
+        if IsoRegions.isDebugLoadAllChunks() then
             self.buttonToggleLoadAllChunks.title = "load all chunks around plr = TRUE";
             self.buttonToggleLoadAllChunks.backgroundColor = {r=0, g=0.8, b=0, a=1.0};
         else
@@ -193,7 +193,7 @@ function IsoRegionDebug:onButton(_btn)
         end
     end
     if _btn.btnStringID == "ResetData" then
-        IsoRegion.ResetAllDataDebug();
+        IsoRegions.ResetAllDataDebug();
     end
 end
 
@@ -251,18 +251,18 @@ function IsoRegionDebug:onMouseDown(x, y)
         --local cwx,cwy = cx*self.cam.chunkWidth,cy*self.cam.chunkHeight;
         --local sx,sy = self.cam.centerX+((cwx-plrX)*6), self.cam.centerY+((cwy-plrY)*6);
 
-        local chunkRegion = IsoRegion.getChunkRegion(self.mouseInfo.x, self.mouseInfo.y, self.mouseInfo.z);
+        local chunkRegion = IsoRegions.getChunkRegion(self.mouseInfo.x, self.mouseInfo.y, self.mouseInfo.z);
         if chunkRegion then
             self.mouseInfo.regionID = chunkRegion:getID();
-            local masterRegion = chunkRegion:getMasterRegion();
-            self.mouseInfo.masterID = masterRegion and masterRegion:getID() or -1;
-            self.mouseInfo.region = chunkRegion; --IsoRegion.getNeighborIDs(chunkRegion);
+            local worldRegion = chunkRegion:getIsoWorldRegion();
+            self.mouseInfo.worldRegionID = worldRegion and worldRegion:getID() or -1;
+            self.mouseInfo.region = chunkRegion; --IsoRegions.getNeighborIDs(chunkRegion);
 
             local panel = IsoRegionDetails.OnOpenPanel();
             panel:readRegion( self.mouseInfo.x, self.mouseInfo.y, self.mouseInfo.z, chunkRegion );
         else
             self.mouseInfo.regionID = -1;
-            self.mouseInfo.masterID = -1;
+            self.mouseInfo.worldRegionID = -1;
             self.mouseInfo.region = nil;
         end
         return true;
@@ -285,7 +285,7 @@ function IsoRegionDebug:render()
     self:drawRect(0, self.canvasY+0, self.cam.width, self.cam.height, 1, 0.0, 0.0, 0.0);
     --9x9 surrounding player
     local chunksHalfWidth, chunksHalfHeight = (self.cam.chunkWidth-2)/2, (self.cam.chunkHeight-2)/2;
-    local chunk,square,chunkRegion,masterRegion,col,alpha;
+    local chunk,square,chunkRegion,worldRegion,col,alpha;
     for y = 0, self.cam.chunkHeight-2 do
         for x=0, self.cam.chunkWidth-2 do
             local cx,cy = (plrChunkX-chunksHalfWidth)+x, (plrChunkY-chunksHalfHeight)+y;
@@ -294,7 +294,7 @@ function IsoRegionDebug:render()
             sy = sy + self.canvasY;
             --self:drawRectBorder( sx, sy, self.cam.chunkPixDim, self.cam.chunkPixDim, 1.0, 0.4, 0.4, 0.4);
 
-            chunk = IsoRegion.getDataChunk(cx,cy);
+            chunk = IsoRegions.getDataChunk(cx,cy);
             if chunk then
                 for y = 0, self.cam.chunkHeight-1 do
                     for x=0, self.cam.chunkWidth-1 do
@@ -321,31 +321,31 @@ function IsoRegionDebug:render()
                                             --end
                                         end
                                     else
-                                        masterRegion = chunkRegion:getMasterRegion();
-                                        if masterRegion then
+                                        worldRegion = chunkRegion:getIsoWorldRegion();
+                                        if worldRegion then
                                             alpha = 1;
-                                            if self.mouseInfo.masterID>=0 then
+                                            if self.mouseInfo.worldRegionID>=0 then
                                                 alpha = 0.1;
-                                                if masterRegion:getID()==self.mouseInfo.masterID then
+                                                if worldRegion:getID()==self.mouseInfo.worldRegionID then
                                                     alpha=1;
                                                 end
                                             end
-                                            if self.showInvalidRegions or masterRegion:isEnclosed() then
-                                                col = masterRegion:getColor();
+                                            if self.showInvalidRegions or worldRegion:isEnclosed() then
+                                                col = worldRegion:getColor();
                                                 self:drawRect(sx+(x*6), sy+(y*6), 6, 6, alpha, col:getRedFloat(), col:getGreenFloat(), col:getBlueFloat());
                                             end
                                         end
                                     end
                                 end
                             else
-                                if chunk:selectedHasFlags(IsoRegion.BIT_HAS_FLOOR) then
+                                if chunk:selectedHasFlags(IsoRegions.BIT_HAS_FLOOR) then
                                     self:drawRect(sx+(x*6), sy+(y*6), 6, 6, 1, 0.392, 0.584, 0.929);
                                 end
                             end
-                            if chunk:selectedHasFlags(IsoRegion.BIT_WALL_N) or chunk:selectedHasFlags(IsoRegion.BIT_PATH_WALL_N) then
+                            if chunk:selectedHasFlags(IsoRegions.BIT_WALL_N) or chunk:selectedHasFlags(IsoRegions.BIT_PATH_WALL_N) then
                                 self:drawRect(sx+(x*6), sy+(y*6), 6, 2, 1, 1.0, 1.0, 1.0);
                             end
-                            if chunk:selectedHasFlags(IsoRegion.BIT_WALL_W) or chunk:selectedHasFlags(IsoRegion.BIT_PATH_WALL_W) then
+                            if chunk:selectedHasFlags(IsoRegions.BIT_WALL_W) or chunk:selectedHasFlags(IsoRegions.BIT_PATH_WALL_W) then
                                 self:drawRect(sx+(x*6), sy+(y*6), 2, 6, 1, 1.0, 1.0, 1.0);
                             end
                         end
@@ -458,7 +458,7 @@ function IsoRegionDebug:new (x, y, width, height, player)
         lastClickTxt = "LastMouseClick: ";
         lastClick = "LastMouseClick: ";
         regionID = -1;
-        masterID = -1;
+        worldRegionID = -1;
         neighbors = nil;
     };
     ISDebugMenu.RegisterClass(self);

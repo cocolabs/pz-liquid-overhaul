@@ -27,6 +27,7 @@ function ISMedicalCheckAction:update()
 end
 
 function ISMedicalCheckAction:start()
+    self:setActionAnim("MedicalCheck")
 end
 
 function ISMedicalCheckAction:stop()

@@ -1,11 +1,19 @@
 ---@class PerkFactory : zombie.characters.skills.PerkFactory
----@field public PerkMap HashMap|PerkFactory.Perks|PerkFactory.Perk
 ---@field public PerkList ArrayList|PerkFactory.Perk
+---@field private PerkById HashMap|Unknown|Unknown
+---@field private PerkByName HashMap|Unknown|Unknown
+---@field private PerkByIndex PerkFactory.Perk[]
+---@field private NextPerkID int
 ---@field PerkXPReqMultiplier float
 PerkFactory = {}
 
 ---@public
----@param arg0 PerkFactory.Perks
+---@param arg0 PerkFactory.Perk
+---@return PerkFactory.Perk
+function PerkFactory:getPerk(arg0) end
+
+---@public
+---@param arg0 PerkFactory.Perk
 ---@param arg1 String
 ---@param arg2 int
 ---@param arg3 int
@@ -18,13 +26,13 @@ PerkFactory = {}
 ---@param arg10 int
 ---@param arg11 int
 ---@return PerkFactory.Perk
----@overload fun(arg0:PerkFactory.Perks, arg1:String, arg2:int, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:boolean)
----@overload fun(arg0:PerkFactory.Perks, arg1:String, arg2:PerkFactory.Perks, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:int)
----@overload fun(arg0:PerkFactory.Perks, arg1:String, arg2:PerkFactory.Perks, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:int, arg13:boolean)
+---@overload fun(arg0:PerkFactory.Perk, arg1:String, arg2:int, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:boolean)
+---@overload fun(arg0:PerkFactory.Perk, arg1:String, arg2:PerkFactory.Perk, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:int)
+---@overload fun(arg0:PerkFactory.Perk, arg1:String, arg2:PerkFactory.Perk, arg3:int, arg4:int, arg5:int, arg6:int, arg7:int, arg8:int, arg9:int, arg10:int, arg11:int, arg12:int, arg13:boolean)
 function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) end
 
 ---@public
----@param arg0 PerkFactory.Perks
+---@param arg0 PerkFactory.Perk
 ---@param arg1 String
 ---@param arg2 int
 ---@param arg3 int
@@ -41,9 +49,9 @@ function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg
 function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) end
 
 ---@public
----@param arg0 PerkFactory.Perks
+---@param arg0 PerkFactory.Perk
 ---@param arg1 String
----@param arg2 PerkFactory.Perks
+---@param arg2 PerkFactory.Perk
 ---@param arg3 int
 ---@param arg4 int
 ---@param arg5 int
@@ -58,9 +66,9 @@ function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg
 function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) end
 
 ---@public
----@param arg0 PerkFactory.Perks
+---@param arg0 PerkFactory.Perk
 ---@param arg1 String
----@param arg2 PerkFactory.Perks
+---@param arg2 PerkFactory.Perk
 ---@param arg3 int
 ---@param arg4 int
 ---@param arg5 int
@@ -76,24 +84,23 @@ function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg
 function PerkFactory:AddPerk(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13) end
 
 ---@public
----@param name String
----@return PerkFactory.Perks
-function PerkFactory:getPerkFromName(name) end
+---@return void
+function PerkFactory:initTranslations() end
+
+---@public
+---@param arg0 PerkFactory.Perk
+---@return String
+function PerkFactory:getPerkName(arg0) end
 
 ---@public
 ---@return void
 function PerkFactory:init() end
 
 ---@public
----@return void
-function PerkFactory:initTranslations() end
-
----@public
----@param type PerkFactory.Perks
----@return String
-function PerkFactory:getPerkName(type) end
-
----@public
----@param perks PerkFactory.Perks
+---@param arg0 String
 ---@return PerkFactory.Perk
-function PerkFactory:getPerk(perks) end
+function PerkFactory:getPerkFromName(arg0) end
+
+---@public
+---@return void
+function PerkFactory:Reset() end

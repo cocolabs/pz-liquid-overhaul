@@ -10,8 +10,15 @@ ISControllerTestPanel = ISPanel:derive("ControllerTest")
 function ISControllerTestPanel:onControllerSelected()
 	JoypadState.controllerTest = false
 	self.selectedController = nil
-	local controller = self.combo.selected - 2
-	if controller < 0 or controller >= getControllerCount() then return end
+	local controller = self.combo:getOptionData(self.combo.selected)
+	if controller < 0 or controller >= getControllerCount() then
+		if self.mainOptions then
+			self.mainOptions.labelJoypadSensitivity.name = getText("UI_optionscreen_select_gamepad")
+			self.mainOptions.btnJoypadSensitivityP:setEnable(false)
+			self.mainOptions.btnJoypadSensitivityM:setEnable(false)
+		end
+		return
+	end
 	self.selectedController = controller
 	JoypadState.controllerTest = true
 
@@ -161,12 +168,29 @@ function ISControllerTestPanel:createChildren()
 	local combo = ISComboBox:new(label:getRight() + 8, 12, self.width - 16 - (label:getRight() + 8), self.smallFontHgt + 3 * 2, self, self.onControllerSelected)
 	combo:initialise()
 	combo:setAnchorRight(true)
-	combo:addOption(getText("UI_ControllerTest_None"))
-	for i=1,getControllerCount() do
-		combo:addOption(getControllerName(i-1))
-	end
 	self:addChild(combo)
 	self.combo = combo
+
+	self:setControllerCombo()
+end
+
+function ISControllerTestPanel:setControllerCombo()
+	self.combo:clear()
+	self.combo:addOptionWithData(getText("UI_ControllerTest_None"), -1)
+	for i=1,getControllerCount() do
+		if isControllerConnected(i-1) then
+			self.combo:addOptionWithData(getControllerName(i-1), i-1)
+		end
+	end
+end
+
+function ISControllerTestPanel:OnGamepadConnect(index)
+	self:setControllerCombo()
+end
+
+function ISControllerTestPanel:OnGamepadDisconnect(index)
+	JoypadState.controllerTest = false
+	self:setControllerCombo()
 end
 
 function ISControllerTestPanel:new(x, y, width, height)

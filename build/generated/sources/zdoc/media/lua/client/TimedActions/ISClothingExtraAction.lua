@@ -33,6 +33,7 @@ function ISClothingExtraAction:start()
 		local location = self.item:canBeEquipped()
 		self:setAnimVariable("WearClothingLocation", WearClothingAnimations[location] or "")
 	end
+	self.character:reportEvent("EventWearClothing");
 end
 
 function ISClothingExtraAction:stop()
@@ -51,6 +52,13 @@ function ISClothingExtraAction:perform()
 		getPlayerInventory(self.character:getPlayerNum()):refreshBackpacks();
 	elseif newItem:IsClothing() then
 		playerObj:setWornItem(newItem:getBodyLocation(), newItem)
+
+		-- here we handle flating the mohawk!
+		if playerObj:getHumanVisual():getHairModel():contains("Mohawk") and (newItem:getBodyLocation() == "Hat" or newItem:getBodyLocation() == "FullHat") then
+			playerObj:getHumanVisual():setHairModel("MohawkFlat");
+			playerObj:resetModel();
+			playerObj:resetHairGrowingTime();
+		end
 	end
 	triggerEvent("OnClothingUpdated", playerObj)
 

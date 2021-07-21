@@ -4,8 +4,13 @@
 TraitCollection_TraitSlot = {}
 
 ---@public
+---@param arg0 String
 ---@return boolean
-function TraitCollection_TraitSlot:isSet() end
+function TraitCollection_TraitSlot:isName(arg0) end
+
+---@public
+---@return String
+function TraitCollection_TraitSlot:toString() end
 
 ---@public
 ---@param arg0 boolean
@@ -13,10 +18,5 @@ function TraitCollection_TraitSlot:isSet() end
 function TraitCollection_TraitSlot:set(arg0) end
 
 ---@public
----@return String
-function TraitCollection_TraitSlot:toString() end
-
----@public
----@param arg0 String
 ---@return boolean
-function TraitCollection_TraitSlot:isName(arg0) end
+function TraitCollection_TraitSlot:isSet() end

@@ -6,6 +6,36 @@
 ---@field public cachecleared boolean[]
 LosUtil = {}
 
+---@public
+---@param width int
+---@param height int
+---@return void
+function LosUtil:init(width, height) end
+
+---@public
+---@param x1 int
+---@param y1 int
+---@param z1 int
+---@param x0 int
+---@param y0 int
+---@param z0 int
+---@param bIgnoreDoors boolean
+---@return boolean
+function LosUtil:lineClearCollide(x1, y1, z1, x0, y0, z0, bIgnoreDoors) end
+
+---@public
+---@param cell IsoCell
+---@param x1 int
+---@param y1 int
+---@param z1 int
+---@param x0 int
+---@param y0 int
+---@param z0 int
+---@param bIgnoreDoors boolean
+---@param playerIndex int
+---@return LosUtil.TestResults
+function LosUtil:lineClearCached(cell, x1, y1, z1, x0, y0, z0, bIgnoreDoors, playerIndex) end
+
 ---Compute and return the list of RLPoints in line-of-sight to the given
 ---
 ---region. In general, this method should be very fast.
@@ -36,25 +66,6 @@ function LosUtil:lineClear(cell, x0, y0, z0, x1, y1, z1, bIgnoreDoors) end
 function LosUtil:lineClear(cell, x0, y0, z0, x1, y1, z1, bIgnoreDoors, RangeTillWindows) end
 
 ---@public
----@param cell IsoCell
----@param x1 int
----@param y1 int
----@param z1 int
----@param x0 int
----@param y0 int
----@param z0 int
----@param bIgnoreDoors boolean
----@param playerIndex int
----@return LosUtil.TestResults
-function LosUtil:lineClearCached(cell, x1, y1, z1, x0, y0, z0, bIgnoreDoors, playerIndex) end
-
----@public
----@param width int
----@param height int
----@return void
-function LosUtil:init(width, height) end
-
----@public
 ---@param chr IsoGameCharacter
 ---@param cell IsoCell
 ---@param x1 int
@@ -65,14 +76,3 @@ function LosUtil:init(width, height) end
 ---@param z0 int
 ---@return int
 function LosUtil:lineClearCollideCount(chr, cell, x1, y1, z1, x0, y0, z0) end
-
----@public
----@param x1 int
----@param y1 int
----@param z1 int
----@param x0 int
----@param y0 int
----@param z0 int
----@param bIgnoreDoors boolean
----@return boolean
-function LosUtil:lineClearCollide(x1, y1, z1, x0, y0, z0, bIgnoreDoors) end

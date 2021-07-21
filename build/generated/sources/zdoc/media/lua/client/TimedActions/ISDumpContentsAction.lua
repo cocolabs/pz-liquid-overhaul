@@ -19,6 +19,8 @@ function ISDumpContentsAction:start()
 		self:setActionAnim(CharacterActionAnims.Pour);
 		self:setAnimVariable("FoodType", self.item:getEatType());
 		self:setOverrideHandModels(self.item, nil);
+	
+		self.character:reportEvent("EventTakeWater");
     end
 end
 
@@ -81,5 +83,6 @@ function ISDumpContentsAction:new (character, item, time)
 	o.stopOnWalk = false;
 	o.stopOnRun = false;
 	o.maxTime = time;
-		return o
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
+	return o
 end

@@ -8,12 +8,11 @@ require "TimedActions/ISBaseTimedAction"
 ISUnloadBulletsFromMagazine = ISBaseTimedAction:derive("ISUnloadBulletsFromMagazine")
 
 function ISUnloadBulletsFromMagazine:isValid()
-	return true
+	return self.character:getInventory():contains(self.magazine)
 end
 
 function ISUnloadBulletsFromMagazine:start()
 	self.magazine:setJobType(getText("ContextMenu_UnloadMagazine"))
-	self:setActionAnim(CharacterActionAnims.RemoveBullets)
 	self.ammoCountStart = self.magazine:getCurrentAmmoCount()
 	if self.ammoCountStart == 0 then
 		self:forceComplete()
@@ -21,6 +20,7 @@ function ISUnloadBulletsFromMagazine:start()
 	end
 	self.magazine:setJobDelta(0.0)
 	self:setOverrideHandModels(nil, "GunMagazine")
+	self:setActionAnim(CharacterActionAnims.RemoveBullets)
 	self:initVars()
 end
 

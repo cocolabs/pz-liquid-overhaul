@@ -6,12 +6,20 @@
 IntegerConfigOption = {}
 
 ---@public
----@return int
-function IntegerConfigOption:getValue() end
+---@return String
+function IntegerConfigOption:getType() end
 
 ---@public
----@return String
-function IntegerConfigOption:getValueAsString() end
+---@return void
+function IntegerConfigOption:resetToDefault() end
+
+---@public
+---@return Object
+function IntegerConfigOption:getValueAsObject() end
+
+---@public
+---@return void
+function IntegerConfigOption:setDefaultToCurrentValue() end
 
 ---@public
 ---@param arg0 int
@@ -19,38 +27,12 @@ function IntegerConfigOption:getValueAsString() end
 function IntegerConfigOption:setValue(arg0) end
 
 ---@public
----@param arg0 Object
----@return void
-function IntegerConfigOption:setValueFromObject(arg0) end
-
----@public
 ---@return double
 function IntegerConfigOption:getMax() end
 
 ---@public
----@return void
-function IntegerConfigOption:setDefaultToCurrentValue() end
-
----@public
----@param arg0 String
----@return void
-function IntegerConfigOption:parse(arg0) end
-
----@public
----@return Object
-function IntegerConfigOption:getValueAsObject() end
-
----@public
----@return int
-function IntegerConfigOption:getDefaultValue() end
-
----@public
 ---@return String
-function IntegerConfigOption:getType() end
-
----@public
----@return double
-function IntegerConfigOption:getMin() end
+function IntegerConfigOption:getValueAsString() end
 
 ---@public
 ---@param arg0 String
@@ -58,5 +40,23 @@ function IntegerConfigOption:getMin() end
 function IntegerConfigOption:isValidString(arg0) end
 
 ---@public
+---@return int
+function IntegerConfigOption:getValue() end
+
+---@public
+---@param arg0 String
 ---@return void
-function IntegerConfigOption:resetToDefault() end
+function IntegerConfigOption:parse(arg0) end
+
+---@public
+---@return double
+function IntegerConfigOption:getMin() end
+
+---@public
+---@param arg0 Object
+---@return void
+function IntegerConfigOption:setValueFromObject(arg0) end
+
+---@public
+---@return int
+function IntegerConfigOption:getDefaultValue() end

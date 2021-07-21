@@ -10,8 +10,26 @@
 IsoClothingWasher = {}
 
 ---@public
+---@param arg0 ItemContainer
+---@param arg1 InventoryItem
+---@return boolean
+function IsoClothingWasher:isRemoveItemAllowedFromContainer(arg0, arg1) end
+
+---@public
 ---@return void
-function IsoClothingWasher:addToWorld() end
+function IsoClothingWasher:update() end
+
+---@public
+---@param arg0 ItemContainer
+---@param arg1 InventoryItem
+---@return boolean
+function IsoClothingWasher:isItemAllowedInContainer(arg0, arg1) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoClothingWasher:save(arg0, arg1) end
 
 ---@public
 ---@param arg0 boolean
@@ -25,20 +43,12 @@ function IsoClothingWasher:setActivated(arg0) end
 function IsoClothingWasher:loadChange(arg0, arg1) end
 
 ---@public
----@return String
-function IsoClothingWasher:getObjectName() end
-
----@public
 ---@return void
 function IsoClothingWasher:removeFromWorld() end
 
 ---@public
----@return void
-function IsoClothingWasher:update() end
-
----@private
----@return boolean
-function IsoClothingWasher:cycleFinished() end
+---@return String
+function IsoClothingWasher:getObjectName() end
 
 ---@public
 ---@param arg0 String
@@ -51,41 +61,33 @@ function IsoClothingWasher:saveChange(arg0, arg1, arg2) end
 ---@param arg0 Clothing
 ---@param arg1 float
 ---@return void
-function IsoClothingWasher:removeBlood(arg0, arg1) end
+function IsoClothingWasher:removeDirt(arg0, arg1) end
 
----@public
----@return boolean
-function IsoClothingWasher:isActivated() end
-
----@public
----@param arg0 ItemContainer
----@param arg1 InventoryItem
----@return boolean
-function IsoClothingWasher:isItemAllowedInContainer(arg0, arg1) end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 int
+---@private
 ---@return void
-function IsoClothingWasher:load(arg0, arg1) end
+function IsoClothingWasher:updateSound() end
 
 ---@private
 ---@param arg0 Clothing
 ---@param arg1 float
 ---@return void
-function IsoClothingWasher:removeDirt(arg0, arg1) end
+function IsoClothingWasher:removeBlood(arg0, arg1) end
 
 ---@public
 ---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
 ---@return void
-function IsoClothingWasher:save(arg0) end
+function IsoClothingWasher:load(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 ItemContainer
----@param arg1 InventoryItem
+---@return void
+function IsoClothingWasher:addToWorld() end
+
+---@public
 ---@return boolean
-function IsoClothingWasher:isRemoveItemAllowedFromContainer(arg0, arg1) end
+function IsoClothingWasher:isActivated() end
 
 ---@private
----@return void
-function IsoClothingWasher:updateSound() end
+---@return boolean
+function IsoClothingWasher:cycleFinished() end

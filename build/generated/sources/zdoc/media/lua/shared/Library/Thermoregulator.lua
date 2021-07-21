@@ -37,81 +37,8 @@
 Thermoregulator = {}
 
 ---@public
----@return double
-function Thermoregulator:getFluidsMultiplier() end
-
----@public
----@return float
-function Thermoregulator:getDefaultMultiplier() end
-
----@public
----@return float
-function Thermoregulator:getMetabolicRateReal() end
-
----@public
----@return boolean
-function Thermoregulator:thermalChevronUp() end
-
----@private
----@return void
-function Thermoregulator:updateHeatDeltas() end
-
----@public
----@return float
-function Thermoregulator:getCoreTemperature() end
-
----@private
----@return void
-function Thermoregulator:updateMetabolicRate() end
-
----@private
----@return void
-function Thermoregulator:initNodes() end
-
----@public
----@return float
-function Thermoregulator:getTimedActionTimeModifier() end
-
----@public
----@param arg0 BloodBodyPartType
----@return Thermoregulator.ThermalNode
-function Thermoregulator:getNodeForBloodType(arg0) end
-
----@public
----@return float
-function Thermoregulator:getMetabolicRate() end
-
----@private
----@param arg0 float
----@return void
-function Thermoregulator:updateThermalDamage(arg0) end
-
----@public
----@return float
-function Thermoregulator:getSkinCelciusMax() end
-
----@public
----@param arg0 Metabolics
----@return void
----@overload fun(arg0:float)
-function Thermoregulator:setMetabolicTarget(arg0) end
-
----@public
----@param arg0 float
----@return void
-function Thermoregulator:setMetabolicTarget(arg0) end
-
----@public
----@return float
-function Thermoregulator:getBodyHeatMultiplier() end
-
----@public
----@return double
-function Thermoregulator:getEnergyMultiplier() end
-
----@public
----@return float
-function Thermoregulator:getMetabolicRateIncMultiplier() end
+---@return int
+function Thermoregulator:thermalChevronCount() end
 
 ---@public
 ---@return float
@@ -119,19 +46,7 @@ function Thermoregulator:getExternalAirTemperature() end
 
 ---@public
 ---@return float
-function Thermoregulator:getDbg_totalHeat() end
-
----@public
----@return float
 function Thermoregulator:getCoreHeatExpandMultiplier() end
-
----@public
----@return void
-function Thermoregulator:reset() end
-
----@public
----@return float
-function Thermoregulator:getDbg_secTotal() end
 
 ---@public
 ---@return float
@@ -149,39 +64,87 @@ function Thermoregulator:getSimulationMultiplier(arg0) end
 
 ---@public
 ---@return float
-function Thermoregulator:getHeatGeneration() end
+function Thermoregulator:getDbg_secTotal() end
+
+---@private
+---@param arg0 float
+---@return void
+function Thermoregulator:updateThermalDamage(arg0) end
 
 ---@private
 ---@return void
-function Thermoregulator:updateNodesHeatDelta() end
+function Thermoregulator:initNodes() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCoreHeatDelta() end
+function Thermoregulator:getMovementModifier() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function Thermoregulator:load(arg0, arg1) end
 
 ---@public
 ---@return float
-function Thermoregulator:getBodyFluids() end
+function Thermoregulator:getCoreRateOfChange() end
+
+---@public
+---@return float
+function Thermoregulator:getSkinCelciusFavorable() end
 
 ---@private
 ---@return void
-function Thermoregulator:updateNodes() end
-
----@public
----@return double
-function Thermoregulator:getFatigueMultiplier() end
+function Thermoregulator:updateBodyMultipliers() end
 
 ---@public
 ---@return float
-function Thermoregulator:getBodyHeatDelta() end
+function Thermoregulator:getCombatModifier() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCatchAColdDelta() end
+function Thermoregulator:getTimedActionTimeModifier() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCoreTemperatureUI() end
+function Thermoregulator:getMetabolicRateDecMultiplier() end
+
+---@public
+---@return float
+function Thermoregulator:getMetabolicRate() end
+
+---@public
+---@return float
+function Thermoregulator:getSkinCelciusMax() end
+
+---@public
+---@return float
+function Thermoregulator:getMetabolicRateReal() end
+
+---@public
+---@return float
+function Thermoregulator:getDefaultMultiplier() end
+
+---@public
+---@return boolean
+function Thermoregulator:thermalChevronUp() end
+
+---@public
+---@param arg0 BodyPartType
+---@return Thermoregulator.ThermalNode
+function Thermoregulator:getNodeForType(arg0) end
+
+---@public
+---@return void
+function Thermoregulator:update() end
+
+---@public
+---@return float
+function Thermoregulator:getSkinCelciusMin() end
+
+---@private
+---@return void
+function Thermoregulator:updateMetabolicRate() end
 
 ---@public
 ---@param arg0 ByteBuffer
@@ -193,55 +156,48 @@ function Thermoregulator:save(arg0) end
 function Thermoregulator:updateCoreRateOfChange() end
 
 ---@public
----@param arg0 ByteBuffer
----@param arg1 int
----@return void
-function Thermoregulator:load(arg0, arg1) end
-
----@public
----@param arg0 BodyPartType
----@return Thermoregulator.ThermalNode
-function Thermoregulator:getNodeForType(arg0) end
-
----@public
----@return float
-function Thermoregulator:getDbg_totalHeatRaw() end
-
----@public
----@return float
-function Thermoregulator:getEnergy() end
-
----@public
----@return float
-function Thermoregulator:getTemperatureAirAndWind() end
-
----@private
----@return void
-function Thermoregulator:updateClothing() end
-
----@public
----@return float
-function Thermoregulator:getDbg_primTotal() end
-
----@public
----@return float
-function Thermoregulator:getTemperatureAir() end
-
----@public
----@return float
-function Thermoregulator:getSkinCelciusMin() end
-
----@private
----@return void
-function Thermoregulator:updateBodyMultipliers() end
-
----@public
----@return void
-function Thermoregulator:update() end
+---@return double
+function Thermoregulator:getFluidsMultiplier() end
 
 ---@public
 ---@return float
 function Thermoregulator:getSetPoint() end
+
+---@private
+---@return void
+function Thermoregulator:updateHeatDeltas() end
+
+---@public
+---@return float
+function Thermoregulator:getCoreCelcius() end
+
+---@public
+---@return float
+function Thermoregulator:getBodyHeatMultiplier() end
+
+---@public
+---@return float
+function Thermoregulator:getSkinCelciusMultiplier() end
+
+---@public
+---@return float
+function Thermoregulator:getHeatGeneration() end
+
+---@public
+---@return float
+function Thermoregulator:getHeatGenerationUI() end
+
+---@public
+---@return float
+function Thermoregulator:getThermalDamage() end
+
+---@public
+---@return float
+function Thermoregulator:getCoreHeatDelta() end
+
+---@public
+---@return float
+function Thermoregulator:getCoreHeatContractMultiplier() end
 
 ---@public
 ---@param arg0 float
@@ -250,44 +206,88 @@ function Thermoregulator:setSimulationMultiplier(arg0) end
 
 ---@public
 ---@return float
-function Thermoregulator:getCoreHeatContractMultiplier() end
-
----@public
----@return int
-function Thermoregulator:thermalChevronCount() end
+function Thermoregulator:getEnergy() end
 
 ---@public
 ---@return float
-function Thermoregulator:getSkinCelciusMultiplier() end
+function Thermoregulator:getBodyFluids() end
+
+---@public
+---@param arg0 Metabolics
+---@return void
+---@overload fun(arg0:float)
+function Thermoregulator:setMetabolicTarget(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function Thermoregulator:setMetabolicTarget(arg0) end
+
+---@public
+---@return double
+function Thermoregulator:getEnergyMultiplier() end
+
+---@public
+---@param arg0 BloodBodyPartType
+---@return Thermoregulator.ThermalNode
+function Thermoregulator:getNodeForBloodType(arg0) end
+
+---@private
+---@return void
+function Thermoregulator:updateNodesHeatDelta() end
+
+---@public
+---@return double
+function Thermoregulator:getFatigueMultiplier() end
 
 ---@public
 ---@return float
-function Thermoregulator:getSkinCelciusFavorable() end
+function Thermoregulator:getBodyHeatDelta() end
 
 ---@public
 ---@return float
-function Thermoregulator:getThermalDamage() end
+function Thermoregulator:getDbg_totalHeatRaw() end
 
 ---@public
 ---@return float
-function Thermoregulator:getMovementModifier() end
+function Thermoregulator:getTemperatureAirAndWind() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCombatModifier() end
+function Thermoregulator:getCoreTemperature() end
+
+---@public
+---@return void
+function Thermoregulator:reset() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCoreCelcius() end
+function Thermoregulator:getTemperatureAir() end
+
+---@private
+---@return void
+function Thermoregulator:updateClothing() end
 
 ---@public
 ---@return float
-function Thermoregulator:getCoreRateOfChange() end
+function Thermoregulator:getMetabolicRateIncMultiplier() end
 
 ---@public
 ---@return float
-function Thermoregulator:getMetabolicRateDecMultiplier() end
+function Thermoregulator:getCoreTemperatureUI() end
+
+---@private
+---@return void
+function Thermoregulator:updateNodes() end
 
 ---@public
 ---@return float
-function Thermoregulator:getHeatGenerationUI() end
+function Thermoregulator:getCatchAColdDelta() end
+
+---@public
+---@return float
+function Thermoregulator:getDbg_totalHeat() end
+
+---@public
+---@return float
+function Thermoregulator:getDbg_primTotal() end

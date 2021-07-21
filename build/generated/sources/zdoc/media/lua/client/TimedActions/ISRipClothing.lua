@@ -67,6 +67,7 @@ function ISRipClothing:perform()
 				thread:Use();
 			end
 			self.character:getInventory():AddItem(thread);
+			self.character:getXp():AddXP(Perks.Tailoring, 1);
 		end
 	end
 	

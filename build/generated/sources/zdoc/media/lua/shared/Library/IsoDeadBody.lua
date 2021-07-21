@@ -39,59 +39,116 @@
 IsoDeadBody = {}
 
 ---@public
+---@param hours float
 ---@return void
-function IsoDeadBody:Reset() end
+function IsoDeadBody:setReanimateTime(hours) end
+
+---@public
+---@return boolean
+function IsoDeadBody:isFallOnFront() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function IsoDeadBody:setCrawling(arg0) end
+
+---@public
+---@return void
+function IsoDeadBody:reanimate() end
+
+---@public
+---@param arg0 InventoryItem
+---@return void
+function IsoDeadBody:checkClothing(arg0) end
+
+---@public
+---@return boolean
+function IsoDeadBody:isCrawling() end
+
+---@public
+---@param arg0 AttachedItems
+---@return void
+function IsoDeadBody:setAttachedItems(arg0) end
+
+---@public
+---@param arg0 ItemContainer
+---@return void
+function IsoDeadBody:setContainer(arg0) end
+
+---@public
+---@param arg0 WornItems
+---@return void
+function IsoDeadBody:setWornItems(arg0) end
+
+---@public
+---@return WornItems
+function IsoDeadBody:getWornItems() end
+
+---Specified by:
+---
+---Say in interface Talker
+---@public
+---@param line String
+---@return void
+function IsoDeadBody:Say(line) end
 
 ---@private
----@return float
-function IsoDeadBody:getFakeDeadWakeupHours() end
+---@return boolean
+function IsoDeadBody:updateFakeDead() end
 
----Overrides:
----
----update in class IsoMovingObject
----@public
+---@private
 ---@return void
-function IsoDeadBody:update() end
+function IsoDeadBody:updateContainerWithHandItems() end
 
 ---@public
----@return float
-function IsoDeadBody:getAngle() end
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 ColorInfo
+---@param arg4 boolean
+---@param arg5 boolean
+---@param arg6 Shader
+---@return void
+function IsoDeadBody:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoDeadBody:save(arg0, arg1) end
 
 ---@public
 ---@return boolean
 function IsoDeadBody:isFakeDead() end
 
 ---@public
----@return AttachedItems
-function IsoDeadBody:getAttachedItems() end
+---@return boolean
+function IsoDeadBody:isSkeleton() end
 
 ---@public
----@return HumanVisual
-function IsoDeadBody:getHumanVisual() end
+---@return String
+function IsoDeadBody:getSayLine() end
+
+---@public
+---@return InventoryItem
+function IsoDeadBody:getPrimaryHandItem() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 ColorInfo
+---@return void
+function IsoDeadBody:renderObjectPicker(arg0, arg1, arg2, arg3) end
+
+---@private
+---@param arg0 ByteBuffer
+---@return IsoSprite
+function IsoDeadBody:loadSprite(arg0) end
 
 ---@public
 ---@return void
 function IsoDeadBody:Burn() end
-
----@public
----@return void
-function IsoDeadBody:reanimateLater() end
-
----@public
----@param arg0 InventoryItem
----@return void
-function IsoDeadBody:setPrimaryHandItem(arg0) end
-
----Overrides:
----
----removeFromWorld in class IsoMovingObject
----@public
----@return void
-function IsoDeadBody:removeFromWorld() end
-
----@public
----@return InventoryItem
-function IsoDeadBody:getItem() end
 
 ---@public
 ---@param arg0 JVector2
@@ -99,26 +156,15 @@ function IsoDeadBody:getItem() end
 ---@return void
 function IsoDeadBody:Collision(arg0, arg1) end
 
----Specified by:
----
----IsSpeaking in interface Talker
 ---@public
----@return boolean
-function IsoDeadBody:IsSpeaking() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoMovingObject
----@public
----@param output ByteBuffer
----@return void
-function IsoDeadBody:save(output) end
+---@return int
+function IsoDeadBody:getOnlineId() end
 
 ---@public
+---@param arg0 float
+---@param arg1 float
 ---@return boolean
-function IsoDeadBody:isSkeleton() end
+function IsoDeadBody:isMouseOver(arg0, arg1) end
 
 ---@public
 ---@return void
@@ -138,84 +184,12 @@ function IsoDeadBody:renderShadow() end
 ---@return void
 function IsoDeadBody:renderShadow(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
----@public
----@param arg0 boolean
----@return void
-function IsoDeadBody:setFakeDead(arg0) end
-
----@public
----@return InventoryItem
-function IsoDeadBody:getPrimaryHandItem() end
-
----@public
----@return boolean
-function IsoDeadBody:isCrawling() end
-
----@public
----@param arg0 ItemVisuals
----@return void
-function IsoDeadBody:getItemVisuals(arg0) end
-
----@private
----@return float
-function IsoDeadBody:getReanimateDelay() end
-
----@public
----@return boolean
-function IsoDeadBody:isZombie() end
-
----@private
----@param arg0 float
----@param arg1 float
----@param arg2 boolean
----@return void
-function IsoDeadBody:updateRotting(arg0, arg1, arg2) end
-
----@public
----@param arg0 boolean
----@return void
-function IsoDeadBody:setFallOnFront(arg0) end
-
----@public
----@return void
-function IsoDeadBody:updateBodies() end
-
----Specified by:
+---Overrides:
 ---
----Say in interface Talker
----@public
----@param line String
----@return void
-function IsoDeadBody:Say(line) end
-
----@public
----@param arg0 InventoryItem
----@return void
-function IsoDeadBody:checkClothing(arg0) end
-
----Specified by:
----
----getTalkerType in interface Talker
----@public
----@return String
-function IsoDeadBody:getTalkerType() end
-
----@public
----@return WornItems
-function IsoDeadBody:getWornItems() end
-
+---removeFromWorld in class IsoMovingObject
 ---@public
 ---@return void
-function IsoDeadBody:softReset() end
-
----@public
----@return boolean
-function IsoDeadBody:isFemale() end
-
----@public
----@param arg0 AttachedItems
----@return void
-function IsoDeadBody:setAttachedItems(arg0) end
+function IsoDeadBody:removeFromWorld() end
 
 ---@private
 ---@return boolean
@@ -229,9 +203,39 @@ function IsoDeadBody:isPlayerNearby() end
 function IsoDeadBody:isPlayerNearby(arg0, arg1) end
 
 ---@public
----@param arg0 ItemContainer
+---@return InventoryItem
+function IsoDeadBody:getItem() end
+
+---@public
+---@return HumanVisual
+function IsoDeadBody:getHumanVisual() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
 ---@return void
-function IsoDeadBody:setContainer(arg0) end
+function IsoDeadBody:load(arg0, arg1, arg2) end
+
+---Overrides:
+---
+---addToWorld in class IsoObject
+---@public
+---@return void
+function IsoDeadBody:addToWorld() end
+
+---@public
+---@return void
+function IsoDeadBody:updateBodies() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function IsoDeadBody:setFallOnFront(arg0) end
+
+---@public
+---@return float
+function IsoDeadBody:getAngle() end
 
 ---@public
 ---@param arg0 InventoryItem
@@ -239,8 +243,47 @@ function IsoDeadBody:setContainer(arg0) end
 function IsoDeadBody:setSecondaryHandItem(arg0) end
 
 ---@public
+---@return InventoryItem
+function IsoDeadBody:getSecondaryHandItem() end
+
+---Specified by:
+---
+---getTalkerType in interface Talker
+---@public
+---@return String
+function IsoDeadBody:getTalkerType() end
+
+---@public
+---@param arg0 InventoryItem
 ---@return void
-function IsoDeadBody:reanimateNow() end
+function IsoDeadBody:setPrimaryHandItem(arg0) end
+
+---@public
+---@return void
+function IsoDeadBody:softReset() end
+
+---@public
+---@return void
+function IsoDeadBody:reanimateLater() end
+
+---Overrides:
+---
+---update in class IsoMovingObject
+---@public
+---@return void
+function IsoDeadBody:update() end
+
+---@public
+---@return void
+function IsoDeadBody:Reset() end
+
+---@public
+---@return boolean
+function IsoDeadBody:isFemale() end
+
+---@public
+---@return AttachedItems
+function IsoDeadBody:getAttachedItems() end
 
 ---Overrides:
 ---
@@ -256,89 +299,42 @@ function IsoDeadBody:renderlast() end
 ---@return String
 function IsoDeadBody:getObjectName() end
 
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 ColorInfo
----@return void
-function IsoDeadBody:renderObjectPicker(arg0, arg1, arg2, arg3) end
-
----@public
----@param hours float
----@return void
-function IsoDeadBody:setReanimateTime(hours) end
-
----@public
----@param arg0 float
----@param arg1 float
----@return boolean
-function IsoDeadBody:isMouseOver(arg0, arg1) end
-
----@public
----@return void
-function IsoDeadBody:reanimate() end
-
 ---@private
+---@param arg0 float
+---@param arg1 float
+---@param arg2 boolean
 ---@return void
-function IsoDeadBody:updateContainerWithHandItems() end
+function IsoDeadBody:updateRotting(arg0, arg1, arg2) end
 
 ---@public
 ---@return boolean
-function IsoDeadBody:isFallOnFront() end
+function IsoDeadBody:isZombie() end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
-function IsoDeadBody:setCrawling(arg0) end
+function IsoDeadBody:setFakeDead(arg0) end
 
 ---@public
----@return String
-function IsoDeadBody:getSayLine() end
+---@param arg0 ItemVisuals
+---@return void
+function IsoDeadBody:getItemVisuals(arg0) end
 
----Overrides:
----
----addToWorld in class IsoObject
 ---@public
 ---@return void
-function IsoDeadBody:addToWorld() end
+function IsoDeadBody:reanimateNow() end
 
 ---@private
+---@return float
+function IsoDeadBody:getReanimateDelay() end
+
+---@private
+---@return float
+function IsoDeadBody:getFakeDeadWakeupHours() end
+
+---Specified by:
+---
+---IsSpeaking in interface Talker
+---@public
 ---@return boolean
-function IsoDeadBody:updateFakeDead() end
-
----@public
----@param arg0 WornItems
----@return void
-function IsoDeadBody:setWornItems(arg0) end
-
----@public
----@return InventoryItem
-function IsoDeadBody:getSecondaryHandItem() end
-
----@private
----@param arg0 ByteBuffer
----@return IsoSprite
-function IsoDeadBody:loadSprite(arg0) end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoMovingObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoDeadBody:load(input, WorldVersion) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 ColorInfo
----@param arg4 boolean
----@param arg5 boolean
----@param arg6 Shader
----@return void
-function IsoDeadBody:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+function IsoDeadBody:IsSpeaking() end

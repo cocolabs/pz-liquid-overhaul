@@ -32,6 +32,7 @@ function ISCleanBlood:start()
 		self.character:SetVariable("LootPosition", "Low");
 		self:setOverrideHandModels(nil, "BleachBottle");
 	end
+	self.character:reportEvent("EventCleanBlood");
 end
 
 function ISCleanBlood:stop()

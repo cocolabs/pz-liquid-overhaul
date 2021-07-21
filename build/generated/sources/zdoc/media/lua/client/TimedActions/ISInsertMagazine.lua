@@ -16,10 +16,11 @@ function ISInsertMagazine:isValid()
 end
 
 function ISInsertMagazine:start()
-	self:setActionAnim(CharacterActionAnims.Reload)
 	self.character:setVariable("WeaponReloadType", self.gun:getWeaponReloadType())
 	self.character:setVariable("isLoading", true)
 	self:setOverrideHandModels(self.gun, nil)
+	self:setActionAnim(CharacterActionAnims.Reload)
+	self.character:reportEvent("EventReloading");
 	self:initVars()
 end
 

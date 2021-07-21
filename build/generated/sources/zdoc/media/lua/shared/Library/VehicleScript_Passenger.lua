@@ -10,6 +10,10 @@
 VehicleScript_Passenger = {}
 
 ---@public
+---@return VehicleScript.Passenger
+function VehicleScript_Passenger:makeCopy() end
+
+---@public
 ---@param arg0 String
 ---@return VehicleScript.Passenger.SwitchSeat
 function VehicleScript_Passenger:getSwitchSeatById(arg0) end
@@ -20,6 +24,10 @@ function VehicleScript_Passenger:getSwitchSeatById(arg0) end
 function VehicleScript_Passenger:getPosition(arg0) end
 
 ---@public
+---@return int
+function VehicleScript_Passenger:getPositionCount() end
+
+---@public
 ---@return String
 function VehicleScript_Passenger:getId() end
 
@@ -27,11 +35,3 @@ function VehicleScript_Passenger:getId() end
 ---@param arg0 String
 ---@return VehicleScript.Position
 function VehicleScript_Passenger:getPositionById(arg0) end
-
----@public
----@return int
-function VehicleScript_Passenger:getPositionCount() end
-
----@public
----@return VehicleScript.Passenger
-function VehicleScript_Passenger:makeCopy() end

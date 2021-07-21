@@ -20,6 +20,8 @@ function ISDumpWaterAction:start()
 		self:setActionAnim(CharacterActionAnims.Pour);
 		self:setAnimVariable("FoodType", self.item:getEatType());
 		self:setOverrideHandModels(self.item, nil);
+	
+		self.character:reportEvent("EventTakeWater");
     end
 end
 
@@ -63,5 +65,6 @@ function ISDumpWaterAction:new (character, item)
 	if o.maxTime < 30 then
 		o.maxTime = 30;
 	end
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o
 end

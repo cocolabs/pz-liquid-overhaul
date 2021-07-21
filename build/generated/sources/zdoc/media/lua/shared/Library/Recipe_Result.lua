@@ -6,21 +6,21 @@
 Recipe_Result = {}
 
 ---@public
----@return String
-function Recipe_Result:getModule() end
-
----@public
----@return String
-function Recipe_Result:getFullType() end
-
----@public
----@return int
-function Recipe_Result:getCount() end
-
----@public
 ---@return int
 function Recipe_Result:getDrainableCount() end
 
 ---@public
 ---@return String
 function Recipe_Result:getType() end
+
+---@public
+---@return int
+function Recipe_Result:getCount() end
+
+---@public
+---@return String
+function Recipe_Result:getFullType() end
+
+---@public
+---@return String
+function Recipe_Result:getModule() end

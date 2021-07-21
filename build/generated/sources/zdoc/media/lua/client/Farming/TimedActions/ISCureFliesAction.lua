@@ -31,6 +31,9 @@ function ISCureFliesAction:stop()
 end
 
 function ISCureFliesAction:perform()
+	-- needed to remove from queue / start next.
+	ISBaseTimedAction.perform(self);
+
 	local sq = self.plant:getSquare()
 	local args = { x = sq:getX(), y = sq:getY(), z = sq:getZ(), uses = self.uses }
 	CFarmingSystem.instance:sendCommand(self.character, 'cureFlies', args)
@@ -39,13 +42,14 @@ function ISCureFliesAction:perform()
 	local level = self.plant.fliesLvl
 	for i=1,self.uses do
 		if level < 100 then
-			self.item:Use()
+			if self.item then
+				self.item:Use()
+			else
+				return;
+			end
 			level = level - 5
 		end
 	end
-
-    -- needed to remove from queue / start next.
-	ISBaseTimedAction.perform(self);
 end
 
 function ISCureFliesAction:new(character, item, uses, plant, time)
@@ -58,6 +62,9 @@ function ISCureFliesAction:new(character, item, uses, plant, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
     o.plant = plant;
 	return o;
 end

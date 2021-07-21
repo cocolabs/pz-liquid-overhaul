@@ -51,7 +51,7 @@ function MapSpawnSelect:getSafehouseSpawnRegion()
 	end
 	for i=0,SafeHouse.getSafehouseList():size()-1 do
 		local safe = SafeHouse.getSafehouseList():get(i);
-		if safe:getPlayers():contains(username) or safe:getOwner() == username then
+		if safe:isRespawnInSafehouse(username) and safe:getPlayers():contains(username) or safe:getOwner() == username then
 			x = safe:getX() + (safe:getH() / 2);
 			y = safe:getY() + (safe:getW() / 2);
 			z = 0;
@@ -267,6 +267,17 @@ function MapSpawnSelect:onGainJoypadFocus(joypadData)
     self.listbox:setISButtonForB(self.backButton)
 end
 
+function MapSpawnSelect:onJoypadBeforeDeactivate_child(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
+end
+
+function MapSpawnSelect:onJoypadBeforeDeactivate(joypadData)
+	self.backButton:clearJoypadButton()
+	self.nextButton:clearJoypadButton()
+	-- focus is on listbox
+	self.joyfocus = nil
+end
+
 function MapSpawnSelect:create()
 	local padX = 16
 	local btnWid = 100
@@ -318,6 +329,7 @@ function MapSpawnSelect:create()
 	self.listbox.itemheight = 50;
 	self.listbox.doDrawItem = MapSpawnSelect.doDrawItem
 	self.listbox:setOnMouseDoubleClick(self, MapSpawnSelect.onDblClick)
+	self.listbox.onJoypadBeforeDeactivate = MapSpawnSelect.onJoypadBeforeDeactivate_child
 	self.listbox.backgroundColor  = {r=0, g=0, b=0, a=0.5};
 	
 	self.richText = ISRichTextPanel:new(16, 10, 500,200);

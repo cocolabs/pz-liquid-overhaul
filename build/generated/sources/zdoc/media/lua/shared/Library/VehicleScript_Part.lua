@@ -19,22 +19,22 @@
 VehicleScript_Part = {}
 
 ---@public
----@param arg0 boolean
----@return void
-function VehicleScript_Part:setMechanicRequireKey(arg0) end
-
----@public
 ---@return boolean
-function VehicleScript_Part:isRepairMechanic() end
+function VehicleScript_Part:isMechanicRequireKey() end
 
 ---@return VehicleScript.Part
 function VehicleScript_Part:makeCopy() end
 
 ---@public
+---@param arg0 boolean
+---@return void
+function VehicleScript_Part:setRepairMechanic(arg0) end
+
+---@public
 ---@return boolean
-function VehicleScript_Part:isMechanicRequireKey() end
+function VehicleScript_Part:isRepairMechanic() end
 
 ---@public
 ---@param arg0 boolean
 ---@return void
-function VehicleScript_Part:setRepairMechanic(arg0) end
+function VehicleScript_Part:setMechanicRequireKey(arg0) end

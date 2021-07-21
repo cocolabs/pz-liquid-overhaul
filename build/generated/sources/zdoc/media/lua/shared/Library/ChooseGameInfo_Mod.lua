@@ -1,5 +1,10 @@
 ---@class ChooseGameInfo.Mod : zombie.gameStates.ChooseGameInfo.Mod
 ---@field public dir String
+---@field public baseFile File
+---@field public mediaFile File
+---@field public actionGroupsFile File
+---@field public animSetsFile File
+---@field public animsXFile File
 ---@field private posters ArrayList|Unknown
 ---@field public tex Texture
 ---@field private require ArrayList|Unknown
@@ -19,35 +24,101 @@
 ChooseGameInfo_Mod = {}
 
 ---@public
----@param available boolean
+---@param id String
 ---@return void
-function ChooseGameInfo_Mod:setAvailable(available) end
+function ChooseGameInfo_Mod:setId(id) end
 
----@public
----@param name String
----@return void
-function ChooseGameInfo_Mod:setName(name) end
+---@private
+---@return boolean
+function ChooseGameInfo_Mod:isAvailableSelf() end
 
 ---@public
 ---@return String
-function ChooseGameInfo_Mod:getUrl() end
+function ChooseGameInfo_Mod:getId() end
+
+---@public
+---@return Texture
+function ChooseGameInfo_Mod:getTexture() end
 
 ---@public
 ---@return ArrayList|String
 function ChooseGameInfo_Mod:getRequire() end
 
 ---@public
----@return int
-function ChooseGameInfo_Mod:getPosterCount() end
+---@param require ArrayList|String
+---@return void
+function ChooseGameInfo_Mod:setRequire(require) end
 
 ---@public
----@return ArrayList|String
-function ChooseGameInfo_Mod:getPacks() end
+---@param name String
+---@return void
+function ChooseGameInfo_Mod:setName(name) end
 
 ---@private
 ---@param arg0 ArrayList|Unknown
 ---@return boolean
 function ChooseGameInfo_Mod:isAvailableRequired(arg0) end
+
+---@public
+---@return GameVersion
+function ChooseGameInfo_Mod:getVersionMax() end
+
+---@public
+---@param url String
+---@return void
+function ChooseGameInfo_Mod:setUrl(url) end
+
+---@public
+---@return boolean
+function ChooseGameInfo_Mod:isAvailable() end
+
+---@public
+---@return String
+function ChooseGameInfo_Mod:getDescription() end
+
+---@public
+---@return String
+function ChooseGameInfo_Mod:getDir() end
+
+---@public
+---@param tex Texture
+---@return void
+function ChooseGameInfo_Mod:setTexture(tex) end
+
+---@public
+---@return String
+function ChooseGameInfo_Mod:getWorkshopID() end
+
+---@public
+---@return int
+function ChooseGameInfo_Mod:getPosterCount() end
+
+---@public
+---@return String
+function ChooseGameInfo_Mod:getUrl() end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@return void
+function ChooseGameInfo_Mod:addPack(arg0, arg1) end
+
+---@public
+---@return ArrayList|String
+function ChooseGameInfo_Mod:getPacks() end
+
+---@public
+---@return GameVersion
+function ChooseGameInfo_Mod:getVersionMin() end
+
+---@public
+---@return ArrayList|ChooseGameInfo.TileDef
+function ChooseGameInfo_Mod:getTileDefs() end
+
+---@public
+---@param arg0 int
+---@return String
+function ChooseGameInfo_Mod:getPoster(arg0) end
 
 ---@public
 ---@param name String
@@ -56,75 +127,10 @@ function ChooseGameInfo_Mod:isAvailableRequired(arg0) end
 function ChooseGameInfo_Mod:addTileDef(name, fileNumber) end
 
 ---@public
----@return String
-function ChooseGameInfo_Mod:getWorkshopID() end
-
----@public
----@return String
-function ChooseGameInfo_Mod:getDescription() end
-
----@public
----@param arg0 int
----@return String
-function ChooseGameInfo_Mod:getPoster(arg0) end
-
----@private
----@return boolean
-function ChooseGameInfo_Mod:isAvailableSelf() end
-
----@public
----@return ArrayList|ChooseGameInfo.TileDef
-function ChooseGameInfo_Mod:getTileDefs() end
-
----@public
----@return GameVersion
-function ChooseGameInfo_Mod:getVersionMax() end
+---@param available boolean
+---@return void
+function ChooseGameInfo_Mod:setAvailable(available) end
 
 ---@public
 ---@return String
 function ChooseGameInfo_Mod:getName() end
-
----@public
----@param require ArrayList|String
----@return void
-function ChooseGameInfo_Mod:setRequire(require) end
-
----@public
----@return String
-function ChooseGameInfo_Mod:getDir() end
-
----@public
----@param id String
----@return void
-function ChooseGameInfo_Mod:setId(id) end
-
----@public
----@return boolean
-function ChooseGameInfo_Mod:isAvailable() end
-
----@public
----@param name String
----@return void
-function ChooseGameInfo_Mod:addPack(name) end
-
----@public
----@return String
-function ChooseGameInfo_Mod:getId() end
-
----@public
----@param tex Texture
----@return void
-function ChooseGameInfo_Mod:setTexture(tex) end
-
----@public
----@return GameVersion
-function ChooseGameInfo_Mod:getVersionMin() end
-
----@public
----@return Texture
-function ChooseGameInfo_Mod:getTexture() end
-
----@public
----@param url String
----@return void
-function ChooseGameInfo_Mod:setUrl(url) end

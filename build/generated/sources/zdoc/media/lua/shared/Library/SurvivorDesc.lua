@@ -31,6 +31,109 @@
 SurvivorDesc = {}
 
 ---@public
+---@return String @the InventoryScript
+function SurvivorDesc:getInventoryScript() end
+
+---@public
+---@return boolean
+function SurvivorDesc:isAggressive() end
+
+---@public
+---@param color ColorInfo
+---@return void
+function SurvivorDesc:addTrouserColor(color) end
+
+---@public
+---@param Instance IsoGameCharacter @the Instance to set
+---@return void
+function SurvivorDesc:setInstance(Instance) end
+
+---@public
+---@return int
+function SurvivorDesc:getCalculatedToughness() end
+
+---@public
+---@return HumanVisual
+function SurvivorDesc:getHumanVisual() end
+
+---@public
+---@param o String
+---@return boolean
+function SurvivorDesc:hasObservation(o) end
+
+---@public
+---@param aggressiveness float @the aggressiveness to set
+---@return void
+function SurvivorDesc:setAggressiveness(aggressiveness) end
+
+---@public
+---@param torso String @the torso to set
+---@return void
+function SurvivorDesc:setTorso(torso) end
+
+---@public
+---@return float @the loner
+function SurvivorDesc:getLoner() end
+
+---@public
+---@return float @the temper
+function SurvivorDesc:getTemper() end
+
+---@public
+---@param InventoryScript String @the InventoryScript to set
+---@return void
+function SurvivorDesc:setInventoryScript(InventoryScript) end
+
+---@private
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return PerkFactory.Perk
+function SurvivorDesc:loadPerk(arg0, arg1) end
+
+---@public
+---@param bravery float @the bravery to set
+---@return void
+function SurvivorDesc:setBravery(bravery) end
+
+---@public
+---@param arg0 String
+---@param arg1 InventoryItem
+---@return void
+function SurvivorDesc:setWornItem(arg0, arg1) end
+
+---@public
+---@return KahluaTable
+function SurvivorDesc:getMeta() end
+
+---@public
+---@param color ColorInfo
+---@return void
+function SurvivorDesc:addHairColor(color) end
+
+---@public
+---@param desc SurvivorDesc
+---@return void
+function SurvivorDesc:meet(desc) end
+
+---@public
+---@param aIDCount int @the IDCount to set
+---@return void
+function SurvivorDesc:setIDCount(aIDCount) end
+
+---@public
+---@return float @the bravery
+function SurvivorDesc:getBravery() end
+
+---@public
+---@return SurvivorGroup @the Group
+function SurvivorDesc:getGroup() end
+
+---@public
+---@param compassion float @the compassion to set
+---@return void
+function SurvivorDesc:setCompassion(compassion) end
+
+---@public
 ---@return HashMap|Integer|Integer
 ---@overload fun(descriptor:SurvivorDesc)
 function SurvivorDesc:getMetCount() end
@@ -41,79 +144,14 @@ function SurvivorDesc:getMetCount() end
 function SurvivorDesc:getMetCount(descriptor) end
 
 ---@public
----@param forename String @the forename to set
----@return void
-function SurvivorDesc:setForename(forename) end
-
----@public
----@param aIDCount int @the IDCount to set
----@return void
-function SurvivorDesc:setIDCount(aIDCount) end
+---@return String @the torso
+function SurvivorDesc:getTorso() end
 
 ---throws java.io.IOException
 ---@public
 ---@param output ByteBuffer
 ---@return void
-function SurvivorDesc:saveCompact(output) end
-
----@public
----@return boolean
-function SurvivorDesc:isFriendly() end
-
----@public
----@param ID int @the ID to set
----@return void
-function SurvivorDesc:setID(ID) end
-
----@public
----@return IsoGameCharacter @the Instance
-function SurvivorDesc:getInstance() end
-
----@public
----@param color ColorInfo
----@return void
-function SurvivorDesc:addHairColor(color) end
-
----@public
----@return WornItems
-function SurvivorDesc:getWornItems() end
-
----@public
----@param arg0 String
----@return void
-function SurvivorDesc:dressInNamedOutfit(arg0) end
-
----@public
----@param loner float @the loner to set
----@return void
-function SurvivorDesc:setLoner(loner) end
-
----@public
----@return float @the bravery
-function SurvivorDesc:getBravery() end
-
----@public
----@param color ColorInfo
----@return void
-function SurvivorDesc:addTrouserColor(color) end
-
----@public
----@param obv String
----@return void
-function SurvivorDesc:addObservation(obv) end
-
----@public
----@return String @the torso
-function SurvivorDesc:getTorso() end
-
----@public
----@return float @the friendliness
-function SurvivorDesc:getFriendliness() end
-
----@public
----@param desc SurvivorDesc
----@return void
-function SurvivorDesc:meet(desc) end
+function SurvivorDesc:save(output) end
 
 ---throws java.io.IOException
 ---@public
@@ -124,34 +162,46 @@ function SurvivorDesc:meet(desc) end
 function SurvivorDesc:load(input, WorldVersion, chr) end
 
 ---@public
+---@return SurvivorFactory.SurvivorType
+function SurvivorDesc:getType() end
+
+---@private
+---@param arg0 ByteBuffer
+---@param arg1 PerkFactory.Perk
+---@return void
+function SurvivorDesc:savePerk(arg0, arg1) end
+
+---@public
+---@return boolean
+function SurvivorDesc:isSkeleton() end
+
+---@public
 ---@return boolean
 function SurvivorDesc:isLeader() end
 
 ---@public
----@return boolean
-function SurvivorDesc:isAggressive() end
+---@param arg0 String
+---@return InventoryItem
+function SurvivorDesc:getWornItem(arg0) end
 
----@public
----@return HashMap|PerkFactory.Perks|Integer
-function SurvivorDesc:getXPBoostMap() end
-
----@public
----@param type SurvivorFactory.SurvivorType
+---@private
 ---@return void
-function SurvivorDesc:setType(type) end
+function SurvivorDesc:doStats() end
 
 ---@public
----@return ArrayList|String
-function SurvivorDesc:getExtras() end
-
----@public
----@param InventoryScript String @the InventoryScript to set
+---@param profession ProfessionFactory.Profession
 ---@return void
-function SurvivorDesc:setInventoryScript(InventoryScript) end
+function SurvivorDesc:setProfessionSkills(profession) end
 
 ---@public
----@return String @the surname
-function SurvivorDesc:getSurname() end
+---@param loner float @the loner to set
+---@return void
+function SurvivorDesc:setLoner(loner) end
+
+---@public
+---@param surname String @the surname to set
+---@return void
+function SurvivorDesc:setSurname(surname) end
 
 ---@public
 ---@param arg0 ItemVisuals
@@ -159,54 +209,21 @@ function SurvivorDesc:getSurname() end
 function SurvivorDesc:getItemVisuals(arg0) end
 
 ---@public
+---@return String @the surname
+function SurvivorDesc:getSurname() end
+
+---@public
 ---@return boolean
 function SurvivorDesc:isZombie() end
 
 ---@public
----@return int
-function SurvivorDesc:getCalculatedToughness() end
-
----@private
----@param arg0 ByteBuffer
----@param arg1 PerkFactory.Perks
+---@param bFemale boolean
 ---@return void
-function SurvivorDesc:savePerk(arg0, arg1) end
+function SurvivorDesc:setFemale(bFemale) end
 
 ---@public
----@return ArrayList|Color
-function SurvivorDesc:getCommonHairColor() end
-
----@public
----@param friendliness float @the friendliness to set
----@return void
-function SurvivorDesc:setFriendliness(friendliness) end
-
----@public
----@param bravery float @the bravery to set
----@return void
-function SurvivorDesc:setBravery(bravery) end
-
----@public
----@return boolean
-function SurvivorDesc:isDead() end
-
----@public
----@param torso String @the torso to set
----@return void
-function SurvivorDesc:setTorso(torso) end
-
----@public
----@param aggressiveness float @the aggressiveness to set
----@return void
-function SurvivorDesc:setAggressiveness(aggressiveness) end
-
----@public
----@return int @the ID
-function SurvivorDesc:getID() end
-
----@public
----@return KahluaTable
-function SurvivorDesc:getMeta() end
+---@return Color
+function SurvivorDesc:getRandomSkinColor() end
 
 ---@public
 ---@param favourindoors float @the favourindoors to set
@@ -214,26 +231,71 @@ function SurvivorDesc:getMeta() end
 function SurvivorDesc:setFavourindoors(favourindoors) end
 
 ---@public
+---@param arg0 String
+---@return void
+function SurvivorDesc:dressInNamedOutfit(arg0) end
+
+---@public
+---@return boolean
+function SurvivorDesc:isDead() end
+
+---@public
+---@param temper float @the temper to set
+---@return void
+function SurvivorDesc:setTemper(temper) end
+
+---@public
+---@param friendliness float @the friendliness to set
+---@return void
+function SurvivorDesc:setFriendliness(friendliness) end
+
+---@public
+---@param type SurvivorFactory.SurvivorType
+---@return void
+function SurvivorDesc:setType(type) end
+
+---@public
+---@return boolean
+function SurvivorDesc:isFriendly() end
+
+---throws java.io.IOException
+---@public
+---@param output ByteBuffer
+---@return void
+function SurvivorDesc:saveCompact(output) end
+
+---@public
+---@return IsoGameCharacter @the Instance
+function SurvivorDesc:getInstance() end
+
+---@public
+---@return WornItems
+function SurvivorDesc:getWornItems() end
+
+---@public
+---@return float @the loyalty
+function SurvivorDesc:getLoyalty() end
+
+---@public
+---@return ArrayList|ObservationFactory.Observation
+function SurvivorDesc:getObservations() end
+
+---@public
 ---@return boolean
 function SurvivorDesc:isFemale() end
 
 ---@public
----@return Color
-function SurvivorDesc:getRandomSkinColor() end
+---@return float @the favourindoors
+function SurvivorDesc:getFavourindoors() end
+
+---@public
+---@return String @the Profession
+function SurvivorDesc:getProfession() end
 
 ---@public
 ---@param Profession String @the Profession to set
 ---@return void
 function SurvivorDesc:setProfession(Profession) end
-
----@private
----@return void
-function SurvivorDesc:doStats() end
-
----@public
----@param bFemale boolean
----@return void
-function SurvivorDesc:setFemale(bFemale) end
 
 ---throws java.io.IOException
 ---@public
@@ -242,119 +304,57 @@ function SurvivorDesc:setFemale(bFemale) end
 function SurvivorDesc:loadCompact(input) end
 
 ---@public
----@param o String
----@return boolean
-function SurvivorDesc:hasObservation(o) end
-
----@public
----@return HumanVisual
-function SurvivorDesc:getHumanVisual() end
-
----@public
----@return float @the loner
-function SurvivorDesc:getLoner() end
-
----@public
----@return String @the forename
-function SurvivorDesc:getForename() end
-
----@private
----@param arg0 ByteBuffer
----@param arg1 int
----@return PerkFactory.Perks
-function SurvivorDesc:loadPerk(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 InventoryItem
+---@param obv String
 ---@return void
-function SurvivorDesc:setWornItem(arg0, arg1) end
+function SurvivorDesc:addObservation(obv) end
 
 ---@public
----@return String @the Profession
-function SurvivorDesc:getProfession() end
-
----@public
----@return int @the IDCount
-function SurvivorDesc:getIDCount() end
-
----@public
----@return String @the InventoryScript
-function SurvivorDesc:getInventoryScript() end
+---@return int @the ID
+function SurvivorDesc:getID() end
 
 ---@public
 ---@return float @the aggressiveness
 function SurvivorDesc:getAggressiveness() end
 
 ---@public
----@return ArrayList|ObservationFactory.Observation
-function SurvivorDesc:getObservations() end
+---@return float @the compassion
+function SurvivorDesc:getCompassion() end
 
----throws java.io.IOException
 ---@public
----@param output ByteBuffer
+---@param ID int @the ID to set
 ---@return void
-function SurvivorDesc:save(output) end
+function SurvivorDesc:setID(ID) end
 
 ---@public
----@return float @the loyalty
-function SurvivorDesc:getLoyalty() end
+---@return float @the friendliness
+function SurvivorDesc:getFriendliness() end
 
 ---@public
----@return SurvivorGroup @the Group
-function SurvivorDesc:getGroup() end
+---@return ArrayList|String
+function SurvivorDesc:getExtras() end
+
+---@public
+---@return ArrayList|Color
+function SurvivorDesc:getCommonHairColor() end
+
+---@public
+---@param forename String @the forename to set
+---@return void
+function SurvivorDesc:setForename(forename) end
+
+---@public
+---@return int @the IDCount
+function SurvivorDesc:getIDCount() end
+
+---@public
+---@return HashMap|PerkFactory.Perks|Integer
+function SurvivorDesc:getXPBoostMap() end
+
+---@public
+---@return String @the forename
+function SurvivorDesc:getForename() end
 
 ---@public
 ---@param loyalty float @the loyalty to set
 ---@return void
 function SurvivorDesc:setLoyalty(loyalty) end
-
----@public
----@param surname String @the surname to set
----@return void
-function SurvivorDesc:setSurname(surname) end
-
----@public
----@param temper float @the temper to set
----@return void
-function SurvivorDesc:setTemper(temper) end
-
----@public
----@return SurvivorFactory.SurvivorType
-function SurvivorDesc:getType() end
-
----@public
----@param Instance IsoGameCharacter @the Instance to set
----@return void
-function SurvivorDesc:setInstance(Instance) end
-
----@public
----@return boolean
-function SurvivorDesc:isSkeleton() end
-
----@public
----@return float @the compassion
-function SurvivorDesc:getCompassion() end
-
----@public
----@param arg0 String
----@return InventoryItem
-function SurvivorDesc:getWornItem(arg0) end
-
----@public
----@param profession ProfessionFactory.Profession
----@return void
-function SurvivorDesc:setProfessionSkills(profession) end
-
----@public
----@return float @the favourindoors
-function SurvivorDesc:getFavourindoors() end
-
----@public
----@return float @the temper
-function SurvivorDesc:getTemper() end
-
----@public
----@param compassion float @the compassion to set
----@return void
-function SurvivorDesc:setCompassion(compassion) end

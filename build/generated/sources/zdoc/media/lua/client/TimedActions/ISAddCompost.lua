@@ -55,5 +55,6 @@ function ISAddCompost:new(character, compost, item)
 	o.stopOnWalk = true
 	o.stopOnRun = true
 	o.maxTime = 150
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o
 end	

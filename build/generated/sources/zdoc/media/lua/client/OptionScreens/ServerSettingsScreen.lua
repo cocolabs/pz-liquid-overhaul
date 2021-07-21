@@ -1332,7 +1332,7 @@ function Page1:create()
 	local listY = 128
 
 	local labelHgt = getTextManager():getFontFromEnum(UIFont.Medium):getLineHeight()
-	local label1 = ISLabel:new(padX, math.min(96, listY - labelHgt - 4), labelHgt, getText("UI_ServerSettings_ListOfSettings", getServerSettingsManager():getSettingsFolder():gsub("\\", "\\\\")), 1, 1, 1, 1, UIFont.Medium, true)
+	local label1 = ISLabel:new(padX, math.min(96, listY - labelHgt - 4), labelHgt, getText("UI_ServerSettings_ListOfSettings", getServerSettingsManager():getSettingsFolder()), 1, 1, 1, 1, UIFont.Medium, true)
 	self:addChild(label1)
 
 	self.listbox = ISScrollingListBox:new(padX, listY, 350, self.height - listY - 96)
@@ -1527,6 +1527,15 @@ end
 function Page1:onGainJoypadFocus(joypadData)
     ISPanelJoypad.onGainJoypadFocus(self, joypadData)
     self:setISButtonForB(self.backButton)
+end
+
+function Page1:onLoseJoypadFocus(joypadData)
+    ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+    self.backButton:clearJoypadButton()
+end
+
+function Page1:onJoypadBeforeDeactivate(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 -- -- -- -- --
@@ -2809,6 +2818,11 @@ function ServerSettingsScreen.getSandboxSettingsTable()
 	return _table
 end
 
+function ServerSettingsScreen:onJoypadBeforeDeactivate(joypadData)
+	-- focus is on self.pageStart
+	self.joyfocus = nil
+end
+
 -- -- -- -- --
 -- -- -- -- --
 -- -- -- -- --
@@ -2880,6 +2894,10 @@ SettingsTable = {
 					{ name = "PlayerRespawnWithOther" },
 					{ name = "AllowTradeUI", },
 					{ name = "RemovePlayerCorpsesOnCorpseRemoval" },
+					{ name = "TrashDeleteAll" },
+					{ name = "PVPMeleeWhileHitReaction" },
+					{ name = "MouseOverToSeeDisplayName" },
+					{ name = "HidePlayersBehindYou" },
 				},
 			},
 			{
@@ -2917,9 +2935,6 @@ SettingsTable = {
 					{ name = "MaxItemsForLootRespawn" },
 					{ name = "ConstructionPreventsLootRespawn" },
 					{ name = "ItemNumbersLimitPerContainer" },
-					{ name = "HoursForWorldItemRemoval" },
-					{ name = "WorldItemRemovalList" },
-					{ name = "ItemRemovalListBlacklistToggle" },
 				},
 			},
 			{
@@ -3052,10 +3067,14 @@ SettingsTable = {
 					{ name = "DaysForRottenFoodRemoval" },
 					{ name = "LootRespawn" },
 					{ name = "SeenHoursPreventLootRespawn" },
+					{ name = "WorldItemRemovalList" },
+					{ name = "HoursForWorldItemRemoval" },
+					{ name = "ItemRemovalListBlacklistToggle" },
 					{ name = "TimeSinceApo" },
 					{ name = "NightDarkness" },
 					{ name = "FireSpread" },
 					{ name = "AllowExteriorGenerator" },
+					{ name = "FuelStationGas" },
 				},
 			},
 			{
@@ -3167,7 +3186,7 @@ SettingsTable = {
 					{ name = "ZombieLore.Decomp" },
 					{ name = "ZombieLore.Sight" },
 					{ name = "ZombieLore.Hearing" },
-					{ name = "ZombieLore.Smell" },
+--					{ name = "ZombieLore.Smell" },
 					{ name = "ZombieLore.ThumpNoChasing" },
 					{ name = "ZombieLore.ThumpOnConstruction" },
 					{ name = "ZombieLore.ActiveOnly" },
@@ -3242,9 +3261,28 @@ for _,page in ipairs(SettingsTable[1].pages) do
 	end
 end
 
-for i=1,getSandboxOptions():getNumOptions() do
-	missedSettings[getSandboxOptions():getOptionByIndex(i-1):getName()] = true
+local pageByName = {}
+for _,page in ipairs(SettingsTable[2].pages) do
+	local pageName = page.title or page.name
+	pageByName[pageName] = page
 end
+
+for i=1,getSandboxOptions():getNumOptions() do
+	local option = getSandboxOptions():getOptionByIndex(i-1)
+	if option:isCustom() and option:getPageName() ~= nil then
+		local page = pageByName[option:getPageName()]
+		if not page then
+			page = {}
+			page.name = option:getPageName()
+			page.settings = {}
+			table.insert(SettingsTable[2].pages, page)
+			pageByName[page.name] = page
+		end
+		table.insert(page.settings, { name = option:getName() })
+	end
+	missedSettings[option:getName()] = true
+end
+
 for _,page in ipairs(SettingsTable[2].pages) do
 	page.name = page.title or getText("Sandbox_" .. page.name)
 	for _,setting in ipairs(page.settings) do

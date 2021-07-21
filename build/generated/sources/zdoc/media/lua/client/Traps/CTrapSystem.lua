@@ -16,8 +16,8 @@ function CTrapSystem:isValidIsoObject(isoObject)
 	return instanceof(isoObject, "IsoThumpable") and isoObject:getName() == "Trap"
 end
 
-function CTrapSystem:newLuaObject(isoObject)
-	return CTrapGlobalObject:new(self, isoObject)
+function CTrapSystem:newLuaObject(globalObject)
+	return CTrapGlobalObject:new(self, globalObject)
 end
 
 function CTrapSystem.initObjectModData(isoObject, trapDef, north, player)

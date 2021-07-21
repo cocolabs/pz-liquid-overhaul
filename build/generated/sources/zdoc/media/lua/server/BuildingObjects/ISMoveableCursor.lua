@@ -491,6 +491,10 @@ function ISMoveableCursor:isValid( _square )
 end
 
 function ISMoveableCursor:rotateKey(key, _joypadTriggered)
+    if _joypadTriggered and (ISMoveableCursor.mode[self.player] == "place") then
+        self.cursorFacing = nil
+        self.joypadFacing = nil
+    end
     if (key == getCore():getKey("Rotate building") or _joypadTriggered) and not self.cursorFacing then --disable key when rotating with mouse
         if ISMoveableCursor.mode[self.player] == "rotate" and not self.canCreate then
             --return;
@@ -513,6 +517,41 @@ function ISMoveableCursor:rotateKey(key, _joypadTriggered)
             end
         end
     end
+end
+
+function ISMoveableCursor:rotateWhilePlacing()
+    local objects = self.objectListCache or self:getInventoryObjectList()
+    local rotateObject = objects[self.objectIndex]
+    if not rotateObject then return end
+    if rotateObject.moveProps and rotateObject.moveProps:canRotateDirection() then
+        if not self.joypadFacing then
+            local dir = instanceof(rotateObject.object, "Moveable") and
+                self:getDirectionFromItem(rotateObject.object) or rotateObject.object:getDir()
+            local facing = { [IsoDirections.N]=1, [IsoDirections.W]=2, [IsoDirections.S]=3, [IsoDirections.E]=4 }
+            self.joypadFacing = facing[dir]
+        end
+        self.joypadFacing = self.joypadFacing + 1
+        if self.joypadFacing > 4 then
+            self.joypadFacing = 1
+        end
+    elseif rotateObject.moveProps and rotateObject.moveProps:hasFaces() then
+        if not self.cursorFacing then
+            self.cursorFacing = rotateObject.moveProps:getFaceIndex()
+        end
+        self.cursorFacing = (self.cursorFacing or 0) + 1
+        if self.cursorFacing > 4 then
+            self.cursorFacing = 1
+        end
+    end
+end
+
+function ISMoveableCursor:getDirectionFromItem(item)
+    if instanceof(item, "Moveable") then
+        if IsoMannequin.isMannequinSprite(self.objectSprite) then
+            return IsoMannequin.getDirectionFromItem(item, self.player)
+        end
+    end
+    return IsoDirections.S
 end
 
 function ISMoveableCursor:rotateMouse(x, y)
@@ -683,13 +722,32 @@ end
 function ISMoveableCursor:onJoypadPressButton(joypadIndex, joypadData, button)
     local playerObj = getSpecificPlayer(joypadData.player)
     if button == Joypad.AButton then
-        if self.canBeBuild then
+        if self.canBeBuild and self.canCreate then
             self:tryBuild(self.xJoypad, self.yJoypad, self.zJoypad)
+        else
+            -- Hack to allow opening doors with A button
+            local bp = getButtonPrompts(joypadData.player)
+            bp:onAPress()
         end
     end
 
     if button == Joypad.BButton then
         getCell():setDrag(nil, joypadData.player);
+    end
+
+    if button == Joypad.XButton then
+        if ISMoveableCursor.mode[self.player] == "place" and self.canCreate then
+            local object = self.objectListCache[self.objectIndex].object
+            local moveProps = self.objectListCache[self.objectIndex].moveProps
+            if moveProps and (moveProps:hasFaces() or moveProps:canRotateDirection()) then
+                self:rotateWhilePlacing()
+            end
+        end
+    end
+    
+    if button == Joypad.YButton then
+        self.xJoypad = self.character:getCurrentSquare():getX()
+        self.yJoypad = self.character:getCurrentSquare():getY()
     end
 
     if button == Joypad.RBumper then
@@ -721,6 +779,20 @@ function ISMoveableCursor:getAPrompt()
             end
         end
     end
+    return nil
+end
+
+function ISMoveableCursor:getXPrompt()
+    if ISMoveableCursor.mode[self.player] == "place" then
+        if self.canCreate and self.objectListCache and (self.objectIndex >= 1) and (self.objectIndex <= #self.objectListCache) then
+            local item = self.objectListCache[self.objectIndex].object;
+            local moveProps = self.objectListCache[self.objectIndex].moveProps;
+            if moveProps and (moveProps:hasFaces() or moveProps:canRotateDirection()) then
+                return getText("IGUI_CycleRotation");
+            end
+        end
+    end
+    return nil
 end
 
 function ISMoveableCursor:getLBPrompt()
@@ -745,6 +817,7 @@ function ISMoveableCursor:getRBPrompt()
             return getText("IGUI_CycleObject");
         end
     end
+	return nil
 end
 
 function ISMoveableCursor:new(_character)
@@ -757,6 +830,7 @@ function ISMoveableCursor:new(_character)
     o.character = _character;
     o.player = _character:getPlayerNum();
     o.skipBuildAction = true;
+    o.isYButtonResetCursor = true;
     o.noNeedHammer = false;
     o.skipWalk = true;
     o.renderFloorHelper = true;

@@ -25,6 +25,7 @@ function ISRemoveBrokenGlass:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Mid")
 	self:setOverrideHandModels(nil, nil)
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISRemoveBrokenGlass:stop()

@@ -7,6 +7,25 @@
 ---@field private s_maxSizeKo long
 ZLogger = {}
 
+---@private
+---@return void
+function ZLogger:checkSize() end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function ZLogger:writeUnsafe(arg0, arg1) end
+
+---@private
+---@return void
+function ZLogger:checkSizeUnsafe() end
+
+---@private
+---@param arg0 String
+---@return String
+function ZLogger:getLoggerName(arg0) end
+
 ---@public
 ---@param arg0 Exception
 ---@return void
@@ -24,22 +43,3 @@ function ZLogger:write(logs) end
 ---@param level String
 ---@return void
 function ZLogger:write(logs, level) end
-
----@private
----@return void
-function ZLogger:checkSizeUnsafe() end
-
----@public
----@param arg0 String
----@param arg1 String
----@return void
-function ZLogger:writeUnsafe(arg0, arg1) end
-
----@private
----@return void
-function ZLogger:checkSize() end
-
----@private
----@param arg0 String
----@return String
-function ZLogger:getLoggerName(arg0) end

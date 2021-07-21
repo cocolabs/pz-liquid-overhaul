@@ -23,101 +23,27 @@
 ---@field public r float @The red component of the colour
 Color = {}
 
----@public
----@param arg0 int
----@return float
-function Color:getGreenChannelFromABGR(arg0) end
-
----Scale the components of the colour by the given value
----@public
----@param value float @The value to scale by
----@return Color @The copy which has been scaled
-function Color:scaleCopy(value) end
-
----Make a darker instance of this colour
+---Make a brighter instance of this colour
 ---@public
 ---@return Color
 ---@overload fun(scale:float)
-function Color:darker() end
+function Color:brighter() end
 
----Make a darker instance of this colour
+---Make a brighter instance of this colour
 ---@public
----@param scale float @The scale down of RGB (i.e. if you supply 0.03 the colour will be darkened by 3%)
----@return Color @The darker version of this colour
-function Color:darker(scale) end
+---@param scale float @The scale up of RGB (i.e. if you supply 0.03 the colour will be brightened by 3%)
+---@return Color @The brighter version of this colour
+function Color:brighter(scale) end
 
----Add another colour to this one
+---get the red byte component of this colour
 ---@public
----@param c Color @The colour to add
----@return Color @The copy which has had the color added to it
-function Color:addToCopy(c) end
+---@return int @The red component (range 0-255)
+function Color:getRed() end
 
+---get the red byte component of this colour
 ---@public
----@param arg0 int
----@param arg1 int
----@return int
-function Color:blendBGR(arg0, arg1) end
-
----@public
----@param arg0 float
----@return Color
-function Color:scale(arg0) end
-
----get the blue byte component of this colour
----@public
----@return int @The blue component (range 0-255)
-function Color:getBlue() end
-
----@public
----@param value int
----@return void
-function Color:fromColor(value) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return void
-function Color:changeHSBValue(arg0, arg1, arg2) end
-
----@public
----@return Color
-function Color:random() end
-
----get the green byte component of this colour
----@public
----@return int @The green component (range 0-255)
-function Color:getGreenByte() end
-
----@public
----@param to Color
----@param delta float
----@param dest Color
----@return void
-function Color:interp(to, delta, dest) end
-
----Overrides:
----
----toString in class java.lang.Object
----@public
----@return String
-function Color:toString() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return int
-function Color:blendABGR(arg0, arg1) end
-
----get the alpha byte component of this colour
----@public
----@return int @The alpha component (range 0-255)
-function Color:getAlpha() end
-
----@public
----@param arg0 int
----@return float
-function Color:getBlueChannelFromABGR(arg0) end
+---@return int @The red component (range 0-255)
+function Color:getRedByte() end
 
 ---@public
 ---@param arg0 Color
@@ -132,36 +58,6 @@ function Color:colorToABGR(arg0) end
 ---@param arg3 float
 ---@return int
 function Color:colorToABGR(arg0, arg1, arg2, arg3) end
-
----@public
----@return float
-function Color:getRedFloat() end
-
----@public
----@param arg0 int
----@return float
-function Color:getAlphaChannelFromABGR(arg0) end
-
----@public
----@return float
-function Color:getGreenFloat() end
-
----get the red byte component of this colour
----@public
----@return int @The red component (range 0-255)
-function Color:getRed() end
-
----@public
----@param arg0 int
----@param arg1 int
----@return int
-function Color:multiplyBGR(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 float
----@return int
-function Color:setAlphaChannelToABGR(arg0, arg1) end
 
 ---@public
 ---@param arg0 Color
@@ -186,98 +82,13 @@ function Color:set(arg0, arg1, arg2) end
 function Color:set(arg0, arg1, arg2, arg3) end
 
 ---@public
----@param arg0 int
----@param arg1 float
----@return int
-function Color:setRedChannelToABGR(arg0, arg1) end
-
----@public
----@param arg0 int
----@param arg1 int
----@return int
-function Color:multiplyABGR(arg0, arg1) end
-
----get the alpha byte component of this colour
----@public
----@return int @The alpha component (range 0-255)
-function Color:getAlphaByte() end
-
----get the blue byte component of this colour
----@public
----@return int @The blue component (range 0-255)
-function Color:getBlueByte() end
-
----@public
----@param arg0 int
----@return void
-function Color:setABGR(arg0) end
-
----@public
----@param arg0 int
----@param arg1 float
----@return int
-function Color:setBlueChannelToABGR(arg0, arg1) end
-
----Add another colour to this one
----@public
----@param c Color @The colour to add
----@return void
-function Color:add(c) end
-
----@public
----@param arg0 int
----@param arg1 int
----@return int
-function Color:tintABGR(arg0, arg1) end
-
----@public
----@param A Color
----@param B Color
----@param delta float
----@return void
-function Color:setColor(A, B, delta) end
-
----Decode a number in a string and process it as a colour
----
----reference.
----@public
----@param nm String @The number string to decode
----@return Color @The color generated from the number read
-function Color:decode(nm) end
-
----@public
----@param arg0 int
----@param arg1 float
----@return int
-function Color:setGreenChannelToABGR(arg0, arg1) end
-
----@public
----@param arg0 int
----@return float
-function Color:getRedChannelFromABGR(arg0) end
-
----get the red byte component of this colour
----@public
----@return int @The red component (range 0-255)
-function Color:getRedByte() end
-
----@public
 ---@return float
 function Color:getAlphaFloat() end
 
----Overrides:
----
----hashCode in class java.lang.Object
----@public
----@return int
-function Color:hashCode() end
-
 ---@public
 ---@param arg0 int
----@param arg1 int
----@param arg2 float
----@return int
-function Color:lerpABGR(arg0, arg1, arg2) end
+---@return float
+function Color:getAlphaChannelFromABGR(arg0) end
 
 ---@public
 ---@param arg0 float
@@ -295,17 +106,119 @@ function Color:HSBtoRGB(arg0, arg1, arg2) end
 ---@return Color
 function Color:HSBtoRGB(arg0, arg1, arg2, arg3) end
 
----Make a brighter instance of this colour
+---Add another colour to this one
 ---@public
----@return Color
----@overload fun(scale:float)
-function Color:brighter() end
+---@param c Color @The colour to add
+---@return void
+function Color:add(c) end
 
----Make a brighter instance of this colour
 ---@public
----@param scale float @The scale up of RGB (i.e. if you supply 0.03 the colour will be brightened by 3%)
----@return Color @The brighter version of this colour
-function Color:brighter(scale) end
+---@param arg0 int
+---@param arg1 Color
+---@return Color
+function Color:abgrToColor(arg0, arg1) end
+
+---get the alpha byte component of this colour
+---@public
+---@return int @The alpha component (range 0-255)
+function Color:getAlphaByte() end
+
+---@public
+---@param arg0 float
+---@return Color
+function Color:scale(arg0) end
+
+---get the green byte component of this colour
+---@public
+---@return int @The green component (range 0-255)
+function Color:getGreen() end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return int
+function Color:setBlueChannelToABGR(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return int
+function Color:blendBGR(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return int
+function Color:setGreenChannelToABGR(arg0, arg1) end
+
+---@public
+---@param value int
+---@return void
+function Color:fromColor(value) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 float
+---@return int
+function Color:lerpABGR(arg0, arg1, arg2) end
+
+---@public
+---@param to Color
+---@param delta float
+---@param dest Color
+---@return void
+function Color:interp(to, delta, dest) end
+
+---get the blue byte component of this colour
+---@public
+---@return int @The blue component (range 0-255)
+function Color:getBlueByte() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return void
+function Color:changeHSBValue(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@return float
+function Color:getGreenChannelFromABGR(arg0) end
+
+---Multiply this color by another
+---@public
+---@param c Color @the other color
+---@return Color @product of the two colors
+function Color:multiply(c) end
+
+---@public
+---@return float
+function Color:getBlueFloat() end
+
+---Add another colour to this one
+---@public
+---@param c Color @The colour to add
+---@return Color @The copy which has had the color added to it
+function Color:addToCopy(c) end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return int
+function Color:setAlphaChannelToABGR(arg0, arg1) end
+
+---Overrides:
+---
+---hashCode in class java.lang.Object
+---@public
+---@return int
+function Color:hashCode() end
+
+---@public
+---@return float
+function Color:getGreenFloat() end
 
 ---Overrides:
 ---
@@ -317,21 +230,108 @@ function Color:equals(other) end
 
 ---@public
 ---@param arg0 int
----@param arg1 Color
----@return Color
-function Color:abgrToColor(arg0, arg1) end
+---@param arg1 int
+---@return int
+function Color:blendABGR(arg0, arg1) end
+
+---get the blue byte component of this colour
+---@public
+---@return int @The blue component (range 0-255)
+function Color:getBlue() end
 
 ---@public
+---@param arg0 int
+---@param arg1 int
+---@return int
+function Color:multiplyABGR(arg0, arg1) end
+
+---@public
+---@param arg0 int
 ---@return float
-function Color:getBlueFloat() end
+function Color:getBlueChannelFromABGR(arg0) end
+
+---@public
+---@return Color
+function Color:random() end
+
+---@public
+---@param arg0 int
+---@param arg1 float
+---@return int
+function Color:setRedChannelToABGR(arg0, arg1) end
+
+---Make a darker instance of this colour
+---@public
+---@return Color
+---@overload fun(scale:float)
+function Color:darker() end
+
+---Make a darker instance of this colour
+---@public
+---@param scale float @The scale down of RGB (i.e. if you supply 0.03 the colour will be darkened by 3%)
+---@return Color @The darker version of this colour
+function Color:darker(scale) end
+
+---get the alpha byte component of this colour
+---@public
+---@return int @The alpha component (range 0-255)
+function Color:getAlpha() end
+
+---@public
+---@param arg0 int
+---@return void
+function Color:setABGR(arg0) end
 
 ---get the green byte component of this colour
 ---@public
 ---@return int @The green component (range 0-255)
-function Color:getGreen() end
+function Color:getGreenByte() end
 
----Multiply this color by another
 ---@public
----@param c Color @the other color
----@return Color @product of the two colors
-function Color:multiply(c) end
+---@param arg0 int
+---@param arg1 int
+---@return int
+function Color:multiplyBGR(arg0, arg1) end
+
+---Decode a number in a string and process it as a colour
+---
+---reference.
+---@public
+---@param nm String @The number string to decode
+---@return Color @The color generated from the number read
+function Color:decode(nm) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return int
+function Color:tintABGR(arg0, arg1) end
+
+---@public
+---@param arg0 int
+---@return float
+function Color:getRedChannelFromABGR(arg0) end
+
+---@public
+---@return float
+function Color:getRedFloat() end
+
+---Overrides:
+---
+---toString in class java.lang.Object
+---@public
+---@return String
+function Color:toString() end
+
+---Scale the components of the colour by the given value
+---@public
+---@param value float @The value to scale by
+---@return Color @The copy which has been scaled
+function Color:scaleCopy(value) end
+
+---@public
+---@param A Color
+---@param B Color
+---@param delta float
+---@return void
+function Color:setColor(A, B, delta) end

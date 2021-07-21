@@ -173,6 +173,9 @@ function LastStandPlayerSelect:create()
 	self.listbox.itemheight = 160;
 	self.listbox.drawBorder = true
 	self.listbox.doDrawItem = LastStandPlayerSelect.drawMap;
+	self.listbox.onGainJoypadFocus = LastStandPlayerSelect.onGainJoypadFocus_child;
+	self.listbox.onLoseJoypadFocus = LastStandPlayerSelect.onLoseJoypadFocus_child;
+	self.listbox.onJoypadBeforeDeactivate = LastStandPlayerSelect.onJoypadBeforeDeactivate_child;
 	self.listbox:setOnMouseDoubleClick(self, LastStandPlayerSelect.onDblClickPlayer);
 
 	self:createPlayerList();
@@ -326,6 +329,7 @@ function LastStandPlayerSelect:onOptionMouseDown(button, x, y)
 		modal:addToUIManager();
 		if self.joyfocus then
 			self.joyfocus.focus = modal;
+			modal.removeIfJoypadDeactivated = true;
 --			updateJoypadFocus(self.joyfocus);
 		end
 	 end
@@ -393,6 +397,7 @@ LastStandPlayerSelect.clickPlay = function()
 	LastStandPlayerSelect.playerSelected = sel.item;
 	LastStandPlayerSelect.playerSelected.playedTime = LastStandPlayerSelect.playerSelected.playedTime + 1;
 	MainScreen.instance.lastStandPlayerSelect:setVisible(false);
+--[[
 	-- menu activated via joypad, we disable the joypads and will re-set them automatically when the game is started
 	if LastStandPlayerSelect.instance.joyfocus then
 		local joypadData = LastStandPlayerSelect.instance.joyfocus
@@ -403,26 +408,46 @@ LastStandPlayerSelect.clickPlay = function()
 		JoypadState.joypads = {};
 		JoypadState.forceActivate = joypadData.id;
 	end
+--]]
     GameWindow.doRenderEvent(false);
 	forceChangeState(GameLoadingState.new());
 end
 
 function LastStandPlayerSelect:onGainJoypadFocus(joypadData)
-    ISPanelJoypad.onGainJoypadFocus(self, joypadData);
-    joypadData.focus = self.listbox;
-    updateJoypadFocus(joypadData);
-    self.listbox:setISButtonForA(self.playButton);
-    self.listbox:setISButtonForB(self.backButton);
-    self.listbox:setISButtonForX(self.newButton);
-    self.listbox:setISButtonForY(self.deleteButton);
+	ISPanelJoypad.onGainJoypadFocus(self, joypadData);
+	joypadData.focus = self.listbox;
+	updateJoypadFocus(joypadData);
+end
+
+function LastStandPlayerSelect:onJoypadBeforeDeactivate(joypadData)
+	-- Focus is on listbox
+	self.joyfocus = nil
+end
+
+function LastStandPlayerSelect:onGainJoypadFocus_child(joypadData)
+	ISPanelJoypad.onGainJoypadFocus(self, joypadData);
+	self:setISButtonForA(self.parent.playButton);
+	self:setISButtonForB(self.parent.backButton);
+	self:setISButtonForX(self.parent.newButton);
+	self:setISButtonForY(self.parent.deleteButton);
+end
+
+function LastStandPlayerSelect:onLoseJoypadFocus_child(joypadData)
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	self.parent.playButton:clearJoypadButton()
+	self.parent.backButton:clearJoypadButton()
+	self.parent.newButton:clearJoypadButton()
+	self.parent.deleteButton:clearJoypadButton()
+end
+
+function LastStandPlayerSelect:onJoypadBeforeDeactivate_child(joypadData)
+	self.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 function LastStandPlayerSelect:new (x, y, width, height)
 	local o = {}
 	--o.data = {}
-	o = ISPanelJoypad:new(x, y, width, height);
-	setmetatable(o, self)
-	self.__index = self
+	o = ISPanelJoypad.new(self, x, y, width, height);
 	o.x = x;
 	o.y = y;
 	o.backgroundColor = {r=0, g=0, b=0, a=0.3};

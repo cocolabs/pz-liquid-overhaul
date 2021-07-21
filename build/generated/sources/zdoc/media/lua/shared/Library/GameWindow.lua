@@ -26,70 +26,46 @@
 GameWindow = {}
 
 ---@private
----@return void
-function GameWindow:init() end
-
----@public
----@param output ByteBuffer
----@param str String
----@return void
----@overload fun(output:DataOutputStream, str:String)
-function GameWindow:WriteString(output, str) end
-
----throws java.io.IOException
----@public
----@param output DataOutputStream
----@param str String
----@return void
-function GameWindow:WriteString(output, str) end
-
----@private
----@return void
-function GameWindow:run_ez() end
-
----@public
----@param output ByteBuffer
----@param str String
----@return void
-function GameWindow:WriteStringUTF(output, str) end
-
----@public
----@return String
-function GameWindow:getCoopServerHome() end
-
----@public
----@param arg0 Thread
----@param arg1 Throwable
----@return void
-function GameWindow:uncaughtException(arg0, arg1) end
-
----@public
----@param input ByteBuffer
----@return String
----@overload fun(input:DataInputStream)
-function GameWindow:ReadString(input) end
-
----throws java.io.IOException
----@public
----@param input DataInputStream
----@return String
-function GameWindow:ReadString(input) end
-
----@private
 ---@param arg0 String
 ---@param arg1 String
 ---@return void
 function GameWindow:installRequiredLibrary(arg0, arg1) end
 
----throws java.io.FileNotFoundException, java.io.IOException
----@public
----@param bDoChars boolean
+---@private
 ---@return void
-function GameWindow:save(bDoChars) end
+function GameWindow:init() end
 
----@protected
+---@public
 ---@return void
-function GameWindow:renderInternal() end
+function GameWindow:InitGameThread() end
+
+---throws java.io.IOException
+---@public
+---@param input DataInputStream
+---@return String
+---@overload fun(input:ByteBuffer)
+function GameWindow:ReadString(input) end
+
+---@public
+---@param input ByteBuffer
+---@return String
+function GameWindow:ReadString(input) end
+
+---@public
+---@return void
+function GameWindow:setTexturePackLookup() end
+
+---@public
+---@return void
+function GameWindow:savePlayer() end
+
+---@private
+---@return void
+function GameWindow:mainThread() end
+
+---@public
+---@return String
+function GameWindow:getCoopServerHome() end
 
 ---@public
 ---@param arg0 String
@@ -106,14 +82,14 @@ function GameWindow:LoadTexturePack(arg0, arg1) end
 function GameWindow:LoadTexturePack(arg0, arg1, arg2) end
 
 ---@private
----@return void
-function GameWindow:mainThread() end
-
----@private
 ---@param arg0 Thread
 ---@param arg1 Throwable
 ---@return void
 function GameWindow:uncaughtGlobalException(arg0, arg1) end
+
+---@private
+---@return void
+function GameWindow:frameStep() end
 
 ---@private
 ---@param arg0 Thread
@@ -121,14 +97,78 @@ function GameWindow:uncaughtGlobalException(arg0, arg1) end
 ---@return void
 function GameWindow:uncaughtExceptionMainThread(arg0, arg1) end
 
+---@private
+---@return void
+function GameWindow:logic() end
+
+---@public
+---@param arg0 DataInputStream
+---@return long
+function GameWindow:readLong(arg0) end
+
+---@private
+---@return void
+function GameWindow:initShared() end
+
+---@private
+---@return void
+function GameWindow:run_ez() end
+
+---@public
+---@param b boolean
+---@return void
+function GameWindow:doRenderEvent(b) end
+
+---@private
+---@return void
+function GameWindow:checkRequiredLibraries() end
+
+---throws java.io.IOException
+---@public
+---@param output DataOutputStream
+---@param str String
+---@return void
+---@overload fun(output:ByteBuffer, str:String)
+function GameWindow:WriteString(output, str) end
+
+---@public
+---@param output ByteBuffer
+---@param str String
+---@return void
+function GameWindow:WriteString(output, str) end
+
+---@public
+---@return void
+function GameWindow:InitDisplay() end
+
+---@public
+---@param pack String
+---@return void
+function GameWindow:LoadTexturePackDDS(pack) end
+
+---@public
+---@param output ByteBuffer
+---@param str String
+---@return void
+function GameWindow:WriteStringUTF(output, str) end
+
 ---@public
 ---@param text String
 ---@return void
 function GameWindow:DoLoadingText(text) end
 
+---@protected
+---@return void
+function GameWindow:renderInternal() end
+
 ---@private
 ---@return void
-function GameWindow:initShared() end
+function GameWindow:exit() end
+
+---@public
+---@param input ByteBuffer
+---@return String
+function GameWindow:ReadStringUTF(input) end
 
 ---Render the current frame
 ---@public
@@ -137,23 +177,31 @@ function GameWindow:render() end
 
 ---@private
 ---@return void
-function GameWindow:logic() end
+function GameWindow:mainThreadInit() end
 
 ---@public
+---@param arg0 Thread
+---@param arg1 Throwable
 ---@return void
-function GameWindow:setTexturePackLookup() end
+function GameWindow:uncaughtException(arg0, arg1) end
 
+---throws java.io.FileNotFoundException, java.io.IOException
 ---@public
+---@param bDoChars boolean
 ---@return void
-function GameWindow:InitGameThread() end
+function GameWindow:save(bDoChars) end
 
----@public
+---@private
 ---@return void
-function GameWindow:savePlayer() end
+function GameWindow:enter() end
 
 ---@private
 ---@return void
 function GameWindow:renameSaveFolders() end
+
+---@private
+---@return void
+function GameWindow:initFonts() end
 
 ---throws java.io.EOFException, java.io.IOException
 ---@public
@@ -163,48 +211,4 @@ function GameWindow:readInt(_in) end
 
 ---@private
 ---@return void
-function GameWindow:exit() end
-
----@private
----@return void
-function GameWindow:frameStep() end
-
----@private
----@return void
-function GameWindow:checkRequiredLibraries() end
-
----@public
----@param b boolean
----@return void
-function GameWindow:doRenderEvent(b) end
-
----@private
----@return void
-function GameWindow:mainThreadInit() end
-
----@private
----@return void
-function GameWindow:enter() end
-
----@public
----@param arg0 DataInputStream
----@return long
-function GameWindow:readLong(arg0) end
-
----@private
----@return void
 function GameWindow:onGameThreadExited() end
-
----@public
----@param input ByteBuffer
----@return String
-function GameWindow:ReadStringUTF(input) end
-
----@public
----@param pack String
----@return void
-function GameWindow:LoadTexturePackDDS(pack) end
-
----@public
----@return void
-function GameWindow:InitDisplay() end

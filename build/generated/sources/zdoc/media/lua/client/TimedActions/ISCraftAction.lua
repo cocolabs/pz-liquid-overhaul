@@ -25,14 +25,16 @@ function ISCraftAction:start()
     end
 	self.item:setJobType(self.recipe:getName());
 	self.item:setJobDelta(0.0);
+	if self.recipe:getProp1() or self.recipe:getProp2() then
+		self:setOverrideHandModels(self:getPropItemOrModel(self.recipe:getProp1()), self:getPropItemOrModel(self.recipe:getProp2()))
+	end
 	if self.recipe:getAnimNode() then
 		self:setActionAnim(self.recipe:getAnimNode());
 	else
 		self:setActionAnim(CharacterActionAnims.Craft);
 	end
-	if self.recipe:getProp1() or self.recipe:getProp2() then
-		self:setOverrideHandModels(self.recipe:getProp1(), self.recipe:getProp2())
-	end
+	
+--	self.character:reportEvent("EventCrafting");
 end
 
 function ISCraftAction:stop()
@@ -124,6 +126,19 @@ function ISCraftAction:perform()
 
     -- needed to remove from queue / start next.
 	ISBaseTimedAction.perform(self);
+end
+
+function ISCraftAction:getPropItemOrModel(propStr)
+	if not propStr then return nil end
+	if not propStr:contains("Source=") then return propStr end
+	local sourceIndex = tonumber(propStr:sub(propStr:find("=") + 1))
+	if not sourceIndex or (sourceIndex < 1) or (sourceIndex > self.recipe:getSource():size()) then return nil end
+	local items = RecipeManager.getSourceItemsNeeded(self.recipe, sourceIndex - 1, self.character, self.containers, self.item, nil, nil)
+	if items:isEmpty() then return nil end
+	-- It would be best to use the item instead of the model, so any blood/etc appears as expected.
+	-- But things like flashlights have animation masks which break the "Dismantle Flashlight" animation, for example.
+	-- So return the model name instead of the item.  Returning the item does work, though.
+	return items:get(0):getStaticModel()
 end
 
 function ISCraftAction:addOrDropItem(item)

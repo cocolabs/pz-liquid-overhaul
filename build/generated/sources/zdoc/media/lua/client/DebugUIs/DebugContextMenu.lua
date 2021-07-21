@@ -24,18 +24,34 @@ DebugContextMenu.doDebugMenu = function(player, context, worldobjects, test)
 	
 	local playerObj = getSpecificPlayer(player)
 	local playerInv = playerObj:getInventory()
-	
+
+	local rbOption = context:addOption("Remove All Vehicles on Zone", square:getZone(), DebugContextMenu.onRemoveVehicles);
+	for i = 0, getWorld():getRandomizedVehicleStoryList():size()-1 do
+		local rvs = getWorld():getRandomizedVehicleStoryList():get(i);
+
+		if rvs:getName() == "Basic Car Crash" then
+			local rbOption = context:addOption("ADD BURNT CAR CRASHED", square, DebugContextMenu.doRandomizedVehicleStory, rvs);
+			if not square:getZone() or not rvs:isValid(square:getZone(), square:getChunk(), true) then
+				rbOption.notAvailable = true;
+				local tooltip = ISWorldObjectContextMenu.addToolTip()
+				tooltip:setName("Zone not valid");
+				tooltip.description = rvs:getDebugLine();
+				rbOption.toolTip = tooltip;
+			end
+			break;
+		end
+	end
+
+	context:addOption("Debug interpolation UI", square, DebugContextMenu.onDebugInterpolationUI);
+	context:addOption("Debug player UI", square, DebugContextMenu.onDebugPlayerInterpolationUI);
 	
 	local debugOption = context:addOption("[DEBUG] UIs", worldobjects, nil);
 	local subMenu = ISContextMenu:getNew(context);
 	context:addSubMenu(debugOption, subMenu);
 	
 	subMenu:addOption("Tiles Picker", playerObj, DebugContextMenu.onTilesPicker);
-	
 	subMenu:addOption("Teleport", playerObj, DebugContextMenu.onTeleportUI);
-	
 	subMenu:addOption("Generate Loot UI", playerObj, DebugContextMenu.onGenerateLootUI);
-
 	subMenu:addOption("Running UI", playerObj, DebugContextMenu.onRunningUI);
 	subMenu:addOption("Spawn survivor horde in chunk", playerObj, DebugContextMenu.onSpawnSurvivorHorde);
 	subMenu:addOption("Attached Items", playerObj, DebugContextMenu.onAttachedItems);
@@ -62,6 +78,8 @@ DebugContextMenu.doDebugMenu = function(player, context, worldobjects, test)
 	DebugContextMenu.doCheatMenu(subMenu, playerObj);
 	
 	subMenu:addOption("Horde Manager", square, DebugContextMenu.onHordeManager, playerObj);
+
+	subMenu:addOption("Spawn Points", square, DebugContextMenu.onSpawnPoints, playerObj);
 
 	DebugContextMenu.doDebugObjectMenu(player, context, worldobjects, test)
 	DebugContextMenu.doDebugCorpseMenu(player, context, worldobjects, test)
@@ -146,6 +164,12 @@ function DebugContextMenu.doDebugObjectMenu(player, context, worldobjects, test)
 	if square then
 		for i=1,square:getObjects():size() do
 			local obj = square:getObjects():get(i-1)
+			if BentFences.getInstance():isBentObject(obj) then
+				subMenu:addOption("Un-bend Fence", worldobjects, DebugContextMenu.OnUnbendFence, obj)
+			end
+			if BentFences.getInstance():isUnbentObject(obj) then
+				subMenu:addOption("Bend Fence", worldobjects, DebugContextMenu.OnBendFence, obj)
+			end
 			if BrokenFences.getInstance():isBreakableObject(obj) then
 				subMenu:addOption("Break Fence", worldobjects, DebugContextMenu.OnBreakFence, obj)
 			end
@@ -349,6 +373,24 @@ function DebugContextMenu.pickSquare(x, y)
 	return getCell():getGridSquare(worldX, worldY, z), worldX, worldY, z
 end
 
+function DebugContextMenu.OnBendFence(worldobjects, fence)
+	local playerObj = getSpecificPlayer(0)
+	local props = fence:getProperties()
+	local dir = nil
+	if props:Is(IsoFlagType.collideN) and props:Is(IsoFlagType.collideW) then
+		dir = (playerObj:getY() >= fence:getY()) and IsoDirections.N or IsoDirections.S
+	elseif props:Is(IsoFlagType.collideN) then
+		dir = (playerObj:getY() >= fence:getY()) and IsoDirections.N or IsoDirections.S
+	else
+		dir = (playerObj:getX() >= fence:getX()) and IsoDirections.W or IsoDirections.E
+	end
+	BentFences.getInstance():bendFence(fence, dir)
+end
+
+function DebugContextMenu.OnUnbendFence(worldobjects, fence)
+	BentFences.getInstance():unbendFence(fence)
+end
+
 function DebugContextMenu.OnBreakFence(worldobjects, fence)
 	local playerObj = getSpecificPlayer(0)
 	local props = fence:getProperties()
@@ -502,11 +544,17 @@ function DebugContextMenu.OnRainBarrelSetWater(obj)
 	modal:addToUIManager()
 end
 
-
 DebugContextMenu.onHordeManager = function(square, player)
 	local ui = ISSpawnHordeUI:new(0, 0, player, square);
 	ui:initialise();
 	ui:addToUIManager();
+end
+
+DebugContextMenu.onSpawnPoints = function(square, player)
+	local ui = ISSpawnPointsEditor:new()
+	ui:initialise()
+	ui:instantiate()
+	ui:addToUIManager()
 end
 
 DebugContextMenu.doCheatMenu = function(context, playerObj)
@@ -567,6 +615,20 @@ DebugContextMenu.onTeleportValid = function(button, x, y)
 	getPlayer():setY(tonumber(y));
 	getPlayer():setLx(tonumber(x));
 	getPlayer():setLy(tonumber(y));
+end
+
+DebugContextMenu.onDebugInterpolationUI = function(square)
+	local zombie = square:getZombie()
+	if zombie ~= nil then
+		InterpolationPeriodDebug.OnOpenPanel(zombie)
+	end
+end
+
+DebugContextMenu.onDebugPlayerInterpolationUI = function(square)
+	local player = square:getPlayer()
+	if player ~= nil then
+		InterpolationPlayerPeriodDebug.OnOpenPanel(player)
+	end
 end
 
 DebugContextMenu.onRunningUI = function(playerObj)

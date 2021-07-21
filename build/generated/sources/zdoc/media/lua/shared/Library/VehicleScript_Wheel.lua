@@ -7,6 +7,9 @@
 ---@field public width float
 VehicleScript_Wheel = {}
 
+---@return VehicleScript.Wheel
+function VehicleScript_Wheel:makeCopy() end
+
 ---@public
 ---@return String
 function VehicleScript_Wheel:getId() end
@@ -14,6 +17,3 @@ function VehicleScript_Wheel:getId() end
 ---@public
 ---@return Vector3f
 function VehicleScript_Wheel:getOffset() end
-
----@return VehicleScript.Wheel
-function VehicleScript_Wheel:makeCopy() end

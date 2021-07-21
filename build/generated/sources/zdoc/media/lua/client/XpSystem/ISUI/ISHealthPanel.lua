@@ -366,7 +366,10 @@ function ISHealthPanel:prerender()
 end
 
 function ISHealthPanel:render()
-
+    
+    if self.otherPlayer then
+        self.fitness:setVisible(false);
+    end
 --    self.healthPanel:render();
 
     local fontHgt = getTextManager():getFontHeight(UIFont.Small);
@@ -1056,7 +1059,7 @@ end
 
 function HApplyBandage:addToMenu(context)
     local types = self:getAllItemTypes(self.items.ITEMS)
-    if #types > 0 and self:isInjured() then
+    if #types > 0 and self:isInjured() and self.bodyPart:getSplintFactor() == 0 then
         local option = context:addOption(getText("ContextMenu_Bandage"), nil)
         local subMenu = context:getNew(context)
         context:addSubMenu(option, subMenu)

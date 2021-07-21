@@ -348,6 +348,7 @@ function ServerList:create()
     self.backButton:setAnchorLeft(true);
     self.backButton:setAnchorTop(false);
     self.backButton:setAnchorBottom(true);
+    self.backButton:setWidthToTitle(100, true)
     self:addChild(self.backButton);
 
     self.playButton = ISButton:new(self.listbox.x + self.listbox.width - 100, buttonY, 100, buttonsHgt, getText("UI_servers_joinServer"), self, ServerList.onOptionMouseDown);
@@ -358,7 +359,7 @@ function ServerList:create()
     self.playButton:setAnchorRight(true);
     self.playButton:setAnchorTop(false);
     self.playButton:setAnchorBottom(true);
-    self.playButton:setWidthToTitle(100)
+    self.playButton:setWidthToTitle(100, true)
     self.playButton:setX(self.listbox:getRight() - self.playButton:getWidth())
     self:addChild(self.playButton);
 
@@ -820,6 +821,7 @@ function ServerList:onGainJoypadFocus(joypadData)
 end
 
 function ServerList:onJoypadDirRight(joypadData)
+	if not isPublicServerListAllowed() then return end
 	MainScreen.instance.joinServer:setVisible(false)
 	MainScreen.instance.joinPublicServer:setVisible(true, joypadData)
 	if getTimestamp() - PublicServerList.refreshTime >= 60 then
@@ -879,11 +881,16 @@ end
 function ServerList.onResetLua(reason)
 	if reason == "ConnectedToServer" then
         reactivateJoypadAfterResetLua()
-        if JoypadState[1] then
-            JoypadState[1].focus = nil
-            JoypadState[1].lastfocus = nil
-            JoypadState.forceActivate = JoypadState[1].id
+        local joypadData = JoypadState.getMainMenuJoypad()
+        if joypadData then
+            joypadData.focus = nil
+            joypadData.lastfocus = nil
+            JoypadState.forceActivate = joypadData.id
         end
+		if DebugScenarios.instance ~= nil then
+			MainScreen.instance:removeChild(DebugScenarios.instance)
+			DebugScenarios.instance = nil
+		end
 		MainScreen.instance.bottomPanel:setVisible(false);
 --		MainScreen.instance.joinServer:pingServers(true)
 --		MainScreen.instance.joinServer:setVisible(true)
@@ -1030,6 +1037,11 @@ function ServerList.OnSteamRulesRefreshComplete(host, port, rules)
     end
 end
 
+function ServerList:onJoypadBeforeDeactivate(joypadData)
+    self.backButton:clearJoypadButton()
+    self.playButton:clearJoypadButton()
+end
+
 Events.ServerPinged.Add(ServerList.ServerPinged);
 if getSteamModeActive() then
     LuaEventManager.AddEvent("OnSteamServerResponded2")
@@ -1039,4 +1051,3 @@ if getSteamModeActive() then
     Events.OnSteamServerFailedToRespond2.Add(ServerList.OnSteamServerFailedToRespond2)
     Events.OnSteamRulesRefreshComplete.Add(ServerList.OnSteamRulesRefreshComplete)
 end
-

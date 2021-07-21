@@ -20,41 +20,29 @@
 ClothingItem = {}
 
 ---@public
----@return boolean
-function ClothingItem:isHat() end
-
----@public
----@return boolean
-function ClothingItem:hasModel() end
-
----@public
 ---@return AssetType
 function ClothingItem:getType() end
 
 ---@public
----@param arg0 boolean
 ---@return String
-function ClothingItem:getModel(arg0) end
+function ClothingItem:getDecalGroup() end
 
 ---@public
 ---@return boolean
 function ClothingItem:isMask() end
 
 ---@public
----@return String
-function ClothingItem:GetATexture() end
-
----@public
----@return String
-function ClothingItem:getFemaleModel() end
+---@param arg0 CharacterMask
+---@return void
+function ClothingItem:getCombinedMask(arg0) end
 
 ---@public
 ---@return ArrayList|Unknown
-function ClothingItem:getTextureChoices() end
+function ClothingItem:getBaseTextures() end
 
 ---@public
 ---@return String
-function ClothingItem:toString() end
+function ClothingItem:getMaleModel() end
 
 ---@public
 ---@param arg0 ClothingItem
@@ -70,26 +58,38 @@ function ClothingItem:tryGetCombinedMask(arg0, arg1) end
 function ClothingItem:tryGetCombinedMask(arg0, arg1) end
 
 ---@public
+---@return boolean
+function ClothingItem:getAllowRandomTint() end
+
+---@public
+---@return boolean
+function ClothingItem:hasModel() end
+
+---@public
+---@param arg0 boolean
 ---@return String
-function ClothingItem:getDecalGroup() end
+function ClothingItem:getModel(arg0) end
+
+---@public
+---@return String
+function ClothingItem:getFemaleModel() end
+
+---@public
+---@return String
+function ClothingItem:GetATexture() end
 
 ---@public
 ---@return boolean
 function ClothingItem:getAllowRandomHue() end
 
 ---@public
----@return boolean
-function ClothingItem:getAllowRandomTint() end
+---@return String
+function ClothingItem:toString() end
 
 ---@public
----@param arg0 CharacterMask
----@return void
-function ClothingItem:getCombinedMask(arg0) end
+---@return boolean
+function ClothingItem:isHat() end
 
 ---@public
 ---@return ArrayList|Unknown
-function ClothingItem:getBaseTextures() end
-
----@public
----@return String
-function ClothingItem:getMaleModel() end
+function ClothingItem:getTextureChoices() end

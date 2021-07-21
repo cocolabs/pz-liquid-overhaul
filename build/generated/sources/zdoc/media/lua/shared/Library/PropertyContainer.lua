@@ -15,34 +15,8 @@
 PropertyContainer = {}
 
 ---@public
----@param flag IsoFlagType
----@return boolean
----@overload fun(flag:Double)
----@overload fun(isoPropertyType:String)
-function PropertyContainer:Is(flag) end
-
----@public
----@param flag Double
----@return boolean
-function PropertyContainer:Is(flag) end
-
----@public
----@param isoPropertyType String
----@return boolean
-function PropertyContainer:Is(isoPropertyType) end
-
----@public
----@param other PropertyContainer
----@return void
-function PropertyContainer:AddProperties(other) end
-
----@public
----@return ArrayList|String
-function PropertyContainer:getPropertyNames() end
-
----@public
----@return boolean
-function PropertyContainer:isTable() end
+---@return int
+function PropertyContainer:getSurface() end
 
 ---@public
 ---@return void
@@ -51,16 +25,10 @@ function PropertyContainer:CreateKeySet() end
 ---@public
 ---@param propName IsoFlagType
 ---@return void
----@overload fun(propName:String, propName2:String)
 ---@overload fun(propName:IsoFlagType, lazy:String)
+---@overload fun(propName:String, propName2:String)
 ---@overload fun(propName:String, propName2:String, checkIsoFlagType:boolean)
 function PropertyContainer:Set(propName) end
-
----@public
----@param propName String
----@param propName2 String
----@return void
-function PropertyContainer:Set(propName, propName2) end
 
 ---@public
 ---@param propName IsoFlagType
@@ -71,45 +39,67 @@ function PropertyContainer:Set(propName, lazy) end
 ---@public
 ---@param propName String
 ---@param propName2 String
+---@return void
+function PropertyContainer:Set(propName, propName2) end
+
+---@public
+---@param propName String
+---@param propName2 String
 ---@param checkIsoFlagType boolean
 ---@return void
 function PropertyContainer:Set(propName, propName2, checkIsoFlagType) end
 
 ---@public
 ---@return int
-function PropertyContainer:getSurface() end
-
----@public
----@return void
-function PropertyContainer:Clear() end
-
----@public
----@return int
 function PropertyContainer:getStackReplaceTileOffset() end
 
 ---@public
----@return ArrayList|Unknown
-function PropertyContainer:getFlagsList() end
+---@param flag IsoFlagType
+---@return boolean
+---@overload fun(isoPropertyType:String)
+---@overload fun(flag:Double)
+function PropertyContainer:Is(flag) end
 
 ---@public
----@param propName IsoFlagType
----@return void
----@overload fun(propName:String)
-function PropertyContainer:UnSet(propName) end
+---@param isoPropertyType String
+---@return boolean
+function PropertyContainer:Is(isoPropertyType) end
 
 ---@public
----@param propName String
----@return void
-function PropertyContainer:UnSet(propName) end
+---@param flag Double
+---@return boolean
+function PropertyContainer:Is(flag) end
 
 ---@public
 ---@return boolean
 function PropertyContainer:isSurfaceOffset() end
 
 ---@public
----@param property String
----@return String
-function PropertyContainer:Val(property) end
+---@return void
+function PropertyContainer:Clear() end
+
+---@public
+---@return ArrayList|Unknown
+function PropertyContainer:getFlagsList() end
+
+---@public
+---@return boolean
+function PropertyContainer:isTable() end
+
+---@public
+---@return ArrayList|String
+function PropertyContainer:getPropertyNames() end
+
+---@public
+---@param propName String
+---@return void
+---@overload fun(propName:IsoFlagType)
+function PropertyContainer:UnSet(propName) end
+
+---@public
+---@param propName IsoFlagType
+---@return void
+function PropertyContainer:UnSet(propName) end
 
 ---@private
 ---@return void
@@ -118,3 +108,13 @@ function PropertyContainer:initSurface() end
 ---@public
 ---@return boolean
 function PropertyContainer:isTableTop() end
+
+---@public
+---@param property String
+---@return String
+function PropertyContainer:Val(property) end
+
+---@public
+---@param other PropertyContainer
+---@return void
+function PropertyContainer:AddProperties(other) end

@@ -21,6 +21,7 @@ function campingCampfire:onTimedActionStart(action)
 	ISBuildingObject.onTimedActionStart(self, action)
 	action.character:SetVariable("LootPosition", "Low")
 	action:setOverrideHandModels(nil, nil)
+    action.character:reportEvent("EventLootItem");
 end
 
 function campingCampfire:new(character)

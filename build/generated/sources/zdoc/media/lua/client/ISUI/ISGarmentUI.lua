@@ -39,52 +39,63 @@ function ISGarmentUI:initialise()
 
 	self.parts = {};
 	
-	-- if we're on pants or gloves only we add an offet to our textures so they'll be drawn on top
-	local isPants = true;
-	local isGloves = true;
-	local isShoes = true;
-	local isShort = true;
-	local isHelmet = true;
+	local minX = 1000
+	local minY = 1000
+	local maxX = -1000
+	local maxY = -1000
 
 	for i=0, self.clothing:getCoveredParts():size() - 1 do
 		local part = self.clothing:getCoveredParts():get(i);
-		if(self.textures[part:toString()]) then
+		local texture = self.textures[part:toString()]
+		if texture then
 			table.insert(self.parts, part);
 			self.listbox:addItem('dummy', part)
-		end
-		if part ~= BloodBodyPartType.Foot_L and part ~= BloodBodyPartType.Foot_R then
-			isShoes = false;
-		end
-		if part ~= BloodBodyPartType.Hand_L and part ~= BloodBodyPartType.Hand_R then
-			isGloves = false;
-		end
-		if part ~= BloodBodyPartType.UpperLeg_L and part ~= BloodBodyPartType.UpperLeg_R and part ~= BloodBodyPartType.Groin and part ~= BloodBodyPartType.LowerLeg_L and part ~= BloodBodyPartType.LowerLeg_R then
-			isPants = false;
-		end
-		if part ~= BloodBodyPartType.UpperLeg_L and part ~= BloodBodyPartType.UpperLeg_R and part ~= BloodBodyPartType.Groin then
-			isShort = false;
-		end
-		if part ~= BloodBodyPartType.Head and part ~= BloodBodyPartType.Neck then
-			isHelmet = false;
+			texture = texture.texture
+			if texture then
+				minX = math.min(minX, texture:getOffsetX())
+				minY = math.min(minY, texture:getOffsetY())
+				maxX = math.max(maxX, texture:getOffsetX() + texture:getWidth())
+				maxY = math.max(maxY, texture:getOffsetY() + texture:getHeight())
+			end
 		end
 	end
-	
-	if isShoes then
-		self.texturesYOffset = -200;
+
+	self.texturesY = 30
+
+	-- Leave room for "Can't be repaired." above the textures
+	if not self.clothing:getFabricType() then
+		self.texturesY = self.texturesY + FONT_HGT_SMALL
 	end
-	if isShort then
-		self.texturesYOffset = -90;
+
+	self.texturesYOffset = self.texturesY - minY
+	self.texturesHeight = maxY - minY
+
+	self:calculateHeight(true)
+end
+
+function ISGarmentUI:calculateHeight(doListHeight)
+	if doListHeight then
+		local y = 0
+		for _,item in ipairs(self.listbox.items) do
+			local part = item.item
+			y = y + FONT_HGT_SMALL
+			if self.clothing:getVisual():getHole(part) > 0 then
+				y = y + FONT_HGT_SMALL
+			end
+			if self.clothing:getBloodlevelForPart(part) > 0 then
+				y = y + FONT_HGT_SMALL
+			end
+			local patch = self.clothing:getPatchType(part)
+			if patch then
+				y = y + FONT_HGT_SMALL
+			end
+		end
+		self.listbox.listHeight = y
 	end
-	if isPants and not isShort then
-		self.texturesYOffset = -105;
-		self.addedHeight = 20;
-	end
-	if isGloves then
-		self.texturesYOffset = -80;
-	end
-	if isHelmet then
-		self.texturesYOffset = 40;
-	end
+	self.listbox:setHeight(self.listbox.listHeight)
+	local height = math.max(self.texturesY + self.texturesHeight, self.listbox:getBottom())
+	height = height + 20 + FONT_HGT_SMALL + self.progressHeight + 8
+	self:setHeight(height);
 end
 
 function ISGarmentUI:onBodyPartListRightMouseUp(x, y)
@@ -101,12 +112,15 @@ function ISGarmentUI:doPatch(fabric, thread, needle, part, context, submenu)
 	local hole = self.clothing:getVisual():getHole(part) > 0;
 	local patch = self.clothing:getPatchType(part);
 	
-	local text = nil;
+	local text;
+	local allText;
 
 	if hole then
 		text = getText("ContextMenu_PatchHole");
+		allText = getText("ContextMenu_PatchAllHoles") .. fabric:getDisplayName();
 	elseif not patch then
 		text = getText("ContextMenu_AddPadding");
+		allText = getText("ContextMenu_AddPaddingAll") .. fabric:getDisplayName();
 	else
 		error "patch ~= nil"
 	end
@@ -125,8 +139,39 @@ function ISGarmentUI:doPatch(fabric, thread, needle, part, context, submenu)
 		tooltip.description = getText("IGUI_perks_Tailoring") .. " :" .. self.chr:getPerkLevel(Perks.Tailoring) .. " <LINE> <RGB:0,1,0> " .. getText("Tooltip_ScratchDefense")  .. " +" .. Clothing.getScratchDefenseFromItem(self.chr, fabric) .. " <LINE> " .. getText("Tooltip_BiteDefense") .. " +" .. Clothing.getBiteDefenseFromItem(self.chr, fabric);
 	end
 	option.toolTip = tooltip;
-	
+
+	-- Patch/Add pad all
+	local allOption;
+	local allTooltip = ISInventoryPaneContextMenu.addToolTip();
+
+	if(self.chr:getInventory():getItemCount(fabric:getType(), true) > 1) then
+		if hole and (self.clothing:getHolesNumber() > 1) then
+			allOption = submenu:addOption(allText, self.chr, ISInventoryPaneContextMenu.repairAllClothing, self.clothing, self.parts, fabric, thread, needle, true)
+			allTooltip.description = getText("Tooltip_PatchAllHoles") .. fabric:getDisplayName();
+			allOption.toolTip = allTooltip;
+		elseif not hole and not patch and (ISGarmentUI:getPaddablePartsNumber(self.clothing, self.parts) > 1) then
+			allOption = submenu:addOption(allText, self.chr, ISInventoryPaneContextMenu.repairAllClothing, self.clothing, self.parts, fabric, thread, needle, false)
+			allTooltip.description = getText("Tooltip_AddPaddingToAll") .. fabric:getDisplayName();
+			allOption.toolTip = allTooltip;
+		end
+	end
+
 	return submenu;
+end
+
+function ISGarmentUI:getPaddablePartsNumber(clothing, parts)
+	local count = 0;
+
+	for i=1, #parts do
+		local part = parts[i];
+		local hole = clothing:getVisual():getHole(part) > 0;
+		local patch = clothing:getPatchType(part);
+		if(hole == false and patch == nil) then
+			count = count + 1;
+		end
+	end
+
+	return count;
 end
 
 function ISGarmentUI:doContextMenu(part, x, y)
@@ -142,18 +187,38 @@ function ISGarmentUI:doContextMenu(part, x, y)
 	-- Require a needle to remove a patch.  Maybe scissors or a knife instead?
 	local patch = self.clothing:getPatchType(part)
 	if patch then
-		local option = context:addOption(getText("ContextMenu_RemovePatch"), self.chr, ISInventoryPaneContextMenu.removePatch, self.clothing, part, needle)
+		-- Remove specific patch
+		local removeOption = context:addOption(getText("ContextMenu_RemovePatch"), self.chr, ISInventoryPaneContextMenu.removePatch, self.clothing, part, needle)
 		local tooltip = ISInventoryPaneContextMenu.addToolTip();
-		option.toolTip = tooltip;
+		removeOption.toolTip = tooltip;
+
+		-- Remove all patches
+		local patchesCount = self.clothing:getPatchesNumber();
+		local removeAllOption;
+		local removeAllTooltip;
+		if (patchesCount > 1) then
+			removeAllOption = context:addOption(getText("ContextMenu_RemoveAllPatches"), self.chr, ISInventoryPaneContextMenu.removeAllPatches, self.clothing, self.parts, needle);
+			removeAllTooltip = ISInventoryPaneContextMenu.addToolTip();
+			removeAllOption.toolTip = removeAllTooltip;
+		end
+
 		if needle then
 			tooltip.description = getText("Tooltip_GetPatchBack", ISRemovePatch.chanceToGetPatchBack(self.chr)) .. " <LINE> <RGB:1,0,0> " .. getText("Tooltip_ScratchDefense")  .. " -" .. patch:getScratchDefense() .. " <LINE> " .. getText("Tooltip_BiteDefense") .. " -" .. patch:getBiteDefense();
+			if(removeAllTooltip ~= nil) then
+				removeAllTooltip.description = getText("Tooltip_GetPatchesBack", ISRemovePatch.chanceToGetPatchBack(self.chr)) .. " <LINE> <RGB:1,0,0> " .. getText("Tooltip_ScratchDefense")  .. " -" .. (patch:getScratchDefense() * patchesCount) .. " <LINE> " .. getText("Tooltip_BiteDefense") .. " -" .. (patch:getBiteDefense() * patchesCount);
+			end
 		else
 			tooltip.description = getText("ContextMenu_CantRemovePatch");
-			option.notAvailable = true
+			removeOption.notAvailable = true
+			if(removeAllTooltip ~= nil) then
+				removeAllTooltip.description = getText("ContextMenu_CantRemovePatch");
+				removeAllOption.notAvailable = true;
+			end
 		end
-		return context
+		return context;
 	end
 
+	-- Cannot patch without thread, needle and fabric
 	if not thread or not needle or (not fabric1 and not fabric2 and not fabric3) then
 		local patchOption = context:addOption(getText("ContextMenu_Patch"));
 		patchOption.notAvailable = true;
@@ -163,15 +228,16 @@ function ISGarmentUI:doContextMenu(part, x, y)
 		return context;
 	end
 	
-	local submenu = nil;
+	local submenu;
+	local allSubmenu;
 	if fabric1 then
-		submenu = self:doPatch(fabric1, thread, needle, part, context, submenu)
+		submenu = self:doPatch(fabric1, thread, needle, part, context, submenu);
 	end
 	if fabric2 then
-		submenu = self:doPatch(fabric2, thread, needle, part, context, submenu)
+		submenu = self:doPatch(fabric2, thread, needle, part, context, submenu);
 	end
 	if fabric3 then
-		submenu = self:doPatch(fabric3, thread, needle, part, context, submenu)
+		submenu = self:doPatch(fabric3, thread, needle, part, context, submenu);
 	end
 
 	return context;
@@ -187,8 +253,9 @@ function ISGarmentUI:doDrawItem(y, item, alt)
 	end
 
 	self:drawText(part:getDisplayName(), 0, y, 1, 1, 1, 1, UIFont.Small)
-	self:drawText(self.parent.clothing:getDefForPart(part, true) .. "%", self.parent.biteColumn - self.x, y, 1, 1, 1, 1, UIFont.Small)
-	self:drawText(self.parent.clothing:getDefForPart(part, false) .. "%", self.parent.scratchColumn - self.x, y, 1, 1, 1, 1, UIFont.Small)
+	self:drawText(self.parent.clothing:getDefForPart(part, true, false) .. "%", self.parent.biteColumn - self.x, y, 1, 1, 1, 1, UIFont.Small)
+	self:drawText(self.parent.clothing:getDefForPart(part, false, false) .. "%", self.parent.scratchColumn - self.x, y, 1, 1, 1, 1, UIFont.Small)
+	self:drawText(self.parent.clothing:getDefForPart(part, false, true) .. "%", self.parent.bulletColumn - self.x, y, 1, 1, 1, 1, UIFont.Small)
 
 	if self.parent.clothing:getVisual():getHole(part) > 0 then
 		y = y + FONT_HGT_SMALL;
@@ -220,6 +287,7 @@ function ISGarmentUI:render()
 	self:drawText(getText("IGUI_garment_BodyPart"), self.bodyPartColumn, y, 1, 1, 1, 1, UIFont.Small)
 	self:drawText(getText("IGUI_health_Scratch"), self.scratchColumn, y, 1, 1, 1, 1, UIFont.Small)
 	self:drawText(getText("IGUI_health_Bite"), self.biteColumn, y, 1, 1, 1, 1, UIFont.Small)
+	self:drawText(getText("IGUI_health_Bullet"), self.bulletColumn, y, 1, 1, 1, 1, UIFont.Small)
 	y = y + (FONT_HGT_SMALL * 2);
 	for i,part in ipairs(self.parts) do
 		self:drawTexture(self.textures[part:toString()].texture, 5, self.texturesYOffset, 1, 1, 1, 1);
@@ -234,11 +302,7 @@ function ISGarmentUI:render()
 		end
 	end
 
-	self.listbox:setHeight(self.listbox.listHeight)
-	self:setHeight(130 + self.listbox.listHeight + self.addedHeight);
-	if self.height < 180 then
-		self:setHeight(180);
-	end
+	self:calculateHeight(false)
 
 	self.progressY = self.height - 8 - self.progressHeight
 
@@ -249,9 +313,9 @@ function ISGarmentUI:render()
 	self:drawText(getText("IGUI_garment_GlbBlood"), self.progressX2, y, 1, 1, 1, 1, UIFont.Small)
 	self:drawText(getText("IGUI_garment_GlbDirt"), self.progressX3, y, 1, 1, 1, 1, UIFont.Small)
 	y = self.progressY;
-	self:drawProgressBar(self.progressX1, y, self.progressWidth, 10, self.clothing:getCondition() / self.clothing:getConditionMax(), self.fgBar)
-	self:drawProgressBar(self.progressX2, y, self.progressWidth, 10, self.clothing:getBloodlevel() / 100, self.fgBar)
-	self:drawProgressBar(self.progressX3, y, self.progressWidth, 10, self.clothing:getDirtyness() / 100, self.fgBar)
+	self:drawProgressBar(self.progressX1, y, self.progressWidth, self.progressHeight, self.clothing:getCondition() / self.clothing:getConditionMax(), self.fgBar)
+	self:drawProgressBar(self.progressX2, y, self.progressWidth, self.progressHeight, self.clothing:getBloodlevel() / 100, self.fgBar)
+	self:drawProgressBar(self.progressX3, y, self.progressWidth, self.progressHeight, self.clothing:getDirtyness() / 100, self.fgBar)
 	y = y + FONT_HGT_SMALL;
 	
 	if not self.clothing:getFabricType() then
@@ -274,6 +338,9 @@ function ISGarmentUI:addTextures(type, textureName, overlayName)
 	self.textures[type].hole = getTexture("media/ui/BodyParts/overlays/" .. self.sex .. "_clothing_overlays_holes" .. overlayName .. ".png")
 	self.textures[type].blood = getTexture("media/ui/BodyParts/overlays/" .. self.sex .. "_clothing_overlays_blood" .. overlayName .. ".png")
 	self.textures[type].patch = getTexture("media/ui/BodyParts/overlays/" .. self.sex .. "_clothing_overlays_patches" .. overlayName .. ".png")
+if self.textures[type].texture then
+	print(self.textures[type].texture:getHeight(),self.textures[type].texture:getHeightOrig())
+end
 end
 
 function ISGarmentUI:create()
@@ -327,12 +394,14 @@ function ISGarmentUI:calcColumnWidths()
 	local partSize = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_garment_BodyPart"))
 	local biteSize = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_health_Bite"))
 	local scratchSize = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_health_Scratch"))
+	local bulletSize = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_health_Bullet"))
 	partColumnWidth = math.max(partColumnWidth, partSize)
 	self.biteColumn = self.bodyPartColumn + partColumnWidth + 10
 	self.scratchColumn = math.max(self.biteColumn + 10 + biteSize)
+	self.bulletColumn = math.max(self.scratchColumn + 10 + scratchSize)
 
 	local scrollbarWidth = 17
-	local listRight = self.scratchColumn + scratchSize + scrollbarWidth
+	local listRight = self.bulletColumn + bulletSize + scrollbarWidth
 	local progressWidth = self.progressWidthTotal + 20 * 2
 	self:setWidth(math.max(listRight, progressWidth))
 end
@@ -370,7 +439,7 @@ end
 
 function ISGarmentUI:new(x, y, character, clothing)
 	local playerNum = character:getPlayerNum()
-	local width = 430
+	local width = 460
 	if x == -1 then
 		x = getPlayerScreenLeft(playerNum) + (getPlayerScreenWidth(playerNum) - width) / 2
 	end
@@ -392,6 +461,7 @@ function ISGarmentUI:new(x, y, character, clothing)
 	o:calcColumnWidths()
 	o:calcProgressPositions()
 	o.texturesYOffset = 0;
+	o.texturesHeight = 0;
 	o.addedHeight = 0;
 	return o;
 end

@@ -4,10 +4,19 @@
 ---@field private tempEntries ArrayList|Unknown
 TileOverlays = {}
 
+---@public
+---@return void
+function TileOverlays:Reset() end
+
+---@public
+---@param arg0 IsoGridSquare
+---@return void
+function TileOverlays:fixTableTopOverlays(arg0) end
+
 ---@private
 ---@param arg0 IsoObject
----@return boolean
-function TileOverlays:hasObjectOnTop(arg0) end
+---@return void
+function TileOverlays:removeTableTopOverlays(arg0) end
 
 ---@private
 ---@param arg0 ArrayList|Unknown
@@ -30,16 +39,7 @@ function TileOverlays:updateTileOverlaySprite(arg0) end
 ---@return void
 function TileOverlays:addOverlays(arg0) end
 
----@public
----@param arg0 IsoGridSquare
----@return void
-function TileOverlays:fixTableTopOverlays(arg0) end
-
 ---@private
 ---@param arg0 IsoObject
----@return void
-function TileOverlays:removeTableTopOverlays(arg0) end
-
----@public
----@return void
-function TileOverlays:Reset() end
+---@return boolean
+function TileOverlays:hasObjectOnTop(arg0) end

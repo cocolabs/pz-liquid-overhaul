@@ -6,6 +6,15 @@
 ErosionConfig = {}
 
 ---@public
+---@return void
+function ErosionConfig:consolePrint() end
+
+---@public
+---@param bb ByteBuffer
+---@return void
+function ErosionConfig:load(bb) end
+
+---@public
 ---@param _file String
 ---@return void
 function ErosionConfig:writeFile(_file) end
@@ -16,11 +25,6 @@ function ErosionConfig:writeFile(_file) end
 function ErosionConfig:readFile(_file) end
 
 ---@public
----@param bb ByteBuffer
----@return void
-function ErosionConfig:load(bb) end
-
----@public
 ---@return ErosionConfig.Debug
 function ErosionConfig:getDebug() end
 
@@ -28,7 +32,3 @@ function ErosionConfig:getDebug() end
 ---@param bb ByteBuffer
 ---@return void
 function ErosionConfig:save(bb) end
-
----@public
----@return void
-function ErosionConfig:consolePrint() end

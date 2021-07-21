@@ -9,16 +9,6 @@
 IsoMetaCell = {}
 
 ---@public
----@param x int
----@param y int
----@return IsoMetaChunk
-function IsoMetaCell:getChunk(x, y) end
-
----@public
----@return void
-function IsoMetaCell:checkTriggers() end
-
----@public
 ---@param zone IsoMetaGrid.Zone
 ---@param cellX int
 ---@param cellY int
@@ -33,11 +23,6 @@ function IsoMetaCell:addZone(zone, cellX, cellY) end
 ---@param arg4 ArrayList|Unknown
 ---@return void
 function IsoMetaCell:getRoomsIntersecting(arg0, arg1, arg2, arg3, arg4) end
-
----@public
----@param zone IsoMetaGrid.Zone
----@return void
-function IsoMetaCell:removeZone(zone) end
 
 ---@public
 ---@param def BuildingDef
@@ -63,3 +48,18 @@ function IsoMetaCell:getZonesIntersecting(x, y, z, w, h, result) end
 ---@param cellY int
 ---@return void
 function IsoMetaCell:addRoom(room, cellX, cellY) end
+
+---@public
+---@return void
+function IsoMetaCell:checkTriggers() end
+
+---@public
+---@param x int
+---@param y int
+---@return IsoMetaChunk
+function IsoMetaCell:getChunk(x, y) end
+
+---@public
+---@param zone IsoMetaGrid.Zone
+---@return void
+function IsoMetaCell:removeZone(zone) end

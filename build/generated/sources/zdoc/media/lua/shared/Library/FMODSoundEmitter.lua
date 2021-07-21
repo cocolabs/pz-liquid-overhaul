@@ -19,60 +19,22 @@ function FMODSoundEmitter:addSound(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 String
----@param arg1 IsoObject
 ---@return long
----@overload fun(arg0:String, arg1:IsoGridSquare)
----@overload fun(arg0:String, arg1:boolean, arg2:IsoObject)
-function FMODSoundEmitter:playSoundImpl(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 IsoGridSquare
----@return long
-function FMODSoundEmitter:playSoundImpl(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@param arg2 IsoObject
----@return long
-function FMODSoundEmitter:playSoundImpl(arg0, arg1, arg2) end
-
----@public
----@param arg0 long
----@param arg1 float
----@return void
-function FMODSoundEmitter:setPitch(arg0, arg1) end
-
----@public
----@param arg0 String
----@return int
-function FMODSoundEmitter:stopSoundByName(arg0) end
-
----@public
----@param arg0 long
----@param arg1 boolean
----@return void
-function FMODSoundEmitter:set3D(arg0, arg1) end
-
----@public
----@param arg0 String
----@return long
----@overload fun(arg0:String, arg1:IsoGridSquare)
 ---@overload fun(arg0:String, arg1:boolean)
+---@overload fun(arg0:String, arg1:IsoGridSquare)
 ---@overload fun(arg0:String, arg1:IsoObject)
 ---@overload fun(arg0:String, arg1:int, arg2:int, arg3:int)
 function FMODSoundEmitter:playSound(arg0) end
 
 ---@public
 ---@param arg0 String
----@param arg1 IsoGridSquare
+---@param arg1 boolean
 ---@return long
 function FMODSoundEmitter:playSound(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
----@param arg1 boolean
+---@param arg1 IsoGridSquare
 ---@return long
 function FMODSoundEmitter:playSound(arg0, arg1) end
 
@@ -91,49 +53,27 @@ function FMODSoundEmitter:playSound(arg0, arg1) end
 function FMODSoundEmitter:playSound(arg0, arg1, arg2, arg3) end
 
 ---@public
----@param arg0 String
----@return long
-function FMODSoundEmitter:playSoundLoopedImpl(arg0) end
-
----@private
----@param arg0 FMODSoundEmitter.FileSound
+---@param arg0 float
 ---@return void
-function FMODSoundEmitter:releaseFileSound(arg0) end
+function FMODSoundEmitter:setVolumeAll(arg0) end
+
+---@public
+---@return boolean
+function FMODSoundEmitter:hasSoundsToStart() end
 
 ---@public
 ---@param arg0 String
----@return long
-function FMODSoundEmitter:playAmbientLoopedImpl(arg0) end
+---@return int
+function FMODSoundEmitter:stopSoundByName(arg0) end
 
 ---@public
 ---@param arg0 long
----@param arg1 float
----@return void
-function FMODSoundEmitter:setVolume(arg0, arg1) end
+---@return int
+function FMODSoundEmitter:stopSound(arg0) end
 
 ---@private
 ---@return FMODSoundEmitter.EventSound
 function FMODSoundEmitter:allocEventSound() end
-
----@public
----@return void
-function FMODSoundEmitter:tick() end
-
----@public
----@param arg0 String
----@return long
-function FMODSoundEmitter:playAmbientSound(arg0) end
-
----@public
----@return void
-function FMODSoundEmitter:stopAll() end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return void
-function FMODSoundEmitter:setPos(arg0, arg1, arg2) end
 
 ---@private
 ---@param arg0 FMODSoundEmitter.EventSound
@@ -141,8 +81,30 @@ function FMODSoundEmitter:setPos(arg0, arg1, arg2) end
 function FMODSoundEmitter:releaseEventSound(arg0) end
 
 ---@public
----@return void
-function FMODSoundEmitter:randomStart() end
+---@param arg0 String
+---@param arg1 IsoGridSquare
+---@return long
+---@overload fun(arg0:String, arg1:IsoObject)
+---@overload fun(arg0:String, arg1:boolean, arg2:IsoObject)
+function FMODSoundEmitter:playSoundImpl(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 IsoObject
+---@return long
+function FMODSoundEmitter:playSoundImpl(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@param arg2 IsoObject
+---@return long
+function FMODSoundEmitter:playSoundImpl(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@return long
+function FMODSoundEmitter:playSoundLoopedImpl(arg0) end
 
 ---@public
 ---@param arg0 long
@@ -156,9 +118,24 @@ function FMODSoundEmitter:isPlaying(arg0) end
 function FMODSoundEmitter:isPlaying(arg0) end
 
 ---@public
----@param arg0 float
+---@param arg0 GameSoundClip
+---@param arg1 IsoObject
+---@return long
+function FMODSoundEmitter:playClip(arg0, arg1) end
+
+---@public
+---@return boolean
+function FMODSoundEmitter:isEmpty() end
+
+---@public
+---@param arg0 long
+---@param arg1 float
 ---@return void
-function FMODSoundEmitter:setVolumeAll(arg0) end
+function FMODSoundEmitter:setVolume(arg0, arg1) end
+
+---@public
+---@return void
+function FMODSoundEmitter:randomStart() end
 
 ---@public
 ---@param arg0 String
@@ -166,24 +143,47 @@ function FMODSoundEmitter:setVolumeAll(arg0) end
 function FMODSoundEmitter:playSoundLooped(arg0) end
 
 ---@public
----@param arg0 long
----@return int
-function FMODSoundEmitter:stopSound(arg0) end
+---@return void
+function FMODSoundEmitter:stopAll() end
 
 ---@public
----@return boolean
-function FMODSoundEmitter:isEmpty() end
+---@param arg0 String
+---@return long
+function FMODSoundEmitter:playAmbientSound(arg0) end
+
+---@public
+---@return void
+function FMODSoundEmitter:tick() end
+
+---@private
+---@param arg0 FMODSoundEmitter.FileSound
+---@return void
+function FMODSoundEmitter:releaseFileSound(arg0) end
 
 ---@private
 ---@return FMODSoundEmitter.FileSound
 function FMODSoundEmitter:allocFileSound() end
 
 ---@public
----@return boolean
-function FMODSoundEmitter:hasSoundsToStart() end
+---@param arg0 long
+---@param arg1 float
+---@return void
+function FMODSoundEmitter:setPitch(arg0, arg1) end
 
 ---@public
----@param arg0 GameSoundClip
----@param arg1 IsoObject
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return void
+function FMODSoundEmitter:setPos(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
 ---@return long
-function FMODSoundEmitter:playClip(arg0, arg1) end
+function FMODSoundEmitter:playAmbientLoopedImpl(arg0) end
+
+---@public
+---@param arg0 long
+---@param arg1 boolean
+---@return void
+function FMODSoundEmitter:set3D(arg0, arg1) end

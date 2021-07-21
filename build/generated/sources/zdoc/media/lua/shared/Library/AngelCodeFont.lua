@@ -22,6 +22,52 @@
 ---@field private data char[]
 AngelCodeFont = {}
 
+---@public
+---@return boolean
+function AngelCodeFont:isEmpty() end
+
+---Returns the distance from the y drawing location to the top most pixel of the specified text.
+---@public
+---@param text String @The text that is to be tested
+---@return int @The yoffset from the y draw location at which text will start
+function AngelCodeFont:getYOffset(text) end
+
+---Description copied from interface: Font
+---
+---get the width of the given string
+---
+---Specified by:
+---
+---getWidth in interface Font
+---@public
+---@param text String @The string to obtain the rendered with of
+---@return int
+---@overload fun(arg0:String, arg1:boolean)
+---@overload fun(arg0:String, arg1:int, arg2:int)
+---@overload fun(arg0:String, arg1:int, arg2:int, arg3:boolean)
+function AngelCodeFont:getWidth(text) end
+
+---@public
+---@param arg0 String
+---@param arg1 boolean
+---@return int
+function AngelCodeFont:getWidth(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@return int
+function AngelCodeFont:getWidth(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 boolean
+---@return int
+function AngelCodeFont:getWidth(arg0, arg1, arg2, arg3) end
+
 ---Description copied from interface: Font
 ---
 ---Draw a string to the screen
@@ -124,6 +170,18 @@ function AngelCodeFont:drawString(x, y, text, r, g, b, a, startIndex, endIndex) 
 ---@return void
 function AngelCodeFont:drawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) end
 
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@return void
+function AngelCodeFont:render(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 InputStream
+---@return void
+function AngelCodeFont:parseFnt(arg0) end
+
 ---@public
 ---@param arg0 Asset.State
 ---@param arg1 Asset.State
@@ -147,46 +205,6 @@ function AngelCodeFont:getLineHeight() end
 ---@return AngelCodeFont.CharDef
 function AngelCodeFont:parseChar(arg0) end
 
----@public
----@return boolean
-function AngelCodeFont:isEmpty() end
-
----Description copied from interface: Font
----
----get the width of the given string
----
----Specified by:
----
----getWidth in interface Font
----@public
----@param text String @The string to obtain the rendered with of
----@return int
----@overload fun(arg0:String, arg1:boolean)
----@overload fun(arg0:String, arg1:int, arg2:int)
----@overload fun(arg0:String, arg1:int, arg2:int, arg3:boolean)
-function AngelCodeFont:getWidth(text) end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@return int
-function AngelCodeFont:getWidth(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@return int
-function AngelCodeFont:getWidth(arg0, arg1, arg2) end
-
----@public
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 boolean
----@return int
-function AngelCodeFont:getWidth(arg0, arg1, arg2, arg3) end
-
 ---Description copied from interface: Font
 ---
 ---get the height of the given string
@@ -198,21 +216,3 @@ function AngelCodeFont:getWidth(arg0, arg1, arg2, arg3) end
 ---@param text String @The string to obtain the rendered with of
 ---@return int @The width of the given string
 function AngelCodeFont:getHeight(text) end
-
----@private
----@param arg0 String
----@param arg1 int
----@param arg2 int
----@return void
-function AngelCodeFont:render(arg0, arg1, arg2) end
-
----@private
----@param arg0 InputStream
----@return void
-function AngelCodeFont:parseFnt(arg0) end
-
----Returns the distance from the y drawing location to the top most pixel of the specified text.
----@public
----@param text String @The text that is to be tested
----@return int @The yoffset from the y draw location at which text will start
-function AngelCodeFont:getYOffset(text) end

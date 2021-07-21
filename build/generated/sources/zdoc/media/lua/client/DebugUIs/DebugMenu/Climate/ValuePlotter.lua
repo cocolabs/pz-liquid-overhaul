@@ -102,6 +102,41 @@ function ValuePlotter:addPlotPoint(dataset,vertbarCol)
 
 end
 
+function ValuePlotter:calcMinMax(indexLine, minmax)
+	local _min = 999999
+	local _max = 0
+	if minmax ~= nil then
+		_min = minmax.min
+		_max = minmax.max
+	end
+	for i = 1, self.maxPlotPoints do
+        local index = self.indexPointer-(i-1);
+        if index < 1 then
+            index = self.maxPlotPoints + index;
+        end
+        if self.his[index] then
+			val = self.his[index][indexLine];
+			if _min == 999999 and _max == 0 then
+				_min = val;
+				_max = val;
+			else 
+				if val<_min then _min = val; end
+				if val>_max then _max = val; end
+			end
+        end
+    end
+	return {min = _min, max = _max}
+end
+
+function ValuePlotter:applyMinMax(_minmax, indexLine)
+	self.vars[indexLine].min = _minmax.min;
+	self.vars[indexLine].max = _minmax.max;
+	self.vars[indexLine].diff = _minmax.max - _minmax.min;
+	if self.vars[indexLine].diff < 1 then
+		self.vars[indexLine].diff = 1;
+	end
+end
+
 function ValuePlotter:getDataSet()
     return self.his;
 end
@@ -156,6 +191,10 @@ function ValuePlotter:setHorzLine(value,col)
     table.insert(self.horzBars,{val=value,col=col});
 end
 
+--remove horizontal line
+function ValuePlotter:unsetHorzLine(idx)
+    table.remove(self.horzBars, idx);
+end
 
 function ValuePlotter:new (x, y, width, height, maxPlotPoints)
     local o = ISPanel:new(x, y, width, height);

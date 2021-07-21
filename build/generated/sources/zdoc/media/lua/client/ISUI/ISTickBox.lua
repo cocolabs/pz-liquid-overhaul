@@ -260,6 +260,17 @@ function ISTickBox:addOption(name, data, texture)
 	return self.optionCount - 1;
 end
 
+function ISTickBox:getOptionCount()
+	return self.optionCount - 1;
+end
+
+function ISTickBox:getOptionData(index)
+	if index < 1 or index > self:getOptionCount() then
+		error "invalid index"
+	end
+	return self.optionData[index];
+end
+
 function ISTickBox:setFont(font)
 	self.font = font
 	self.fontHgt = getTextManager():getFontFromEnum(self.font):getLineHeight()

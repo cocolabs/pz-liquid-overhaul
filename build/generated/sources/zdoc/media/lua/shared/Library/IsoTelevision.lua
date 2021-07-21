@@ -9,22 +9,21 @@
 ---@field private spriteIndex int
 IsoTelevision = {}
 
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoTelevision:load(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 IsoPlayer
+---@return boolean
+function IsoTelevision:isFacing(arg0) end
+
 ---@protected
 ---@return void
 function IsoTelevision:updateTvScreen() end
-
----@public
----@return void
-function IsoTelevision:clearTvScreenSprites() end
-
----@public
----@param arg0 IsoSprite
----@return void
-function IsoTelevision:removeTvScreenSprite(arg0) end
-
----@protected
----@return void
-function IsoTelevision:updateLightSource() end
 
 ---@private
 ---@param arg0 IsoTelevision.Screens
@@ -32,43 +31,46 @@ function IsoTelevision:updateLightSource() end
 function IsoTelevision:setScreen(arg0) end
 
 ---@protected
----@param arg0 boolean
 ---@return void
-function IsoTelevision:init(arg0) end
-
----@private
----@return void
-function IsoTelevision:setupDefaultScreens() end
+function IsoTelevision:updateLightSource() end
 
 ---@public
----@return String
-function IsoTelevision:getObjectName() end
-
----@public
+---@param arg0 IsoSprite
 ---@return void
-function IsoTelevision:renderlast() end
-
----@public
----@return void
-function IsoTelevision:update() end
+function IsoTelevision:removeTvScreenSprite(arg0) end
 
 ---@public
 ---@param arg0 IsoSprite
 ---@return void
 function IsoTelevision:addTvScreenSprite(arg0) end
 
+---@private
+---@return void
+function IsoTelevision:setupDefaultScreens() end
+
+---@protected
+---@param arg0 boolean
+---@return void
+function IsoTelevision:init(arg0) end
+
 ---@public
----@param arg0 IsoPlayer
----@return boolean
-function IsoTelevision:isFacing(arg0) end
+---@return void
+function IsoTelevision:clearTvScreenSprites() end
 
 ---@public
 ---@param arg0 ByteBuffer
+---@param arg1 boolean
 ---@return void
-function IsoTelevision:save(arg0) end
+function IsoTelevision:save(arg0, arg1) end
 
 ---@public
----@param arg0 ByteBuffer
----@param arg1 int
 ---@return void
-function IsoTelevision:load(arg0, arg1) end
+function IsoTelevision:update() end
+
+---@public
+---@return void
+function IsoTelevision:renderlast() end
+
+---@public
+---@return String
+function IsoTelevision:getObjectName() end

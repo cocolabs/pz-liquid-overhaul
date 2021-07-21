@@ -12,16 +12,12 @@
 Moodle = {}
 
 ---@public
----@param arg0 int
----@param arg1 boolean
----@param arg2 Color
----@return boolean
-function Moodle:chevronDifference(arg0, arg1, arg2) end
+---@return Color
+function Moodle:getChevronColor() end
 
 ---@public
----@param val int
----@return void
-function Moodle:SetLevel(val) end
+---@return int
+function Moodle:getLevel() end
 
 ---@public
 ---@return int
@@ -29,11 +25,18 @@ function Moodle:getChevronCount() end
 
 ---@public
 ---@return boolean
-function Moodle:Update() end
+function Moodle:isChevronIsUp() end
 
 ---@public
----@return int
-function Moodle:getLevel() end
+---@param arg0 int
+---@param arg1 boolean
+---@param arg2 Color
+---@return boolean
+function Moodle:chevronDifference(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function Moodle:Update() end
 
 ---@public
 ---@param arg0 int
@@ -43,9 +46,6 @@ function Moodle:getLevel() end
 function Moodle:setChevron(arg0, arg1, arg2) end
 
 ---@public
----@return Color
-function Moodle:getChevronColor() end
-
----@public
----@return boolean
-function Moodle:isChevronIsUp() end
+---@param val int
+---@return void
+function Moodle:SetLevel(val) end

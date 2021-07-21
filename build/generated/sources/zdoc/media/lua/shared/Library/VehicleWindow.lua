@@ -3,15 +3,36 @@
 ---@field protected health int
 ---@field protected openable boolean
 ---@field protected open boolean
+---@field protected openDelta float
 VehicleWindow = {}
+
+---@public
+---@param arg0 ByteBuffer
+---@return void
+function VehicleWindow:save(arg0) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function VehicleWindow:load(arg0, arg1) end
+
+---@public
+---@param arg0 float
+---@return void
+function VehicleWindow:setOpenDelta(arg0) end
+
+---@public
+---@return float
+function VehicleWindow:getOpenDelta() end
+
+---@public
+---@return boolean
+function VehicleWindow:isHittable() end
 
 ---@public
 ---@return boolean
 function VehicleWindow:isOpenable() end
-
----@public
----@return int
-function VehicleWindow:getHealth() end
 
 ---@public
 ---@param arg0 VehicleScript.Window
@@ -20,16 +41,7 @@ function VehicleWindow:init(arg0) end
 
 ---@public
 ---@return boolean
-function VehicleWindow:isDestroyed() end
-
----@public
----@return boolean
 function VehicleWindow:isOpen() end
-
----@public
----@param arg0 int
----@return void
-function VehicleWindow:setHealth(arg0) end
 
 ---@public
 ---@param arg0 int
@@ -37,18 +49,9 @@ function VehicleWindow:setHealth(arg0) end
 function VehicleWindow:damage(arg0) end
 
 ---@public
----@return boolean
-function VehicleWindow:isHittable() end
-
----@public
 ---@param arg0 IsoGameCharacter
 ---@return void
 function VehicleWindow:hit(arg0) end
-
----@public
----@param arg0 ByteBuffer
----@return void
-function VehicleWindow:save(arg0) end
 
 ---@public
 ---@param arg0 boolean
@@ -56,7 +59,14 @@ function VehicleWindow:save(arg0) end
 function VehicleWindow:setOpen(arg0) end
 
 ---@public
----@param arg0 ByteBuffer
----@param arg1 int
+---@return int
+function VehicleWindow:getHealth() end
+
+---@public
+---@param arg0 int
 ---@return void
-function VehicleWindow:load(arg0, arg1) end
+function VehicleWindow:setHealth(arg0) end
+
+---@public
+---@return boolean
+function VehicleWindow:isDestroyed() end

@@ -91,9 +91,9 @@ local function drawVector(ui, label, x, y, vx, vy, vz)
 end
 
 local function alignVectorToGrid(v, gridMult)
-	local vx = math.floor(v:x() * gridMult + 0.5f) / gridMult
-	local vy = math.floor(v:y() * gridMult + 0.5f) / gridMult
-	local vz = math.floor(v:z() * gridMult + 0.5f) / gridMult
+	local vx = math.floor(v:x() * gridMult + 0.5) / gridMult
+	local vy = math.floor(v:y() * gridMult + 0.5) / gridMult
+	local vz = math.floor(v:z() * gridMult + 0.5) / gridMult
 	v:setComponent(0, vx)
 	v:setComponent(1, vy)
 	v:setComponent(2, vz)

@@ -87,6 +87,10 @@
 ---@field public WorldVersion_VehicleTowingID int
 ---@field public WorldVersion_VehicleJNITransform int
 ---@field public WorldVersion_VehicleTowAttachment int
+---@field public WorldVersion_ContainerMaxCapacity int
+---@field public WorldVersion_TimedActionInstantCheat int
+---@field public WorldVersion_ClothingPatchSaveLoad int
+---@field public WorldVersion_AttachedSlotType int
 ---@field public WorldVersion_ChunkVehicles int
 ---@field public WorldVersion_PlayerVehicleSeat int
 ---@field public SavedWorldVersion int
@@ -103,8 +107,318 @@
 IsoWorld = {}
 
 ---@public
+---@return int
+function IsoWorld:getWorldVersion() end
+
+---@public
+---@param luaPosX int
+---@return void
+function IsoWorld:setLuaPosX(luaPosX) end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoWorld:setTimeSinceLastSurvivorInHorde(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@param arg3 float
+---@return void
+function IsoWorld:registerWaterFlow(arg0, arg1, arg2, arg3) end
+
+---@public
+---@return ArrayList|Unknown
+function IsoWorld:getAllTilesName() end
+
+---@public
+---@param luaSpawnCellX int
+---@return void
+function IsoWorld:setLuaSpawnCellX(luaSpawnCellX) end
+
+---@public
+---@return ArrayList|Unknown
+function IsoWorld:getRandomizedVehicleStoryList() end
+
+---@private
+---@return void
+function IsoWorld:initMessaging() end
+
+---@public
+---@return int
+function IsoWorld:getLuaPosX() end
+
+---@public
+---@return void
+function IsoWorld:render() end
+
+---@public
+---@param world String
+---@return void
+function IsoWorld:setMap(world) end
+
+---@private
+---@param arg0 TriggerSetAnimationRecorderFile
+---@return void
+function IsoWorld:onTrigger_setAnimationRecorderTriggerFile(arg0) end
+
+---@public
+---@param globalTemperature float
+---@return void
+function IsoWorld:setGlobalTemperature(globalTemperature) end
+
+---@public
+---@param weather String
+---@return void
+function IsoWorld:setWeather(weather) end
+
+---@public
+---@param desc SurvivorDesc
+---@param sq IsoGridSquare
+---@param player IsoPlayer
+---@return IsoSurvivor
+function IsoWorld:CreateRandomSurvivor(desc, sq, player) end
+
+---@public
+---@return RandomizedBuildingBase
+function IsoWorld:getRBBasic() end
+
+---@public
+---@param trait String
+---@return void
+function IsoWorld:addLuaTrait(trait) end
+
+---@public
+---@param arg0 IsoSpriteManager
+---@param arg1 String
+---@param arg2 int
+---@return void
+function IsoWorld:LoadTileDefinitionsPropertyStrings(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoWorld:removeZonesForLotDirectory(arg0) end
+
+---@public
+---@param x int
+---@param y int
+---@param z int
+---@return boolean
+function IsoWorld:isValidSquare(x, y, z) end
+
+---@public
+---@return void
+function IsoWorld:ForceKillAllZombies() end
+
+---@public
+---@return void
+function IsoWorld:transmitWeather() end
+
+---@public
+---@return ArrayList|Unknown
+function IsoWorld:getRandomizedZoneList() end
+
+---@public
+---@param sprMan IsoSpriteManager
+---@param filename String
+---@param fileNumber int
+---@return void
+function IsoWorld:LoadTileDefinitions(sprMan, filename, fileNumber) end
+
+---@public
+---@return float
+function IsoWorld:getGlobalTemperature() end
+
+---@public
+---@return int
+function IsoWorld:getLuaSpawnCellX() end
+
+---@public
+---@return int
+function IsoWorld:getWorldSquareX() end
+
+---@public
+---@return String
+function IsoWorld:getDifficulty() end
+
+---@public
+---@return boolean
+function IsoWorld:getZombiesDisabled() end
+
+---@public
+---@return BaseSoundEmitter
+---@overload fun(arg0:float, arg1:float, arg2:float)
+function IsoWorld:getFreeEmitter() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return BaseSoundEmitter
+function IsoWorld:getFreeEmitter(arg0, arg1, arg2) end
+
+---@public
+---@param luaPosZ int
+---@return void
+function IsoWorld:setLuaPosZ(luaPosZ) end
+
+---@public
+---@return String
+function IsoWorld:getMap() end
+
+---@public
+---@return void
+function IsoWorld:renderTerrain() end
+
+---@private
+---@param arg0 IsoSpriteManager
+---@param arg1 int
+---@param arg2 String
+---@param arg3 int
+---@param arg4 int
+---@param arg5 int
+---@return void
+function IsoWorld:addJumboTreeTileset(arg0, arg1, arg2, arg3, arg4, arg5) end
+
+---@public
+---@return void
+function IsoWorld:checkVehiclesZones() end
+
+---@public
+---@param luaSpawnCellY int
+---@return void
+function IsoWorld:setLuaSpawnCellY(luaSpawnCellY) end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoWorld:setDifficulty(arg0) end
+
+---@private
+---@return void
+function IsoWorld:GenerateTilePropertyLookupTables() end
+
+---@public
+---@param name String
+---@param type String
+---@param x int
+---@param y int
+---@param z int
+---@param width int
+---@param height int
+---@return IsoMetaGrid.Zone
+function IsoWorld:registerZoneNoOverlap(name, type, x, y, z, width, height) end
+
+---@public
+---@return void
+function IsoWorld:update() end
+
+---@public
+---@return String
+function IsoWorld:getGameMode() end
+
+---@private
+---@return void
+function IsoWorld:SetCustomPropertyValues() end
+
+---throws java.io.FileNotFoundException, java.io.IOException
+---@public
+---@return boolean
+function IsoWorld:LoadPlayerForInfo() end
+
+---@private
+---@return void
+function IsoWorld:renderInternal() end
+
+---@public
+---@return boolean
+function IsoWorld:getZombiesEnabled() end
+
+---@public
+---@return SurvivorDesc
+function IsoWorld:getLuaPlayerDesc() end
+
+---@public
+---@return ArrayList|Unknown
+function IsoWorld:getRandomizedBuildingList() end
+
+---@public
+---@return int
+function IsoWorld:getFrameNo() end
+
+---@public
 ---@return boolean
 function IsoWorld:isAnimRecorderActive() end
+
+---@public
+---@param b boolean
+---@return void
+function IsoWorld:setDrawWorld(b) end
+
+---@public
+---@return void
+function IsoWorld:sceneCullZombies() end
+
+---@public
+---@param arg0 InputStream
+---@return int
+---@overload fun(_in:RandomAccessFile)
+function IsoWorld:readInt(arg0) end
+
+---throws java.io.EOFException, java.io.IOException
+---@public
+---@param _in RandomAccessFile
+---@return int
+function IsoWorld:readInt(_in) end
+
+---@public
+---@param wx int
+---@param wy int
+---@return IsoMetaChunk
+function IsoWorld:getMetaChunk(wx, wy) end
+
+---@public
+---@param arg0 InputStream
+---@return String
+---@overload fun(_in:RandomAccessFile)
+function IsoWorld:readString(arg0) end
+
+---throws java.io.EOFException, java.io.IOException
+---@public
+---@param _in RandomAccessFile
+---@return String
+function IsoWorld:readString(_in) end
+
+---@public
+---@param world String
+---@return void
+function IsoWorld:setWorld(world) end
+
+---@public
+---@param bb ByteBuffer
+---@return IsoObject
+function IsoWorld:getItemFromXYZIndexBuffer(bb) end
+
+---throws java.io.FileNotFoundException, java.io.IOException
+---@public
+---@return void
+function IsoWorld:init() end
+
+---@public
+---@return int
+function IsoWorld:getTimeSinceLastSurvivorInHorde() end
+
+---@public
+---@param wx int
+---@param wy int
+---@return IsoMetaChunk
+function IsoWorld:getMetaChunkFromTile(wx, wy) end
+
+---@private
+---@return void
+function IsoWorld:DrawIsoCursorHelper() end
 
 ---@public
 ---@param arg0 float
@@ -117,13 +431,18 @@ function IsoWorld:isAnimRecorderActive() end
 function IsoWorld:registerWaterZone(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return String
-function IsoWorld:getWorld() end
+---@param mode String
+---@return void
+function IsoWorld:setGameMode(mode) end
 
 ---@public
----@param luaSpawnCellY int
+---@return int
+function IsoWorld:getLuaSpawnCellY() end
+
+---@public
+---@param luaPosY int
 ---@return void
-function IsoWorld:setLuaSpawnCellY(luaSpawnCellY) end
+function IsoWorld:setLuaPosY(luaPosY) end
 
 ---@public
 ---@param name String
@@ -137,32 +456,6 @@ function IsoWorld:setLuaSpawnCellY(luaSpawnCellY) end
 function IsoWorld:registerZone(name, type, x, y, z, width, height) end
 
 ---@public
----@return void
-function IsoWorld:checkVehiclesZones() end
-
----@public
----@return IsoPuddles
-function IsoWorld:getPuddlesManager() end
-
----@private
----@return void
-function IsoWorld:updateInternal() end
-
----@private
----@param arg0 Map|Unknown|Unknown
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@param arg4 int
----@param arg5 int
----@return void
-function IsoWorld:saveMovableStats(arg0, arg1, arg2, arg3, arg4, arg5) end
-
----@public
----@return void
-function IsoWorld:ForceKillAllZombies() end
-
----@public
 ---@return HashMap|Unknown|Unknown
 ---@overload fun(arg0:String)
 function IsoWorld:getAllTiles() end
@@ -173,21 +466,49 @@ function IsoWorld:getAllTiles() end
 function IsoWorld:getAllTiles(arg0) end
 
 ---@public
----@param bb ByteBuffer
----@return IsoObject
-function IsoWorld:getItemFromXYZIndexBuffer(bb) end
+---@param desc SurvivorDesc
+---@return void
+function IsoWorld:setLuaPlayerDesc(desc) end
 
 ---@public
----@param arg0 InputStream
----@return String
----@overload fun(_in:RandomAccessFile)
-function IsoWorld:readString(arg0) end
+---@return IsoPuddles
+function IsoWorld:getPuddlesManager() end
 
----throws java.io.EOFException, java.io.IOException
 ---@public
----@param _in RandomAccessFile
+---@return int
+function IsoWorld:getLuaPosY() end
+
+---@public
+---@return HashMap|Unknown|Unknown
+function IsoWorld:getSpawnedZombieZone() end
+
+---@public
+---@return ClimateManager
+function IsoWorld:getClimateManager() end
+
+---@public
+---@return int
+function IsoWorld:getWorldSquareY() end
+
+---@public
+---@return IsoCell
+function IsoWorld:getCell() end
+
+---@public
 ---@return String
-function IsoWorld:readString(_in) end
+function IsoWorld:getWorld() end
+
+---@public
+---@return float
+function IsoWorld:getWorldAgeDays() end
+
+---@public
+---@return IsoMetaGrid
+function IsoWorld:getMetaGrid() end
+
+---@public
+---@return ArrayList|String
+function IsoWorld:getLuaTraits() end
 
 ---@public
 ---@return boolean
@@ -203,243 +524,7 @@ function IsoWorld:isAnimRecorderDiscardTriggered() end
 ---@param arg6 int
 ---@param arg7 KahluaTable
 ---@return IsoMetaGrid.Zone
-function IsoWorld:registerMannequinZone(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
-
----@public
----@return String
-function IsoWorld:getDifficulty() end
-
----@public
----@return int
-function IsoWorld:getTimeSinceLastSurvivorInHorde() end
-
----@public
----@return IsoCell
-function IsoWorld:getCell() end
-
----@public
----@return int
-function IsoWorld:getWorldVersion() end
-
----@public
----@param name String
----@param type String
----@param x int
----@param y int
----@param z int
----@param width int
----@param height int
----@return IsoMetaGrid.Zone
-function IsoWorld:registerZoneNoOverlap(name, type, x, y, z, width, height) end
-
----@public
----@param arg0 String
----@return void
-function IsoWorld:setDifficulty(arg0) end
-
----@public
----@return void
-function IsoWorld:update() end
-
----@public
----@return String
-function IsoWorld:getGameMode() end
-
----@public
----@param desc SurvivorDesc
----@param sq IsoGridSquare
----@param player IsoPlayer
----@return IsoSurvivor
-function IsoWorld:CreateRandomSurvivor(desc, sq, player) end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@param arg3 float
----@return void
-function IsoWorld:registerWaterFlow(arg0, arg1, arg2, arg3) end
-
----@public
----@return void
-function IsoWorld:KillCell() end
-
----@public
----@return IsoMetaGrid
-function IsoWorld:getMetaGrid() end
-
----@public
----@return String
-function IsoWorld:getWeather() end
-
----@public
----@return int
-function IsoWorld:getLuaPosZ() end
-
----@public
----@return ArrayList|String
-function IsoWorld:getLuaTraits() end
-
----@private
----@return void
-function IsoWorld:PopulateCellWithSurvivors() end
-
----@private
----@return void
-function IsoWorld:DrawIsoCursorHelper() end
-
----@public
----@return int
-function IsoWorld:getLuaSpawnCellY() end
-
----@public
----@param luaPosY int
----@return void
-function IsoWorld:setLuaPosY(luaPosY) end
-
----@public
----@return float
-function IsoWorld:getWorldAgeDays() end
-
----@public
----@param luaSpawnCellX int
----@return void
-function IsoWorld:setLuaSpawnCellX(luaSpawnCellX) end
-
----@public
----@param x int
----@param y int
----@param z int
----@return boolean
-function IsoWorld:isValidSquare(x, y, z) end
-
----@public
----@return void
-function IsoWorld:render() end
-
----@public
----@param world String
----@return void
-function IsoWorld:setMap(world) end
-
----@public
----@param desc SurvivorDesc
----@return void
-function IsoWorld:setLuaPlayerDesc(desc) end
-
----@public
----@return ArrayList|Unknown
-function IsoWorld:getAllTilesName() end
-
----@public
----@return int
-function IsoWorld:getLuaPosY() end
-
----@public
----@param weather String
----@return void
-function IsoWorld:setWeather(weather) end
-
----@public
----@return int
-function IsoWorld:getWorldSquareY() end
-
----@public
----@return boolean
-function IsoWorld:getZombiesDisabled() end
-
----throws java.io.EOFException, java.io.IOException
----@public
----@param _in RandomAccessFile
----@return int
----@overload fun(arg0:InputStream)
-function IsoWorld:readInt(_in) end
-
----@public
----@param arg0 InputStream
----@return int
-function IsoWorld:readInt(arg0) end
-
----@public
----@param luaPosZ int
----@return void
-function IsoWorld:setLuaPosZ(luaPosZ) end
-
----@public
----@param num int
----@param x1 int
----@param y1 int
----@param x2 int
----@param y2 int
----@return void
-function IsoWorld:CreateSwarm(num, x1, y1, x2, y2) end
-
----@public
----@return void
-function IsoWorld:transmitWeather() end
-
----@private
----@param arg0 IsoSpriteManager
----@param arg1 int
----@return void
-function IsoWorld:JumboTreeDefinitions(arg0, arg1) end
-
----@public
----@return int
-function IsoWorld:getLuaPosX() end
-
----@private
----@return void
-function IsoWorld:sceneCullZombies() end
-
----@public
----@param b boolean
----@return void
-function IsoWorld:setDrawWorld(b) end
-
----@public
----@return int
-function IsoWorld:getFrameNo() end
-
----@public
----@return int
-function IsoWorld:getLuaSpawnCellX() end
-
----@public
----@return int
-function IsoWorld:getWorldSquareX() end
-
----@public
----@return ArrayList|Unknown
-function IsoWorld:getRandomizedVehicleStoryList() end
-
----@public
----@return SurvivorDesc
-function IsoWorld:getLuaPlayerDesc() end
-
----@private
----@return void
-function IsoWorld:initMessaging() end
-
----@public
----@param sprMan IsoSpriteManager
----@param filename String
----@param fileNumber int
----@return void
-function IsoWorld:LoadTileDefinitions(sprMan, filename, fileNumber) end
-
----@public
----@param luaPosX int
----@return void
-function IsoWorld:setLuaPosX(luaPosX) end
-
----@public
----@return HashMap|Unknown|Unknown
-function IsoWorld:getSpawnedZombieZone() end
-
----@public
----@return ClimateManager
-function IsoWorld:getClimateManager() end
+function IsoWorld:registerVehiclesZone(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
 
 ---@public
 ---@param arg0 String
@@ -451,130 +536,49 @@ function IsoWorld:getClimateManager() end
 ---@param arg6 int
 ---@param arg7 KahluaTable
 ---@return IsoMetaGrid.Zone
-function IsoWorld:registerVehiclesZone(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
-
----@public
----@return ArrayList|Unknown
-function IsoWorld:getRandomizedBuildingList() end
-
----@private
----@param arg0 TriggerSetAnimationRecorderFile
----@return void
-function IsoWorld:onTrigger_setAnimationRecorderTriggerFile(arg0) end
-
----throws java.io.FileNotFoundException, java.io.IOException
----@public
----@return boolean
-function IsoWorld:LoadPlayerForInfo() end
-
----@public
----@return RandomizedBuildingBase
-function IsoWorld:getRBBasic() end
-
----@public
----@param wx int
----@param wy int
----@return IsoMetaChunk
-function IsoWorld:getMetaChunk(wx, wy) end
-
----@public
----@param wx int
----@param wy int
----@return IsoMetaChunk
-function IsoWorld:getMetaChunkFromTile(wx, wy) end
-
----@private
----@return void
-function IsoWorld:SetCustomPropertyValues() end
-
----@private
----@return void
-function IsoWorld:renderInternal() end
-
----@public
----@param trait String
----@return void
-function IsoWorld:addLuaTrait(trait) end
-
----@public
----@param arg0 int
----@return void
-function IsoWorld:setTimeSinceLastSurvivorInHorde(arg0) end
-
----@private
----@return void
-function IsoWorld:GenerateTilePropertyLookupTables() end
-
----@public
----@return boolean
-function IsoWorld:getZombiesEnabled() end
-
----@public
----@return void
-function IsoWorld:renderTerrain() end
-
----@public
----@return float
-function IsoWorld:getGlobalTemperature() end
-
----@public
----@param world String
----@return void
-function IsoWorld:setWorld(world) end
-
----@public
----@return BaseSoundEmitter
----@overload fun(arg0:float, arg1:float, arg2:float)
-function IsoWorld:getFreeEmitter() end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return BaseSoundEmitter
-function IsoWorld:getFreeEmitter(arg0, arg1, arg2) end
-
----throws java.io.FileNotFoundException, java.io.IOException
----@public
----@return void
-function IsoWorld:init() end
-
----@public
----@param arg0 IsoSpriteManager
----@param arg1 String
----@param arg2 int
----@return void
-function IsoWorld:LoadTileDefinitionsPropertyStrings(arg0, arg1, arg2) end
-
----@public
----@param arg0 String
----@return void
-function IsoWorld:removeZonesForLotDirectory(arg0) end
-
----@public
----@return ArrayList|Unknown
-function IsoWorld:getRandomizedZoneList() end
-
----@public
----@param mode String
----@return void
-function IsoWorld:setGameMode(mode) end
+function IsoWorld:registerMannequinZone(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7) end
 
 ---@private
 ---@param arg0 IsoSpriteManager
 ---@param arg1 int
----@param arg2 String
+---@return void
+function IsoWorld:JumboTreeDefinitions(arg0, arg1) end
+
+---@public
+---@param num int
+---@param x1 int
+---@param y1 int
+---@param x2 int
+---@param y2 int
+---@return void
+function IsoWorld:CreateSwarm(num, x1, y1, x2, y2) end
+
+---@public
+---@return int
+function IsoWorld:getLuaPosZ() end
+
+---@private
+---@param arg0 Map|Unknown|Unknown
+---@param arg1 int
+---@param arg2 int
 ---@param arg3 int
 ---@param arg4 int
 ---@param arg5 int
 ---@return void
-function IsoWorld:addJumboTreeTileset(arg0, arg1, arg2, arg3, arg4, arg5) end
+function IsoWorld:saveMovableStats(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
 ---@return String
-function IsoWorld:getMap() end
+function IsoWorld:getWeather() end
+
+---@private
+---@return void
+function IsoWorld:PopulateCellWithSurvivors() end
+
+---@private
+---@return void
+function IsoWorld:updateInternal() end
 
 ---@public
----@param globalTemperature float
 ---@return void
-function IsoWorld:setGlobalTemperature(globalTemperature) end
+function IsoWorld:KillCell() end

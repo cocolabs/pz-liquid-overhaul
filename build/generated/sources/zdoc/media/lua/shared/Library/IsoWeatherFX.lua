@@ -40,6 +40,104 @@
 IsoWeatherFX = {}
 
 ---@public
+---@return boolean
+function IsoWeatherFX:getPrecipitationIsSnow() end
+
+---@private
+---@return void
+function IsoWeatherFX:renderFogCircle() end
+
+---@public
+---@return void
+function IsoWeatherFX:init() end
+
+---@public
+---@return boolean
+function IsoWeatherFX:hasPrecipitationToRender() end
+
+---@public
+---@return boolean
+function IsoWeatherFX:hasCloudsToRender() end
+
+---@public
+---@return float
+function IsoWeatherFX:getPrecipitationIntensity() end
+
+---@public
+---@return void
+function IsoWeatherFX:renderClouds() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function IsoWeatherFX:setDebugBounds(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return float
+function IsoWeatherFX:lerp(arg0, arg1, arg2) end
+
+---@public
+---@return float
+function IsoWeatherFX:getWindPrecipIntensity() end
+
+---@public
+---@return float
+function IsoWeatherFX:getRenderWindAngleRain() end
+
+---@public
+---@return boolean
+function IsoWeatherFX:hasFogToRender() end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoWeatherFX:setCloudIntensity(arg0) end
+
+---@public
+---@return float
+function IsoWeatherFX:getWindIntensity() end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoWeatherFX:setWindIntensity(arg0) end
+
+---@public
+---@return boolean
+function IsoWeatherFX:isDebugBounds() end
+
+---@public
+---@return void
+function IsoWeatherFX:update() end
+
+---@public
+---@return void
+function IsoWeatherFX:renderFog() end
+
+---@public
+---@param arg0 float
+---@return void
+function IsoWeatherFX:setFogIntensity(arg0) end
+
+---@public
+---@param arg0 boolean
+---@param arg1 boolean
+---@param arg2 boolean
+---@return void
+function IsoWeatherFX:renderLayered(arg0, arg1, arg2) end
+
+---@public
+---@return float
+function IsoWeatherFX:getWindAngleIntensity() end
+
+---@public
+---@return void
+function IsoWeatherFX:render() end
+
+---@public
 ---@param arg0 float
 ---@param arg1 float
 ---@param arg2 float
@@ -54,42 +152,8 @@ function IsoWeatherFX:clerp(arg0, arg1, arg2) end
 function IsoWeatherFX:clamp(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 boolean
 ---@return void
-function IsoWeatherFX:setPrecipitationIsSnow(arg0) end
-
----@public
----@param arg0 float
----@return void
-function IsoWeatherFX:setWindIntensity(arg0) end
-
----@private
----@return void
-function IsoWeatherFX:renderFogCircle() end
-
----@public
----@return float
-function IsoWeatherFX:getWindIntensity() end
-
----@public
----@return float
-function IsoWeatherFX:getFogIntensity() end
-
----@public
----@return float
-function IsoWeatherFX:getRenderWindAngleRain() end
-
----@public
----@param arg0 boolean
----@param arg1 boolean
----@param arg2 boolean
----@return void
-function IsoWeatherFX:renderLayered(arg0, arg1, arg2) end
-
----@public
----@param arg0 float
----@return void
-function IsoWeatherFX:setFogIntensity(arg0) end
+function IsoWeatherFX:renderPrecipitation() end
 
 ---@public
 ---@param arg0 float
@@ -97,39 +161,12 @@ function IsoWeatherFX:setFogIntensity(arg0) end
 function IsoWeatherFX:setPrecipitationIntensity(arg0) end
 
 ---@public
----@return void
-function IsoWeatherFX:update() end
+---@return float
+function IsoWeatherFX:getCloudIntensity() end
 
 ---@public
 ---@return float
-function IsoWeatherFX:getPrecipitationIntensity() end
-
----@public
----@return void
-function IsoWeatherFX:renderFog() end
-
----@public
----@return float
-function IsoWeatherFX:getWindAngleIntensity() end
-
----@public
----@return void
-function IsoWeatherFX:render() end
-
----@public
----@return void
-function IsoWeatherFX:renderPrecipitation() end
-
----@public
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return float
-function IsoWeatherFX:lerp(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function IsoWeatherFX:hasCloudsToRender() end
+function IsoWeatherFX:getFogIntensity() end
 
 ---@public
 ---@param arg0 float
@@ -137,48 +174,11 @@ function IsoWeatherFX:hasCloudsToRender() end
 function IsoWeatherFX:setWindPrecipIntensity(arg0) end
 
 ---@public
----@return float
-function IsoWeatherFX:getWindPrecipIntensity() end
-
----@public
----@return boolean
-function IsoWeatherFX:isDebugBounds() end
-
----@public
----@return void
-function IsoWeatherFX:renderClouds() end
-
----@public
----@param arg0 boolean
----@return void
-function IsoWeatherFX:setDebugBounds(arg0) end
-
----@public
----@param arg0 float
----@return void
-function IsoWeatherFX:setCloudIntensity(arg0) end
-
----@public
 ---@param arg0 float
 ---@return void
 function IsoWeatherFX:setWindAngleIntensity(arg0) end
 
 ---@public
----@return boolean
-function IsoWeatherFX:hasPrecipitationToRender() end
-
----@public
----@return float
-function IsoWeatherFX:getCloudIntensity() end
-
----@public
----@return boolean
-function IsoWeatherFX:getPrecipitationIsSnow() end
-
----@public
+---@param arg0 boolean
 ---@return void
-function IsoWeatherFX:init() end
-
----@public
----@return boolean
-function IsoWeatherFX:hasFogToRender() end
+function IsoWeatherFX:setPrecipitationIsSnow(arg0) end

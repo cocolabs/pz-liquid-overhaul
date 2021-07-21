@@ -2,10 +2,10 @@
 RZSBeachParty = {}
 
 ---@public
----@return ArrayList|Unknown
-function RZSBeachParty:getBeachClutter() end
-
----@public
 ---@param arg0 IsoMetaGrid.Zone
 ---@return void
 function RZSBeachParty:randomizeZoneStory(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function RZSBeachParty:getBeachClutter() end

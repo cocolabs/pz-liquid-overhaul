@@ -1,12 +1,16 @@
 ---@class CGlobalObjects : zombie.globalObjects.CGlobalObjects
 ---@field protected systems ArrayList|Unknown
 ---@field protected initialState HashMap|Unknown|Unknown
----@field public PREFIX String
 CGlobalObjects = {}
 
 ---@public
----@return void
-function CGlobalObjects:Reset() end
+---@param arg0 String
+---@return JCGlobalObjectSystem
+function CGlobalObjects:newSystem(arg0) end
+
+---@public
+---@return int
+function CGlobalObjects:getSystemCount() end
 
 ---@public
 ---@param arg0 String
@@ -21,14 +25,13 @@ function CGlobalObjects:receiveServerCommand(arg0, arg1, arg2) end
 function CGlobalObjects:loadInitialState(arg0) end
 
 ---@public
----@param arg0 int
----@return JCGlobalObjectSystem
-function CGlobalObjects:getSystemByIndex(arg0) end
+---@return void
+function CGlobalObjects:Reset() end
 
 ---@public
 ---@param arg0 String
 ---@return JCGlobalObjectSystem
-function CGlobalObjects:getSystemByName(arg0) end
+function CGlobalObjects:registerSystem(arg0) end
 
 ---@public
 ---@return void
@@ -36,19 +39,15 @@ function CGlobalObjects:initSystems() end
 
 ---@public
 ---@param arg0 String
----@return JCGlobalObjectSystem
-function CGlobalObjects:newSystem(arg0) end
-
----@public
----@param arg0 String
 ---@return void
 function CGlobalObjects:noise(arg0) end
 
 ---@public
----@return int
-function CGlobalObjects:getSystemCount() end
-
----@public
 ---@param arg0 String
 ---@return JCGlobalObjectSystem
-function CGlobalObjects:registerSystem(arg0) end
+function CGlobalObjects:getSystemByName(arg0) end
+
+---@public
+---@param arg0 int
+---@return JCGlobalObjectSystem
+function CGlobalObjects:getSystemByIndex(arg0) end

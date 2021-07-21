@@ -4,10 +4,10 @@ IsoLuaMover = {}
 
 ---Overrides:
 ---
----update in class IsoGameCharacter
+---getObjectName in class IsoMovingObject
 ---@public
----@return void
-function IsoLuaMover:update() end
+---@return String
+function IsoLuaMover:getObjectName() end
 
 ---@public
 ---@param name String
@@ -16,13 +16,6 @@ function IsoLuaMover:update() end
 ---@param playing boolean
 ---@return void
 function IsoLuaMover:playAnim(name, seconds, looped, playing) end
-
----Overrides:
----
----getObjectName in class IsoMovingObject
----@public
----@return String
-function IsoLuaMover:getObjectName() end
 
 ---@public
 ---@param arg0 float
@@ -34,3 +27,10 @@ function IsoLuaMover:getObjectName() end
 ---@param arg6 Shader
 ---@return void
 function IsoLuaMover:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
+
+---Overrides:
+---
+---update in class IsoGameCharacter
+---@public
+---@return void
+function IsoLuaMover:update() end

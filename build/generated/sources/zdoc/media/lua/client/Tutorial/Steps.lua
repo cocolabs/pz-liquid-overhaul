@@ -113,7 +113,7 @@ TutorialTests.PlayerInfoOpen = function()
         local characterInfo = getPlayerInfoPanel(0);
         characterInfo:toggleView(xpSystemText.health);
         setJoypadFocus(0, characterInfo.panel:getActiveView())
-        updateJoypadFocus(JoypadState[1])
+        updateJoypadFocus(JoypadState.players[1])
     end
     
     return complete;
@@ -1685,7 +1685,7 @@ function BandageStep.BandageYourself()
             charInfo:setVisible(false);
             if JoypadState.players[1] then
                 setJoypadFocus(0, nil)
-                updateJoypadFocus(JoypadState[1])
+                updateJoypadFocus(JoypadState.players[1])
             end
         end
         SneakStep.setZoom(1);

@@ -10,6 +10,9 @@ ISWoodenContainer = ISBuildingObject:derive("ISWoodenContainer");
 --**
 --************************************************************************--
 function ISWoodenContainer:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoThumpable.new(cell, self.sq, sprite, north, self);
@@ -32,7 +35,7 @@ function ISWoodenContainer:create(x, y, z, north, sprite)
 	self.javaObject:transmitCompleteItemToServer();
 end
 
-function ISWoodenContainer:new(sprite, northSprite)
+function ISWoodenContainer:new(sprite, northSprite, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -46,6 +49,11 @@ function ISWoodenContainer:new(sprite, northSprite)
 	o.canBeAlwaysPlaced = true;
     o.canBeLockedByPadlock = true;
 	o.buildLow = true;
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

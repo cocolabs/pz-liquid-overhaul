@@ -19,6 +19,14 @@ function ISItemsListViewer:initialise()
     local btnHgt = math.max(25, FONT_HGT_SMALL + 3 * 2)
     local padBottom = 10
 
+    self.playerSelect = ISComboBox:new(self.width - 10 - btnWid, 10, btnWid, btnHgt, self, self.onSelectPlayer)
+    self.playerSelect:initialise()
+    self.playerSelect:addOption("Player 1")
+    self.playerSelect:addOption("Player 2")
+    self.playerSelect:addOption("Player 3")
+    self.playerSelect:addOption("Player 4")
+    self:addChild(self.playerSelect)
+
     local top = 50
     self.panel = ISTabPanel:new(10, top, self.width - 10 * 2, self.height - padBottom - btnHgt - padBottom - top);
     self.panel:initialise();
@@ -60,19 +68,19 @@ function ISItemsListViewer:initList()
 
     table.sort(moduleNames, function(a,b) return not string.sort(a, b) end)
 
-    local listBox = ISItemsListTable:new(0, 0, self.panel.width, self.panel.height - self.panel.tabHeight);
+    local listBox = ISItemsListTable:new(0, 0, self.panel.width, self.panel.height - self.panel.tabHeight, self);
     listBox:initialise();
     self.panel:addView("All", listBox);
-    listBox.parent = self;
+--    listBox.parent = self;
     listBox:initList(allItems)
 
     for _,moduleName in ipairs(moduleNames) do
         -- we ignore the "Moveables" module
         if moduleName ~= "Moveables" then
-            local cat1 = ISItemsListTable:new(0, 0, self.panel.width, self.panel.height - self.panel.tabHeight);
+            local cat1 = ISItemsListTable:new(0, 0, self.panel.width, self.panel.height - self.panel.tabHeight, self);
             cat1:initialise();
             self.panel:addView(moduleName, cat1);
-            cat1.parent = self;
+--            cat1.parent = self;
             cat1:initList(self.module[moduleName])
         end
     end
@@ -95,11 +103,14 @@ function ISItemsListViewer:onClick(button)
     end
 end
 
+function ISItemsListViewer:onSelectPlayer()
+end
+
 function ISItemsListViewer.OnOpenPanel()
     if ISItemsListViewer.instance then
         ISItemsListViewer.instance:close()
     end
-    local modal = ISItemsListViewer:new(50, 200, 680, 650, getPlayer())
+    local modal = ISItemsListViewer:new(50, 200, 680, 650)
     modal:initialise();
     modal:addToUIManager();
 end
@@ -108,7 +119,7 @@ end
 --** ISItemsListViewer:new
 --**
 --************************************************************************--
-function ISItemsListViewer:new(x, y, width, height, player)
+function ISItemsListViewer:new(x, y, width, height)
     local o = {}
     x = getCore():getScreenWidth() / 2 - (width / 2);
     y = getCore():getScreenHeight() / 2 - (height / 2);
@@ -119,7 +130,6 @@ function ISItemsListViewer:new(x, y, width, height, player)
     o.backgroundColor = {r=0, g=0, b=0, a=0.8};
     o.width = width;
     o.height = height;
-    o.player = player;
     o.moveWithMouse = true;
     ISItemsListViewer.instance = o;
     ISDebugMenu.RegisterClass(self);

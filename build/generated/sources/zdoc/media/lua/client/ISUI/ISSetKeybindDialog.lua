@@ -72,6 +72,7 @@ end
 function ISSetKeybindDialog:onClear()
 	for i,v in ipairs(MainOptions.keyText) do
 		if not v.value and (v.txt:getName() == self.keybindName) then
+			v.keyCode = 0
 			v.btn:setTitle(getKeyName(0))
 			MainOptions.instance:onKeybindChanged(self.keybindName, 0)
 			MainOptions.instance.gameOptions.changed = true

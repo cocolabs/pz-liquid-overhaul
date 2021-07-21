@@ -51,5 +51,6 @@ function ISTakeTrap:new(character, trap, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o;
 end

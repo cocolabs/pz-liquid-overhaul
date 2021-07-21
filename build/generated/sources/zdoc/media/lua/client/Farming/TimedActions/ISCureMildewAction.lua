@@ -39,7 +39,11 @@ function ISCureMildewAction:perform()
 	local level = self.plant.mildewLvl
 	for i=1,self.uses do
 		if level < 100 then
-			self.item:Use()
+			if self.item then
+				self.item:Use()
+			else
+				return;
+			end
 			level = level - 5
 		end
 	end
@@ -58,6 +62,9 @@ function ISCureMildewAction:new(character, item, uses, plant, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if character:isTimedActionInstant() then
+		o.maxTime = 1;
+	end
     o.plant = plant;
 	return o;
 end

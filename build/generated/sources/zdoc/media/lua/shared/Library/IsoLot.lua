@@ -13,14 +13,20 @@
 IsoLot = {}
 
 ---@public
----@param arg0 BufferedRandomAccessFile
----@return String
-function IsoLot:readString(arg0) end
-
----@public
 ---@param arg0 IsoLot
 ---@return void
 function IsoLot:put(arg0) end
+
+---throws java.io.EOFException, java.io.IOException
+---@public
+---@param _in RandomAccessFile
+---@return int
+function IsoLot:readInt(_in) end
+
+---@public
+---@param arg0 BufferedRandomAccessFile
+---@return String
+function IsoLot:readString(arg0) end
 
 ---@public
 ---@return void
@@ -35,12 +41,6 @@ function IsoLot:Dispose() end
 ---@return void
 function IsoLot:load(arg0, arg1, arg2, arg3, arg4) end
 
----throws java.io.EOFException, java.io.IOException
----@public
----@param _in RandomAccessFile
----@return int
-function IsoLot:readShort(_in) end
-
 ---@public
 ---@param arg0 Integer
 ---@param arg1 Integer
@@ -54,4 +54,4 @@ function IsoLot:get(arg0, arg1, arg2, arg3, arg4) end
 ---@public
 ---@param _in RandomAccessFile
 ---@return int
-function IsoLot:readInt(_in) end
+function IsoLot:readShort(_in) end

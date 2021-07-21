@@ -4,30 +4,15 @@
 BodyLocationGroup = {}
 
 ---@public
----@param arg0 String
+---@param arg0 int
 ---@return BodyLocation
-function BodyLocationGroup:getOrCreateLocation(arg0) end
-
----@public
----@param arg0 String
----@param arg1 boolean
----@return void
-function BodyLocationGroup:setMultiItem(arg0, arg1) end
+function BodyLocationGroup:getLocationByIndex(arg0) end
 
 ---@public
 ---@param arg0 String
 ---@param arg1 String
----@return boolean
-function BodyLocationGroup:isHideModel(arg0, arg1) end
-
----@public
----@param arg0 String
----@return int
-function BodyLocationGroup:indexOf(arg0) end
-
----@public
----@return int
-function BodyLocationGroup:size() end
+---@return void
+function BodyLocationGroup:setExclusive(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
@@ -42,6 +27,32 @@ function BodyLocationGroup:isMultiItem(arg0) end
 ---@public
 ---@param arg0 String
 ---@return BodyLocation
+function BodyLocationGroup:getLocation(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return boolean
+function BodyLocationGroup:isHideModel(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return boolean
+function BodyLocationGroup:isExclusive(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return BodyLocation
+function BodyLocationGroup:getOrCreateLocation(arg0) end
+
+---@public
+---@return int
+function BodyLocationGroup:size() end
+
+---@public
+---@param arg0 String
+---@return BodyLocation
 function BodyLocationGroup:getLocationNotNull(arg0) end
 
 ---@public
@@ -51,23 +62,12 @@ function BodyLocationGroup:getLocationNotNull(arg0) end
 function BodyLocationGroup:setHideModel(arg0, arg1) end
 
 ---@public
----@param arg0 int
----@return BodyLocation
-function BodyLocationGroup:getLocationByIndex(arg0) end
-
----@public
 ---@param arg0 String
----@param arg1 String
+---@param arg1 boolean
 ---@return void
-function BodyLocationGroup:setExclusive(arg0, arg1) end
+function BodyLocationGroup:setMultiItem(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
----@return BodyLocation
-function BodyLocationGroup:getLocation(arg0) end
-
----@public
----@param arg0 String
----@param arg1 String
----@return boolean
-function BodyLocationGroup:isExclusive(arg0, arg1) end
+---@return int
+function BodyLocationGroup:indexOf(arg0) end

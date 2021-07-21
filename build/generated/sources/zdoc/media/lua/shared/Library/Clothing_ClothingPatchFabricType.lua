@@ -9,8 +9,14 @@
 Clothing_ClothingPatchFabricType = {}
 
 ---@public
----@return String
-function Clothing_ClothingPatchFabricType:getType() end
+---@param arg0 String
+---@return Clothing.ClothingPatchFabricType
+function Clothing_ClothingPatchFabricType:fromType(arg0) end
+
+---@public
+---@param arg0 int
+---@return Clothing.ClothingPatchFabricType
+function Clothing_ClothingPatchFabricType:fromIndex(arg0) end
 
 ---@public
 ---@param arg0 String
@@ -22,11 +28,5 @@ function Clothing_ClothingPatchFabricType:valueOf(arg0) end
 function Clothing_ClothingPatchFabricType:values() end
 
 ---@public
----@param arg0 String
----@return Clothing.ClothingPatchFabricType
-function Clothing_ClothingPatchFabricType:fromType(arg0) end
-
----@public
----@param arg0 int
----@return Clothing.ClothingPatchFabricType
-function Clothing_ClothingPatchFabricType:fromIndex(arg0) end
+---@return String
+function Clothing_ClothingPatchFabricType:getType() end

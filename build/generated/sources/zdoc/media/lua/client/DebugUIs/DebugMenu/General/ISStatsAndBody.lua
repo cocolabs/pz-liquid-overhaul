@@ -73,6 +73,7 @@ function ISStatsAndBody:createChildren()
     self:addBoolOption(body,"IsOnFire", "IsOnFire", "setIsOnFire");
     self:addBoolOption(player,"Ghost", "isGhostMode", "setGhostMode");
     self:addBoolOption(player,"God Mod", "isGodMod", "setGodMod");
+    self:addBoolOption(player,"Invisible", "isInvisible", "setInvisible");
     --self:addBoolOption(body,"HasACold", "isHasACold", "setHasACold");
 
     local barMod = 3;

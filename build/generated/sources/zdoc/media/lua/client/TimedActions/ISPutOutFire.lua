@@ -75,6 +75,7 @@ function ISPutOutFire:new(character, squares, item, usesPerSquare, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	o.usesPerSquare = usesPerSquare
 	return o;
 end

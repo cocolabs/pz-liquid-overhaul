@@ -37,7 +37,7 @@ function ISRefuelFromGasPump:update()
 --]]
 	local pumpUnits = self.pumpStart + (self.pumpTarget - self.pumpStart) * self:getJobDelta()
 	pumpUnits = math.ceil(pumpUnits)
-	self.square:getProperties():Set("fuelAmount", tostring(pumpUnits))
+	self.fuelStation:setPipedFuelAmount(pumpUnits);
 
     self.character:setMetabolicTarget(Metabolics.HeavyDomestic);
 end
@@ -45,7 +45,7 @@ end
 function ISRefuelFromGasPump:start()
 	self.tankStart = self.part:getContainerContentAmount()
 	-- Pumps start with 100 units of fuel.  8 pump units = 1 PetrolCan according to ISTakeFuel.
-	self.pumpStart = tonumber(self.square:getProperties():Val("fuelAmount"))
+	self.pumpStart = self.fuelStation:getPipedFuelAmount();
 	local pumpLitresAvail = self.pumpStart * (Vehicles.JerryCanLitres / 8)
 	local tankLitresFree = self.part:getContainerCapacity() - self.tankStart
 	local takeLitres = math.min(tankLitresFree, pumpLitresAvail)
@@ -57,6 +57,8 @@ function ISRefuelFromGasPump:start()
 
 	self:setActionAnim("fill_container_tap")
 	self:setOverrideHandModels(nil, nil)
+
+	self.character:reportEvent("EventTakeWater");
 end
 
 function ISRefuelFromGasPump:stop()
@@ -68,14 +70,14 @@ function ISRefuelFromGasPump:perform()
 	ISBaseTimedAction.perform(self)
 end
 
-function ISRefuelFromGasPump:new(character, part, square, time)
+function ISRefuelFromGasPump:new(character, part, fuelStation, time)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character
 	o.vehicle = part:getVehicle()
 	o.part = part
-	o.square = square
+	o.fuelStation = fuelStation;
 	o.maxTime = math.max(time, 50)
 	return o
 end

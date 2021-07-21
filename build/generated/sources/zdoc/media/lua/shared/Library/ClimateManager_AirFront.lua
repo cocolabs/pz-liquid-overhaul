@@ -11,14 +11,17 @@
 ClimateManager_AirFront = {}
 
 ---@public
----@param arg0 float
----@return void
-function ClimateManager_AirFront:setStrength(arg0) end
+---@return float
+function ClimateManager_AirFront:getTotalNoise() end
 
 ---@public
----@param arg0 DataOutputStream
+---@param arg0 int
 ---@return void
-function ClimateManager_AirFront:save(arg0) end
+function ClimateManager_AirFront:setFrontType(arg0) end
+
+---@public
+---@return float
+function ClimateManager_AirFront:getDays() end
 
 ---@public
 ---@param arg0 DataInputStream
@@ -30,6 +33,10 @@ function ClimateManager_AirFront:load(arg0) end
 function ClimateManager_AirFront:getType() end
 
 ---@public
+---@return float
+function ClimateManager_AirFront:getMaxNoise() end
+
+---@public
 ---@param arg0 ClimateManager.AirFront
 ---@return void
 function ClimateManager_AirFront:copyFrom(arg0) end
@@ -39,36 +46,29 @@ function ClimateManager_AirFront:copyFrom(arg0) end
 function ClimateManager_AirFront:getAngleDegrees() end
 
 ---@public
----@return float
-function ClimateManager_AirFront:getStrength() end
-
----@public
----@return float
-function ClimateManager_AirFront:getTotalNoise() end
-
----@public
----@param arg0 int
+---@param arg0 DataOutputStream
 ---@return void
-function ClimateManager_AirFront:setFrontType(arg0) end
-
----@public
----@return float
-function ClimateManager_AirFront:getMaxNoise() end
+function ClimateManager_AirFront:save(arg0) end
 
 ---@public
 ---@param arg0 float
 ---@return void
-function ClimateManager_AirFront:addDaySample(arg0) end
+function ClimateManager_AirFront:setStrength(arg0) end
 
----@protected
----@return void
-function ClimateManager_AirFront:reset() end
+---@public
+---@return float
+function ClimateManager_AirFront:getStrength() end
 
 ---@protected
 ---@param arg0 float
 ---@return void
 function ClimateManager_AirFront:setFrontWind(arg0) end
 
+---@protected
+---@return void
+function ClimateManager_AirFront:reset() end
+
 ---@public
----@return float
-function ClimateManager_AirFront:getDays() end
+---@param arg0 float
+---@return void
+function ClimateManager_AirFront:addDaySample(arg0) end

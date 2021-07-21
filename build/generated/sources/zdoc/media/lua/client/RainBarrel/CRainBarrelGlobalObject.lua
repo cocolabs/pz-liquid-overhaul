@@ -7,8 +7,8 @@ require "Map/CGlobalObject"
 ---@class CRainBarrelGlobalObject : CGlobalObject
 CRainBarrelGlobalObject = CGlobalObject:derive("CRainBarrelGlobalObject")
 
-function CRainBarrelGlobalObject:new(luaSystem, isoObject)
-	local o = CGlobalObject.new(self, luaSystem, isoObject)
+function CRainBarrelGlobalObject:new(luaSystem, globalObject)
+	local o = CGlobalObject.new(self, luaSystem, globalObject)
 	return o
 end
 

@@ -34,13 +34,26 @@
 IsoObjectType = {}
 
 ---@public
----@return int
-function IsoObjectType:index() end
+---@param value int
+---@return IsoObjectType
+function IsoObjectType:fromIndex(value) end
 
 ---@public
 ---@param str String
 ---@return IsoObjectType
 function IsoObjectType:FromString(str) end
+
+---Returns the enum constant of this type with the specified name.
+---
+---The string must match exactly an identifier used to declare an
+---
+---enum constant in this type.  (Extraneous whitespace characters are
+---
+---not permitted.)
+---@public
+---@param name String @the name of the enum constant to be returned.
+---@return IsoObjectType @the enum constant with the specified name
+function IsoObjectType:valueOf(name) end
 
 ---Returns an array containing the constants of this enum type, in
 ---
@@ -59,19 +72,6 @@ function IsoObjectType:FromString(str) end
 ---@return IsoObjectType[] @an array containing the constants of this enum type, in the order they are declared
 function IsoObjectType:values() end
 
----Returns the enum constant of this type with the specified name.
----
----The string must match exactly an identifier used to declare an
----
----enum constant in this type.  (Extraneous whitespace characters are
----
----not permitted.)
 ---@public
----@param name String @the name of the enum constant to be returned.
----@return IsoObjectType @the enum constant with the specified name
-function IsoObjectType:valueOf(name) end
-
----@public
----@param value int
----@return IsoObjectType
-function IsoObjectType:fromIndex(value) end
+---@return int
+function IsoObjectType:index() end

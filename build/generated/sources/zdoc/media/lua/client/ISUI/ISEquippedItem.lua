@@ -6,6 +6,10 @@
 ISEquippedItem = ISPanel:derive("ISEquippedItem");
 ISEquippedItem.text = nil;
 
+local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
+local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
+local FONT_HGT_LARGE = getTextManager():getFontHeight(UIFont.Large)
+
 function ISEquippedItem:prerender()
 --	self:drawTexture(self.HandSecondaryTexture, -1, 50, 1, 1, 1, 1);
 
@@ -61,12 +65,65 @@ function ISEquippedItem:prerender()
             self.debugBtn:setImage(self.debugIcon);
         end
     end
+    
+    if self.clientBtn then
+        if ISUserPanelUI.instance then
+            self.clientBtn:setImage(self.clientIconOn);
+        else
+            self.clientBtn:setImage(self.clientIcon);
+        end
+    end
+    
+    if self.adminBtn then
+        self.adminBtn:setVisible(self.chr:getAccessLevel() ~= "" and self.chr:getAccessLevel() ~= "None")
+        if ISAdminPanelUI.instance then
+            self.adminBtn:setImage(self.adminIconOn);
+        else
+            self.adminBtn:setImage(self.adminIcon);
+        end
+    end
 
     if "Tutorial" == getCore():getGameMode() then
         self.movableBtn:setVisible(false);
         self.invBtn:setVisible(false);
         self.craftingBtn:setVisible(false);
         self.healthBtn:setY(self.invBtn:getY());
+    end
+    
+    -- Display the various admin power you have
+    if isClient() and self.chr:getAccessLevel() and self.chr:getAccessLevel() ~= "None" then
+        local y = 20;
+        self:drawText("ADMIN POWER:", 80,y,1,1,1,1,UIFont.NewLarge);
+        y = y + FONT_HGT_LARGE;
+        local onOff = "Off";
+        if self.chr:isInvincible() then
+            onOff = "On";
+        end
+        self:drawText("GodMode: " .. onOff, 80,y,1,1,1,1,UIFont.NewMedium);
+        y = y + FONT_HGT_MEDIUM;
+        onOff = "Off";
+        if self.chr:isInvisible() then
+            onOff = "On";
+        end
+        self:drawText("Invisible: " .. onOff, 80,y,1,1,1,1,UIFont.NewMedium);
+        y = y + FONT_HGT_MEDIUM;
+        onOff = "Off";
+        if self.chr:isNoClip() then
+            onOff = "On";
+        end
+        self:drawText("NoClip: " .. onOff, 80,y,1,1,1,1,UIFont.NewMedium);
+        y = y + FONT_HGT_MEDIUM;
+        onOff = "Off";
+        if self.chr:isCanSeeAll() then
+            onOff = "On";
+        end
+        self:drawText("CanSeeEveryone: " .. onOff, 80,y,1,1,1,1,UIFont.NewMedium);
+        y = y + FONT_HGT_MEDIUM;
+        onOff = "Off";
+        if self.chr:isCanHearAll() then
+            onOff = "On";
+        end
+        self:drawText("CanHearEveryone: " .. onOff, 80,y,1,1,1,1,UIFont.NewMedium);
     end
 end
 
@@ -147,15 +204,16 @@ function ISEquippedItem:render()
 		else
 			self:drawTextureScaledAspect(item:getTex(), self.handMainTexture:getWidth() / 2 - 16, self.handMainTexture:getHeight() / 2 - 16, 32, 32, item:getA(),item:getR(),item:getG(),item:getB());
 		end
-		if instanceof(item,"HandWeapon") then
-			local n = math.floor(((item:getCondition() / item:getConditionMax()) * 5));
+        -- This handles the condition star. commented out in case it's to be readded later
+--		if instanceof(item,"HandWeapon") then
+--			local n = math.floor(((item:getCondition() / item:getConditionMax()) * 5));
 
-			if(item:getCondition() > 0 and n == 0) then
-				n = 1;
-			end
+--			if(item:getCondition() > 0 and n == 0) then
+--				n = 1;
+--			end
 
-			self:drawTexture(getTexture("media/ui/QualityStar_" .. n .. ".png"),5,10,1,1,1,1);
-		end
+--			self:drawTexture(getTexture("media/ui/QualityStar_" .. n .. ".png"),5,10,1,1,1,1);
+--		end
 	end
 	if secondaryItem then
 		local item = secondaryItem
@@ -207,6 +265,22 @@ function ISEquippedItem:onOptionMouseDown(button, x, y)
             ISDebugMenu.instance:close();
         else
             ISDebugMenu.OnOpenPanel();
+        end
+    elseif button.internal == "USERPANEL" then
+        if ISUserPanelUI.instance then
+            ISUserPanelUI.instance:close()
+        else
+            local modal = ISUserPanelUI:new(200, 200, 350, 250, self.chr)
+            modal:initialise();
+            modal:addToUIManager();
+        end
+    elseif button.internal == "ADMINPANEL" then
+        if ISAdminPanelUI.instance then
+            ISAdminPanelUI.instance:close()
+        else
+            local modal = ISAdminPanelUI:new(200, 200, 350, 400)
+            modal:initialise();
+            modal:addToUIManager();
         end
     end
 
@@ -319,6 +393,10 @@ function ISEquippedItem:new (x, y, width, height, chr)
     o.movableIconScrap = getTexture("media/ui/Furniture_Disassemble.png");
     o.debugIcon = getTexture("media/ui/Debug_Icon_Off.png");
     o.debugIconOn = getTexture("media/ui/Debug_Icon_On.png");
+    o.clientIcon = getTexture("media/ui/Client_Icon_Off.png");
+    o.clientIconOn = getTexture("media/ui/Client_Icon_On.png");
+    o.adminIcon = getTexture("media/ui/Admin_Icon.png");
+    o.adminIconOn = getTexture("media/ui/Admin_Icon_On.png");
     ISEquippedItem.instance = o;
 	return o;
 end
@@ -416,10 +494,12 @@ function ISEquippedItem:initialise()
         self:addChild(self.movableBtn);
         self:addMouseOverToolTipItem(self.movableBtn, getText("IGUI_MovableTooltip") );
 
+        local y = self.movableBtn:getY() + self.movableIcon:getHeightOrig() + 20
+    
         if getCore():getDebug() or (ISDebugMenu.forceEnable and not isClient()) then
             local texWid = self.debugIcon:getWidthOrig()
             local texHgt = self.debugIcon:getHeightOrig()
-            self.debugBtn = ISButton:new(5, self.movableBtn:getY() + self.movableIcon:getHeightOrig() + 20, texWid, texHgt, "", self, ISEquippedItem.onOptionMouseDown);
+            self.debugBtn = ISButton:new(5, y, texWid, texHgt, "", self, ISEquippedItem.onOptionMouseDown);
             self.debugBtn:setImage(self.debugIcon);
             self.debugBtn.internal = "DEBUG";
             self.debugBtn:initialise();
@@ -433,8 +513,46 @@ function ISEquippedItem:initialise()
             self:addChild(self.debugBtn);
 
             self:setHeight(self.debugBtn:getBottom())
+            y = self.debugBtn:getY() + self.debugIcon:getHeightOrig() + 10
         else
             self:setHeight(self.movableBtn:getBottom())
+        end
+        
+        if isClient() then
+            local texWid = self.clientIcon:getWidthOrig()
+            local texHgt = self.clientIcon:getHeightOrig()
+            self.clientBtn = ISButton:new(5, y, texWid, texHgt, "", self, ISEquippedItem.onOptionMouseDown);
+            self.clientBtn:setImage(self.clientIcon);
+            self.clientBtn.internal = "USERPANEL";
+            self.clientBtn:initialise();
+            self.clientBtn:instantiate();
+            self.clientBtn:setDisplayBackground(false);
+    
+            self.clientBtn.borderColor = {r=1, g=1, b=1, a=0.1};
+            self.clientBtn:ignoreWidthChange();
+            self.clientBtn:ignoreHeightChange();
+    
+            self:addChild(self.clientBtn);
+    
+            self:setHeight(self.clientBtn:getBottom())
+            y = self.clientBtn:getY() + self.clientIcon:getHeightOrig() + 10
+        
+            self.adminBtn = ISButton:new(5, y, texWid, texHgt, "", self, ISEquippedItem.onOptionMouseDown);
+            self.adminBtn:setImage(self.adminIcon);
+            self.adminBtn.internal = "ADMINPANEL";
+            self.adminBtn:initialise();
+            self.adminBtn:instantiate();
+            self.adminBtn:setDisplayBackground(false);
+
+            self.adminBtn.borderColor = {r=1, g=1, b=1, a=0.1};
+            self.adminBtn:ignoreWidthChange();
+            self.adminBtn:ignoreHeightChange();
+
+            self:addChild(self.adminBtn);
+
+            self:setHeight(self.adminBtn:getBottom())
+    
+            self.adminBtn:setVisible(false);
         end
     end
 
@@ -628,8 +746,11 @@ end
 
 -----
 
-function launchEquippedItem(chr)
-	local panel = ISEquippedItem:new(10, 10, 100, 250, chr);
+function launchEquippedItem(playerObj)
+	local playerNum = playerObj:getPlayerNum()
+	local x = getPlayerScreenLeft(playerNum)
+    local y = getPlayerScreenTop(playerNum)
+	local panel = ISEquippedItem:new(x + 10, y + 10, 100, 250, playerObj);
     panel:initialise();
 	panel:addToUIManager();
     return panel;

@@ -14,10 +14,8 @@
 ---@field public PushedStrength int
 ---@field closedSprite IsoSprite
 ---@field public north boolean
----@field public name String
 ---@field private thumpDmg int
 ---@field private crossSpeed float
----@field gid int
 ---@field public open boolean
 ---@field openSprite IsoSprite
 ---@field private destroyed boolean
@@ -52,229 +50,24 @@
 ---@field public tempo JVector2
 IsoThumpable = {}
 
----Overrides:
----
----update in class IsoObject
 ---@public
+---@param lightSourceXOffset int
 ---@return void
-function IsoThumpable:update() end
+function IsoThumpable:setLightSourceXOffset(lightSourceXOffset) end
+
+---Can you barricade/unbarricade the item
+---@public
+---@return boolean
+function IsoThumpable:getCanBarricade() end
 
 ---@public
 ---@return boolean
-function IsoThumpable:canBeLockByPadlock() end
+function IsoThumpable:isBarricaded() end
 
 ---@public
----@param isHoppable boolean
+---@param lockedByCode int
 ---@return void
-function IsoThumpable:setIsHoppable(isHoppable) end
-
----@public
----@param lifeDelta float
----@return void
-function IsoThumpable:setLifeDelta(lifeDelta) end
-
----@public
----@return boolean
-function IsoThumpable:isObstructed() end
-
----Overrides:
----
----TestVision in class IsoObject
----@public
----@param from IsoGridSquare
----@param to IsoGridSquare
----@return IsoObject.VisionResult
-function IsoThumpable:TestVision(from, to) end
-
----@public
----@param arg0 int
----@return void
-function IsoThumpable:setHealth(arg0) end
-
----Overrides:
----
----getKeyId in class IsoObject
----@public
----@return int
-function IsoThumpable:getKeyId() end
-
----@public
----@param arg0 IsoGridSquare
----@return boolean
-function IsoThumpable:isAdjacentToSquare(arg0) end
-
----@public
----@param pIsDoorFrame boolean
----@return void
-function IsoThumpable:setIsDoorFrame(pIsDoorFrame) end
-
----@public
----@return boolean
-function IsoThumpable:isHoppable() end
-
----@public
----@param sprite IsoSprite
----@return void
-function IsoThumpable:setOpenSprite(sprite) end
-
----@public
----@param lightSourceYOffset int
----@return void
-function IsoThumpable:setLightSourceYOffset(lightSourceYOffset) end
-
----Overrides:
----
----TestCollide in class IsoObject
----@public
----@param obj IsoMovingObject
----@param from IsoGridSquare
----@param to IsoGridSquare
----@return boolean
-function IsoThumpable:TestCollide(obj, from, to) end
-
----@public
----@return IsoLightSource
-function IsoThumpable:getLightSource() end
-
----@public
----@return IsoGridSquare
-function IsoThumpable:getOppositeSquare() end
-
----Overrides:
----
----setName in class IsoObject
----@public
----@param pName String @the name to set
----@return void
-function IsoThumpable:setName(pName) end
-
----@public
----@return IsoCurtain
-function IsoThumpable:HasCurtains() end
-
----@public
----@param arg0 IsoPlayer
----@param arg1 String
----@return boolean
-function IsoThumpable:addSheetRope(arg0, arg1) end
-
----Overrides:
----
----getModData in class IsoObject
----@public
----@return KahluaTable
-function IsoThumpable:getModData() end
-
----@public
----@return int
-function IsoThumpable:getLockedByCode() end
-
----@public
----@param paintable boolean
----@return void
-function IsoThumpable:setPaintable(paintable) end
-
----Overrides:
----
----hasModData in class IsoObject
----@public
----@return boolean
-function IsoThumpable:hasModData() end
-
----@public
----@return boolean
-function IsoThumpable:isLocked() end
-
----@public
----@param owner IsoGameCharacter
----@param weapon HandWeapon
----@return void
-function IsoThumpable:WeaponHit(owner, weapon) end
-
----@public
----@param player IsoPlayer
----@return boolean
-function IsoThumpable:removeSheetRope(player) end
-
----@public
----@param pIsDoor boolean
----@return void
----@overload fun(pIsDoor:Boolean)
-function IsoThumpable:setIsDoor(pIsDoor) end
-
----@public
----@param pIsDoor Boolean
----@return void
-function IsoThumpable:setIsDoor(pIsDoor) end
-
----@public
----@param pIsFloor boolean
----@return void
-function IsoThumpable:setIsFloor(pIsFloor) end
-
----@public
----@param arg0 ByteBufferWriter
----@return void
-function IsoThumpable:syncIsoObjectSend(arg0) end
-
----@public
----@param item InventoryItem
----@param chr IsoGameCharacter
----@return InventoryItem
-function IsoThumpable:insertNewFuel(item, chr) end
-
----@public
----@return int
-function IsoThumpable:getLightSourceRadius() end
-
----@public
----@return boolean
-function IsoThumpable:isDoor() end
-
----@public
----@param arg0 IsoGameCharacter
----@return boolean
-function IsoThumpable:canClimbThrough(arg0) end
-
----@private
----@return int
-function IsoThumpable:calcLightSourceY() end
-
----@public
----@return IsoGridSquare
-function IsoThumpable:getIndoorSquare() end
-
----@public
----@param thumpable boolean
----@return void
-function IsoThumpable:setIsThumpable(thumpable) end
-
----@public
----@param arg0 int
----@return void
-function IsoThumpable:setMaxHealth(arg0) end
-
----@public
----@param arg0 String
----@return void
-function IsoThumpable:setSpriteFromName(arg0) end
-
----Overrides:
----
----getTable in class IsoObject
----@public
----@return KahluaTable @the table
-function IsoThumpable:getTable() end
-
----The sound that be played if this object is broken default "breakdoor"
----@public
----@param pBreakSound String
----@return void
-function IsoThumpable:setBreakSound(pBreakSound) end
-
----@public
----@return String
-function IsoThumpable:getLightSourceFuel() end
+function IsoThumpable:setLockedByCode(lockedByCode) end
 
 ---@public
 ---@param blockAllTheSquare boolean
@@ -283,24 +76,15 @@ function IsoThumpable:setBlockAllTheSquare(blockAllTheSquare) end
 
 ---@public
 ---@return boolean
-function IsoThumpable:haveSheetRope() end
+function IsoThumpable:isFloor() end
 
 ---@public
----@return int
-function IsoThumpable:countAddSheetRope() end
+---@return IsoObject
+function IsoThumpable:getRenderEffectMaster() end
 
 ---@public
----@param chr IsoGameCharacter
----@return boolean
-function IsoThumpable:isLockedToCharacter(chr) end
-
----@public
----@return String
-function IsoThumpable:getThumpSound() end
-
----@public
----@return boolean
-function IsoThumpable:isLockedByPadlock() end
+---@return IsoBarricade
+function IsoThumpable:getBarricadeOnOppositeSquare() end
 
 ---@public
 ---@param dismantable boolean
@@ -308,46 +92,58 @@ function IsoThumpable:isLockedByPadlock() end
 function IsoThumpable:setIsDismantable(dismantable) end
 
 ---@public
+---@return float
+function IsoThumpable:getLifeDelta() end
+
+---@public
+---@return int
+function IsoThumpable:countAddSheetRope() end
+
+---@public
+---@param lock boolean
+---@return void
+function IsoThumpable:setIsLocked(lock) end
+
+---@public
+---@param thumpable boolean
+---@return void
+function IsoThumpable:setIsThumpable(thumpable) end
+
+---@public
+---@param canBePlastered boolean
+---@return void
+function IsoThumpable:setCanBePlastered(canBePlastered) end
+
+---@public
+---@param chr IsoGameCharacter
+---@return void
+function IsoThumpable:addSheet(chr) end
+
+---@public
 ---@return boolean
-function IsoThumpable:isLightSourceOn() end
+function IsoThumpable:isStairs() end
 
 ---@public
----@param arg0 IsoGameCharacter
----@return IsoBarricade
-function IsoThumpable:getBarricadeForCharacter(arg0) end
+---@param pCorner boolean
+---@return void
+function IsoThumpable:setCorner(pCorner) end
 
 ---@public
----@param arg0 IsoGameCharacter
----@return Thumpable
-function IsoThumpable:getThumpableFor(arg0) end
+---@param lightSourceLife int
+---@return void
+function IsoThumpable:setLightSourceLife(lightSourceLife) end
 
 ---@public
 ---@param lightSource IsoLightSource
 ---@return void
 function IsoThumpable:setLightSource(lightSource) end
 
+---Overrides:
+---
+---getObjectName in class IsoObject
 ---@public
----@return void
-function IsoThumpable:ToggleDoorSilent() end
-
----@public
----@param lightSourceRadius int
----@return void
-function IsoThumpable:setLightSourceRadius(lightSourceRadius) end
-
----@public
----@param arg0 IsoGameCharacter
----@return IsoGridSquare
-function IsoThumpable:getAddSheetSquare(arg0) end
-
----@public
----@param pCrossSpeed float
----@return void
-function IsoThumpable:setCrossSpeed(pCrossSpeed) end
-
----@public
----@return int
-function IsoThumpable:getLightSourceXOffset() end
+---@return String
+function IsoThumpable:getObjectName() end
 
 ---Overrides:
 ---
@@ -364,100 +160,32 @@ function IsoThumpable:setKeyId(keyId) end
 ---@return void
 function IsoThumpable:setKeyId(keyId, doNetwork) end
 
----@param arg0 int
----@return void
-function IsoThumpable:Damage(arg0) end
-
----Overrides:
----
----removeFromWorld in class IsoObject
 ---@public
 ---@return void
-function IsoThumpable:removeFromWorld() end
-
----Numbers of zeds need to hurt the object default 8
----@public
----@param pThumpDmg Integer
----@return void
-function IsoThumpable:setThumpDmg(pThumpDmg) end
-
----@public
----@return boolean
-function IsoThumpable:isCanPassThrough() end
-
----Overrides:
----
----onMouseLeftClick in class IsoObject
----@public
----@param x int
----@param y int
----@return boolean
-function IsoThumpable:onMouseLeftClick(x, y) end
-
----@public
----@param lightSourceLife int
----@return void
-function IsoThumpable:setLightSourceLife(lightSourceLife) end
-
----@public
----@param chr IsoGameCharacter
----@return IsoGridSquare
-function IsoThumpable:getOtherSideOfDoor(chr) end
-
----Can you barricade/unbarricade the item default true
----@public
----@param pCanBarricade boolean
----@return void
-function IsoThumpable:setCanBarricade(pCanBarricade) end
-
----@public
----@param chr IsoGameCharacter
----@return void
-function IsoThumpable:ToggleDoorActual(chr) end
-
----@public
----@return float
-function IsoThumpable:getCrossSpeed() end
-
----@public
----@param chr IsoGameCharacter
----@return void
-function IsoThumpable:ToggleDoor(chr) end
+function IsoThumpable:destroy() end
 
 ---@public
 ---@param arg0 IsoGameCharacter
----@return boolean
-function IsoThumpable:canClimbOver(arg0) end
+---@return IsoBarricade
+function IsoThumpable:getBarricadeOppositeCharacter(arg0) end
 
 ---@public
----@return boolean
-function IsoThumpable:isBlockAllTheSquare() end
-
----@public
----@return int
-function IsoThumpable:getLightSourceYOffset() end
-
----@private
----@return int
-function IsoThumpable:calcLightSourceX() end
+---@param canBeLockByPadlock boolean
+---@return void
+function IsoThumpable:setCanBeLockByPadlock(canBeLockByPadlock) end
 
 ---@public
 ---@return boolean
 function IsoThumpable:getNorth() end
 
 ---@public
----@return boolean
-function IsoThumpable:isLockedByKey() end
+---@param lightSourceOn boolean
+---@return void
+function IsoThumpable:setLightSourceOn(lightSourceOn) end
 
 ---@public
----@param pStairs boolean
----@return void
-function IsoThumpable:setIsStairs(pStairs) end
-
----@public
----@param lightSourceFuel String
----@return void
-function IsoThumpable:setLightSourceFuel(lightSourceFuel) end
+---@return IsoGridSquare
+function IsoThumpable:getInsideSquare() end
 
 ---@public
 ---@param radius int
@@ -471,145 +199,17 @@ function IsoThumpable:setLightSourceFuel(lightSourceFuel) end
 ---@return void
 function IsoThumpable:createLightSource(radius, offsetX, offsetY, offsetZ, life, lightSourceFuel, baseItem, chr) end
 
----throws java.io.IOException
----
 ---Overrides:
 ---
----load in class IsoObject
+---addToWorld in class IsoObject
 ---@public
----@param input ByteBuffer
----@param WorldVersion int
 ---@return void
-function IsoThumpable:load(input, WorldVersion) end
+function IsoThumpable:addToWorld() end
 
 ---@public
----@return IsoGridSquare
-function IsoThumpable:getInsideSquare() end
-
----Overrides:
----
----loadChange in class IsoObject
----@public
----@param change String
----@param bb ByteBuffer
+---@param chr IsoGameCharacter
 ---@return void
-function IsoThumpable:loadChange(change, bb) end
-
----Specified by:
----
----Thump in interface Thumpable
----@public
----@param thumper IsoMovingObject
----@return void
-function IsoThumpable:Thump(thumper) end
-
----Overrides:
----
----setSprite in class IsoObject
----@public
----@param sprite String
----@return void
-function IsoThumpable:setSprite(sprite) end
-
----@public
----@return boolean
-function IsoThumpable:IsStrengthenedByPushedItems() end
-
----@public
----@return boolean
-function IsoThumpable:isPaintable() end
-
----@public
----@param pIsContainer boolean
----@return void
-function IsoThumpable:setIsContainer(pIsContainer) end
-
----@public
----@return boolean
-function IsoThumpable:canAddSheetRope() end
-
----@public
----@param lifeLeft float
----@return void
-function IsoThumpable:setLifeLeft(lifeLeft) end
-
----@public
----@param sprite IsoSprite
----@return void
-function IsoThumpable:setClosedSprite(sprite) end
-
----@public
----@param arg0 String
----@return void
-function IsoThumpable:setThumpSound(arg0) end
-
----@public
----@param canBePlastered boolean
----@return void
-function IsoThumpable:setCanBePlastered(canBePlastered) end
-
----@public
----@return float
-function IsoThumpable:getLifeDelta() end
-
----@public
----@return boolean
-function IsoThumpable:isStairs() end
-
----@public
----@return IsoSprite
-function IsoThumpable:getOpenSprite() end
-
----@public
----@param lightSourceXOffset int
----@return void
-function IsoThumpable:setLightSourceXOffset(lightSourceXOffset) end
-
----@public
----@return IsoObject
-function IsoThumpable:getRenderEffectMaster() end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoObject
----@public
----@param output ByteBuffer
----@return void
-function IsoThumpable:save(output) end
-
----@public
----@return IsoBarricade
-function IsoThumpable:getBarricadeOnOppositeSquare() end
-
----@public
----@return boolean
-function IsoThumpable:isDismantable() end
-
----@public
----@param arg0 boolean
----@return IsoDirections
-function IsoThumpable:getSpriteEdge(arg0) end
-
----@public
----@param pCorner boolean
----@return void
-function IsoThumpable:setCorner(pCorner) end
-
----@public
----@param lock boolean
----@return void
-function IsoThumpable:setIsLocked(lock) end
-
----@public
----@param lockedByPadlock boolean
----@return void
-function IsoThumpable:setLockedByPadlock(lockedByPadlock) end
-
----@public
----@return int
-function IsoThumpable:getMaxHealth() end
+function IsoThumpable:ToggleDoor(chr) end
 
 ---Overrides:
 ---
@@ -620,39 +220,253 @@ function IsoThumpable:getMaxHealth() end
 function IsoThumpable:setTable(_table) end
 
 ---@public
----@param chr IsoGameCharacter
+---@return boolean
+function IsoThumpable:isLockedByKey() end
+
+---@public
+---@param lifeLeft float
 ---@return void
-function IsoThumpable:addSheet(chr) end
+function IsoThumpable:setLifeLeft(lifeLeft) end
+
+---@public
+---@return int
+function IsoThumpable:getLightSourceYOffset() end
+
+---@public
+---@return int
+function IsoThumpable:getMaxHealth() end
+
+---@public
+---@return float
+function IsoThumpable:getCrossSpeed() end
+
+---@public
+---@return int
+function IsoThumpable:getLightSourceLife() end
+
+---@public
+---@param sprite IsoSprite
+---@return void
+function IsoThumpable:setClosedSprite(sprite) end
+
+---@public
+---@return void
+function IsoThumpable:ToggleDoorSilent() end
+
+---Can you barricade/unbarricade the item default true
+---@public
+---@param pCanBarricade boolean
+---@return void
+function IsoThumpable:setCanBarricade(pCanBarricade) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return IsoGridSquare
+function IsoThumpable:getAddSheetSquare(arg0) end
 
 ---Overrides:
 ---
----getObjectName in class IsoObject
----@public
----@return String
-function IsoThumpable:getObjectName() end
-
----@public
----@param lightSourceOn boolean
----@return void
-function IsoThumpable:setLightSourceOn(lightSourceOn) end
-
+---removeFromWorld in class IsoObject
 ---@public
 ---@return void
-function IsoThumpable:syncIsoThumpable() end
+function IsoThumpable:removeFromWorld() end
 
 ---@public
----@param toggle boolean
----@return void
-function IsoThumpable:toggleLightSource(toggle) end
+---@param arg0 IsoGridSquare
+---@return boolean
+function IsoThumpable:isAdjacentToSquare(arg0) end
 
 ---@public
 ---@return boolean
-function IsoThumpable:isFloor() end
+function IsoThumpable:isDoor() end
+
+---Overrides:
+---
+---loadChange in class IsoObject
+---@public
+---@param change String
+---@param bb ByteBuffer
+---@return void
+function IsoThumpable:loadChange(change, bb) end
 
 ---@public
----@param lockedByKey boolean
+---@param chr IsoGameCharacter
+---@return IsoGridSquare
+function IsoThumpable:getOtherSideOfDoor(chr) end
+
+---@public
+---@return IsoGridSquare
+function IsoThumpable:getOppositeSquare() end
+
+---@public
+---@return boolean
+function IsoThumpable:isDismantable() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return Thumpable
+function IsoThumpable:getThumpableFor(arg0) end
+
+---@public
+---@param lightSourceRadius int
 ---@return void
-function IsoThumpable:setLockedByKey(lockedByKey) end
+function IsoThumpable:setLightSourceRadius(lightSourceRadius) end
+
+---@public
+---@param pIsDoor boolean
+---@return void
+---@overload fun(pIsDoor:Boolean)
+function IsoThumpable:setIsDoor(pIsDoor) end
+
+---@public
+---@param pIsDoor Boolean
+---@return void
+function IsoThumpable:setIsDoor(pIsDoor) end
+
+---@public
+---@return IsoCurtain
+function IsoThumpable:HasCurtains() end
+
+---Overrides:
+---
+---onMouseLeftClick in class IsoObject
+---@public
+---@param x int
+---@param y int
+---@return boolean
+function IsoThumpable:onMouseLeftClick(x, y) end
+
+---@public
+---@return boolean
+function IsoThumpable:isCanPassThrough() end
+
+---@public
+---@return boolean
+function IsoThumpable:canBeLockByPadlock() end
+
+---Numbers of zeds need to hurt the object default 8
+---@public
+---@param pThumpDmg Integer
+---@return void
+function IsoThumpable:setThumpDmg(pThumpDmg) end
+
+---@public
+---@return int
+function IsoThumpable:getLightSourceXOffset() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return IsoBarricade
+function IsoThumpable:getBarricadeForCharacter(arg0) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function IsoThumpable:canClimbOver(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return IsoDirections
+function IsoThumpable:getSpriteEdge(arg0) end
+
+---The sound that be played if this object is broken default "breakdoor"
+---@public
+---@param pBreakSound String
+---@return void
+function IsoThumpable:setBreakSound(pBreakSound) end
+
+---@public
+---@return boolean
+function IsoThumpable:isBarricadeAllowed() end
+
+---@private
+---@return int
+function IsoThumpable:calcLightSourceY() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoThumpable:setMaxHealth(arg0) end
+
+---@public
+---@param chr IsoGameCharacter
+---@return boolean
+function IsoThumpable:isLockedToCharacter(chr) end
+
+---Overrides:
+---
+---getTable in class IsoObject
+---@public
+---@return KahluaTable @the table
+function IsoThumpable:getTable() end
+
+---@public
+---@return boolean
+function IsoThumpable:canAddSheetRope() end
+
+---Overrides:
+---
+---TestVision in class IsoObject
+---@public
+---@param from IsoGridSquare
+---@param to IsoGridSquare
+---@return IsoObject.VisionResult
+function IsoThumpable:TestVision(from, to) end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoThumpable:setThumpSound(arg0) end
+
+---@public
+---@return boolean
+function IsoThumpable:IsStrengthenedByPushedItems() end
+
+---Overrides:
+---
+---getKeyId in class IsoObject
+---@public
+---@return int
+function IsoThumpable:getKeyId() end
+
+---@public
+---@param chr IsoGameCharacter
+---@return void
+function IsoThumpable:ToggleDoorActual(chr) end
+
+---Overrides:
+---
+---TestCollide in class IsoObject
+---@public
+---@param obj IsoMovingObject
+---@param from IsoGridSquare
+---@param to IsoGridSquare
+---@return boolean
+function IsoThumpable:TestCollide(obj, from, to) end
+
+---Specified by:
+---
+---Thump in interface Thumpable
+---@public
+---@param thumper IsoMovingObject
+---@return void
+function IsoThumpable:Thump(thumper) end
+
+---@public
+---@return boolean
+function IsoThumpable:isHoppable() end
+
+---@public
+---@return String
+function IsoThumpable:getThumpSound() end
+
+---@public
+---@return boolean
+function IsoThumpable:isPaintable() end
+
+---@public
+---@return int
+function IsoThumpable:getLightSourceRadius() end
 
 ---Overrides:
 ---
@@ -665,63 +479,18 @@ function IsoThumpable:setLockedByKey(lockedByKey) end
 function IsoThumpable:TestPathfindCollide(obj, from, to) end
 
 ---@public
+---@param player IsoPlayer
 ---@return boolean
-function IsoThumpable:haveFuel() end
-
----@public
----@return IsoBarricade
-function IsoThumpable:getBarricadeOnSameSquare() end
-
----@public
----@param arg0 IsoGameCharacter
----@return IsoBarricade
-function IsoThumpable:getBarricadeOppositeCharacter(arg0) end
+function IsoThumpable:removeSheetRope(player) end
 
 ---@public
 ---@return boolean
-function IsoThumpable:isBarricaded() end
+function IsoThumpable:haveSheetRope() end
 
 ---@public
----@return boolean
-function IsoThumpable:isWindow() end
-
----@public
----@return boolean
-function IsoThumpable:IsOpen() end
-
----Overrides:
----
----getFacingPosition in class IsoObject
----@public
----@param pos JVector2
----@return JVector2
-function IsoThumpable:getFacingPosition(pos) end
-
----@public
----@return boolean
-function IsoThumpable:isThumpable() end
-
----@public
----@return int
-function IsoThumpable:getLightSourceLife() end
-
----@public
----@return boolean
-function IsoThumpable:isCorner() end
-
----@public
----@param haveFuel boolean
+---@param toggle boolean
 ---@return void
-function IsoThumpable:setHaveFuel(haveFuel) end
-
----@public
----@return int
-function IsoThumpable:getHealth() end
-
----Can you barricade/unbarricade the item
----@public
----@return boolean
-function IsoThumpable:getCanBarricade() end
+function IsoThumpable:toggleLightSource(toggle) end
 
 ---Can you pass through the item, if false we gonna test the collide default to false (so it collide)
 ---@public
@@ -731,36 +500,132 @@ function IsoThumpable:setCanPassThrough(pCanPassThrough) end
 
 ---@public
 ---@return boolean
+function IsoThumpable:isLightSourceOn() end
+
+---@public
+---@return int
+function IsoThumpable:getLockedByCode() end
+
+---@public
+---@return IsoLightSource
+function IsoThumpable:getLightSource() end
+
+---Overrides:
+---
+---getModData in class IsoObject
+---@public
+---@return KahluaTable
+function IsoThumpable:getModData() end
+
+---@public
+---@param arg0 ByteBufferWriter
+---@return void
+function IsoThumpable:syncIsoObjectSend(arg0) end
+
+---Overrides:
+---
+---hasModData in class IsoObject
+---@public
+---@return boolean
+function IsoThumpable:hasModData() end
+
+---@public
+---@return IsoGridSquare
+function IsoThumpable:getIndoorSquare() end
+
+---@public
+---@param arg0 String
+---@return void
+function IsoThumpable:setSpriteFromName(arg0) end
+
+---@public
+---@return String
+function IsoThumpable:getLightSourceFuel() end
+
+---@public
+---@return boolean
+function IsoThumpable:IsOpen() end
+
+---@public
+---@return boolean
+function IsoThumpable:isLockedByPadlock() end
+
+---@public
+---@return boolean
+function IsoThumpable:isThumpable() end
+
+---@public
+---@param modData KahluaTable
+---@return void
+function IsoThumpable:setModData(modData) end
+
+---@public
+---@param pCrossSpeed float
+---@return void
+function IsoThumpable:setCrossSpeed(pCrossSpeed) end
+
+---@public
+---@return boolean
+function IsoThumpable:isLocked() end
+
+---@public
+---@return boolean
+function IsoThumpable:isWindow() end
+
+---@param arg0 int
+---@return void
+function IsoThumpable:Damage(arg0) end
+
+---@public
+---@param lightSourceYOffset int
+---@return void
+function IsoThumpable:setLightSourceYOffset(lightSourceYOffset) end
+
+---@public
+---@return boolean
+function IsoThumpable:haveFuel() end
+
+---@public
+---@return boolean
+function IsoThumpable:isObstructed() end
+
+---@public
+---@param arg0 int
+---@return void
+function IsoThumpable:setHealth(arg0) end
+
+---@public
+---@param paintable boolean
+---@return void
+function IsoThumpable:setPaintable(paintable) end
+
+---@public
+---@param arg0 IsoPlayer
+---@param arg1 String
+---@return boolean
+function IsoThumpable:addSheetRope(arg0, arg1) end
+
+---@public
+---@param haveFuel boolean
+---@return void
+function IsoThumpable:setHaveFuel(haveFuel) end
+
+---@public
+---@return boolean
 function IsoThumpable:isDoorFrame() end
 
 ---Overrides:
 ---
----addToWorld in class IsoObject
+---setSprite in class IsoObject
 ---@public
+---@param sprite String
 ---@return void
-function IsoThumpable:addToWorld() end
-
----Specified by:
----
----isDestroyed in interface Thumpable
----@public
----@return boolean
-function IsoThumpable:isDestroyed() end
-
----Overrides:
----
----getName in class IsoObject
----@public
----@return String
-function IsoThumpable:getName() end
+function IsoThumpable:setSprite(sprite) end
 
 ---@public
----@return boolean
-function IsoThumpable:canBePlastered() end
-
----@public
+---@param sprite IsoSprite
 ---@return void
-function IsoThumpable:destroy() end
+function IsoThumpable:setOpenSprite(sprite) end
 
 ---Overrides:
 ---
@@ -773,28 +638,41 @@ function IsoThumpable:destroy() end
 function IsoThumpable:saveChange(change, tbl, bb) end
 
 ---@public
----@param chr IsoGameCharacter
----@return InventoryItem
-function IsoThumpable:removeCurrentFuel(chr) end
+---@return boolean
+function IsoThumpable:isCorner() end
 
 ---@public
----@param canBeLockByPadlock boolean
+---@param pIsDoorFrame boolean
 ---@return void
-function IsoThumpable:setCanBeLockByPadlock(canBeLockByPadlock) end
+function IsoThumpable:setIsDoorFrame(pIsDoorFrame) end
+
+---@public
+---@param lightSourceFuel String
+---@return void
+function IsoThumpable:setLightSourceFuel(lightSourceFuel) end
+
+---@public
+---@return boolean
+function IsoThumpable:isBlockAllTheSquare() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoThumpable:save(arg0, arg1) end
 
 ---@public
 ---@return float
 function IsoThumpable:getLifeLeft() end
 
 ---@public
----@param lockedByCode int
----@return void
-function IsoThumpable:setLockedByCode(lockedByCode) end
+---@return boolean
+function IsoThumpable:canBePlastered() end
 
 ---@public
----@param modData KahluaTable
+---@param isHoppable boolean
 ---@return void
-function IsoThumpable:setModData(modData) end
+function IsoThumpable:setIsHoppable(isHoppable) end
 
 ---@public
 ---@param arg0 boolean
@@ -808,3 +686,104 @@ function IsoThumpable:syncIsoObject(arg0, arg1, arg2, arg3) end
 ---@param isHoppable boolean
 ---@return void
 function IsoThumpable:setHoppable(isHoppable) end
+
+---@public
+---@param chr IsoGameCharacter
+---@return InventoryItem
+function IsoThumpable:removeCurrentFuel(chr) end
+
+---Specified by:
+---
+---isDestroyed in interface Thumpable
+---@public
+---@return boolean
+function IsoThumpable:isDestroyed() end
+
+---@public
+---@return int
+function IsoThumpable:getHealth() end
+
+---@public
+---@param pStairs boolean
+---@return void
+function IsoThumpable:setIsStairs(pStairs) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
+---@return void
+function IsoThumpable:load(arg0, arg1, arg2) end
+
+---@public
+---@return IsoBarricade
+function IsoThumpable:getBarricadeOnSameSquare() end
+
+---@public
+---@param lockedByKey boolean
+---@return void
+function IsoThumpable:setLockedByKey(lockedByKey) end
+
+---@public
+---@return void
+function IsoThumpable:syncIsoThumpable() end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function IsoThumpable:canClimbThrough(arg0) end
+
+---@public
+---@param lockedByPadlock boolean
+---@return void
+function IsoThumpable:setLockedByPadlock(lockedByPadlock) end
+
+---@public
+---@param lifeDelta float
+---@return void
+function IsoThumpable:setLifeDelta(lifeDelta) end
+
+---@public
+---@param item InventoryItem
+---@param chr IsoGameCharacter
+---@return InventoryItem
+function IsoThumpable:insertNewFuel(item, chr) end
+
+---@public
+---@param pIsFloor boolean
+---@return void
+function IsoThumpable:setIsFloor(pIsFloor) end
+
+---@public
+---@param owner IsoGameCharacter
+---@param weapon HandWeapon
+---@return void
+function IsoThumpable:WeaponHit(owner, weapon) end
+
+---Overrides:
+---
+---getFacingPosition in class IsoObject
+---@public
+---@param pos JVector2
+---@return JVector2
+function IsoThumpable:getFacingPosition(pos) end
+
+---@public
+---@param pIsContainer boolean
+---@return void
+function IsoThumpable:setIsContainer(pIsContainer) end
+
+---@private
+---@return int
+function IsoThumpable:calcLightSourceX() end
+
+---Overrides:
+---
+---update in class IsoObject
+---@public
+---@return void
+function IsoThumpable:update() end
+
+---@public
+---@return IsoSprite
+function IsoThumpable:getOpenSprite() end

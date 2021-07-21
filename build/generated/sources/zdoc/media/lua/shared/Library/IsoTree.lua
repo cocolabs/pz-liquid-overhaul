@@ -11,8 +11,69 @@
 IsoTree = {}
 
 ---@public
+---@param arg0 IsoMovingObject
+---@return float
+function IsoTree:getSlowFactor(arg0) end
+
+---Overrides:
+---
+---getObjectName in class IsoObject
+---@public
+---@return String
+function IsoTree:getObjectName() end
+
+---@public
+---@return int
+function IsoTree:getHealth() end
+
+---@public
+---@return IsoTree
+function IsoTree:getNew() end
+
+---@public
+---@param owner IsoGameCharacter
+---@param weapon HandWeapon
+---@return void
+function IsoTree:WeaponHit(owner, weapon) end
+
+---Overrides:
+---
+---reset in class IsoObject
+---@public
+---@return void
+function IsoTree:reset() end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return void
+function IsoTree:renderChopTreeIndicator(arg0) end
+
+---Overrides:
+---
+---setSprite in class IsoObject
+---@public
+---@param sprite IsoSprite @the sprite to set
+---@return void
+function IsoTree:setSprite(sprite) end
+
+---@public
+---@return int
+function IsoTree:getMaxHealth() end
+
+---@public
 ---@return void
 function IsoTree:renderChopTreeIndicators() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 boolean
+---@return boolean
+function IsoTree:isMaskClicked(arg0, arg1, arg2) end
+
+---@public
+---@return int
+function IsoTree:getSize() end
 
 ---@public
 ---@param arg0 float
@@ -25,45 +86,6 @@ function IsoTree:renderChopTreeIndicators() end
 ---@return void
 function IsoTree:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
 
----@public
----@param arg0 int
----@return void
-function IsoTree:setHealth(arg0) end
-
----@public
----@param arg0 float
----@return void
-function IsoTree:Damage(arg0) end
-
----@private
----@param arg0 float
----@param arg1 float
----@param arg2 float
----@return void
-function IsoTree:checkChopTreeIndicator(arg0, arg1, arg2) end
-
----@public
----@return IsoTree
-function IsoTree:getNew() end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return void
-function IsoTree:setChopTreeCursorLocation(arg0, arg1, arg2, arg3) end
-
----throws java.io.IOException
----
----Overrides:
----
----save in class IsoObject
----@public
----@param output ByteBuffer
----@return void
-function IsoTree:save(output) end
-
 ---@private
 ---@param arg0 float
 ---@param arg1 float
@@ -75,77 +97,47 @@ function IsoTree:save(output) end
 function IsoTree:renderInner(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return int
-function IsoTree:getHealth() end
-
----Overrides:
----
----getObjectName in class IsoObject
----@public
----@return String
-function IsoTree:getObjectName() end
-
----@private
----@param arg0 IsoGridSquare
+---@param arg0 float
 ---@return void
-function IsoTree:renderChopTreeIndicator(arg0) end
-
----@public
----@return int
-function IsoTree:getSize() end
-
----throws java.io.IOException
----
----Overrides:
----
----load in class IsoObject
----@public
----@param input ByteBuffer
----@param WorldVersion int
----@return void
-function IsoTree:load(input, WorldVersion) end
-
----@public
----@return int
-function IsoTree:getMaxHealth() end
-
----Overrides:
----
----setSprite in class IsoObject
----@public
----@param sprite IsoSprite @the sprite to set
----@return void
-function IsoTree:setSprite(sprite) end
-
----@public
----@param owner IsoGameCharacter
----@param weapon HandWeapon
----@return void
-function IsoTree:WeaponHit(owner, weapon) end
+function IsoTree:Damage(arg0) end
 
 ---@public
 ---@return void
 function IsoTree:initTree() end
 
 ---@public
----@param arg0 IsoMovingObject
----@return float
-function IsoTree:getSlowFactor(arg0) end
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return void
+function IsoTree:setChopTreeCursorLocation(arg0, arg1, arg2, arg3) end
+
+---@private
+---@param arg0 float
+---@param arg1 float
+---@param arg2 float
+---@return void
+function IsoTree:checkChopTreeIndicator(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 int
----@param arg1 int
----@param arg2 boolean
----@return boolean
-function IsoTree:isMaskClicked(arg0, arg1, arg2) end
+---@return void
+function IsoTree:setHealth(arg0) end
 
 ---@protected
 ---@return void
 function IsoTree:checkMoveWithWind() end
 
----Overrides:
----
----reset in class IsoObject
 ---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@param arg2 boolean
 ---@return void
-function IsoTree:reset() end
+function IsoTree:load(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 boolean
+---@return void
+function IsoTree:save(arg0, arg1) end

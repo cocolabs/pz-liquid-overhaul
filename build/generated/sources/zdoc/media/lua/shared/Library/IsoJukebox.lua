@@ -7,12 +7,28 @@
 ---@field private WorldSoundPulseDelay int
 IsoJukebox = {}
 
+---@public
+---@param ShouldPlay boolean
+---@return void
+function IsoJukebox:SetPlaying(ShouldPlay) end
+
 ---Overrides:
 ---
 ---getObjectName in class IsoObject
 ---@public
 ---@return String
 function IsoJukebox:getObjectName() end
+
+---@public
+---@return void
+function IsoJukebox:addToWorld() end
+
+---Overrides:
+---
+---update in class IsoObject
+---@public
+---@return void
+function IsoJukebox:update() end
 
 ---Overrides:
 ---
@@ -22,19 +38,3 @@ function IsoJukebox:getObjectName() end
 ---@param y int
 ---@return boolean
 function IsoJukebox:onMouseLeftClick(x, y) end
-
----Overrides:
----
----update in class IsoObject
----@public
----@return void
-function IsoJukebox:update() end
-
----@public
----@param ShouldPlay boolean
----@return void
-function IsoJukebox:SetPlaying(ShouldPlay) end
-
----@public
----@return void
-function IsoJukebox:addToWorld() end

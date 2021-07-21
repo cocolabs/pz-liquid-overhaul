@@ -5,12 +5,8 @@
 ---@field private explodeTimer int
 IsoMolotovCocktail = {}
 
----Overrides:
----
----collideGround in class IsoPhysicsObject
----@public
 ---@return void
-function IsoMolotovCocktail:collideGround() end
+function IsoMolotovCocktail:Trigger() end
 
 ---Overrides:
 ---
@@ -21,10 +17,31 @@ function IsoMolotovCocktail:getObjectName() end
 
 ---Overrides:
 ---
+---update in class IsoPhysicsObject
+---@public
+---@return void
+function IsoMolotovCocktail:update() end
+
+---Overrides:
+---
+---collideGround in class IsoPhysicsObject
+---@public
+---@return void
+function IsoMolotovCocktail:collideGround() end
+
+---Overrides:
+---
 ---collideWall in class IsoPhysicsObject
 ---@public
 ---@return void
 function IsoMolotovCocktail:collideWall() end
+
+---Overrides:
+---
+---collideCharacter in class IsoMovingObject
+---@public
+---@return void
+function IsoMolotovCocktail:collideCharacter() end
 
 ---@public
 ---@param arg0 float
@@ -36,23 +53,6 @@ function IsoMolotovCocktail:collideWall() end
 ---@param arg6 Shader
 ---@return void
 function IsoMolotovCocktail:render(arg0, arg1, arg2, arg3, arg4, arg5, arg6) end
-
----Overrides:
----
----collideCharacter in class IsoMovingObject
----@public
----@return void
-function IsoMolotovCocktail:collideCharacter() end
-
----@return void
-function IsoMolotovCocktail:Trigger() end
-
----Overrides:
----
----update in class IsoPhysicsObject
----@public
----@return void
-function IsoMolotovCocktail:update() end
 
 ---@return void
 function IsoMolotovCocktail:Explode() end

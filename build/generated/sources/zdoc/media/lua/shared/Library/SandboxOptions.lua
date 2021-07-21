@@ -39,6 +39,9 @@
 ---@field public FridgeFactor SandboxOptions.EnumSandboxOption
 ---@field public LootRespawn SandboxOptions.EnumSandboxOption
 ---@field public SeenHoursPreventLootRespawn SandboxOptions.IntegerSandboxOption
+---@field public WorldItemRemovalList SandboxOptions.StringSandboxOption
+---@field public HoursForWorldItemRemoval SandboxOptions.DoubleSandboxOption
+---@field public ItemRemovalListBlacklistToggle SandboxOptions.BooleanSandboxOption
 ---@field public TimeSinceApo SandboxOptions.EnumSandboxOption
 ---@field public PlantResilience SandboxOptions.EnumSandboxOption
 ---@field public PlantAbundance SandboxOptions.EnumSandboxOption
@@ -73,6 +76,7 @@
 ---@field public ZombieAttractionMultiplier SandboxOptions.DoubleSandboxOption
 ---@field public VehicleEasyUse SandboxOptions.BooleanSandboxOption
 ---@field public InitialGas SandboxOptions.EnumSandboxOption
+---@field public FuelStationGas SandboxOptions.EnumSandboxOption
 ---@field public LockedCar SandboxOptions.EnumSandboxOption
 ---@field public CarGasConsumption SandboxOptions.DoubleSandboxOption
 ---@field public CarGeneralCondition SandboxOptions.EnumSandboxOption
@@ -92,38 +96,14 @@
 ---@field public zombieConfig SandboxOptions.ZombieConfig
 ---@field public FIRST_YEAR int
 ---@field private SANDBOX_VERSION int
+---@field private m_customOptions ArrayList|Unknown
 SandboxOptions = {}
 
----@public
+---@private
+---@param arg0 SandboxOptions.SandboxOption
+---@param arg1 CustomSandboxOption
 ---@return void
-function SandboxOptions:handleOldZombiesFile1() end
-
----@public
----@return double
-function SandboxOptions:getStatsDecreaseMultiplier() end
-
----@public
----@param arg0 String
----@return boolean
-function SandboxOptions:isValidPresetName(arg0) end
-
----@private
----@param arg0 String
----@param arg1 double
----@param arg2 double
----@param arg3 double
----@return SandboxOptions.DoubleSandboxOption
-function SandboxOptions:newDoubleOption(arg0, arg1, arg2, arg3) end
-
----@public
----@return int
-function SandboxOptions:getTemperatureModifier() end
-
----@private
----@param arg0 String
----@param arg1 boolean
----@return boolean
-function SandboxOptions:readTextFile(arg0, arg1) end
+function SandboxOptions:addCustomOption(arg0, arg1) end
 
 ---@public
 ---@return void
@@ -138,111 +118,15 @@ function SandboxOptions:load(input) end
 
 ---@public
 ---@return int
-function SandboxOptions:getDayLengthMinutes() end
-
----@protected
----@param arg0 SandboxOptions.SandboxOption
----@return SandboxOptions
-function SandboxOptions:addOption(arg0) end
-
----@public
----@return void
-function SandboxOptions:handleOldZombiesFile2() end
-
----@public
----@return int
-function SandboxOptions:getFirstYear() end
-
----@public
----@return SandboxOptions
-function SandboxOptions:getInstance() end
-
----throws java.io.IOException
----@public
----@param output ByteBuffer
----@return void
-function SandboxOptions:save(output) end
+function SandboxOptions:getTimeSinceApo() end
 
 ---@private
 ---@param arg0 String
----@return String[]
-function SandboxOptions:parseName(arg0) end
-
----@public
----@return SandboxOptions
-function SandboxOptions:newCopy() end
-
----@public
----@param arg0 String
----@return boolean
-function SandboxOptions:saveGameFile(arg0) end
-
----@public
----@param arg0 String
----@return boolean
-function SandboxOptions:loadServerZombiesFile(arg0) end
-
----@private
----@param arg0 String
----@param arg1 boolean
----@return boolean
-function SandboxOptions:writeLuaFile(arg0, arg1) end
-
----@public
----@param arg0 String
----@param arg1 Object
----@return void
-function SandboxOptions:set(arg0, arg1) end
-
----@public
----@return int
-function SandboxOptions:getDayLengthMinutesDefault() end
-
----@public
----@return void
-function SandboxOptions:updateFromLua() end
-
----@public
----@param arg0 String
----@return boolean
-function SandboxOptions:loadServerTextFile(arg0) end
-
----@private
----@param arg0 String
----@param arg1 int
----@return boolean
-function SandboxOptions:writeTextFile(arg0, arg1) end
-
----@private
----@param arg0 String
----@param arg1 int
----@return String
-function SandboxOptions:upgradeOptionName(arg0, arg1) end
-
----@private
----@param arg0 String
----@param arg1 boolean
----@return SandboxOptions.BooleanSandboxOption
-function SandboxOptions:newBooleanOption(arg0, arg1) end
-
----@public
----@return void
-function SandboxOptions:setDefaultsToCurrentValues() end
-
----@public
----@param arg0 int
----@return SandboxOptions.SandboxOption
-function SandboxOptions:getOptionByIndex(arg0) end
-
----@private
----@param arg0 String
----@return boolean
-function SandboxOptions:readLuaFile(arg0) end
-
----@public
----@param arg0 String
----@return boolean
-function SandboxOptions:savePresetFile(arg0) end
+---@param arg1 double
+---@param arg2 double
+---@param arg3 double
+---@return SandboxOptions.DoubleSandboxOption
+function SandboxOptions:newDoubleOption(arg0, arg1, arg2, arg3) end
 
 ---@private
 ---@param arg0 String
@@ -253,44 +137,39 @@ function SandboxOptions:upgradeOptionValue(arg0, arg1, arg2) end
 
 ---@public
 ---@return int
-function SandboxOptions:getNumOptions() end
-
----Random the number of day for the selectricity shut off
----@public
----@param electricityShutoffModifier int
----@return int
-function SandboxOptions:randomElectricityShut(electricityShutoffModifier) end
-
----Random the number of day for the water shut off
----@public
----@param waterShutoffModifier int
----@return int
-function SandboxOptions:randomWaterShut(waterShutoffModifier) end
+function SandboxOptions:getWaterShutModifier() end
 
 ---@private
 ---@param arg0 String
----@param arg1 int
----@param arg2 int
----@param arg3 int
----@return SandboxOptions.IntegerSandboxOption
-function SandboxOptions:newIntegerOption(arg0, arg1, arg2, arg3) end
+---@return boolean
+function SandboxOptions:readLuaFile(arg0) end
 
 ---@public
----@return int
-function SandboxOptions:getWeaponLootModifier() end
+---@return void
+function SandboxOptions:updateFromLua() end
+
+---@private
+---@param arg0 String
+---@param arg1 boolean
+---@return boolean
+function SandboxOptions:readTextFile(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
 ---@return boolean
-function SandboxOptions:loadServerLuaFile(arg0) end
+function SandboxOptions:isValidPresetName(arg0) end
+
+---@private
+---@return void
+function SandboxOptions:removeCustomOptions() end
 
 ---@public
 ---@return void
-function SandboxOptions:loadCurrentGameBinFile() end
+function SandboxOptions:toLua() end
 
 ---@public
----@return int
-function SandboxOptions:getErosionSpeed() end
+---@return void
+function SandboxOptions:resetToDefault() end
 
 ---@public
 ---@param arg0 SandboxOptions
@@ -298,13 +177,63 @@ function SandboxOptions:getErosionSpeed() end
 function SandboxOptions:copyValuesFrom(arg0) end
 
 ---@public
----@param arg0 String
----@return boolean
-function SandboxOptions:loadGameFile(arg0) end
+---@return int
+function SandboxOptions:getErosionSpeed() end
 
 ---@public
 ---@return void
-function SandboxOptions:handleOldServerZombiesFile() end
+function SandboxOptions:sendToServer() end
+
+---@public
+---@return int
+function SandboxOptions:getDayLengthMinutes() end
+
+---@private
+---@return void
+function SandboxOptions:saveCurrentGameBinFile() end
+
+---@public
+---@return int
+function SandboxOptions:getOtherLootModifier() end
+
+---@public
+---@param arg0 String
+---@return SandboxOptions.SandboxOption
+function SandboxOptions:getOptionByName(arg0) end
+
+---@public
+---@return void
+function SandboxOptions:handleOldZombiesFile2() end
+
+---@public
+---@return double
+function SandboxOptions:getEnduranceRegenMultiplier() end
+
+---Random the number of day for the water shut off
+---@public
+---@param waterShutoffModifier int
+---@return int
+function SandboxOptions:randomWaterShut(waterShutoffModifier) end
+
+---Random the number of day for the selectricity shut off
+---@public
+---@param electricityShutoffModifier int
+---@return int
+function SandboxOptions:randomElectricityShut(electricityShutoffModifier) end
+
+---@public
+---@param arg0 CustomSandboxOption
+---@return void
+function SandboxOptions:newCustomOption(arg0) end
+
+---@public
+---@return int
+function SandboxOptions:getCompostHours() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function SandboxOptions:loadServerZombiesFile(arg0) end
 
 ---@private
 ---@param arg0 String
@@ -315,43 +244,28 @@ function SandboxOptions:newEnumOption(arg0, arg1, arg2) end
 
 ---@public
 ---@return void
-function SandboxOptions:applySettings() end
-
----@public
----@param arg0 String
----@return SandboxOptions.SandboxOption
-function SandboxOptions:getOptionByName(arg0) end
-
----@public
----@return double
-function SandboxOptions:getEnduranceRegenMultiplier() end
-
----@private
----@param arg0 String
----@param arg1 KahluaTable
----@param arg2 int
----@return KahluaTable
-function SandboxOptions:upgradeLuaTable(arg0, arg1, arg2) end
-
----@public
----@return int
-function SandboxOptions:getCompostHours() end
+function SandboxOptions:handleOldServerZombiesFile() end
 
 ---@public
 ---@return void
-function SandboxOptions:sendToServer() end
+function SandboxOptions:handleOldZombiesFile1() end
 
 ---@public
 ---@return int
-function SandboxOptions:getFoodLootModifier() end
+function SandboxOptions:getNumOptions() end
 
 ---@public
 ---@return int
-function SandboxOptions:getElecShutModifier() end
+function SandboxOptions:getFirstYear() end
 
 ---@public
----@return int
-function SandboxOptions:getRainModifier() end
+---@return void
+function SandboxOptions:Reset() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function SandboxOptions:loadServerTextFile(arg0) end
 
 ---@public
 ---@param arg0 String
@@ -360,29 +274,149 @@ function SandboxOptions:loadPresetFile(arg0) end
 
 ---@public
 ---@param arg0 String
+---@param arg1 Object
+---@return void
+function SandboxOptions:set(arg0, arg1) end
+
+---@public
+---@return int
+function SandboxOptions:getRainModifier() end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@param arg2 int
+---@param arg3 int
+---@return SandboxOptions.IntegerSandboxOption
+function SandboxOptions:newIntegerOption(arg0, arg1, arg2, arg3) end
+
+---@public
+---@param arg0 int
+---@return SandboxOptions.SandboxOption
+function SandboxOptions:getOptionByIndex(arg0) end
+
+---@public
+---@return int
+function SandboxOptions:getElecShutModifier() end
+
+---@private
+---@param arg0 String
+---@param arg1 KahluaTable
+---@param arg2 int
+---@return KahluaTable
+function SandboxOptions:upgradeLuaTable(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@return boolean
+function SandboxOptions:writeTextFile(arg0, arg1) end
+
+---@private
+---@param arg0 String
+---@param arg1 boolean
+---@return SandboxOptions.BooleanSandboxOption
+function SandboxOptions:newBooleanOption(arg0, arg1) end
+
+---@private
+---@param arg0 String
+---@param arg1 String
+---@return SandboxOptions.StringSandboxOption
+function SandboxOptions:newStringOption(arg0, arg1) end
+
+---@public
+---@return int
+function SandboxOptions:getFoodLootModifier() end
+
+---@private
+---@param arg0 String
+---@return String[]
+function SandboxOptions:parseName(arg0) end
+
+---@public
+---@param arg0 String
+---@return boolean
+function SandboxOptions:saveGameFile(arg0) end
+
+---@public
+---@return void
+function SandboxOptions:setDefaultsToCurrentValues() end
+
+---@public
+---@param arg0 String
 ---@return boolean
 function SandboxOptions:saveServerLuaFile(arg0) end
 
 ---@public
 ---@return int
-function SandboxOptions:getWaterShutModifier() end
+function SandboxOptions:getDayLengthMinutesDefault() end
+
+---@protected
+---@param arg0 SandboxOptions.SandboxOption
+---@return SandboxOptions
+function SandboxOptions:addOption(arg0) end
 
 ---@public
 ---@return int
-function SandboxOptions:getOtherLootModifier() end
+function SandboxOptions:getTemperatureModifier() end
+
+---@public
+---@return int
+function SandboxOptions:getWeaponLootModifier() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function SandboxOptions:loadGameFile(arg0) end
+
+---throws java.io.IOException
+---@public
+---@param output ByteBuffer
+---@return void
+function SandboxOptions:save(output) end
 
 ---@public
 ---@return void
-function SandboxOptions:toLua() end
+function SandboxOptions:loadCurrentGameBinFile() end
 
 ---@private
----@return void
-function SandboxOptions:saveCurrentGameBinFile() end
+---@param arg0 String
+---@param arg1 boolean
+---@return boolean
+function SandboxOptions:writeLuaFile(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return boolean
+function SandboxOptions:savePresetFile(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 int
+---@return String
+function SandboxOptions:upgradeOptionName(arg0, arg1) end
 
 ---@public
 ---@return void
-function SandboxOptions:resetToDefault() end
+function SandboxOptions:initSandboxVars() end
 
 ---@public
----@return int
-function SandboxOptions:getTimeSinceApo() end
+---@param arg0 String
+---@return boolean
+function SandboxOptions:loadServerLuaFile(arg0) end
+
+---@public
+---@return SandboxOptions
+function SandboxOptions:newCopy() end
+
+---@public
+---@return SandboxOptions
+function SandboxOptions:getInstance() end
+
+---@public
+---@return double
+function SandboxOptions:getStatsDecreaseMultiplier() end
+
+---@public
+---@return void
+function SandboxOptions:applySettings() end

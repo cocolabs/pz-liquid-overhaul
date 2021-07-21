@@ -2,29 +2,12 @@
 BaseAmbientStreamManager = {}
 
 ---@public
----@param arg0 float
----@param arg1 float
----@param arg2 int
----@param arg3 String
 ---@return void
-function BaseAmbientStreamManager:addAmbientEmitter(arg0, arg1, arg2, arg3) end
-
----@public
----@param room RoomDef
----@return void
-function BaseAmbientStreamManager:doAlarm(room) end
-
----@protected
----@return void
-function BaseAmbientStreamManager:addRandomAmbient() end
+function BaseAmbientStreamManager:update() end
 
 ---@public
 ---@return void
-function BaseAmbientStreamManager:init() end
-
----@public
----@return void
-function BaseAmbientStreamManager:doGunEvent() end
+function BaseAmbientStreamManager:stop() end
 
 ---@public
 ---@param name String
@@ -37,12 +20,13 @@ function BaseAmbientStreamManager:doGunEvent() end
 function BaseAmbientStreamManager:addBlend(name, vol, bIndoors, bRain, bNight, bDay) end
 
 ---@public
+---@param room RoomDef
 ---@return void
-function BaseAmbientStreamManager:update() end
+function BaseAmbientStreamManager:doAlarm(room) end
 
 ---@public
 ---@return void
-function BaseAmbientStreamManager:stop() end
+function BaseAmbientStreamManager:init() end
 
 ---@public
 ---@param arg0 float
@@ -50,11 +34,11 @@ function BaseAmbientStreamManager:stop() end
 ---@param arg2 int
 ---@param arg3 String
 ---@return void
-function BaseAmbientStreamManager:addDaytimeAmbientEmitter(arg0, arg1, arg2, arg3) end
+function BaseAmbientStreamManager:addAmbientEmitter(arg0, arg1, arg2, arg3) end
 
----@public
+---@protected
 ---@return void
-function BaseAmbientStreamManager:doOneShotAmbients() end
+function BaseAmbientStreamManager:addRandomAmbient() end
 
 ---@public
 ---@param name String
@@ -64,3 +48,19 @@ function BaseAmbientStreamManager:doOneShotAmbients() end
 ---@param volume float
 ---@return void
 function BaseAmbientStreamManager:addAmbient(name, x, y, radius, volume) end
+
+---@public
+---@return void
+function BaseAmbientStreamManager:doOneShotAmbients() end
+
+---@public
+---@return void
+function BaseAmbientStreamManager:doGunEvent() end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@param arg2 int
+---@param arg3 String
+---@return void
+function BaseAmbientStreamManager:addDaytimeAmbientEmitter(arg0, arg1, arg2, arg3) end

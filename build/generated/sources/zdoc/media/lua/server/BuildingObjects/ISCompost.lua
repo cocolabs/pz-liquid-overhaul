@@ -10,6 +10,9 @@ ISCompost = ISBuildingObject:derive("ISCompost");
 --**
 --************************************************************************--
 function ISCompost:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	self.sq = cell:getGridSquare(x, y, z);
 	self.javaObject = IsoCompost.new(cell, self.sq);
@@ -18,13 +21,18 @@ function ISCompost:create(x, y, z, north, sprite)
 	self.javaObject:syncCompost()
 end
 
-function ISCompost:new(name, sprite)
+function ISCompost:new(name, sprite, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	o:init();
 	o:setSprite(sprite);
 	o:setNorthSprite(sprite);
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	o.name = name;
 	o.canBarricade = false;
 	o.dismantable = true;

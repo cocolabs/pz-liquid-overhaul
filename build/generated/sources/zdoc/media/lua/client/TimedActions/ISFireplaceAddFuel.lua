@@ -62,6 +62,7 @@ function ISFireplaceAddFuel:new(character, fireplace, item, fuelAmt, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	-- custom fields
 	o.fireplace = fireplace
 	o.fuelAmt = fuelAmt

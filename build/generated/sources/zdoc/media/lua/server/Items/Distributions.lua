@@ -2,1289 +2,105 @@
 Distributions = Distributions or {};
 
 local distributionTable = {
-    
-    conveniencestore =
-    {
-        isShop = true,
-        fridge =
-        {
-            procedural = true,
-            procList = {
-                {name="FridgeBottles", min=1, max=10},
-                {name="FridgeOther", min=1, max=10},
-            }
-        },
-        freezer =
-        {
-            rolls = 1,
-            items = {
 
-            }
-        },
-        shelves = {
-            procedural = true,
-            procList = {
-                {name="StoreShelfSnacks", min=1, max=99},
-            }
-        },
-    },
-    warehouse = {
-        crate = {
-            procedural = true,
-            procList = {
-                {name="CratePaint", min=0, max=50},
-                {name="CrateFarming", min=0, max=50},
-                {name="CrateWoods", min=0, max=50},
-                {name="CrateHardware", min=0, max=50},
-                {name="CrateTools", min=0, max=50},
-                {name="CrateMetal", min=0, max=50},
-                {name="CrateAntiqueStove", min=0, max=2},
-            }
-        },
-    },
-    burgerkitchen =
-    {
-        freezer =
-        {
-            rolls = 3,
-            items = {
-                "Steak", 1,
-                "Steak", 1,
-                "Steak", 1,
-                "Steak", 1,
-                "Burger", 3,
-                "Burger", 3,
-            },
-        },
-        
-        fridge ={
-            rolls = 3,
-            items = {
-                "Milk", 6,
-                "Milk", 6,
-                "Steak", 2,
-                "Burger", 5,
-                "Burger", 5,
-                "Burger", 5,
-                "Burger", 5,
-                "Fries", 5,
-                "Fries", 5,
-                "Fries", 5,
-                "Fries", 5,
-                "Chicken", 2,
-                "farming.Bacon", 2,
-                "Pie", 2,
-                "Cheese", 3,
-                "farming.Tomato", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "Ketchup", 3,
-                "Ketchup", 3,
-                "Mustard", 3,
-                "Mustard", 3,
-                "Processedcheese", 7,
-                "Processedcheese", 7,
-                "Processedcheese", 7,
-                "Ham", 3,
-                "Onion", 3,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-                "WaterBottleFull", 3,
-                "WaterBottleFull", 3,
-            }
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Burger", 5,
-                "Burger", 5,
-                "Burger", 5,
-                "Burger", 5,
-                "Cheese", 3,
-                "Ketchup", 3,
-                "Ketchup", 3,
-                "Mustard", 3,
-                "Mustard", 3,
-                "Processedcheese", 7,
-                "Processedcheese", 7,
-                "Processedcheese", 7,
-                "Ham", 3,
-                "Onion", 3,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-                "ButterKnife", 5,
-                "BreadKnife", 5,
-                "Extinguisher", 1,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-            },
-            
-            junk = {
-                rolls = 4,
-                items = {
-                    "Spoon", 20,
-                    "Spoon", 20,
-                    "Fork", 20,
-                    "Fork", 20,
-                    "Bowl", 10,
-                    "DishCloth", 5,
-                    "Aluminum", 1,
-                    "CleaningLiquid2", 2,
-                    "Mop", 0.7,
-                    "Sponge", 1,
-                    "Vinegar", 1,
-                    "EmptyJar", 1,
-                    "JarLid", 1,
-                    "BoxOfJars",0.1,
-                },
-            },
-        }
-    },
-    
-    medclinic =
-    {
-        isShop = true,
-        counter =
-        {
-            rolls = 5,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "FirstAidKit", 2,
-                "Tweezers", 10,
-                "Antibiotics", 5,
-                "Disinfectant", 20,
-                "AlcoholWipes", 20,
-                "SutureNeedle", 10,
-                "SutureNeedleHolder", 10,
-                "Radio.WalkieTalkie4",0.05,
-                "Radio.WalkieTalkie5",0.05,
-                "Radio.HamRadio1",0.005,
-                "Scalpel", 5,
-            }
-        }
-    },
-    
-    medicalstorage = {
-        isShop = true,
-        counter =
-        {
-            rolls = 5,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Antibiotics", 5,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "FirstAidKit", 2,
-                "Tweezers", 10,
-                "Disinfectant", 20,
-                "AlcoholWipes", 20,
-                "SutureNeedle", 10,
-                "SutureNeedleHolder", 10,
-                "Radio.HamRadio1",0.005,
-                "Scalpel", 0.5,
-            }
-        },
-        
-        metal_shelves =
-        {
-            rolls = 5,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Antibiotics", 5,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "FirstAidKit", 2,
-                "Tweezers", 10,
-                "Disinfectant", 20,
-                "AlcoholWipes", 20,
-                "SutureNeedle", 10,
-                "SutureNeedleHolder", 10,
-                "Radio.HamRadio1",0.005,
-                "Scalpel", 0.5,
-            }
-        }
-    },
-    
-    zippeestore =
-    {
+-- =====================
+--    Room List (A-Z)   
+-- =====================
+
+    aesthetic = {
         isShop = true,
         counter = {
-            rolls = 1,
-            items = {
-                "Pistol", 0.3,
-                "Revolver_Short", 0.3,
-                "DoubleBarrelShotgun", 0.5,
-                "ShotgunShells", 0.6,
-                "BaseballBat", 0.3,
-                "Bullets9mm", 0.6,
-                "Bullets38", 0.6,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "BaseballBat", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Charcoal", 6,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "Cigarettes", 5,
-                "Lighter", 2,
-            }
-        },
-        
-        shelves = {
             procedural = true,
             procList = {
-                {name="StoreShelfSnacks", min=1, max=99},
+                {name="SalonHairTools", min=0, max=99},
             }
         },
-        
-        shelvesmag ={
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "HerbalistMag", 0.2,
-                "CookingMag1", 0.2,
-                "CookingMag2", 0.2,
-                "ElectronicsMag1", 0.2,
-                "ElectronicsMag2", 0.2,
-                "ElectronicsMag3", 0.2,
-                "ElectronicsMag4", 0.2,
-                "ElectronicsMag5", 0.2,
-                "MechanicMag1", 0.2,
-                "MechanicMag2", 0.2,
-                "MechanicMag3", 0.2,
-                "EngineerMagazine1", 0.2,
-                "EngineerMagazine2", 0.2,
-                "MetalworkMag1", 0.2,
-                "MetalworkMag2", 0.2,
-                "MetalworkMag3", 0.2,
-                "MetalworkMag4", 0.2,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="SalonTowels", min=0, max=99},
+                {name="SalonHairCare", min=0, max=99},
             }
         },
-        
         crate = {
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "Charcoal", 6,
+            procedural = true,
+            procList = {
+                {name="SalonHairCare", min=0, max=99},
             }
         }
     },
     
-    grocerystorage =
-    {
-        bin = {
-            rolls = 1,
-            items = {
-                "Tissue", 2,
-                "Lighter", 2,
-                "Battery", 2,
-                "Pen", 3,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 3,
-                "Eraser", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Paperclip", 1,
-                "Socks_Ankle", 1,
-                "Socks_Long", 1,
-                "SheetPaper2", 3,
-                "WaterBottleEmpty", 3,
-                "Garbagebag", 15,
-                "Garbagebag", 15,
-                "Garbagebag", 15,
-            }
-        },
-        
-        other = {
-            procedural = true,
-            procList = {
-                {name="GigamartBakingMisc", min=0, max=8},
-                {name="GigamartBottles", min=0, max=8},
-                {name="GigamartCandy", min=0, max=4},
-                {name="GigamartCannedFood", min=0, max=16},
-                {name="GigamartCrisps", min=0, max=4},
-                {name="GigamartDryGoods", min=0, max=16},
-                {name="GigamartSauce", min=0, max=4},
-            }
-        },
-    },
-    
-    
-    grocery =
-    {
+    aestheticstorage = {
         isShop = true,
-        grocerstand =
-        {
+        metal_shelves = {
             procedural = true,
             procList = {
-                {name="GroceryStandVegetables1", min=1, max=10},
-                {name="GroceryStandVegetables2", min=1, max=10},
-                {name="GroceryStandFruits1", min=1, max=10},
-                {name="GroceryStandFruits2", min=1, max=10},
-                {name="GroceryStandFruits3", min=1, max=10},
-                {name="GroceryStandLettuce", min=1, max=2},
+                {name="SalonHairCare", min=0, max=99},
             }
         },
-        
-        displaycasebakery =
-        {
-            procedural = true,
-            procList = {
-                {name="Bakery", min=1, max=99},
-            },
-        },
-        
-        displaycasebutcher =
-        {
-            procedural = true,
-            procList = {
-                {name="Meat", min=0, max=99},
-            }
-        },
-        
-        freezer =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        
-        fridge =
-        {
-            procedural = true,
-            procList = {
-                {name="Meat", min=1, max=4},
-                {name="FridgeOther", min=2, max=16},
-                {name="FridgeBottles", min=1, max=2},
-            }
-        },
-        
-        counter ={
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Salt", 2,
-                "Pepper", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "Shotgun", 2,
-                "DoubleBarrelShotgun", 1,
-                "ShotgunShells", 3,
-                "ShotgunShells", 3,
-                "ShotgunShells", 3,
-                "BaseballBat", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "farming.HandShovel", 2,
-                "Charcoal", 5,
-                "EmptySandbag", 4,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "Honey", 2,
-                "Pasta", 3,
-                "Marinara", 1,
-                "Rice", 3,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-            },
-            junk = {
-                rolls = 4,
-                items = {
-                    "BoxOfJars",1,
-                    "Vinegar", 1,
-                    "EmptyJar", 2,
-                    "EmptyJar", 2,
-                    "JarLid", 2,
-                    "JarLid", 2,
-                }
-            }
-        },
-        
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="GigamartBottles", min=1, max=6},
-                {name="GigamartCrisps", min=1, max=4},
-                {name="GigamartCandy", min=1, max=4},
-                {name="GigamartBakingMisc", min=1, max=6},
-                {name="GigamartDryGoods", min=1, max=16},
-                {name="GigamartCannedFood", min=1, max=16},
-                {name="GigamartSauce", min=1, max=2},
-            }
-        },
-        
-        smallcrate= {
-            procedural = true,
-            procList = {
-                {name="GigamartCannedFood", min=0, max=16},
-                {name="GigamartBakingMisc", min=0, max=6},
-                {name="GigamartDryGoods", min=0, max=16},
-            }
-        },
-        
-        smallbox= {
-            rolls = 2,
-            items = {
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Peach", 4,
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "Watermelon", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 4,
-                "Pineapple", 4,
-                "Zucchini", 4,
-                "EmptySandbag", 3,
-                "Honey", 2,
-            }
-        },
-        
-        shelvesmag ={
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MuldraughMap", 2,
-                "WestpointMap", 2,
-                "MarchRidgeMap",1,
-                "RosewoodMap",1,
-                "RiversideMap",1,
-            }
-        },
-        
         crate = {
-            rolls = 4,
-            items = {
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Peach", 4,
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "Watermelon", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 4,
-                "Pineapple", 4,
-                "Zucchini", 4,
-                "EmptySandbag", 3,
-                "Honey", 2,
+            procedural = true,
+            procList = {
+                {name="SalonHairCare", min=0, max=99},
             }
         }
     },
     
-    gigamartkitchen =
-    {
-        counter = {
-            rolls = 3,
-            items = {
-                "Pancakes", 4,
-                "Waffles", 4,
-                "Bread", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "RollingPin", 7,
-                "KitchenKnife", 7,
-                "MeatCleaver", 5,
-                "ButterKnife", 10,
-                "Spoon", 10,
-                "Fork", 10,
-                "Bowl", 10,
-            },
-            
-            junk = {
-                rolls = 3,
-                items = {
-                    "Mugl", 10,
-                    "TinOpener", 15,
-                    "Spoon", 20,
-                    "Spoon", 20,
-                    "Fork", 20,
-                    "Fork", 20,
-                    "ButterKnife", 5,
-                    "BreadKnife", 5,
-                    "EmptyJar", 1,
-                    "JarLid", 1,
-                    "Vinegar", 1,
-                    "Bowl", 10,
-                    "DishCloth", 5,
-                },
-            },
-        },
-    },
-    
-    gigamart =
-    {
-        isShop = true,
-        grocerstand =
-        {
+    all = {
+        displaycasebakery = {
             procedural = true,
             procList = {
-                {name="GroceryStandVegetables1", min=1, max=10},
-                {name="GroceryStandVegetables2", min=1, max=10},
-                {name="GroceryStandFruits1", min=1, max=10},
-                {name="GroceryStandFruits2", min=1, max=10},
-                {name="GroceryStandFruits3", min=1, max=10},
-                {name="GroceryStandLettuce", min=1, max=4},
+                {name="BakeryBread", min=1, max=12},
+                {name="BakeryPie", min=1, max=12},
+                {name="BakeryCake", min=1, max=12},
+                {name="BakeryMisc", min=0, max=99},
             }
         },
-        
-        displaycasebutcher =
-        {
+        restaurantdisplay = {
             procedural = true,
             procList = {
-                {name="Meat", min=0, max=99},
+                {name="ServingTrayBurgers", min=1, max=4},
+                {name="ServingTrayChicken", min=1, max=4},
+                {name="ServingTrayFries", min=1, max=4},
+                {name="ServingTrayHotdogs", min=1, max=4},
+                {name="ServingTrayPie", min=1, max=2},
+                {name="ServingTrayPizza", min=1, max=4},
             }
         },
-        
-        displaycasebakery =
-        {
-            procedural = true,
-            procList = {
-                {name="Bakery", min=1, max=99},
-            },
-        },
-        
-        freezer =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        
-        fridge =
-        {
-            procedural = true,
-            procList = {
-                {name="Meat", min=1, max=4},
-                {name="FridgeOther", min=2, max=16},
-                {name="FridgeBottles", min=0, max=2},
-            }
-        },
-        
-        counter ={
-            rolls = 4,
-            items = {
-                "Pistol", 0.3,
-                "Revolver_Short", 0.3,
-                "DoubleBarrelShotgun", 0.5,
-                "BaseballBat", 0.3,
-                "ShotgunShells", 0.6,
-                "Bullets9mm", 0.6,
-                "Bullets38", 0.6,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Salt", 2,
-                "Pepper", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "BaseballBat", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "farming.HandShovel", 2,
-                "Charcoal", 5,
-                "EmptySandbag", 4,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "Honey", 2,
-                "Pasta", 3,
-                "Marinara", 1,
-                "Rice", 3,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-            },
-            junk = {
-                rolls = 4,
-                items = {
-                    "BoxOfJars",1,
-                    "Vinegar", 1,
-                    "EmptyJar", 2,
-                    "EmptyJar", 2,
-                    "JarLid", 2,
-                    "JarLid", 2,
-                }
-            }
-        },
-        
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="GigamartBottles", min=2, max=6},
-                {name="GigamartCrisps", min=2, max=4},
-                {name="GigamartCandy", min=1, max=4},
-                {name="GigamartBakingMisc", min=1, max=4},
-                {name="GigamartDryGoods", min=2, max=16},
-                {name="GigamartHousewares", min=1, max=4},
-                {name="GigamartCannedFood", min=2, max=16},
-                {name="GigamartSauce", min=1, max=2},
-                {name="GigamartToys", min=0, max=2},
-                {name="GigamartTools", min=1, max=2},
-                {name="GigamartSchool", min=0, max=2},
-                {name="GigamartBedding", min=0, max=2},
-                {name="GigamartPots", min=1, max=3},
-                {name="GigamartFarming", min=1, max=3},
-                {name="GigamartLightbulb", min=1, max=1},
-                {name="GigamartHouseElectronics", min=1, max=2},
-            }
-        },
-        
-        shelvesmag ={
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MuldraughMap", 2,
-                "WestpointMap", 2,
-                "MarchRidgeMap",1,
-                "RosewoodMap",1,
-                "RiversideMap",1,
-            }
-        },
-        
-        crate = {
-            rolls = 4,
-            items = {
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Peach", 4,
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "Watermelon", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 4,
-                "Pineapple", 4,
-                "Zucchini", 4,
-                "EmptySandbag", 3,
-                "Honey", 2,
-            }
-        }
-    },
-    
-    fossoil =
-    {
-        isShop = true,
-        counter ={
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MechanicMag1", 0.1,
-                "MechanicMag2", 0.1,
-                "MechanicMag3", 0.1,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "Pistol", 0.7,
-                "Revolver_Short", 0.7,
-                "DoubleBarrelShotgun", 0.9,
-                "ShotgunShells", 1,
-                "Bullets9mm", 1,
-                "Bullets38", 1,
-                "BaseballBat", 3,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Charcoal", 6,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.001,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "OldTire1", 0.4,
-                "NormalTire1", 0.2,
-                "OldTire2", 0.4,
-                "NormalTire2", 0.2,
-                "OldTire3", 0.4,
-                "NormalTire3", 0.2,
-                "CarBattery1", 0.8,
-                "CarBattery2", 0.8,
-                "CarBattery3", 0.8,
-                "CarBatteryCharger", 1,
-                "Wrench", 1,
-                "LugWrench",1,
-                "Jack", 0.8,
-                "TirePump", 0.8,
-                "BookMechanic1",0.2,
-                "BookMechanic2",0.1,
-            }
-        },
-        
-        shelves = {
-            procedural = true,
-            procList = {
-                {name="StoreShelfSnacks", min=1, max=99},
-            }
-        },
-        
-        shelvesmag ={
-            rolls = 4,
-            items = {
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "HerbalistMag", 0.2,
-                "CookingMag1", 0.2,
-                "CookingMag2", 0.2,
-                "ElectronicsMag1", 0.2,
-                "ElectronicsMag2", 0.2,
-                "ElectronicsMag3", 0.2,
-                "ElectronicsMag4", 0.2,
-                "ElectronicsMag5", 0.2,
-                "MechanicMag1", 0.2,
-                "MechanicMag2", 0.2,
-                "MechanicMag3", 0.2,
-                "EngineerMagazine1", 0.2,
-                "EngineerMagazine2", 0.2,
-                "MetalworkMag1", 0.2,
-                "MetalworkMag2", 0.2,
-                "MetalworkMag3", 0.2,
-                "MetalworkMag4", 0.2,
-                "BookMechanic1",0.2,
-                "BookMechanic2",0.1,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MuldraughMap", 2,
-                "WestpointMap", 2,
-                "MarchRidgeMap",1,
-                "RosewoodMap",1,
-                "RiversideMap",1,
-            }
-        },
-        
-        crate = {
-            rolls = 4,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "Charcoal", 6,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-            }
-        }
-    },
-    
-    bedroom =
-    {
-        wardrobe ={
-            procedural = true,
-            procList = {
-                {name="WardrobeMan", min=0, max=2},
-                {name="WardrobeManClassy", min=0, max=1, forceForZones="Rich"},
-                {name="WardrobeWomanClassy", min=0, max=1, forceForZones="Rich"},
-                -- If we find the items listed in forceForItems we gonna force this particular loot definition
-                {name="WardrobeChild", min=0, max=2, forceForItems="furniture_bedding_01_36;furniture_bedding_01_38;furniture_bedding_01_1;furniture_bedding_01_2;furniture_bedding_01_9;furniture_bedding_01_10;furniture_bedding_01_68;furniture_bedding_01_71;furniture_bedding_01_32;furniture_bedding_01_34"},
-                {name="WardrobeWoman", min=0, max=2},
-                {name="WardrobeRedneck", min=0, max=2, forceForZones="TrailerPark"},
-            }
-        },
-        
-        plankstash ={
-            rolls = 7,
-            items = {
-                "Magazine", 30,
-                "HottieZ", 30,
-            }
-        },
-        
-        sidetable = {
-            rolls = 3,
-            items = {
-                "AlarmClock2", 4,
-                "WristWatch_Left_DigitalRed", 2.5,
-                "WristWatch_Left_DigitalBlack", 2.5,
-                "CordlessPhone", 2,
-                "Radio.RadioBlack", 2,
-                "Radio.RadioRed", 1,
-                "Radio.WalkieTalkie1", 0.05,
-                "Radio.WalkieTalkie2", 0.03,
-                "Radio.WalkieTalkie3", 0.001,
-                "Pistol", 1,
-                "Pistol2", 0.2,
-                "Revolver_Short", 1,
-            },
-            
-            junk = {
-                rolls = 3,
-                items = {
-                    "Doll", 0.5,
-                    "Disc", 0.5,
-                    "CDplayer", 0.5,
-                    "Earbuds", 0.5,
-                    "Headphones", 0.5,
-                    "VideoGame", 0.5,
-                    "Magazine", 2,
-                    "Socks_Ankle", 1,
-                    "Socks_Long", 1,
-                    "Pen", 7,
-                    "BluePen", 7,
-                    "RedPen", 7,
-                    "Pencil", 7,
-                },
-            },
-        },
-        
-        locker = {
-            procedural = true,
-            procList = {
-                {name="LockerArmyBedroom", min=0, max=99, forceForZones="Army"},
-            }
-        },
-    },
-    
-    loggingfactory =
-    {
-        crate = {
-            rolls = 1,
-            items = {
-                "NailsBox", 1,
-                "DuctTape", 0.8,
-                "Glue", 0.8,
-                "Scotchtape", 0.8,
-                "Woodglue", 0.8,
-                "Rope", 0.8,
-                "NailsBox", 4,
-                "NailsBox", 4,
-                "NailsBox", 4,
-                "Hammer", 4,
-                "LeadPipe", 1,
-                "HandAxe", 0.8,
-                "PipeWrench", 1,
-                "ClubHammer", 1,
-                "WoodenMallet", 1,
-                "Tarp", 1,
-                "Saw", 1,
-                "GardenSaw", 1,
-                "Plank", 3,
-                "Plank", 3,
-                "Axe", 0.8,
-                "WoodAxe", 0.8,
-                "Sandbag", 0.5,
-                "Gravelbag", 0.5,
-                "EmptySandbag", 2.5,
-                "Fertilizer", 0.5,
-                --                "BallPeenHammer", 0.01,
-                --                "Tongs", 0.01,
-                "BlowTorch", 2,
-                "WeldingRods", 3,
-                "SheetMetal", 4,
-                "SmallSheetMetal", 6,
-                "MetalPipe", 4,
-                "MetalBar", 3,
-                "WeldingMask",2,
-                "BarbedWire", 1,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "Glasses_SafetyGoggles", 0.3,
-            }
-        },
-    },
-    
-    all =
-    {
-        restaurantdisplay ={
-        rolls = 3,
-        items = {
-            "Carrots", 6,
-            "Apple", 6,
-            "Orange", 6,
-            "Banana", 6,
-            "farming.RedRadish", 6,
-            "farming.Strewberrie", 6,
-            "Cherry", 4,
-            "farming.Tomato", 6,
-            "farming.Cabbage", 6,
-            "Apple", 5,
-            "Orange", 5,
-            "Banana", 4,
-            "farming.RedRadish", 4,
-            "farming.Strewberrie", 4,
-            "Cherry", 4,
-            "farming.Tomato", 4,
-            "farming.Cabbage", 4,
-            "Lettuce", 4,
-            "Pickles", 4,
-            "BellPepper", 4,
-            "Peach", 4,
-            "Lettuce", 4,
-            "Pickles", 4,
-            "BellPepper", 4,
-            "Peach", 4,
-            "Apple", 5,
-            "Peach", 5,
-            "Orange", 5,
-            "Banana", 4,
-            "farming.RedRadish", 4,
-            "farming.Strewberrie", 4,
-            "Cherry", 4,
-            "farming.Tomato", 4,
-            "farming.Cabbage", 4,
-            "Apple", 5,
-            "Orange", 5,
-            "Banana", 4,
-            "farming.RedRadish", 4,
-            "farming.Strewberrie", 4,
-            "farming.Tomato", 4,
-            "farming.Cabbage", 4,
-            "Corn", 4,
-            "Eggplant", 4,
-            "Leek", 4,
-            "Grapes", 4,
-            "Avocado", 6,
-            "Pineapple", 6,
-            "Zucchini", 6,
-        }
-    },
-        
-        plankstash ={
+        plankstash = {
             procedural = true,
             procList = {
                 {name="PlankStashMoney", min=0, max=1},
                 {name="PlankStashWeapon", min=0, max=1},
             }
         },
-        
         cashregister = {
             rolls = 5,
             items = {
                 "Money", 2,
                 "Money", 100,
                 "Money", 100,
-            },
+            }
         },
-        
-        campfire={
+        campfire = {
+            rolls = 0,
+            items = {
+                
+            }
+        },
+        clothingdryer = {
             rolls = 0,
             items = {
                 
             },
         },
-        
-        clothingdryer={
+        clothingwasher = {
             rolls = 0,
             items = {
                 
             },
         },
-        
-        clothingwasher={
-            rolls = 0,
-            items = {
-                
-            },
-        },
-        
-        clothingrack={
+        clothingrack = {
             procedural = true,
             procList = {
                 {name="ClothingStoresDress", min=0, max=1},
@@ -1297,14 +113,12 @@ local distributionTable = {
                 {name="ClothingPoor", min=0, max=20, forceForZones="Poor"},
             }
         },
-        
         freezer = {
             rolls = 5,
             items = {
                 "Icecream", 5,
-            },
+            }
         },
-        
         dishescabinet = {
             rolls = 6,
             items = {
@@ -1315,8 +129,7 @@ local distributionTable = {
                 "Bowl", 10,
             }
         },
-        
-        dresser = {
+        dresser = { 
             rolls = 3,
             items = {
                 "Lipstick", 4,
@@ -1353,7 +166,6 @@ local distributionTable = {
                 "Perfume", 4,
             }
         },
-        
         postbox = {
             rolls = 3,
             items = {
@@ -1381,10 +193,9 @@ local distributionTable = {
                 "MetalworkMag2", 0.2,
                 "MetalworkMag3", 0.2,
                 "MetalworkMag4", 0.2,
-            },
+            }
         },
-        
-        corn ={
+        corn = {
             rolls = 2,
             items = {
                 "Corn", 1,
@@ -1392,8 +203,7 @@ local distributionTable = {
                 "Corn", 1,
             }
         },
-        
-        logs ={
+        logs = {
             rolls = 1,
             items = {
                 "Log", 100,
@@ -1405,37 +215,35 @@ local distributionTable = {
                 "Log", 7,
             }
         },
-        
-        locker ={
+        locker = {
             procedural = true,
             procList = {
                 {name="Locker", min=0, max=99},
                 {name="LockerClassy", min=0, max=99, forceForZones="Rich"},
             }
         },
-        
-        fruitbusha ={
+        fruitbusha = {
             rolls = 10,
             items = {
                 "BerryBlack", 50,
             },
             noAutoAge = true,
         },
-        fruitbushb ={
+        fruitbushb = {
             rolls = 10,
             items = {
                 "BerryBlue", 50,
             },
             noAutoAge = true,
         },
-        fruitbushc ={
+        fruitbushc = {
             rolls = 10,
             items = {
                 "BerryGeneric1", 50,
             },
             noAutoAge = true,
         },
-        fruitbushd ={
+        fruitbushd = {
             rolls = 10,
             items = {
                 "BerryGeneric2", 25,
@@ -1443,7 +251,7 @@ local distributionTable = {
             },
             noAutoAge = true,
         },
-        fruitbushe ={
+        fruitbushe = {
             rolls = 10,
             items = {
                 "BerryGeneric3", 25,
@@ -1451,7 +259,6 @@ local distributionTable = {
             },
             noAutoAge = true,
         },
-        
         inventorymale = {
             rolls = 1,
             items = {
@@ -1528,31 +335,15 @@ local distributionTable = {
                 "Matches", 0.4,
                 "Lighter", 0.4,
             }
-            
         },
-        shelvesmag ={
-            rolls = 5,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MuldraughMap", 2,
-                "WestpointMap", 2,
-                "MarchRidgeMap",1,
-                "RosewoodMap",1,
-                "RiversideMap",1,
+        shelvesmag = {
+            procedural = true,
+            procList = {
+                {name="MagazineRackMaps", min=1, max=1},
+                {name="MagazineRackNewspaper", min=1, max=1},
+                {name="MagazineRackMixed", min=0, max=99},
             }
         },
-        
         desk = {
             rolls = 1,
             items = {
@@ -1568,7 +359,6 @@ local distributionTable = {
                 "Radio.WalkieTalkie2",0.03,
                 "Radio.WalkieTalkie3",0.001,
             },
-            
             junk = {
                 rolls = 1,
                 items = {
@@ -1595,10 +385,9 @@ local distributionTable = {
                     "Cube", 1,
                     "Cologne", 1,
                     "Perfume", 1,
-                },
-            },
+                }
+            }
         },
-        
         filingcabinet = {
             rolls = 1,
             items = {
@@ -1607,7 +396,6 @@ local distributionTable = {
                 "Book", 4,
                 "ComicBook", 2,
             },
-            
             junk = {
                 rolls = 1,
                 items = {
@@ -1616,22 +404,19 @@ local distributionTable = {
                     "SheetPaper2", 20,
                     "SheetPaper2", 20,
                     "Notebook", 4,
-                },
-            },
+                }
+            }
         },
-        
         stove = {
             rolls = 0,
             items = {
             }
         },
-        
         microwave = {
             rolls = 0,
             items = {
             }
         },
-        
         medicine = {
             rolls = 3,
             items = {
@@ -1645,7 +430,6 @@ local distributionTable = {
                 "Antibiotics", 5,
             }
         },
-        
         wardrobe = {
             procedural = true,
             procList = {
@@ -1654,7 +438,6 @@ local distributionTable = {
                 {name="WardrobeWoman", min=0, max=2},
             }
         },
-        
         crate = {
             rolls = 1,
             items = {
@@ -1760,7 +543,6 @@ local distributionTable = {
                 "WoodenMallet", 0.3,
             }
         },
-        
         counter = {
             rolls = 1,
             items = {
@@ -1791,7 +573,6 @@ local distributionTable = {
                 "Radio.WalkieTalkie2",0.03,
                 "Radio.WalkieTalkie3",0.001,
             },
-            
             junk = {
                 rolls = 1,
                 items = {
@@ -1807,10 +588,9 @@ local distributionTable = {
                     "EmptyJar", 1,
                     "JarLid", 1,
                     "Vinegar", 1,
-                },
-            },
+                }
+            }
         },
-        
         sidetable = {
             rolls = 1,
             items = {
@@ -1887,7 +667,6 @@ local distributionTable = {
                 "MetalworkMag3", 0.7,
                 "MetalworkMag4", 0.7,
             },
-            
             junk = {
                 rolls = 1,
                 items = {
@@ -1903,10 +682,9 @@ local distributionTable = {
                     "Matches", 3,
                     "SheetPaper2", 4,
                     "Notebook", 4,
-                },
-            },
+                }
+            }
         },
-        
         freezer = {
             rolls = 3,
             items = {
@@ -1914,7 +692,7 @@ local distributionTable = {
                 "Icecream", 3,
                 "Icecream", 3,
                 "Pizza", 1,
-                "Burger", 1,
+                "BurgerRecipe", 1,
                 "Peas", 3,
                 "Pie", 1,
                 "Steak", 1,
@@ -1925,9 +703,8 @@ local distributionTable = {
                 "PorkChop", 1,
                 "MuttonChop", 1,
                 "IcePick", 0.2,
-            },
+            }
         },
-        
         fridge = {
             rolls = 1,
             items = {
@@ -1995,7 +772,6 @@ local distributionTable = {
                 "BeerBottle", 1,
             }
         },
-        
         vendingsnack = {
             rolls = 4,
             items = {
@@ -2010,7 +786,6 @@ local distributionTable = {
                 "Crisps3", 4,
             }
         },
-        
         vendingpop = {
             rolls = 4,
             items = {
@@ -2028,39 +803,40 @@ local distributionTable = {
                 "PopBottle", 3,
             }
         },
-        
         bin = {
             rolls = 1,
             items = {
-                "SmashedBottle", 2,
-                "EmptyPetrolCan", 1,
-                "Plank", 2,
-                "Tissue", 2,
-                "Lighter", 2,
-                "Battery", 2,
-                "Pen", 3,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 3,
-                "Eraser", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Paperclip", 1,
-                "Doll", 1,
-                "Socks_Ankle", 1.5,
-                "Socks_Long", 1.5,
-                "Lollipop", 3,
-                "MintCandy", 3,
-                "Cigarettes", 3,
-                "SheetPaper2", 3,
-                "WaterBottleEmpty", 3,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
+                "Cockroach", 6,
+                "Cockroach", 6,
+                "Cockroach", 4,
+                "Cockroach", 4,
+                "DeadRat", 4,
+                "DeadMouse", 2,
+                "TinCanEmpty", 4,
+                "TinCanEmpty", 4,
+                "TinCanEmpty", 4,
+                "TinCanEmpty", 4,
+                "PopEmpty", 4,
+                "PopEmpty", 4,
+                "PopEmpty", 4,
+                "PopEmpty", 4,
+                "WhiskeyEmpty", 1,
+                "BeerEmpty", 1,
+                "WineEmpty", 1,
+                "WineEmpty2", 1,
+                "BandageDirty", 2,
+                "BandageDirty", 2,
+                "ElectronicsScrap", 2,
+                "ScrapMetal", 2,
+                "PopBottleEmpty", 2,
+                "PopBottleEmpty", 2,
+                "WaterBottleEmpty", 2,
+                "WaterBottleEmpty", 2,
+                "SmashedBottle", 1,
+                "SmashedBottle", 1,
+                "Garbagebag", 100,
             }
         },
-        
         officedrawers = {
             rolls = 1,
             items = {
@@ -2100,7 +876,6 @@ local distributionTable = {
                 "Radio.RadioRed",1,
                 "LetterOpener",1,
             },
-            
             junk = {
                 rolls = 1,
                 items = {
@@ -2130,11 +905,10 @@ local distributionTable = {
                     "Paperclip", 4,
                     "Paperclip", 4,
                     "Tissue", 3,
-                },
-            },
+                }
+            }
         },
-        
-        metal_shelves ={
+        metal_shelves = {
             rolls = 3,
             items = {
                 "NailsBox", 1,
@@ -2177,8 +951,7 @@ local distributionTable = {
                 "WoodenMallet", 1,
             }
         },
-        
-        shelves ={
+        shelves = {
             rolls = 3,
             items = {
                 "Magazine", 20,
@@ -2186,6 +959,11 @@ local distributionTable = {
                 "Book", 20,
                 "SheetPaper2", 20,
                 "Notebook", 20,
+                "BookTailoring1", 2,
+                "BookTailoring2", 1,
+                "BookTailoring3", 0.7,
+                "BookTailoring4", 0.5,
+                "BookTailoring5", 0.3,
                 "BookCarpentry1", 2,
                 "BookCarpentry2", 1,
                 "BookCarpentry3", 0.7,
@@ -2241,6 +1019,7 @@ local distributionTable = {
                 "HuntingMag2", 1,
                 "HuntingMag3", 1,
                 "HerbalistMag", 1,
+                "FarmingMag1", 1,
                 "CookingMag1", 1,
                 "CookingMag2", 1,
                 "ElectronicsMag1", 1,
@@ -2262,7 +1041,6 @@ local distributionTable = {
                 "Radio.RadioRed",1,
             }
         },
-        
         other = {
             rolls = 1,
             items = {
@@ -2295,807 +1073,1452 @@ local distributionTable = {
                 "ConcretePowder", 10,
                 "PlasterPowder", 10,
             }
-        },
+        }
     },
     
-    shed =
-    {
-        other ={
-            rolls = 2,
+    armyhanger = {
+        metal_shelves = {
+            rolls = 3,
             items = {
-                "NailsBox", 1,
-                "FishingRod", 2,
-                "FishingMag1", 0.5,
-                "FishingMag2", 0.5,
-                "HuntingMag1", 0.5,
-                "HuntingMag2", 0.5,
-                "HuntingMag3", 0.5,
-                "HerbalistMag", 0.5,
-                "ElectronicsMag1", 0.5,
-                "ElectronicsMag2", 0.5,
-                "ElectronicsMag3", 0.5,
-                "ElectronicsMag4", 0.5,
-                "ElectronicsMag5", 0.5,
-                "MechanicMag1", 0.5,
-                "MechanicMag2", 0.4,
-                "MechanicMag3", 0.3,
-                "EngineerMagazine1", 0.5,
-                "EngineerMagazine2", 0.5,
-                "MetalworkMag1", 0.5,
-                "MetalworkMag2", 0.5,
-                "MetalworkMag3", 0.5,
-                "MetalworkMag4", 0.5,
-                "HuntingKnife", 1,
-                "FishingNet", 1,
-                "FishingTackle", 1,
-                "FishingTackle2", 1,
-                "FishingLine", 1.5,
-                "PaperclipBox", 0.5,
-                "DuctTape", 2,
-                "Glue", 2,
-                "Scotchtape", 2,
-                "Twine", 2,
-                "Thread", 4,
-                "Woodglue", 2,
-                "Rope", 2,
-                "NailsBox", 1,
-                "NailsBox", 1,
-                "Nails", 3,
-                "Hammer", 2,
-                "Wire", 7,
-                "Saw", 2,
-                "GardenSaw", 2,
-                "Plank", 1,
-                "Plank", 1,
-                "Screwdriver", 2,
-                "Toolbox", 1,
-                "Radio.ElectricWire", 2,
-                "Charcoal", 6,
-                "Charcoal", 6,
-                --                "BallPeenHammer", 0.5,
-                --                "Tongs", 0.5,
-                "PropaneTank", 3,
-                "Extinguisher", 0.5,
-                "Radio.RadioMag1", 0.2,
-                "Radio.RadioMag2", 0.1,
-                "Radio.RadioMag3", 0.05,
-                "EmptyPetrolCan", 4,
-                "PetrolCan", 3,
-                "ElectronicsScrap", 2,
-                "ElectronicsScrap", 2,
-                "ScrapMetal", 2,
-                "ScrapMetal", 2,
-                "Radio.RadioBlack",4,
-                "Radio.RadioRed",2,
-                "Radio.WalkieTalkie1",1,
-                "Radio.WalkieTalkie2",0.8,
-                "Radio.WalkieTalkie3",0.6,
-                "Radio.WalkieTalkie4",0.1,
-                "Radio.WalkieTalkie5",0.02,
-                "Radio.HamRadio1",0.1,
-                "Radio.HamRadio2",0.01,
-                "BlowTorch", 2,
-                "WeldingRods", 5,
-                "SmallSheetMetal", 5,
-                "SheetMetal", 4,
-                "MetalPipe", 4,
-                "MetalBar", 4,
-                "WeldingMask",2,
-                "Wrench", 1,
-                "LugWrench",1,
-                "Jack", 1,
-                "TirePump", 1,
-                "OldTire1", 0.7,
-                "NormalTire1", 0.5,
-                "OldTire2", 0.7,
-                "NormalTire2", 0.5,
-                "OldTire3", 0.7,
-                "NormalTire3", 0.5,
-                "OldBrake1", 0.5,
-                "NormalBrake1", 0.2,
-                "OldBrake2", 0.5,
-                "NormalBrake2", 0.2,
-                "OldBrake3", 0.5,
-                "NormalBrake3", 0.2,
-                "NormalSuspension1", 0.2,
-                "NormalSuspension2", 0.2,
-                "NormalSuspension3", 0.2,
-                "SmallGasTank1", 0.5,
-                "NormalGasTank1", 0.2,
-                "SmallGasTank2", 0.5,
-                "NormalGasTank2", 0.2,
-                "SmallGasTank3", 0.5,
-                "NormalGasTank3", 0.2,
-                "SmallTrunk1", 0.5,
-                "NormalTrunk1", 0.2,
-                "SmallTrunk2", 0.5,
-                "NormalTrunk2", 0.2,
-                "SmallTrunk3", 0.5,
-                "NormalTrunk3", 0.2,
-                "Windshield1", 0.2,
-                "RearWindshield1", 0.2,
-                "FrontWindow1", 0.2,
-                "RearWindow1", 0.2,
-                "Windshield2", 0.2,
-                "RearWindshield2", 0.2,
-                "FrontWindow2", 0.2,
-                "RearWindow2", 0.2,
-                "Windshield3", 0.2,
-                "RearWindshield3", 0.2,
-                "FrontWindow3", 0.2,
-                "RearWindow3", 0.2,
-                "FrontCarDoor1", 0.2,
-                "RearCarDoor1", 0.2,
-                "RearCarDoorDouble1", 0.2,
-                "FrontCarDoor2", 0.2,
-                "RearCarDoor2", 0.2,
-                "RearCarDoorDouble2", 0.2,
-                "FrontCarDoor3", 0.2,
-                "RearCarDoor3", 0.2,
-                "RearCarDoorDouble3", 0.2,
-                "EngineDoor1", 0.2,
-                "EngineDoor2", 0.2,
-                "EngineDoor3", 0.2,
-                "TrunkDoor1", 0.2,
-                "TrunkDoor2", 0.2,
-                "TrunkDoor3", 0.2,
-                "OldCarMuffler1", 0.5,
-                "NormalCarMuffler1", 0.2,
-                "OldCarMuffler2", 0.5,
-                "NormalCarMuffler2", 0.2,
-                "OldCarMuffler3", 0.5,
-                "NormalCarMuffler3", 0.2,
-                "CarBatteryCharger", 1,
-                "CarBattery1", 0.3,
-                "CarBattery2", 0.3,
-                "CarBattery3", 0.3,
-                "BarbedWire", 1,
-                "EmptySandbag", 2,
-                "Cigarettes", 5,
-                "Lighter", 2,
-                "LeadPipe", 1,
-                "HandAxe", 0.8,
-                "PipeWrench", 1,
-                "Plunger", 2,
-                "ClubHammer", 1,
-                "WoodenMallet", 1,
-                "farming.GardeningSprayEmpty", 0.4,
-            },
-            
-            junk = {
-                rolls = 5,
-                items = {
-                    "EmptySandbag", 2,
-                    "Cigarettes", 5,
-                    "Lighter", 2,
-                    "farming.GardeningSprayEmpty", 2,
-                    "BarbedWire", 1,
-                    "LightBulb", 1,
-                    "LightBulbRed", 0.01,
-                    "LightBulbGreen", 0.01,
-                    "LightBulbBlue", 0.01,
-                    "LightBulbYellow", 0.06,
-                    "LightBulbCyan", 0.03,
-                    "LightBulbMagenta", 0.01,
-                    "LightBulbOrange", 0.006,
-                    "LightBulbPurple", 0.003,
-                    "LightBulbPink", 0.001,
-                },
-            },
-        },
-        
-        logs = {
-            rolls = 4,
-            items = {
-                "Log", 7,
-                "Log", 7,
-                "Log", 7,
-            }
-        },
-    },
-    
-    
-    kitchen =
-    {
-        counter ={
-            procedural = true,
-            procList = {
-                {name="KitchenDishes", min=1, max=1},
-                {name="KitchenPots", min=1, max=1},
-                {name="KitchenCannedFood", min=1, max=1},
-                {name="KitchenDryFood", min=0, max=1},
-                {name="KitchenBreakfast", min=0, max=1},
-                {name="KitchenBottles", min=0, max=1},
-                {name="KitchenRandom", min=0, max=1},
-            }
-        },
-    
-        overhead ={
-            procedural = true,
-            procList = {
-                {name="KitchenDishes", min=1, max=1},
-                {name="KitchenCannedFood", min=1, max=1},
-                {name="KitchenDryFood", min=0, max=1},
-                {name="KitchenBreakfast", min=0, max=1},
-                {name="KitchenBottles", min=0, max=1},
-            }
-        },
-        
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="KitchenDishes", min=1, max=1},
-                {name="KitchenDryFood", min=1, max=1},
-                {name="KitchenBook", min=0, max=1},
-                {name="KitchenBottles", min=0, max=1},
-            }
-        },
-    },
-    
-    spiffosstorage = {
-        all = {
-            rolls = 4,
-            items = {
-                "Bread", 7,
-                "Steak", 4,
-                "Burger", 4,
-                "Burger", 4,
-                "Fries", 4,
-                "Fries", 4,
-                "Chicken", 3,
-                "Ham", 3,
-                "Cheese", 4,
-                "Cheese", 4,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "PopBottle", 3,
-                "Butter", 3,
-                "EggCarton", 4,
-                "EggCarton", 2,
-                "farming.Tomato", 4,
-                "Lettuce", 3,
-                "Pickles", 3,
-                "BellPepper", 3,
-                "Mustard", 3,
-                "Ketchup", 3,
-                "Processedcheese", 3,
-                "Salt", 1,
-                "Pepper", 1,
-                "farming.Cabbage", 4,
-                "WaterBottleFull", 3,
-                "Corn", 4,
-                "farming.Bacon", 4,
-                "farming.Bacon", 4,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-            }
-        },
-    },
-    
-    spiffoskitchen =
-    {
-        stove = {
-            rolls = 1,
-            items = {
-                "DeadRat", 10,
-            }
-        },
-        
-        freezer =
-        {
-            rolls = 4,
-            items = {
-                "Burger", 1,
-                "Burger", 1,
-                "Burger", 1,
-                "ChickenFried", 1,
-                "ChickenFried", 1,
-                "Chicken", 1,
-            }
-        },
-        
-        fridge = {
-            rolls = 5,
-            items = {
-                "Milk", 4,
-                "Milk", 4,
-                "Burger", 4,
-                "Burger", 4,
-                "Fries", 4,
-                "Fries", 4,
-                "Burger", 4,
-                "Burger", 4,
-                "Fries", 4,
-                "Fries", 4,
-                "Bread", 3,
-                "Steak", 3,
-                "Lettuce", 3,
-                "Pickles", 3,
-                "Pickles", 3,
-                "Mustard", 3,
-                "Ketchup", 3,
-                "Processedcheese", 4,
-                "Processedcheese", 4,
-                "Processedcheese", 4,
-                "Corndog", 2,
-                "ChickenFried", 3,
-                "ChickenFried", 3,
-                "ChickenFried", 3,
-                "Chicken", 3,
-                "Ham", 3,
-                "Cheese", 3,
-                "Cheese", 3,
-                "Pop", 3,
-                "Pop2", 3,
-                "Pop3", 3,
-                "PopBottle", 3,
-                "Butter", 3,
-                "EggCarton", 4,
-                "EggCarton", 2,
-                "farming.Tomato", 3,
-                "farming.Cabbage", 3,
-                "WaterBottleFull", 3,
-                "WaterBottleFull", 3,
-                "WaterBottleFull", 3,
-                "Corn", 3,
-                "farming.Bacon", 3,
-                "farming.Bacon", 3,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-                "Wine", 3,
-                "Wine2", 3,
-                "Worm", 0.5,
-                "Vinegar", 1,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-            }
-        },
-        
-        counter ={
-            rolls = 6,
-            items = {
-                "Plasticbag", 3,
-                "Plasticbag", 3,
-                "Garbagebag", 3,
-                "Garbagebag", 3,
-                "Mustard", 3,
-                "Ketchup", 3,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-                "Tote", 1,
-                "Tote", 1,
-                "Tote", 1,
-                "KitchenKnife", 5,
-                "MeatCleaver", 3,
-                "WhiskeyFull", 3,
-                "TinnedSoup", 3,
-                "TinnedBeans", 3,
-                "CannedCornedBeef", 2,
-                "Macandcheese", 2,
-                "CannedChili", 2,
-                "CannedBolognese", 2,
-                "CannedCarrots2", 2,
-                "CannedCorn", 2,
-                "CannedMushroomSoup", 2,
-                "CannedPeas", 2,
-                "CannedPotato2", 2,
-                "CannedSardines", 2,
-                "CannedTomato2", 2,
-                "RollingPin", 7,
-                "Chocolate", 4,
-                "TinOpener", 3,
-                "Pot", 3,
-                "Saucepan", 3,
-                "ButterKnife", 5,
-                "BreadKnife", 5,
-                "Spoon", 10,
-                "Spoon", 10,
-                "Fork", 10,
-                "Fork", 10,
-                "Bowl", 3,
-                "DishCloth", 3,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 3,
-                "Teabag2", 3,
-                "TunaTin", 3,
-                "Flour", 3,
-                "Salt", 2,
-                "Pepper", 2,
-                "PeanutButter", 3,
-                "Pan", 9,
-                "GridlePan", 5,
-                "BakingPan", 3,
-                "RoastingPan", 3,
-                "Yeast", 2,
-                "Popcorn", 3,
-                "Crisps2", 4,
-                "Crisps3", 4,
-                "Crisps", 4,
-                "Vinegar", 1,
-                "Sparklers", 1,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "Mop", 1,
-                "Sponge", 1,
-                "Pasta", 2,
-                "Marinara", 1,
-                "Rice", 2,
-                "EmptyJar", 2,
-                "JarLid", 2,
-                "Vinegar", 2,
-                "BoxOfJars", 0.01,
-            }
-        },
-    },
-    
-    kitchen_crepe =
-    {
-        freezer =
-        {
-            rolls = 4,
-            items = {
-                "Steak", 1,
-                "Chicken", 1,
-                "Salmon", 1,
-                "Steak", 1,
-                "Chicken", 1,
-                "Salmon", 1,
-            }
-        },
-        
-        fridge = {
-            rolls = 5,
-            items = {
-                "Milk", 7,
-                "Milk", 7,
-                "Bread", 5,
-                "Steak", 3,
-                "Chicken", 3,
-                "Ham", 3,
-                "Salmon", 3,
-                "Cheese", 4,
-                "Broccoli", 4,
-                "Flour", 6,
-                "Flour", 6,
-                "Sugar", 6,
-                "Sugar", 6,
-                "Pie", 3,
-                "Peas", 4,
-                "PopBottle", 3,
-                "Butter", 3,
-                "EggCarton", 4,
-                "EggCarton", 2,
-                "Banana", 3,
-                "Onion", 3,
-                "Lemon", 3,
-                "WaterBottleFull", 3,
-                "WaterBottleFull", 3,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "farming.Bacon", 4,
-                "Butter", 3,
-                "Worm", 0.5,
-            }
-        },
-        
-        counter ={
-            rolls = 6,
-            items = {
-                "Plasticbag", 3,
-                "Plasticbag", 3,
-                "Plasticbag", 3,
-                "Tote", 1,
-                "Tote", 1,
-                "Tote", 1,
-                "KitchenKnife", 5,
-                "WhiskeyFull", 3,
-                "TinnedSoup", 3,
-                "TinnedBeans", 3,
-                "CannedCornedBeef", 2,
-                "Macandcheese", 2,
-                "CannedChili", 2,
-                "CannedBolognese", 2,
-                "CannedCarrots2", 2,
-                "CannedCorn", 2,
-                "CannedMushroomSoup", 2,
-                "CannedPeas", 2,
-                "CannedPotato2", 2,
-                "CannedSardines", 2,
-                "CannedTomato2", 2,
-                "RollingPin", 7,
-                "Chocolate", 4,
-                "TinOpener", 3,
-                "Pot", 3,
-                "Saucepan", 3,
-                "ButterKnife", 10,
-                "BreadKnife", 10,
-                "Spoon", 10,
-                "Spoon", 10,
-                "Fork", 10,
-                "Bowl", 3,
-                "DishCloth", 3,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 3,
-                "Teabag2", 3,
-                "TunaTin", 3,
-                "Flour", 3,
-                "PeanutButter", 3,
-                "Pan", 9,
-                "GridlePan", 5,
-                "BakingPan", 3,
-                "RoastingPan", 3,
-                "Yeast", 2,
-                "Popcorn", 3,
-                "Crisps2", 4,
-                "Crisps3", 4,
-                "Crisps", 4,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "Mop", 1,
-                "Sponge", 1,
-                "Radio.RadioBlack",1,
-                "Radio.RadioRed",0.5,
-                "EmptyJar", 2,
-                "JarLid", 2,
-                "Vinegar", 2,
-                "BoxOfJars", 0.01,
-            }
-        },
-    },
-    plazastore1 =
-    {
-        counter ={
-            rolls = 1,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Book", 2,
-                "SheetPaper2", 2,
-                "Notebook", 2,
-                "ComicBook", 2,
-                "Pen", 2,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 2,
-                "Radio.RadioBlack",1,
-                "Radio.RadioRed",0.5,
-            }
-        },
-    },
-    
-    garagestorage =
-    {
-        other ={
-            rolls = 2,
-            items = {
-                "NailsBox", 1,
-                "FishingRod", 2,
-                "FishingMag1", 0.5,
-                "FishingMag2", 0.5,
-                "HuntingMag1", 0.5,
-                "HuntingMag2", 0.5,
-                "HuntingMag3", 0.5,
-                "HerbalistMag", 0.5,
-                "ElectronicsMag1", 0.5,
-                "ElectronicsMag2", 0.5,
-                "ElectronicsMag3", 0.5,
-                "ElectronicsMag4", 0.5,
-                "ElectronicsMag5", 0.5,
-                "MechanicMag1", 0.5,
-                "MechanicMag2", 0.4,
-                "MechanicMag3", 0.3,
-                "EngineerMagazine1", 0.5,
-                "EngineerMagazine2", 0.5,
-                "MetalworkMag1", 0.5,
-                "MetalworkMag2", 0.5,
-                "MetalworkMag3", 0.5,
-                "MetalworkMag4", 0.5,
-                "HuntingKnife", 1,
-                "FishingNet", 1,
-                "FishingTackle", 1,
-                "FishingTackle2", 1,
-                "FishingLine", 1.5,
-                "PaperclipBox", 0.5,
-                "DuctTape", 2,
-                "Glue", 2,
-                "Scotchtape", 2,
-                "Twine", 2,
-                "Thread", 4,
-                "Woodglue", 2,
-                "Rope", 2,
-                "NailsBox", 1,
-                "NailsBox", 1,
-                "Nails", 3,
-                "Hammer", 2,
-                "Wire", 7,
-                "Saw", 2,
-                "GardenSaw", 1,
-                "Plank", 1,
-                "Plank", 1,
-                "Screwdriver", 2,
-                "Toolbox", 1,
-                "Radio.ElectricWire", 2,
-                "Charcoal", 6,
-                "Charcoal", 6,
-                "BallPeenHammer", 1,
-                --                "Tongs", 0.5,
-                "PropaneTank", 3,
-                "Extinguisher", 0.5,
-                "Radio.RadioMag1", 0.2,
-                "Radio.RadioMag2", 0.1,
-                "Radio.RadioMag3", 0.05,
-                "EmptyPetrolCan", 4,
-                "PetrolCan", 3,
-                "ElectronicsScrap", 2,
-                "ElectronicsScrap", 2,
-                "ScrapMetal", 2,
-                "ScrapMetal", 2,
-                "Radio.RadioBlack",4,
-                "Radio.RadioRed",2,
-                "Radio.WalkieTalkie1",1,
-                "Radio.WalkieTalkie2",0.8,
-                "Radio.WalkieTalkie3",0.6,
-                "Radio.WalkieTalkie4",0.1,
-                "Radio.WalkieTalkie5",0.02,
-                "Radio.HamRadio1",0.1,
-                "Radio.HamRadio2",0.01,
-                "BlowTorch", 2,
-                "WeldingRods", 5,
-                "SmallSheetMetal", 5,
-                "SheetMetal", 4,
-                "MetalPipe", 4,
-                "MetalBar", 4,
-                "WeldingMask",2,
-                "Wrench", 1,
-                "LugWrench",1,
-                "Jack", 1,
-                "TirePump", 1,
-                "OldTire1", 0.7,
-                "NormalTire1", 0.5,
-                "OldTire2", 0.7,
-                "NormalTire2", 0.5,
-                "OldTire3", 0.7,
-                "NormalTire3", 0.5,
-                "OldBrake1", 0.5,
-                "NormalBrake1", 0.2,
-                "OldBrake2", 0.5,
-                "NormalBrake2", 0.2,
-                "OldBrake3", 0.5,
-                "NormalBrake3", 0.2,
-                "NormalSuspension1", 0.2,
-                "NormalSuspension2", 0.2,
-                "NormalSuspension3", 0.2,
-                "SmallGasTank1", 0.5,
-                "NormalGasTank1", 0.2,
-                "SmallGasTank2", 0.5,
-                "NormalGasTank2", 0.2,
-                "SmallGasTank3", 0.5,
-                "NormalGasTank3", 0.2,
-                "SmallTrunk1", 0.5,
-                "NormalTrunk1", 0.2,
-                "SmallTrunk2", 0.5,
-                "NormalTrunk2", 0.2,
-                "SmallTrunk3", 0.5,
-                "NormalTrunk3", 0.2,
-                "Windshield1", 0.2,
-                "RearWindshield1", 0.2,
-                "FrontWindow1", 0.2,
-                "RearWindow1", 0.2,
-                "Windshield2", 0.2,
-                "RearWindshield2", 0.2,
-                "FrontWindow2", 0.2,
-                "RearWindow2", 0.2,
-                "Windshield3", 0.2,
-                "RearWindshield3", 0.2,
-                "FrontWindow3", 0.2,
-                "RearWindow3", 0.2,
-                "FrontCarDoor1", 0.2,
-                "RearCarDoor1", 0.2,
-                "RearCarDoorDouble1", 0.2,
-                "FrontCarDoor2", 0.2,
-                "RearCarDoor2", 0.2,
-                "RearCarDoorDouble2", 0.2,
-                "FrontCarDoor3", 0.2,
-                "RearCarDoor3", 0.2,
-                "RearCarDoorDouble3", 0.2,
-                "EngineDoor1", 0.2,
-                "EngineDoor2", 0.2,
-                "EngineDoor3", 0.2,
-                "TrunkDoor1", 0.2,
-                "TrunkDoor2", 0.2,
-                "TrunkDoor3", 0.2,
-                "OldCarMuffler1", 0.5,
-                "NormalCarMuffler1", 0.2,
-                "OldCarMuffler2", 0.5,
-                "NormalCarMuffler2", 0.2,
-                "OldCarMuffler3", 0.5,
-                "NormalCarMuffler3", 0.2,
-                "CarBatteryCharger", 1,
-                "CarBattery1", 0.3,
-                "CarBattery2", 0.3,
-                "CarBattery3", 0.3,
-                "BarbedWire", 1,
-                "EmptySandbag", 2,
-                "Cigarettes", 5,
-                "Lighter", 2,
-                "LeadPipe", 1,
-                "HandAxe", 0.8,
-                "PipeWrench", 1,
-                "Plunger", 2,
-                "ClubHammer", 1,
-                "WoodenMallet", 1,
-                "farming.GardeningSprayEmpty", 0.4,
-            },
-            
-            junk = {
-                rolls = 5,
-                items = {
-                    "EmptySandbag", 2,
-                    "Cigarettes", 5,
-                    "Lighter", 2,
-                    "farming.GardeningSprayEmpty", 2,
-                    "BarbedWire", 1,
-                    "LightBulb", 1,
-                    "LightBulbRed", 0.01,
-                    "LightBulbGreen", 0.01,
-                    "LightBulbBlue", 0.01,
-                    "LightBulbYellow", 0.06,
-                    "LightBulbCyan", 0.03,
-                    "LightBulbMagenta", 0.01,
-                    "LightBulbOrange", 0.006,
-                    "LightBulbPurple", 0.003,
-                    "LightBulbPink", 0.001,
-                },
-            },
-        },
-        
-        bin = {
-            rolls = 1,
-            items = {
-                "Tissue", 2,
-                "Lighter", 2,
+                "Hat_Army", 3,
+                "Hat_SPHhelmet", 3,
+                "Boilersuit_Flying", 2,
+                "Radio.WalkieTalkie5", 2,
+                "Glasses_Aviators", 2,
+                "Glasses_SafetyGoggles", 3,
+                "Glasses_Sun", 2,
+                "Hat_DustMask", 4,
+                "WeldingMask", 3,
+                "Hat_EarMuff_Protectors", 3,
+                "Hat_HardHat", 3,
+                "Vest_HighViz", 3,
+                "Extinguisher", 3,
+                "Torch", 2,
+                "HandTorch", 3,
+                "Hammer", 3,
+                "BlowTorch", 4,
+                "Screwdriver", 3,
+                "Toolbox", 1.5,
+                "Wrench", 3,
                 "Battery", 2,
-                "Pen", 3,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 3,
-                "Eraser", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Paperclip", 1,
-                "Socks_Ankle", 1,
-                "Socks_Long", 1,
-                "SheetPaper2", 3,
-                "WaterBottleEmpty", 3,
-                "Garbagebag", 15,
-                "Garbagebag", 15,
-                "Garbagebag", 15,
+                "Radio.ElectricWire", 2,
+                "ElectronicsScrap", 2,
+                "LightBulb", 2,
+                "Screws", 3,
+                "MetalPipe", 3,
+                "ScrapMetal", 3,
+                "WeldingRods", 3,
+                "Wire", 3,
+                "DuctTape", 3,
+                "PetrolCan", 2,
+                "PropaneTank", 3,
+                "Tarp", 3,
+                "Crowbar", 3,
+                "PipeWrench", 3,
+                "ClubHammer", 3,
+                "BallPeenHammer", 3,
+                "Sledgehammer", 3,
+                "LeadPipe", 2,
             }
         },
         
-        crate = {
-            procedural = true,
-            procList = {
-                {name="CratePaint", min=0, max=50},
-                {name="CrateFarming", min=0, max=50},
-                {name="CrateWoods", min=0, max=50},
-                {name="CrateHardware", min=0, max=50},
-                {name="CrateTools", min=0, max=50},
-                {name="CrateMetal", min=0, max=50},
+        counter = {
+            rolls = 3,
+            items = {
+                "Hat_Army", 3,
+                "Hat_SPHhelmet", 3,
+                "Boilersuit_Flying", 2,
+                "Radio.WalkieTalkie5", 2,
+                "Glasses_Aviators", 2,
+                "Glasses_SafetyGoggles", 3,
+                "Glasses_Sun", 2,
+                "Hat_DustMask", 4,
+                "WeldingMask", 3,
+                "Hat_EarMuff_Protectors", 3,
+                "Hat_HardHat", 3,
+                "Vest_HighViz", 3,
+                "Extinguisher", 3,
+                "Torch", 2,
+                "HandTorch", 2,
+                "Hammer", 3,
+                "BlowTorch", 4,
+                "Screwdriver", 3,
+                "Toolbox", 1.5,
+                "Wrench", 3,
+                "Battery", 2,
+                "Radio.ElectricWire", 2,
+                "ElectronicsScrap", 2,
+                "LightBulb", 2,
+                "Screws", 3,
+                "MetalPipe", 3,
+                "ScrapMetal", 3,
+                "WeldingRods", 3,
+                "Wire", 3,
+                "DuctTape", 3,
+                "PetrolCan", 2,
+                "PropaneTank", 3,
+                "Tarp", 3,
+                "Crowbar", 3,
+                "PipeWrench", 3,
+                "ClubHammer", 3,
+                "BallPeenHammer", 3,
+                "Sledgehammer", 3,
+                "LeadPipe", 2,
+            }
+        },
+        
+        locker = {
+            rolls = 3,
+            items = {
+                "Hat_Army", 3,
+                "Hat_SPHhelmet", 3,
+                "Boilersuit_Flying", 2,
+                "Radio.WalkieTalkie5", 2,
+                "Glasses_Aviators", 2,
+                "Glasses_SafetyGoggles", 3,
+                "Glasses_Sun", 2,
+                "Hat_DustMask", 4,
+                "WeldingMask", 3,
+                "Hat_EarMuff_Protectors", 3,
+                "Hat_HardHat", 3,
+                "Vest_HighViz", 3,
+                "Extinguisher", 3,
+                "Torch", 2,
+                "HandTorch", 2,
+                "Hammer", 3,
+                "BlowTorch", 4,
+                "Screwdriver", 3,
+                "Toolbox", 1,
+                "Wrench", 3,
+                "Battery", 2,
+                "Radio.ElectricWire", 2,
+                "ElectronicsScrap", 2,
+                "LightBulb", 2,
+                "Screws", 3,
+                "MetalPipe", 3,
+                "ScrapMetal", 3,
+                "WeldingRods", 3,
+                "Wire", 3,
+                "DuctTape", 3,
+                "PetrolCan", 2,
+                "PropaneTank", 3,
+                "Tarp", 3,
+                "Crowbar", 3,
+                "PipeWrench", 3,
+                "ClubHammer", 3,
+                "BallPeenHammer", 3,
+                "Sledgehammer", 3,
+                "LeadPipe", 2,
             }
         }
     },
     
-    garage =
-    {
-        metal_shelves ={
+    armystorage = {
+        locker = {
             rolls = 2,
             items = {
+                "HolsterSimple", 3,
+                "HolsterDouble", 0.8,
+                "Nightstick", 4,
+                "Shotgun", 3,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "GunPowder", 3,
+                "ShotgunShellsBox", 3,
+                "223Box", 3,
+                "308Box", 3,
+                "Bullets9mmBox", 3,
+                "ShotgunShellsBox", 3,
+                "Bullets38Box", 3,
+                "Bullets44Box", 3,
+                "Bullets45Box", 3,
+                "Bag_ALICEpack_Army", 1,
+                "HuntingKnife", 3,
+                "Radio.WalkieTalkie4",10,
+                "Radio.WalkieTalkie5",1,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",1,
+                "AssaultRifle", 0.5,
+                "AssaultRifle2", 0.8,
+                "556Box", 2,
+                "556Clip", 0.7,
+                "Ghillie_Top", 0.1,
+                "Ghillie_Trousers", 0.1,
+                "Vest_BulletArmy", 0.5,
+            },
+        },
+        
+        metal_shelves =
+        {
+            rolls = 2,
+            items = {
+                "HolsterSimple", 3,
+                "HolsterDouble", 0.8,
+                "Nightstick", 4,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "Bullets9mmBox", 3,
+                "GunPowder", 2,
+                "ShotgunShellsBox", 3,
+                "Bullets38Box", 3,
+                "Bullets44Box", 3,
+                "Bullets45Box", 3,
+                "223Box", 3,
+                "308Box", 3,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "Radio.WalkieTalkie4",10,
+                "Radio.WalkieTalkie5",2,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",2,
+            }
+        },
+    },
+    
+    armysurplus = {
+        isShop = true,
+        shelves = {
+            rolls = 3,
+            items = {
+                "Hat_Army", 4,
+                "Hat_BeretArmy", 4,
+                "Hat_PeakedCapArmy", 2,
+                "Hat_SPHhelmet", 1,
+                "Hat_BonnieHat", 3,
+                "Hat_BonnieHat_CamoGreen", 3,
+                "Hat_BalaclavaFull", 1,
+                "Hat_BalaclavaFace", 1,
+                "Hat_GasMask", 1,
+                "Hat_Beany", 2,
+                "Ghillie_Trousers", 1,
+                "Ghillie_Top", 1,
+                "Boilersuit_Flying", 2,
+                "camping.CampingTentKit", 3,
+                "Radio.WalkieTalkie5", 2,
+                "Radio.HamRadio2", 1,
+                "HuntingKnife", 4,
+                "Machete", 4,
+                "Bag_ALICEpack", 1,
+                "Bag_ALICEpack_Army", 1,
+                "Lighter", 2,
+                "Matches", 2,
+            }
+        },
+        
+        metal_shelves = {
+            rolls = 3,
+            items = {
+                "Hat_Army", 4,
+                "Hat_BeretArmy", 4,
+                "Hat_PeakedCapArmy", 2,
+                "Hat_SPHhelmet", 1,
+                "Hat_BonnieHat", 3,
+                "Hat_BonnieHat_CamoGreen", 3,
+                "Hat_BalaclavaFull", 1,
+                "Hat_BalaclavaFace", 1,
+                "Hat_GasMask", 1,
+                "Hat_Beany", 2,
+                "Ghillie_Trousers", 1,
+                "Ghillie_Top", 1,
+                "Boilersuit_Flying", 2,
+                "camping.CampingTentKit", 3,
+                "Radio.WalkieTalkie5", 2,
+                "Radio.HamRadio2", 1,
+                "HuntingKnife", 4,
+                "Machete", 4,
+                "Bag_ALICEpack", 1,
+                "Bag_ALICEpack_Army", 1,
+                "Lighter", 2,
+                "Matches", 2,
+            }
+        },
+        
+        
+        clothingrack = {
+            rolls = 3,
+            items = {
+                "Ghillie_Trousers", 1,
+                "Ghillie_Top", 1,
+                "Boilersuit_Flying", 2,
+                "Shirt_CamoDesert", 4,
+                "Shirt_CamoGreen", 4,
+                "Shirt_CamoUrban", 4,
+                "Tshirt_ArmyGreen", 4,
+                "Tshirt_CamoDesert", 4,
+                "Tshirt_CamoGreen", 4,
+                "Tshirt_CamoUrban", 4,
+                "Vest_BulletArmy", 1,
+            }
+        }
+    },
+    
+    bakery = {
+        isShop = true,
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="BakeryMisc", min=1, max=99},
+            }
+        },
+        displaycasebakery = {
+            procedural = true,
+            procList = {
+                {name="BakeryBread", min=1, max=2},
+                {name="BakeryPie", min=1, max=2},
+                {name="BakeryCake", min=1, max=2},
+                {name="BakeryMisc", min=0, max=4},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreKitchenBaking", min=1, max=99},
+            }
+        },
+        grocerstand = {
+            procedural = true,
+            procList = {
+                {name="BakeryBread", min=1, max=2},
+                {name="BakeryPie", min=1, max=2},
+                {name="BakeryCake", min=1, max=2},
+                {name="BakeryMisc", min=0, max=4},
+            }
+        }
+    },
+    
+    bar = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="BarShelfLiquor", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="BarCounterMisc", min=1, max=4},
+                {name="BarCounterWeapon", min=1, max=1},
+                {name="BarCounterLiquor", min=0, max=99},
+            }
+        },
+        bin = {
+            procedural = true,
+            procList = {
+                {name="BinBar", min=0, max=99},
+            }
+        }
+    },
+    
+    barkitchen = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=0, max=99},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="BarShelfLiquor", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="BarCounterMisc", min=1, max=4},
+                {name="BarCounterWeapon", min=1, max=1},
+                {name="BarCounterLiquor", min=0, max=99},
+            }
+        },
+        bin = {
+            procedural = true,
+            procList = {
+                {name="BinBar", min=0, max=99},
+            }
+        }
+    },
+    
+    barstorage = {
+        crate = {
+            procedural = true,
+            procList = {
+                {name="BarCratePool", min=0, max=99},
+                {name="BarCrateDarts", min=0, max=99},
+            }
+        },
+        bin = {
+            procedural = true,
+            procList = {
+                {name="BinBar", min=0, max=99},
+            }
+        }
+    },
+    
+    bathroom = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="BathroomCounter", min=0, max=99},
+                {name="BathroomCounterEmpty", min=0, max=99, forceForItems="location_community_church_small_01_5"},
+                {name="BathroomCounterNoMeds", min=0, max=99, forceForItems="fixtures_bathroom_01_28;fixtures_bathroom_01_29;fixtures_bathroom_01_37;fixtures_bathroom_01_38"},
+            }
+        },
+        medicine = {
+            procedural = true,
+            procList = {
+                {name="BathroomCabinet", min=0, max=99},
+            }
+        }
+    },
+    
+    bedroom = {
+        wardrobe = {
+            procedural = true,
+            procList = {
+                {name="WardrobeMan", min=0, max=2},
+                {name="WardrobeManClassy", min=0, max=1, forceForZones="Rich"},
+                {name="WardrobeWomanClassy", min=0, max=1, forceForZones="Rich"},
+                -- If we find the items listed in forceForItems we gonna force this particular loot definition
+                {name="WardrobeChild", min=0, max=2, forceForItems="furniture_bedding_01_36;furniture_bedding_01_38;furniture_bedding_01_1;furniture_bedding_01_2;furniture_bedding_01_9;furniture_bedding_01_10;furniture_bedding_01_68;furniture_bedding_01_71;furniture_bedding_01_32;furniture_bedding_01_34"},
+                {name="WardrobeWoman", min=0, max=2},
+                {name="WardrobeRedneck", min=0, max=2, forceForZones="TrailerPark"},
+            }
+        },
+        plankstash = {
+            rolls = 7,
+            items = {
+                "Magazine", 30,
+                "HottieZ", 30,
+            }
+        },
+        sidetable = {
+            rolls = 3,
+            items = {
+                "AlarmClock2", 4,
+                "WristWatch_Left_DigitalRed", 2.5,
+                "WristWatch_Left_DigitalBlack", 2.5,
+                "CordlessPhone", 2,
+                "Radio.RadioBlack", 2,
+                "Radio.RadioRed", 1,
+                "Radio.WalkieTalkie1", 0.05,
+                "Radio.WalkieTalkie2", 0.03,
+                "Radio.WalkieTalkie3", 0.001,
+                "Pistol", 1,
+                "Pistol2", 0.2,
+                "Revolver_Short", 1,
+            },
+            junk = {
+                rolls = 3,
+                items = {
+                    "Doll", 0.5,
+                    "Disc", 0.5,
+                    "CDplayer", 0.5,
+                    "Earbuds", 0.5,
+                    "Headphones", 0.5,
+                    "VideoGame", 0.5,
+                    "Magazine", 2,
+                    "Socks_Ankle", 1,
+                    "Socks_Long", 1,
+                    "Pen", 7,
+                    "BluePen", 7,
+                    "RedPen", 7,
+                    "Pencil", 7,
+                },
+            },
+        },
+        locker = {
+            procedural = true,
+            procList = {
+                {name="LockerArmyBedroom", min=0, max=99, forceForZones="Army"},
+            }
+        },
+    },
+    
+    bookstore = {
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="BookstoreCarpentry", min=1, max=1},
+                {name="BookstoreMetalwork", min=1, max=1},
+                {name="BookstoreMechanic", min=1, max=1},
+                {name="BookstoreElectronics", min=1, max=1},
+                {name="BookstoreFarming", min=1, max=1},
+                {name="BookstoreForaging", min=1, max=1},
+                {name="BookstoreTrapping", min=1, max=1},
+                {name="BookstoreFishing", min=1, max=1},
+                {name="BookstoreCooking", min=1, max=1},
+                {name="BookstoreFirstAid", min=1, max=1},
+                {name="BookstoreTailoring", min=1, max=1},
+                {name="BookstoreMisc", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="BookstoreBags", min=0, max=2},
+                {name="BookstoreStationery", min=0, max=4},
+                {name="MagazineRackMixed", min=0, max=99},
+            }
+        }
+    },
+    
+    breakroom = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="BreakRoomCounter", min=0, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeBreakRoom", min=0, max=99},
+            }
+        },
+        overhead = {
+            procedural = true,
+            procList = {
+                {name="BreakRoomShelves", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="BreakRoomShelves", min=0, max=99},
+            }
+        }
+    },
+    
+    burgerstorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenDishes", min=0, max=2},
+                {name="StoreKitchenPots", min=0, max=2},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenBaking", min=0, max=12},
+                {name="StoreKitchenSauce", min=0, max=12},
+            }
+        }
+    },
+    
+    burgerkitchen = {
+        isShop = true,
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="BurgerKitchenFreezer", min=0, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="BurgerKitchenFridge", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=1},
+                {name="BurgerKitchenButcher", min=1, max=1},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPotatoes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenSauce", min=1, max=2},
+            }
+        }
+    },
+    
+    butcher = {
+        displaycasebutcher = {
+            procedural = true,
+            procList = {
+                {name="ButcherChops", min=1, max=4},
+                {name="ButcherGround", min=1, max=2},
+                {name="ButcherChicken", min=1, max=1},
+                {name="ButcherSmoked", min=1, max=4},
+                {name="ButcherFish", min=0, max=1},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="Meat", min=0, max=99},
+            }
+        },
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="Meat", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfSpices", min=1, max=6},
+                {name="StoreKitchenButcher", min=0, max=2},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenButcher", min=1, max=6},
+                {name="StoreCounterCleaning", min=1, max=2},
+            }
+        }
+    },
+    
+    cafe = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreKitchenBaking", min=1, max=99},
+            }
+        },
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="BakeryBread", min=1, max=2},
+                {name="BakeryPie", min=1, max=2},
+                {name="BakeryCake", min=1, max=2},
+                {name="BakeryMisc", min=0, max=4},
+            }
+        }
+    },
+    
+    cafekitchen = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="CafeKitchenFridge", min=0, max=99},
+            }
+        },
+        freezer = {
+            rolls = 1,
+            items = {
+            
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreKitchenBaking", min=1, max=2},
+                {name="StoreKitchenCafe", min=1, max=4},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenBaking", min=1, max=2},
+                {name="StoreKitchenDishes", min=0, max=4},
+                {name="StoreKitchenPots", min=0, max=4},
+            }
+        }
+    },
+    
+    camping = {
+        isShop = true,
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="CampingStoreClothes", min=1, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="CampingStoreBooks", min=1, max=4},
+                {name="CampingStoreLegwear", min=0, max=1},
+                {name="CampingStoreBackpacks", min=0, max=1},
+                {name="CampingStoreGear", min=0, max=1},
+                {name="FishingStoreGear", min=0, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="CampingStoreLegwear", min=1, max=2},
+                {name="CampingStoreBackpacks", min=1, max=2},
+                {name="CampingStoreGear", min=1, max=4},
+                {name="FishingStoreGear", min=1, max=2},
+            }
+        }
+    },
+    
+    campingstorage = {
+        crate = {
+            procedural = true,
+            procList = {
+                {name="CampingStoreClothes", min=0, max=1},
+                {name="CampingStoreBooks", min=0, max=1},
+                {name="CampingStoreLegwear", min=0, max=1},
+                {name="CampingStoreBackpacks", min=0, max=1},
+                {name="CampingStoreGear", min=0, max=1},
+                {name="FishingStoreGear", min=0, max=1},
+            }
+        }
+    },
+    
+    candystorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenDishes", min=0, max=2},
+                {name="StoreKitchenPots", min=0, max=2},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="GigamartCandy", min=0, max=12},
+                {name="CandyStoreSugar", min=0, max=12},
+            }
+        }
+    },
+    
+    candystore = {
+        isShop = true,
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="CandyStoreSnacks", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="StoreKitchenDishes", min=1, max=1},
+                {name="StoreKitchenPots", min=1, max=1},
+                {name="CandyStoreSugar", min=0, max=12},
+            }
+        }
+    },
+    
+    changeroom = {
+        locker = {
+            rolls = 2,
+            items = {
+                "DumbBell", 0.3,
+                "BarBell", 0.3,
+                "Tshirt_DefaultTEXTURE_TINT", 3,
+                "Jumper_RoundNeck", 1,
+                "TrousersMesh_DenimLight", 1,
+                "Trousers_DefaultTEXTURE_TINT", 2,
+                "Vest_DefaultTEXTURE_TINT", 1,
+                "Skirt_Knees", 0.3,
+                "Skirt_Long", 0.3,
+                "Skirt_Normal", 0.3,
+                "Socks_Ankle", 4,
+                "Sheet", 9,
+                "Pillow", 9,
+                "Paperclip", 0.5,
+                "Belt2", 5,
+                "BaseballBat", 2,
+                "Pistol", 0.2,
+                "Revolver_Short", 0.2,
+                "Doll", 0.5,
+                "Disc", 0.5,
+                "CDplayer", 0.5,
+                "Earbuds", 0.5,
+                "Headphones", 0.5,
+                "VideoGame", 0.5,
+                "Bag_DuffelBagTINT", 1,
+                "Bag_Schoolbag", 3,
+                "Bag_NormalHikingBag", 0.8,
+                "ClosedUmbrellaRed", 0.3,
+                "ClosedUmbrellaBlue", 0.3,
+                "ClosedUmbrellaBlack", 0.3,
+                "ClosedUmbrellaWhite", 0.3,
+                "Bag_BigHikingBag", 0.5,
+            }
+        },
+        
+        counter = {
+            rolls = 2,
+            items = {
+                "Sheet", 4,
+                "Sheet", 4,
+                "Mirror", 3,
+                "Soap2", 10,
+                "FirstAidKit", 0.5,
+            }
+        }
+    },
+    
+    classroom = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="ClassroomMisc", min=0, max=99},
+            }
+        },
+        desk = {
+            procedural = true,
+            procList = {
+                {name="ClassroomDesk", min=0, max=99},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="ClassroomShelves", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ClassroomShelves", min=0, max=99},
+            }
+        }
+    },
+    
+    clothingstorage = {
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="ClothingStorageAllShirts", min=1, max=4},
+                {name="ClothingStorageAllJackets", min=1, max=4},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="ClothingStorageFootwear", min=1, max=4},
+                {name="ClothingStorageHeadwear", min=0, max=2},
+                {name="ClothingStorageLegwear", min=0, max=2},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="ClothingStorageWinter", min=1, max=4},
+                {name="ClothingStorageHeadwear", min=0, max=1},
+                {name="ClothingStorageFootwear", min=0, max=1},
+                {name="ClothingStorageAllJackets", min=0, max=1},
+                {name="ClothingStorageAllShirts", min=0, max=1},
+            }
+        }
+    },
+    
+    clothingstore = {
+        isShop = true,
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="StoreDisplayWatches", min=1, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresBoots", min=1, max=12},
+                {name="ClothingStoresShoes", min=1, max=24},
+            }
+        },
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresDress", min=1, max=2},
+                {name="ClothingStoresJackets", min=1, max=6},
+                {name="ClothingStoresJacketsFormal", min=0, max=12, forceForZones="Rich"},
+                {name="ClothingStoresJumpers", min=1, max=12},
+                {name="ClothingStoresOvershirts", min=1, max=12},
+                {name="ClothingStoresPants", min=1, max=12},
+                {name="ClothingStoresPantsFormal", min=0, max=12, forceForZones="Rich"},
+                {name="ClothingStoresShirts", min=1, max=12},
+                {name="ClothingStoresShirtsFormal", min=0, max=12, forceForZones="Rich"},
+                {name="ClothingStoresSport", min=1, max=8},
+                {name="ClothingStoresSummer", min=1, max=8},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="ClothingStoresGloves", min=0, max=4},
+                {name="ClothingStoresEyewear", min=0, max=2},
+                {name="ClothingStoresHats", min=0, max=2},
+                {name="ClothingStoresHatsFormal", min=0, max=2},
+                {name="ClothingStoresHatsSport", min=0, max=2},
+                {name="ClothingStoresSocks", min=0, max=2},
+                {name="ClothingStoresUnderwear", min=0, max=2},
+            }
+        }
+    },
+    
+    conveniencestore = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfDrinks", min=1, max=4},
+                {name="StoreShelfSnacks", min=1, max=4},
+                {name="StoreShelfMedical", min=0, max=1},
+                {name="StoreShelfMechanics", min=0, max=1},
+            }
+        }
+    },
+    
+    cornerstore = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 1,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfDrinks", min=1, max=4},
+                {name="StoreShelfSnacks", min=1, max=4},
+                {name="StoreShelfMedical", min=0, max=1},
+                {name="StoreShelfMechanics", min=0, max=1},
+            }
+        }
+    },
+    
+    dentiststorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    departmentstore = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=4},
+                {name="StoreCounterBags", min=1, max=4},
+            }
+        },
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="JewellerySilver", min=1, max=7},
+                {name="JewelleryGold", min=1, max=3},
+                {name="JewelleryGems", min=1, max=2},
+                {name="JewelleryWeddingRings", min=1, max=2},
+                {name="JewelleryWrist", min=1, max=3},
+                {name="JewelleryOthers", min=1, max=50},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresBoots", min=1, max=12},
+                {name="ClothingStoresShoes", min=1, max=24},
+            }
+        },
+        wardrobe = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        sidetable = {
+            rolls = 0,
+            items = {
+            
+            }
+        }
+    },
+    
+    dining = {
+        counter = {
+            rolls = 2,
+            items = {
+                "Book", 4,
+                "Book", 4,
+                "Pen", 4,
+                "Pencil", 4,
+                "BluePen", 3,
+                "RedPen", 3,
+                "Sparklers", 3,
+                "Aluminum", 1,
+            }
+        },
+        
+        shelves = {
+            rolls = 2,
+            items = {
+                "PopBottle", 2,
+                "Pop", 4,
+                "Pop2", 4,
+                "Pop3", 4,
+                "Crisps", 2,
+                "Crisps2", 2,
+                "Crisps3", 2,
+                "Crisps4", 2,
+                "WhiskeyFull", 3,
+            }
+        }
+    },
+    
+    dinerkitchen = {
+        isShop = true,
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="DinerKitchenFreezer", min=0, max=99},
+            },
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="DinerKitchenFridge", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=2},
+                {name="StoreKitchenButcher", min=1, max=1},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPotatoes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenSauce", min=1, max=2},
+            }
+        }
+    },
+    
+    electronicsstorage = {
+        isShop = true,
+        crate = {
+            procedural = true,
+            procList = {
+                {name="ElectronicStoreComputer", min=0, max=2},
+                {name="CrateTV", min=0, max=4},
+                {name="CrateTVWide", min=0, max=4},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ElectronicStoreMusic", min=0, max=2},
+                {name="ElectronicStoreLights", min=0, max=2},
+                {name="ElectronicStoreMagazines", min=0, max=2},
+                {name="ElectronicStoreMisc", min=0, max=99},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="ElectronicStoreComputer", min=0, max=2},
+                {name="ElectronicStoreHAMRadio", min=0, max=1},
+                {name="ElectronicStoreMisc", min=0, max=99},
+            }
+        }
+    },
+    
+    electronicsstore = {
+        isShop = true,
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="StoreDisplayWatches", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="ElectronicStoreHAMRadio", min=0, max=1},
+                {name="ElectronicStoreComputer", min=0, max=4},
+                {name="ElectronicStoreMusic", min=0, max=2},
+                {name="ElectronicStoreLights", min=0, max=1},
+                {name="ElectronicStoreMagazines", min=1, max=1},
+                {name="ElectronicStoreMisc", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ElectronicStoreHAMRadio", min=0, max=1},
+                {name="ElectronicStoreComputer", min=0, max=2},
+                {name="ElectronicStoreMusic", min=0, max=1},
+                {name="ElectronicStoreLights", min=0, max=1},
+                {name="ElectronicStoreMagazines", min=1, max=1},
+                {name="ElectronicStoreMisc", min=0, max=99},
+            }
+        }
+    },
+    
+    empty = {
+        crate = {
+            procedural = true,
+            procList = {
+                {name="RandomFiller", min=0, max=99},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        fridge = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        counter = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        shelves = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        metal_shelves = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        wardrobe = {
+            rolls = 0,
+            items = {
+            
+            }
+        }
+    },
+    
+    farmstorage = {
+        all = {
+            rolls = 3,
+            items = {
+                "Axe", 0.3,
+                "WoodAxe", 0.3,
+                "farming.CarrotBagSeed", 1.5,
+                "farming.BroccoliBagSeed", 1.5,
+                "farming.RedRadishBagSeed", 1.5,
+                "farming.StrewberrieBagSeed", 1.5,
+                "farming.TomatoBagSeed", 1.5,
+                "farming.PotatoBagSeed", 1.5,
+                "farming.CabbageBagSeed", 1.5,
+                "farming.HandShovel", 4,
+                "HandScythe", 3,
+                "HandFork", 3,
+                "LeafRake", 2,
+                "GardenFork", 3,
+                "Rake", 2,
+                "Shovel", 0.5,
+                "Shovel2", 0.5,
+                "farming.WateredCan", 0.7,
+                "BookFarming1", 2,
+                "BookFarming2", 1.3,
+                "BookFarming3", 0.9,
+                "BookFarming4", 0.6,
+                "BookFarming5", 0.3,
+                "BookForaging1", 2,
+                "BookForaging2", 1.3,
+                "BookForaging3", 0.9,
+                "BookForaging4", 0.6,
+                "BookForaging5", 0.3,
+                "FarmingMag1", 3,
+                "Paintbrush", 1.5,
+                "PaintBlue", 0.8,
+                "PaintBlack", 0.8,
+                "PaintRed", 0.8,
+                "PaintBrown", 0.8,
+                "PaintCyan", 0.8,
+                "PaintGreen", 0.8,
+                "PaintGrey", 0.8,
+                "PaintLightBlue", 0.8,
+                "PaintLightBrown", 0.8,
+                "PaintOrange", 0.8,
+                "PaintPink", 0.8,
+                "PaintPurple", 0.8,
+                "PaintTurquoise",0.8,
+                "PaintWhite", 0.8,
+                "PaintYellow", 0.8,
+                "PlasterPowder", 2,
+                "ConcretePowder", 0.8,
+                "BucketEmpty", 2,
+                "EmptySandbag", 3,
+            }
+        }
+    },
+    
+    fishingstorage = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="CampingStoreBooks", min=0, max=1},
+                {name="CampingStoreLegwear", min=0, max=1},
+                {name="CampingStoreBackpacks", min=0, max=1},
+                {name="CampingStoreGear", min=0, max=1},
+                {name="FishingStoreGear", min=1, max=12},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="FishingStoreGear", min=1, max=12},
+            }
+        }
+    },
+    
+    fossoil = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfMechanics", min=1, max=4},
+                {name="StoreShelfDrinks", min=1, max=2},
+                {name="StoreShelfSnacks", min=1, max=2},
+                {name="StoreShelfMedical", min=0, max=1},
+            }
+        }
+    },
+    
+    furniturestorage = {
+        isShop = true,
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        fridge = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        wardrobe = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        sidetable = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="CrateBlueComfyChair", min=0, max=1},
+                {name="CrateBluePlasticChairs", min=0, max=1},
+                {name="CrateBlueRattanChair", min=0, max=1},
+                {name="CrateBrownComfyChair", min=0, max=1},
+                {name="CrateBrownLowTables", min=0, max=1},
+                {name="CrateChromeSinks", min=0, max=1},
+                {name="CrateDarkBlueChairs", min=0, max=1},
+                {name="CrateDarkWoodenChairs", min=0, max=1},
+                {name="CrateFancyBlackChairs", min=0, max=1},
+                {name="CrateFancyDarkTables", min=0, max=1},
+                {name="CrateFancyLowTables", min=0, max=1},
+                {name="CrateFancyToilets", min=0, max=1},
+                {name="CrateFancyWhiteChairs", min=0, max=1},
+                {name="CrateFoldingChairs", min=0, max=1},
+                {name="CrateGreenChairs", min=0, max=1},
+                {name="CrateGreenComfyChair", min=0, max=1},
+                {name="CrateGreenOven", min=0, max=1},
+                {name="CrateGreyChairs", min=0, max=1},
+                {name="CrateGreyComfyChair", min=0, max=1},
+                {name="CrateGreyOven", min=0, max=1},
+                {name="CrateIndustrialSinks", min=0, max=1},
+                {name="CrateLightRoundTable", min=0, max=1},
+                {name="CrateMetalLockers", min=0, max=1},
+                {name="CrateModernOven", min=0, max=1},
+                {name="CrateOakRoundTable", min=0, max=1},
+                {name="CrateOfficeChairs", min=0, max=1},
+                {name="CrateOrangeModernChair", min=0, max=1},
+                {name="CratePlasticChairs", min=0, max=1},
+                {name="CratePurpleRattanChair", min=0, max=1},
+                {name="CratePurpleWoodenChairs", min=0, max=1},
+                {name="CrateRedBBQs", min=0, max=1},
+                {name="CrateRedChairs", min=0, max=1},
+                {name="CrateRedOven", min=0, max=1},
+                {name="CrateRedWoodenChairs", min=0, max=1},
+                {name="CrateRoundTable", min=0, max=1},
+                {name="CrateWhiteComfyChair", min=0, max=1},
+                {name="CrateWhiteSimpleChairs", min=0, max=1},
+                {name="CrateWhiteSinks", min=0, max=1},
+                {name="CrateWhiteWoodenChairs", min=0, max=1},
+                {name="CrateWoodenChairs", min=0, max=1},
+                {name="CrateWoodenStools", min=0, max=1},
+                {name="CrateYellowModernChair", min=0, max=1},
+            }
+        }
+    },
+    
+    furniturestore = {
+        isShop = true,
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        fridge = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        wardrobe = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="RandomFiller", min=0, max=99},
+            }
+        }
+    },
+    
+    garage = {
+        metal_shelves = {
+            rolls = 2,
+            items = {
+                "HuntingRifle", 0.5,
+                "VarmintRifle", 0.5,
+                "Shotgun", 0.8,
+                "DoubleBarrelShotgun", 1,
+                "ShotgunShellsBox", 2,
+                "223Box", 2,
+                "308Box", 2,
                 "NailsBox", 1,
                 "FishingRod", 2,
                 "FishingMag1", 0.5,
@@ -3225,332 +2648,1279 @@ local distributionTable = {
         }
     },
     
-    bathroom =
-    {
-        counter ={
-            rolls = 4,
+    garagestorage = {
+        other = {
+            rolls = 2,
             items = {
-                "Sheet", 4,
-                "Sheet", 4,
-                "Sheet", 4,
-                "BathTowel", 10,
-                "BathTowel", 10,
-                "Tissue", 3,
-                "Bleach", 5,
-                "Bleach", 5,
-                "Bleach", 5,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-                "Bandaid", 1,
-                "Pills", 1,
-                "PillsBeta", 1,
-                "PillsAntiDep", 1,
-                "PillsSleepingTablets", 1,
-                "PillsVitamins", 1,
-                "Soap2", 10,
-                "FirstAidKit", 0.5,
-                "CottonBalls", 5,
-                "Tweezers", 5,
-                "Disinfectant", 3,
-                "PipeWrench", 0.5,
-                "Bandage", 2,
+                "HuntingRifle", 0.5,
+                "VarmintRifle", 0.5,
+                "Shotgun", 0.8,
+                "DoubleBarrelShotgun", 1,
+                "ShotgunShellsBox", 2,
+                "223Box", 2,
+                "308Box", 2,
+                "NailsBox", 1,
+                "FishingRod", 2,
+                "FishingMag1", 0.5,
+                "FishingMag2", 0.5,
+                "HuntingMag1", 0.5,
+                "HuntingMag2", 0.5,
+                "HuntingMag3", 0.5,
+                "HerbalistMag", 0.5,
+                "ElectronicsMag1", 0.5,
+                "ElectronicsMag2", 0.5,
+                "ElectronicsMag3", 0.5,
+                "ElectronicsMag4", 0.5,
+                "ElectronicsMag5", 0.5,
+                "MechanicMag1", 0.5,
+                "MechanicMag2", 0.4,
+                "MechanicMag3", 0.3,
+                "EngineerMagazine1", 0.5,
+                "EngineerMagazine2", 0.5,
+                "MetalworkMag1", 0.5,
+                "MetalworkMag2", 0.5,
+                "MetalworkMag3", 0.5,
+                "MetalworkMag4", 0.5,
+                "HuntingKnife", 1,
+                "FishingNet", 1,
+                "FishingTackle", 1,
+                "FishingTackle2", 1,
+                "FishingLine", 1.5,
+                "PaperclipBox", 0.5,
+                "DuctTape", 2,
+                "Glue", 2,
+                "Scotchtape", 2,
+                "Twine", 2,
+                "Thread", 4,
+                "Woodglue", 2,
+                "Rope", 2,
+                "NailsBox", 1,
+                "NailsBox", 1,
+                "Nails", 3,
+                "Hammer", 2,
+                "Wire", 7,
+                "Saw", 2,
+                "GardenSaw", 1,
+                "Plank", 1,
+                "Plank", 1,
+                "Screwdriver", 2,
+                "Toolbox", 1,
+                "Radio.ElectricWire", 2,
+                "Charcoal", 6,
+                "Charcoal", 6,
+                "BallPeenHammer", 1,
+                --                "Tongs", 0.5,
+                "PropaneTank", 3,
+                "Extinguisher", 0.5,
+                "Radio.RadioMag1", 0.2,
+                "Radio.RadioMag2", 0.1,
+                "Radio.RadioMag3", 0.05,
+                "EmptyPetrolCan", 4,
+                "PetrolCan", 3,
+                "ElectronicsScrap", 2,
+                "ElectronicsScrap", 2,
+                "ScrapMetal", 2,
+                "ScrapMetal", 2,
+                "Radio.RadioBlack",4,
+                "Radio.RadioRed",2,
+                "Radio.WalkieTalkie1",1,
+                "Radio.WalkieTalkie2",0.8,
+                "Radio.WalkieTalkie3",0.6,
+                "Radio.WalkieTalkie4",0.1,
+                "Radio.WalkieTalkie5",0.02,
+                "Radio.HamRadio1",0.1,
+                "Radio.HamRadio2",0.01,
+                "BlowTorch", 2,
+                "WeldingRods", 5,
+                "SmallSheetMetal", 5,
+                "SheetMetal", 4,
+                "MetalPipe", 4,
+                "MetalBar", 4,
+                "WeldingMask",2,
+                "Wrench", 1,
+                "LugWrench",1,
+                "Jack", 1,
+                "TirePump", 1,
+                "OldTire1", 0.7,
+                "NormalTire1", 0.5,
+                "OldTire2", 0.7,
+                "NormalTire2", 0.5,
+                "OldTire3", 0.7,
+                "NormalTire3", 0.5,
+                "OldBrake1", 0.5,
+                "NormalBrake1", 0.2,
+                "OldBrake2", 0.5,
+                "NormalBrake2", 0.2,
+                "OldBrake3", 0.5,
+                "NormalBrake3", 0.2,
+                "NormalSuspension1", 0.2,
+                "NormalSuspension2", 0.2,
+                "NormalSuspension3", 0.2,
+                "SmallGasTank1", 0.5,
+                "NormalGasTank1", 0.2,
+                "SmallGasTank2", 0.5,
+                "NormalGasTank2", 0.2,
+                "SmallGasTank3", 0.5,
+                "NormalGasTank3", 0.2,
+                "Windshield1", 0.2,
+                "RearWindshield1", 0.2,
+                "FrontWindow1", 0.2,
+                "RearWindow1", 0.2,
+                "Windshield2", 0.2,
+                "RearWindshield2", 0.2,
+                "FrontWindow2", 0.2,
+                "RearWindow2", 0.2,
+                "Windshield3", 0.2,
+                "RearWindshield3", 0.2,
+                "FrontWindow3", 0.2,
+                "RearWindow3", 0.2,
+                "FrontCarDoor1", 0.2,
+                "RearCarDoor1", 0.2,
+                "RearCarDoorDouble1", 0.2,
+                "FrontCarDoor2", 0.2,
+                "RearCarDoor2", 0.2,
+                "RearCarDoorDouble2", 0.2,
+                "FrontCarDoor3", 0.2,
+                "RearCarDoor3", 0.2,
+                "RearCarDoorDouble3", 0.2,
+                "EngineDoor1", 0.2,
+                "EngineDoor2", 0.2,
+                "EngineDoor3", 0.2,
+                "TrunkDoor1", 0.2,
+                "TrunkDoor2", 0.2,
+                "TrunkDoor3", 0.2,
+                "OldCarMuffler1", 0.5,
+                "NormalCarMuffler1", 0.2,
+                "OldCarMuffler2", 0.5,
+                "NormalCarMuffler2", 0.2,
+                "OldCarMuffler3", 0.5,
+                "NormalCarMuffler3", 0.2,
+                "CarBatteryCharger", 1,
+                "CarBattery1", 0.3,
+                "CarBattery2", 0.3,
+                "CarBattery3", 0.3,
+                "BarbedWire", 1,
+                "EmptySandbag", 2,
+                "Cigarettes", 5,
+                "Lighter", 2,
+                "LeadPipe", 1,
+                "HandAxe", 0.8,
+                "PipeWrench", 1,
+                "Plunger", 2,
+                "ClubHammer", 1,
+                "WoodenMallet", 1,
+                "farming.GardeningSprayEmpty", 0.4,
             },
+            
             junk = {
                 rolls = 5,
                 items = {
-                    "Mirror", 3,
-                    "Rubberducky", 2,
-                    "Cologne", 2,
-                    "MakeupEyeshadow", 1,
-                    "MakeupFoundation", 1,
-                    "Perfume", 2,
-                    "ToiletPaper", 2,
-                    "Plunger", 1,
-                    "Lipstick", 2,
-                    "Razor", 4,
-                    "Razor", 4,
-                    "BathTowel", 10,
-                    "Comb", 5,
-                    "Hairspray", 4,
-                    "Hairspray", 4,
-                    "Toothbrush", 5,
-                    "Toothpaste", 5,
-                    "HairDyeBlonde", 0.7,
-                    "HairDyeBlack", 0.7,
-                    "HairDyeWhite", 0.7,
-                    "HairDyeGinger", 0.7,
-                    "HairDyeLightBrown", 0.7,
+                    "EmptySandbag", 2,
+                    "Cigarettes", 5,
+                    "Lighter", 2,
+                    "farming.GardeningSprayEmpty", 2,
+                    "BarbedWire", 1,
+                    "LightBulb", 1,
+                    "LightBulbRed", 0.01,
+                    "LightBulbGreen", 0.01,
+                    "LightBulbBlue", 0.01,
+                    "LightBulbYellow", 0.06,
+                    "LightBulbCyan", 0.03,
+                    "LightBulbMagenta", 0.01,
+                    "LightBulbOrange", 0.006,
+                    "LightBulbPurple", 0.003,
+                    "LightBulbPink", 0.001,
                 },
-            }
+            },
         },
-    },
-    
-    pizzawhirled =
-    {
-        wardrobe ={
-            rolls = 2,
-            items = {
-                "Sheet", 3,
-                "DishCloth", 3,
-                "KitchenKnife", 3,
-                "Flour", 3,
-            }
-        },
-    
-        displaycase ={
-            rolls = 5,
-            items = {
-                "Pizza", 10,
-            }
-        },
-    },
-    
-    motelbedroom =
-    {
-        wardrobe ={
+        
+        bin = {
             rolls = 1,
             items = {
-                "Sheet", 3,
-                "DishCloth", 3,
-                "Book", 3,
-                "AlarmClock2", 1,
-            }
-        },
-    },
-    
-    lobby =
-    {
-        counter ={
-            rolls = 1,
-            items = {
-                "Sheet", 3,
-                "DishCloth", 3,
-                "Book", 3,
+                "Tissue", 2,
+                "Lighter", 2,
+                "Battery", 2,
                 "Pen", 3,
                 "BluePen", 1,
                 "RedPen", 1,
                 "Pencil", 3,
-                "SheetPaper2", 2,
-                "Notebook", 2,
+                "Eraser", 2,
+                "Magazine", 2,
+                "Newspaper", 2,
+                "Paperclip", 1,
+                "Socks_Ankle", 1,
+                "Socks_Long", 1,
+                "SheetPaper2", 3,
+                "WaterBottleEmpty", 3,
+                "Garbagebag", 15,
+                "Garbagebag", 15,
+                "Garbagebag", 15,
             }
         },
-    },
-    
-    bookstore =
-    {
-        cashregister = {
-            rolls = 5,
-            items = {
-                "Money", 2,
-                "Money", 100,
-                "Money", 100,
-            },
-        },
         
-        other =
-        {
-            rolls = 5,
-            items = {
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "Book", 10,
-                "BookTailoring1", 1,
-                "BookTailoring2", 0.5,
-                "BookTailoring3", 0.4,
-                "BookTailoring4", 0.3,
-                "BookTailoring5", 0.1,
-                "BookFishing1", 1,
-                "BookFishing2", 0.5,
-                "BookFishing3", 0.4,
-                "BookFishing4", 0.3,
-                "BookFishing5", 0.1,
-                "BookTrapping1", 1,
-                "BookTrapping2", 0.5,
-                "BookTrapping3", 0.4,
-                "BookTrapping4", 0.3,
-                "BookTrapping5", 0.1,
-                "BookCarpentry1", 1,
-                "BookCarpentry2", 0.5,
-                "BookCarpentry3", 0.4,
-                "BookCarpentry4", 0.3,
-                "BookCarpentry5", 0.1,
-                "BookFarming1", 1,
-                "BookForaging1", 1,
-                "BookForaging2", 0.5,
-                "BookForaging3", 0.4,
-                "BookForaging4", 0.3,
-                "BookForaging5", 0.1,
-                "BookCooking1", 1,
-                "BookFarming2", 0.5,
-                "BookCooking2", 0.5,
-                "BookFarming3", 0.4,
-                "BookCooking3", 0.4,
-                "BookFarming4", 0.3,
-                "BookCooking4", 0.3,
-                "BookFarming5", 0.1,
-                "BookCooking5", 0.1,
-                --                "BookBlacksmith1", 1,
-                --                "BookBlacksmith2", 0.5,
-                --                "BookBlacksmith3", 0.4,
-                --                "BookBlacksmith4", 0.3,
-                --                "BookBlacksmith5", 0.1,
-                "BookFirstAid1", 1,
-                "BookFirstAid2", 0.5,
-                "BookFirstAid3", 0.4,
-                "BookFirstAid4", 0.3,
-                "BookFirstAid5", 0.1,
-                "BookMetalWelding1", 1,
-                "BookMetalWelding2", 0.5,
-                "BookMetalWelding3", 0.4,
-                "BookMetalWelding4", 0.3,
-                "BookMetalWelding5", 0.1,
-                "BookElectrician1", 1,
-                "BookElectrician2", 0.5,
-                "BookElectrician3", 0.4,
-                "BookElectrician4", 0.3,
-                "BookElectrician5", 0.1,
-                "BookMechanic1", 1,
-                "BookMechanic2", 0.5,
-                "BookMechanic3", 0.4,
-                "BookMechanic4", 0.3,
-                "BookMechanic5", 0.1,
-                "FishingMag1", 1,
-                "FishingMag2", 1,
-                "HuntingMag1", 1,
-                "HuntingMag2", 1,
-                "HuntingMag3", 1,
-                "HerbalistMag", 1,
-                "CookingMag1", 1,
-                "CookingMag2", 1,
-                "ElectronicsMag1", 1,
-                "ElectronicsMag2", 1,
-                "ElectronicsMag3", 1,
-                "ElectronicsMag4", 1,
-                "ElectronicsMag5", 1,
-                "MechanicMag1", 1,
-                "MechanicMag2", 1,
-                "MechanicMag3", 1,
-                "EngineerMagazine1", 1,
-                "EngineerMagazine2", 1,
-                "FarmingMag1", 1,
-                "MetalworkMag1", 1,
-                "MetalworkMag2", 1,
-                "MetalworkMag3", 1,
-                "MetalworkMag4", 1,
-                "Radio.RadioMag1", 1,
-                "Radio.RadioMag2", 1,
-                "Radio.RadioMag3", 1,
+        crate = {
+            procedural = true,
+            procList = {
+                {name="CratePaint", min=0, max=50},
+                {name="CrateFarming", min=0, max=50},
+                {name="CrateWoods", min=0, max=50},
+                {name="CrateHardware", min=0, max=50},
+                {name="CrateTools", min=0, max=50},
+                {name="CrateMetal", min=0, max=50},
             }
         }
     },
     
-    grocers =
-    {
-        grocerstand ={
-            rolls = 3,
-            items = {
-                "Carrots", 6,
-                "Apple", 6,
-                "Orange", 6,
-                "Banana", 6,
-                "farming.RedRadish", 6,
-                "farming.Strewberrie", 6,
-                "Cherry", 4,
-                "farming.Tomato", 6,
-                "farming.Cabbage", 6,
-                "Apple", 5,
-                "Orange", 5,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Peach", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Peach", 4,
-                "Apple", 5,
-                "Peach", 5,
-                "Orange", 5,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Apple", 5,
-                "Orange", 5,
-                "Banana", 4,
-                "farming.RedRadish", 4,
-                "farming.Strewberrie", 4,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 6,
-                "Pineapple", 6,
-                "Zucchini", 6,
+    gardenstore = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="GardenStoreMisc", min=0, max=99},
             }
         },
-        
-        smallcrate={
-            rolls = 2,
-            items = {
-                "farming.CarrotBagSeed", 4,
-                "farming.BroccoliBagSeed", 4,
-                "farming.RedRadishBagSeed", 4,
-                "farming.StrewberrieBagSeed", 4,
-                "farming.TomatoBagSeed", 4,
-                "farming.PotatoBagSeed", 4,
-                "farming.CabbageBagSeed", 4,
-                "farming.HandShovel", 4,
-                "HandScythe", 2,
-                "HandFork", 2,
-                "Shovel", 1.5,
-                "Shovel2", 1.5,
-                "farming.WateredCan", 3,
-                "Fertilizer", 3,
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="CampingStoreClothes", min=1, max=99},
             }
         },
-        
-        smallbox={
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="GardenStoreTools", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GardenStoreTools", min=0, max=99},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="CrateFertilizer", min=1, max=12},
+                {name="CrateGravelBags", min=0, max=4},
+                {name="CrateSandBags", min=0, max=4},
+            }
+        }
+    },
+    
+    gasstorage = {
+        isShop = true,
+        crate = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfSnacks", min=0, max=1},
+                {name="StoreShelfDrinks", min=0, max=1},
+                {name="StoreShelfMechanics", min=1, max=12},
+                {name="StoreShelfMedical", min=0, max=1},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfSnacks", min=0, max=1},
+                {name="StoreShelfDrinks", min=0, max=1},
+                {name="StoreShelfMechanics", min=1, max=12},
+                {name="StoreShelfMedical", min=0, max=1},
+            }
+        }
+    },
+    
+    gasstore = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfMechanics", min=1, max=4},
+                {name="StoreShelfDrinks", min=1, max=2},
+                {name="StoreShelfSnacks", min=1, max=2},
+                {name="StoreShelfMedical", min=0, max=1},
+            }
+        }
+    },
+    
+    generalstore = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
             rolls = 1,
             items = {
-                "farming.CarrotBagSeed", 4,
-                "farming.BroccoliBagSeed", 4,
-                "farming.RedRadishBagSeed", 4,
-                "farming.StrewberrieBagSeed", 4,
-                "farming.TomatoBagSeed", 4,
-                "farming.PotatoBagSeed", 4,
-                "farming.CabbageBagSeed", 4,
-                "farming.HandShovel", 4,
-                "HandScythe", 2,
-                "HandFork", 2,
-                "Shovel", 1.5,
-                "Shovel2", 1.5,
-                "farming.WateredCan", 3,
-                "Fertilizer", 3,
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartBottles", min=1, max=6},
+                {name="GigamartCrisps", min=1, max=4},
+                {name="GigamartCandy", min=1, max=4},
+                {name="StoreShelfMechanics", min=1, max=2},
+                {name="StoreShelfMedical", min=1, max=2},
+                {name="GigamartBakingMisc", min=0, max=2},
+                {name="GigamartDryGoods", min=1, max=8},
+                {name="GigamartHousewares", min=0, max=2},
+                {name="GigamartCannedFood", min=1, max=8},
+                {name="GigamartSauce", min=0, max=1},
+                {name="GigamartToys", min=0, max=1},
+                {name="GigamartSchool", min=0, max=1},
+                {name="GigamartBedding", min=0, max=1},
+                {name="GigamartPots", min=0, max=2},
+                {name="GigamartLightbulb", min=0, max=1},
+                {name="GigamartHouseElectronics", min=0, max=1},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartTools", min=1, max=6},
+                {name="GigamartFarming", min=1, max=4},
+            }
+        }
+    },
+    
+    generalstorestorage = {
+        isShop = true,
+        other = {
+            rolls = 5,
+            items = {
+                "Mugl", 2,
+                "KitchenKnife", 1,
+                "MeatCleaver", 1,
+                "TinnedSoup", 1,
+                "TinnedBeans", 1,
+                "CannedCornedBeef", 1,
+                "Macandcheese", 1,
+                "CannedChili", 1,
+                "CannedBolognese", 1,
+                "CannedCarrots2", 1,
+                "CannedCorn", 1,
+                "CannedMushroomSoup", 1,
+                "CannedPeas", 1,
+                "CannedPotato2", 1,
+                "CannedSardines", 1,
+                "CannedTomato2", 1,
+                "Corkscrew", 1,
+                "Disc", 1,
+                "CDplayer", 0.7,
+                "RollingPin", 1,
+                "Dogfood", 1,
+                "TinOpener", 2,
+                "Pot", 1,
+                "Saucepan", 1,
+                "ButterKnife", 2,
+                "BreadKnife", 2,
+                "Spoon", 2,
+                "Spoon", 2,
+                "Fork", 2,
+                "Fork", 2,
+                "Bowl", 2,
+                "Bowl", 2,
+                "DishCloth", 2,
+                "Kettle", 3,
+                "Coffee2", 3,
+                "Sugar", 1,
+                "Teabag2", 2,
+                "TunaTin", 1,
+                "Flour", 1,
+                "PeanutButter", 2,
+                "Pan", 2,
+                "GridlePan", 2,
+                "RoastingPan", 2,
+                "BakingPan", 2,
+                "Yeast", 2,
+                "Popcorn", 2,
+                "Scissors", 2,
+                "Cigarettes", 2,
+                "Lighter", 1,
+                "Pen", 2,
+                "BluePen", 1,
+                "RedPen", 1,
+                "Pencil", 2,
+                "CleaningLiquid2", 2,
+                "Charcoal", 6,
+                "Radio.RadioBlack",2,
+                "Radio.RadioRed",1,
+                "Radio.WalkieTalkie1",0.05,
+                "Radio.WalkieTalkie2",0.03,
+                "OatsRaw", 2,
+                "Cigarettes", 5,
+                "Cigarettes", 5,
+                "Shovel", 0.5,
+                "Shovel2", 0.5,
+                "SnowShovel", 0.5,
+                "farming.HandShovel", 1,
+                "HandScythe", 0.5,
+                "HandFork", 0.5,
+                "LeafRake", 0.5,
+                "Rake", 0.5,
+                "Broom", 0.5,
+                "GardenFork", 0.5,
+                "BoxOfJars", 0.1,
+            }
+        }
+    },
+    
+    giftstorage = {
+        isShop = true,
+        crate = {
+            procedural = true,
+            procList = {
+                {name="GigamartToys", min=1, max=99},
+            }
+        }
+    },
+    
+    giftstore = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartToys", min=1, max=99},
+            }
+        },
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="StoreDisplayWatches", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="GigamartToys", min=1, max=99},
+            }
+        }
+    },
+    
+    gigamart = {
+        isShop = true,
+        grocerstand = {
+            procedural = true,
+            procList = {
+                {name="GroceryStandVegetables1", min=1, max=10},
+                {name="GroceryStandVegetables2", min=1, max=10},
+                {name="GroceryStandFruits1", min=1, max=10},
+                {name="GroceryStandFruits2", min=1, max=10},
+                {name="GroceryStandFruits3", min=1, max=10},
+                {name="GroceryStandLettuce", min=1, max=4},
+            }
+        },
+        displaycasebutcher = {
+            procedural = true,
+            procList = {
+                {name="ButcherChops", min=1, max=4},
+                {name="ButcherGround", min=1, max=2},
+                {name="ButcherChicken", min=1, max=1},
+                {name="ButcherSmoked", min=1, max=4},
+                {name="ButcherFish", min=0, max=1},
+            }
+        },
+        displaycasebakery = {
+            procedural = true,
+            procList = {
+                {name="BakeryBread", min=1, max=2},
+                {name="BakeryPie", min=1, max=2},
+                {name="BakeryCake", min=1, max=2},
+                {name="BakeryMisc", min=0, max=4},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=4},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=0, max=4},
+                {name="FridgeOther", min=0, max=8},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreCounterBags", min=1, max=4},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartBottles", min=2, max=6},
+                {name="GigamartCrisps", min=2, max=4},
+                {name="GigamartCandy", min=1, max=4},
+                {name="GigamartBakingMisc", min=1, max=4},
+                {name="GigamartDryGoods", min=2, max=16},
+                {name="GigamartHousewares", min=1, max=4},
+                {name="GigamartCannedFood", min=2, max=16},
+                {name="GigamartSauce", min=1, max=2},
+                {name="GigamartToys", min=0, max=2},
+                {name="GigamartTools", min=1, max=2},
+                {name="GigamartSchool", min=0, max=2},
+                {name="GigamartBedding", min=0, max=2},
+                {name="GigamartPots", min=1, max=3},
+                {name="GigamartFarming", min=1, max=3},
+                {name="GigamartLightbulb", min=1, max=1},
+                {name="GigamartHouseElectronics", min=1, max=2},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="GigamartCrisps", min=0, max=4},
+                {name="GigamartCandy", min=0, max=4},
+                {name="GigamartCannedFood", min=0, max=16},
+                {name="GigamartSauce", min=0, max=2},
+            }
+        }
+    },
+    
+    gigamartkitchen = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=4},
+                {name="StoreKitchenButcher", min=1, max=2},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                
+            }
+        }
+    },
+    
+    grocery = {
+        isShop = true,
+        grocerstand = {
+            procedural = true,
+            procList = {
+                {name="GroceryStandVegetables1", min=1, max=10},
+                {name="GroceryStandVegetables2", min=1, max=10},
+                {name="GroceryStandFruits1", min=1, max=10},
+                {name="GroceryStandFruits2", min=1, max=10},
+                {name="GroceryStandFruits3", min=1, max=10},
+                {name="GroceryStandLettuce", min=1, max=2},
+            }
+        },
+        displaycasebakery = {
+            procedural = true,
+            procList = {
+                {name="BakeryBread", min=1, max=2},
+                {name="BakeryPie", min=1, max=2},
+                {name="BakeryCake", min=1, max=2},
+                {name="BakeryMisc", min=0, max=4},
+            },
+        },
+        displaycasebutcher = {
+            procedural = true,
+            procList = {
+                {name="ButcherChops", min=1, max=4},
+                {name="ButcherGround", min=1, max=2},
+                {name="ButcherChicken", min=1, max=1},
+                {name="ButcherSmoked", min=1, max=4},
+                {name="ButcherFish", min=0, max=1},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartBottles", min=1, max=6},
+                {name="GigamartCrisps", min=1, max=4},
+                {name="GigamartCandy", min=1, max=4},
+                {name="GigamartBakingMisc", min=1, max=6},
+                {name="GigamartDryGoods", min=1, max=16},
+                {name="GigamartCannedFood", min=1, max=16},
+                {name="GigamartSauce", min=1, max=2},
+            }
+        },
+        smallcrate = {
+            procedural = true,
+            procList = {
+                {name="GigamartCannedFood", min=0, max=16},
+                {name="GigamartBakingMisc", min=0, max=6},
+                {name="GigamartDryGoods", min=0, max=16},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="GigamartCrisps", min=0, max=4},
+                {name="GigamartCandy", min=0, max=4},
+                {name="GigamartCannedFood", min=0, max=16},
+                {name="GigamartSauce", min=0, max=2},
             }
         },
     },
     
-    library =
-    {
-        counter ={
+    grocerystorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartBakingMisc", min=0, max=16},
+                {name="GigamartCannedFood", min=0, max=16},
+                {name="GigamartDryGoods", min=0, max=16},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeWater", min=1, max=12},
+                {name="FridgeOther", min=1, max=12},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="GigamartBakingMisc", min=0, max=16},
+                {name="GigamartCannedFood", min=0, max=16},
+                {name="GigamartDryGoods", min=0, max=16},
+            }
+        }
+    },
+    
+    gunstore = {
+        isShop = true,
+        counter = {
+            rolls = 3,
+            items = {
+                "x2Scope", 3,
+                "x4Scope", 2,
+                "x8Scope", 1,
+                "AmmoStraps", 3,
+                "Sling", 4,
+                "FiberglassStock", 3,
+                "RecoilPad",  4,
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "HuntingKnife", 5,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Axe", 2,
+                "WoodAxe", 3,
+                "HuntingKnife", 3,
+                "HuntingMag1", 0.2,
+                "HuntingMag2", 0.2,
+                "HuntingMag3", 0.2,
+                "Radio.WalkieTalkie4",10,
+                "Radio.WalkieTalkie5",5,
+                "Radio.HamRadio1",10,
+                "Radio.HamRadio2",5,
+                "Glasses_Shooting", 2,
+                "9mmClip", 2,
+                "45Clip", 2,
+                "44Clip", 2,
+                "223Clip", 2,
+                "308Clip", 2,
+                "M14Clip", 2,
+                "556Clip", 2,
+            },
+            dontSpawnAmmo = true,
+        },
+        
+        displaycase = {
+            rolls = 3,
+            items = {
+                "x2Scope", 3,
+                "x4Scope", 2,
+                "x8Scope", 1,
+                "AmmoStrap_Bullets", 3,
+                "AmmoStrap_Shells", 3,
+                "Sling", 4,
+                "FiberglassStock", 3,
+                "RecoilPad",  4,
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "HuntingKnife", 5,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Axe", 3,
+                "Glasses_Shooting", 2,
+                "9mmClip", 2,
+                "45Clip", 2,
+                "44Clip", 2,
+                "223Clip", 2,
+                "308Clip", 2,
+                "M14Clip", 2,
+                "556Clip", 2,
+            },
+            dontSpawnAmmo = true,
+        },
+        
+        locker = {
+            rolls = 3,
+            items = {
+                "x2Scope", 3,
+                "x4Scope", 2,
+                "x8Scope", 1,
+                "AmmoStrap_Bullets", 3,
+                "AmmoStrap_Shells", 3,
+                "Sling", 4,
+                "FiberglassStock", 3,
+                "RecoilPad",  4,
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "HuntingKnife", 5,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Axe", 2,
+                "WoodAxe", 2,
+                "Machete", 1,
+                "Katana", 0.5,
+                "Radio.WalkieTalkie4",5,
+                "Radio.WalkieTalkie5",3,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",3,
+                "Glasses_Shooting", 2,
+                "Vest_Hunting_Grey", 1,
+                "Vest_Hunting_Orange", 1,
+                "Vest_Hunting_Camo", 1,
+                "Vest_Hunting_CamoGreen", 1,
+            },
+            dontSpawnAmmo = true,
+        },
+        
+        metal_shelves = {
+            rolls = 3,
+            items = {
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 1.5,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "HuntingKnife", 3,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Axe", 3,
+                "Katana", 0.5,
+                "Machete", 1,
+                "Radio.WalkieTalkie4",5,
+                "Radio.WalkieTalkie5",3,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",3,
+                "Glasses_Shooting", 2,
+            },
+            dontSpawnAmmo = true,
+        },
+    },
+    
+    gunstorestorage = {
+        isShop = true,
+        all= {
+            rolls = 3,
+            items = {
+                "x2Scope", 3,
+                "x4Scope", 2,
+                "x8Scope", 1,
+                "AmmoStrap_Bullets", 3,
+                "AmmoStrap_Shells", 3,
+                "Sling", 4,
+                "FiberglassStock", 3,
+                "RecoilPad",  4,
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Axe", 2,
+                "WoodAxe", 2,
+                "Katana", 0.5,
+                "Machete", 1,
+                "Radio.WalkieTalkie4",5,
+                "Radio.WalkieTalkie5",3,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",3,
+            },
+            
+            dontSpawnAmmo = true,
+        },
+    },
+    
+    hall = {
+        counter = {
+            rolls = 3,
+            items = {
+                "Pen", 10,
+                "BluePen", 7,
+                "RedPen", 7,
+                "Pencil", 10,
+                "RubberBand", 2,
+                "Magazine", 8,
+                "Magazine", 8,
+                "Magazine", 8,
+                "Tote", 6,
+                "Tote", 6,
+                "Tote", 6,
+                "Tote", 6,
+            }
+        }
+    },
+    
+    housewarestore = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="GigamartHousewares", min=1, max=12},
+                {name="GigamartBedding", min=0, max=2},
+                {name="GigamartPots", min=1, max=6},
+                {name="GigamartLightbulb", min=1, max=2},
+                {name="GigamartHouseElectronics", min=1, max=2},
+            }
+        }
+    },
+    
+    hunting = {
+        locker = {
+            rolls = 2,
+            items = {
+                "HuntingRifle", 2,
+                "VarmintRifle", 2,
+                "Shotgun", 2,
+                "DoubleBarrelShotgun", 3,
+                "ShotgunShellsBox", 5,
+                "223Box", 5,
+                "308Box", 5,
+                "ShotgunShellsBox", 5,
+                "223Box", 5,
+                "308Box", 5,
+                "Vest_Hunting_Grey", 2,
+                "Vest_Hunting_Orange", 2,
+                "Vest_Hunting_Camo", 2,
+                "Vest_Hunting_CamoGreen", 2,
+            }
+        },
+        
+        metal_shelves = {
+            rolls = 3,
+            items = {
+                "Bullets9mmBox", 4,
+                "ShotgunShellsBox", 4,
+                "223Box", 4,
+                "308Box", 4,
+                "GunPowder", 1,
+            }
+        },
+        
+        other = {
+            rolls = 1,
+            items = {
+                "Pen", 10,
+                "BluePen", 7,
+                "RedPen", 7,
+                "Pencil", 10,
+                "RubberBand", 2,
+            }
+        }
+    },
+    
+    icecreamkitchen = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+            }
+        },
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="IceCreamKitchenFreezer", min=1, max=99},
+            }
+        },
+        fridge = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        displaycasebakery = {
+            procedural = true,
+            procList = {
+                {name="IceCreamKitchenFreezer", min=1, max=99},
+            }
+        },
+        restaurantdisplay = {
+            procedural = true,
+            procList = {
+                {name="IceCreamKitchenFreezer", min=1, max=99},
+            }
+        }
+    },
+    
+    janitor = {
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="JanitorTools", min=1, max=1},
+                {name="JanitorCleaning", min=1, max=1},
+                {name="JanitorChemicals", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="JanitorMisc", min=1, max=1},
+                {name="JanitorTools", min=0, max=1},
+                {name="JanitorCleaning", min=0, max=1},
+                {name="JanitorChemicals", min=0, max=99},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="JanitorChemicals", min=0, max=99},
+            }
+        }
+    },
+    
+    jayschicken_kitchen = {
+        isShop = true,
+        restaurantdisplay = {
+            procedural = true,
+            procList = {
+                {name="ServingTrayChicken", min=1, max=99},
+                {name="ServingTrayFries", min=1, max=2},
+            }
+        },
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="JaysKitchenFreezer", min=0, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="JaysKitchenFridge", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="JaysKitchenButcher", min=1, max=1},
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenSauce", min=1, max=2},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenPotatoes", min=1, max=1},
+                {name="StoreKitchenBaking", min=1, max=1},
+            }
+        }
+    },
+    
+    jewelrystore = {
+        isShop = true,
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="JewellerySilver", min=1, max=7},
+                {name="JewelleryGold", min=1, max=3},
+                {name="JewelleryGems", min=1, max=2},
+                {name="JewelleryWeddingRings", min=1, max=2},
+                {name="JewelleryWrist", min=1, max=3},
+                {name="JewelleryOthers", min=1, max=50},
+            }
+        }
+    },
+    
+    kitchen = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="KitchenDishes", min=1, max=1},
+                {name="KitchenPots", min=1, max=1},
+                {name="KitchenCannedFood", min=1, max=1},
+                {name="KitchenDryFood", min=0, max=1},
+                {name="KitchenBreakfast", min=0, max=1},
+                {name="KitchenBottles", min=0, max=1},
+                {name="KitchenRandom", min=0, max=1},
+            }
+        },
+    
+        overhead = {
+            procedural = true,
+            procList = {
+                {name="KitchenDishes", min=1, max=1},
+                {name="KitchenCannedFood", min=1, max=1},
+                {name="KitchenDryFood", min=0, max=1},
+                {name="KitchenBreakfast", min=0, max=1},
+                {name="KitchenBottles", min=0, max=1},
+                {name="KitchenBook", min=0, max=1},
+            }
+        },
+        
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="KitchenDishes", min=1, max=1},
+                {name="KitchenDryFood", min=1, max=1},
+                {name="KitchenBook", min=0, max=1},
+                {name="KitchenBottles", min=0, max=1},
+            }
+        },
+    },
+    
+    kitchen_crepe = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="CrepeKitchenFridge", min=1, max=99},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=4},
+            }
+        }
+    },
+    
+    laundry = {
+        counter = {
+            rolls = 3,
+            items = {
+                "Tshirt_DefaultTEXTURE_TINT", 3,
+                "Jumper_RoundNeck", 1,
+                "Jumper_PoloNeck", 1,
+                "TrousersMesh_DenimLight", 1,
+                "Trousers_DefaultTEXTURE_TINT", 2,
+                "Belt2", 3,
+                "Bag_Schoolbag", 2,
+                "Purse", 3,
+                "Handbag", 3,
+                "Bleach", 5,
+                "Bleach", 5,
+                "Bleach", 5,
+                "Bleach", 5,
+            }
+        }
+    },
+    
+    laumdromat = { -- typo in room name, keep it like this for now
+        counter = {
+            rolls = 3,
+            items = {
+                "Tshirt_DefaultTEXTURE_TINT", 3,
+                "Jumper_RoundNeck", 1,
+                "Jumper_PoloNeck", 1,
+                "TrousersMesh_DenimLight", 1,
+                "Trousers_DefaultTEXTURE_TINT", 2,
+                "Belt2", 3,
+                "Bag_Schoolbag", 2,
+                "Purse", 3,
+                "Handbag", 3,
+                "Bleach", 5,
+                "Bleach", 5,
+                "Bleach", 5,
+                "Bleach", 5,
+            }
+        }
+    },
+    
+    library = {
+        counter = {
             rolls = 4,
             items = {
                 "CardDeck", 1,
@@ -3570,13 +3940,1292 @@ local distributionTable = {
                 "Scissors", 3,
                 "Cigarettes", 1,
             }
+        }
+    },
+    
+    liquorstore = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterTobacco", min=1, max=2},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfWhiskey", min=1, max=12},
+                {name="StoreShelfWine", min=1, max=12},
+                {name="StoreShelfBeer", min=1, max=24},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeBeer", min=0, max=99},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+                
+            }
         },
     },
     
-    toolstore =
-    {
+    livingroom = {
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="LivingRoomShelf", min=0, max=99},
+            }
+        },
+        counter ={
+            procedural = true,
+            procList = {
+                {name="KitchenDishes", min=1, max=1},
+                {name="KitchenPots", min=1, max=1},
+                {name="KitchenCannedFood", min=1, max=1},
+                {name="KitchenDryFood", min=0, max=1},
+                {name="KitchenBreakfast", min=0, max=1},
+                {name="KitchenBottles", min=0, max=1},
+                {name="KitchenRandom", min=0, max=1},
+            }
+        },
+        overhead = {
+            procedural = true,
+            procList = {
+                {name="KitchenDishes", min=1, max=1},
+                {name="KitchenCannedFood", min=1, max=1},
+                {name="KitchenDryFood", min=0, max=1},
+                {name="KitchenBreakfast", min=0, max=1},
+                {name="KitchenBottles", min=0, max=1},
+                {name="KitchenBook", min=0, max=1},
+            }
+        }
+    },
+    
+    lobby = {
+        counter = {
+            rolls = 1,
+            items = {
+                "Sheet", 3,
+                "DishCloth", 3,
+                "Book", 3,
+                "Pen", 3,
+                "BluePen", 1,
+                "RedPen", 1,
+                "Pencil", 3,
+                "SheetPaper2", 2,
+                "Notebook", 2,
+            }
+        }
+    },
+    
+    loggingfactory = {
+        crate = {
+            rolls = 1,
+            items = {
+                "NailsBox", 1,
+                "DuctTape", 0.8,
+                "Glue", 0.8,
+                "Scotchtape", 0.8,
+                "Woodglue", 0.8,
+                "Rope", 0.8,
+                "NailsBox", 4,
+                "NailsBox", 4,
+                "NailsBox", 4,
+                "Hammer", 4,
+                "LeadPipe", 1,
+                "HandAxe", 0.8,
+                "PipeWrench", 1,
+                "ClubHammer", 1,
+                "WoodenMallet", 1,
+                "Tarp", 1,
+                "Saw", 1,
+                "GardenSaw", 1,
+                "Plank", 3,
+                "Plank", 3,
+                "Axe", 0.8,
+                "WoodAxe", 0.8,
+                "Sandbag", 0.5,
+                "Gravelbag", 0.5,
+                "EmptySandbag", 2.5,
+                "Fertilizer", 0.5,
+                --                "BallPeenHammer", 0.01,
+                --                "Tongs", 0.01,
+                "BlowTorch", 2,
+                "WeldingRods", 3,
+                "SheetMetal", 4,
+                "SmallSheetMetal", 6,
+                "MetalPipe", 4,
+                "MetalBar", 3,
+                "WeldingMask",2,
+                "BarbedWire", 1,
+                "Shovel", 0.5,
+                "Shovel2", 0.5,
+                "Glasses_SafetyGoggles", 0.3,
+            }
+        }
+    },
+    
+    mechanic = {
         isShop = true,
-        shelves ={
+        wardrobe = {
+            procedural = true,
+            procList = {
+                {name="MechanicShelfOutfit", min=1, max=2},
+                {name="MechanicShelfMisc", min=1, max=2},
+                {name="MechanicShelfBooks", min=0, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MechanicShelfOutfit", min=1, max=2},
+                {name="MechanicShelfTools", min=1, max=4},
+                {name="MechanicShelfElectric", min=1, max=2},
+                {name="MechanicShelfMufflers", min=0, max=2},
+                {name="MechanicShelfBrakes", min=0, max=2},
+                {name="MechanicShelfSuspension", min=0, max=2},
+                {name="MechanicShelfWheels", min=1, max=6},
+                {name="MechanicShelfBooks", min=1, max=1},
+            }
+        }
+    },
+    
+    medclinic = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="MedicalClinicDrugs", min=1, max=4},
+                {name="MedicalClinicTools", min=1, max=2},
+                {name="MedicalClinicOutfit", min=1, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    medical = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="MedicalClinicDrugs", min=1, max=4},
+                {name="MedicalClinicTools", min=1, max=2},
+                {name="MedicalClinicOutfit", min=1, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    medicaloffice = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="MedicalClinicDrugs", min=1, max=4},
+                {name="MedicalClinicTools", min=1, max=2},
+                {name="MedicalClinicOutfit", min=1, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    medicalstorage = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="MedicalClinicDrugs", min=1, max=4},
+                {name="MedicalClinicTools", min=1, max=2},
+                {name="MedicalClinicOutfit", min=1, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    motelroom = {
+        fridge = {
+            rolls = 0,
+            items = {
+            },
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+            },
+        },
+        bin = {
+            rolls = 0,
+            items = {
+            },
+        },
+        dresser = {
+            rolls = 0,
+            items = {
+            },
+        },
+        wardrobe = {
+            procedural = true,
+            procList = {
+                {name="MotelLinens", min=1, max=1},
+                {name="MotelTowels", min=1, max=1},
+            }
+        },
+        sidetable = {
+            rolls = 1,
+            items = {
+                "Book", 200,
+            },
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MotelLinens", min=1, max=99},
+                {name="MotelTowels", min=1, max=99},
+            }
+        },
+    },
+    
+    motelroomoccupied = {
+        freezer = {
+            rolls = 1,
+            items = {
+                "IcePick", 0.01,
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="MotelFridge", min=1, max=1},
+            }
+        },
+        bin = {
+            procedural = true,
+            procList = {
+                {name="BinGeneric", min=0, max=99},
+            }
+        },
+        dresser = {
+            rolls = 1,
+            items = {
+                "Bag_DuffelBagTINT", 0.5,
+                "Bag_Schoolbag", 0.5,
+                "Bag_NormalHikingBag", 0.2,
+                "Bag_BigHikingBag", 0.2,
+            }
+        },
+        wardrobe = {
+            procedural = true,
+            procList = {
+                {name="MotelLinens", min=1, max=1},
+                {name="MotelTowels", min=1, max=1},
+            }
+        },
+        sidetable = {
+            rolls = 1,
+            items = {
+                "Book", 100,
+                "Earbuds", 2,
+                "Comb", 2,
+                "Magazine", 2,
+                "Newspaper", 2,
+                "Notebook", 2,
+                "ComicBook", 2,
+                "Pencil", 2,
+                "Pen", 2,
+                "BluePen", 1,
+                "RedPen", 1,
+                "Pills", 1,
+                "PillsBeta", 1,
+                "PillsAntiDep", 1,
+                "PillsVitamins", 1,
+            }
+        }
+    },
+    
+    musicstore = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="MusicStoreCDs", min=1, max=4},
+                {name="MusicStoreCases", min=1, max=2},
+                {name="MusicStoreAcoustic", min=1, max=6},
+                {name="MusicStoreBass", min=1, max=2},
+                {name="MusicStoreOthers", min=1, max=4},
+                {name="MusicStoreSpeaker", min=1, max=6},
+            }
+        }
+    },
+
+    optometrist = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="OptometristGlasses", min=1, max=99},
+            }
+        }
+    },
+    
+    pharmacy = {
+        isShop = true,
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=0, max=2},
+                {name="FridgeSoda", min=0, max=6},
+                {name="FridgeWater", min=0, max=4},
+                {name="FridgeOther", min=0, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfDrinks", min=1, max=8},
+                {name="StoreShelfSnacks", min=1, max=8},
+                {name="StoreShelfMedical", min=4, max=24},
+                {name="StoreShelfMechanics", min=0, max=1},
+            }
+        }
+    },
+    
+    pharmacystorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="MedicalStorageDrugs", min=1, max=6},
+                {name="MedicalStorageTools", min=1, max=4},
+                {name="MedicalStorageOutfit", min=1, max=2},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeWater", min=0, max=12},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+            
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="MedicalClinicDrugs", min=1, max=4},
+                {name="MedicalClinicTools", min=1, max=2},
+                {name="MedicalClinicOutfit", min=1, max=2},
+            }
+        }
+    },
+    
+    pizzakitchen = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="PizzaKitchenFridge", min=1, max=99},
+            }
+        },
+        freezer = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=4},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="PizzaKitchenSauce", min=1, max=2},
+                {name="PizzaKitchenCheese", min=1, max=2},
+            }
+        },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenBaking", min=1, max=12},
+            }
+        },
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="ServingTrayPizza", min=1, max=99},
+            }
+        },
+        restaurantdisplay = {
+            procedural = true,
+            procList = {
+                {name="ServingTrayPizza", min=1, max=99},
+            }
+        },
+    },
+    
+    pizzawhirled = {
+        isShop = true,
+        wardrobe = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        displaycase = {
+            procedural = true,
+            procList = {
+                {name="ServingTrayPizza", min=0, max=99},
+            }
+        }
+    },
+    
+    plazastore1 = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+                {name="RandomFiller", min=0, max=99},
+            }
+        }
+    },
+    
+    policestorage = {
+        locker = {
+            rolls = 4,
+            items = {
+                "DumbBell", 0.3,
+                "BarBell", 0.3,
+                "HolsterSimple", 3,
+                "HolsterDouble", 0.8,
+                "Nightstick", 4,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "GunPowder", 3,
+                "ShotgunShellsBox", 3,
+                "223Box", 3,
+                "308Box", 3,
+                "Bullets9mmBox", 3,
+                "ShotgunShellsBox", 3,
+                "Bullets38Box", 3,
+                "Bullets44Box", 3,
+                "Bullets45Box", 3,
+                "Bag_NormalHikingBag", 1,
+                "HuntingKnife", 3,
+                "Radio.WalkieTalkie4",10,
+                "Radio.WalkieTalkie5",1,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",1,
+            },
+        },
+        
+        metal_shelves =
+        {
+            rolls = 4,
+            items = {
+                "HolsterSimple", 3,
+                "HolsterDouble", 0.8,
+                "Nightstick", 4,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "Bullets9mmBox", 3,
+                "GunPowder", 2,
+                "ShotgunShellsBox", 3,
+                "Bullets38Box", 3,
+                "Bullets44Box", 3,
+                "Bullets45Box", 3,
+                "223Box", 3,
+                "308Box", 3,
+                "PistolCase1", 1.5,
+                "PistolCase2", 1.5,
+                "PistolCase3", 0.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "Radio.WalkieTalkie4",10,
+                "Radio.WalkieTalkie5",2,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",2,
+            }
+        },
+    },
+    
+    post = {
+        counter = {
+            rolls = 2,
+            items = {
+                "DoubleBarrelShotgun", 2,
+                "Pistol", 1,
+                "Book", 4,
+                "Book", 4,
+                "Pen", 4,
+                "Pen", 4,
+                "Pencil", 4,
+                "Pencil", 4,
+                "BluePen", 3,
+                "RedPen", 3,
+                "BluePen", 3,
+                "RedPen", 3,
+                "Scissors", 3,
+                "Cigarettes", 1,
+                "Lighter", 1,
+            }
+        }
+    },
+    
+    poststorage = {
+        all = {
+            rolls = 3,
+            items = {
+                "Book", 10,
+                "Newspaper", 30,
+                "Newspaper", 20,
+                "Newspaper", 20,
+                "Newspaper", 20,
+                "Magazine", 30,
+                "Magazine", 20,
+                "Magazine", 20,
+                "Magazine", 20,
+                "Journal", 20,
+                "Journal", 20,
+                "Journal", 20,
+                "ComicBook", 10,
+                "BookCarpentry1", 1,
+                "BookFarming1", 1,
+                "BookForaging1", 1,
+                "BookCooking1", 1,
+                "BookFishing1", 1,
+                "BookTrapping1", 1,
+                "BookTailoring1", 1,
+                "BookCarpentry2", 0.5,
+                "BookFarming2", 0.5,
+                "BookForaging2", 0.5,
+                "BookCooking2", 0.5,
+                "BookFishing2", 0.5,
+                "BookTrapping2", 0.5,
+                "BookTailoring2", 0.5,
+                "BookCarpentry3", 0.3,
+                "BookFarming3", 0.3,
+                "BookForaging3", 0.3,
+                "BookCooking3", 0.3,
+                "BookFishing3", 0.3,
+                "BookTrapping3", 0.3,
+                "BookTailoring3", 0.3,
+                --                "BookBlacksmith1", 1,
+                --                "BookBlacksmith2", 0.5,
+                --                "BookBlacksmith3", 0.3,
+                "BookFirstAid1", 1,
+                "BookFirstAid2", 0.5,
+                "BookFirstAid3", 0.3,
+                "BookMetalWelding1", 1,
+                "BookMetalWelding2", 0.5,
+                "BookMetalWelding3", 0.3,
+                "BookElectrician1", 1,
+                "BookElectrician2", 0.5,
+                "BookElectrician3", 0.3,
+                "BookMechanic1", 1,
+                "BookMechanic2", 0.5,
+                "BookMechanic3", 0.3,
+                "FishingMag1", 0.5,
+                "FishingMag2", 0.5,
+                "HuntingMag1", 0.5,
+                "HuntingMag2", 0.5,
+                "HuntingMag3", 0.5,
+                "HerbalistMag", 0.5,
+                "CookingMag1", 0.5,
+                "CookingMag2", 0.5,
+                "ElectronicsMag1", 0.5,
+                "ElectronicsMag2", 0.5,
+                "ElectronicsMag3", 0.5,
+                "ElectronicsMag4", 0.5,
+                "ElectronicsMag5", 0.5,
+                "MechanicMag1", 0.5,
+                "MechanicMag2", 0.5,
+                "MechanicMag3", 0.5,
+                "EngineerMagazine1", 0.5,
+                "EngineerMagazine2", 0.5,
+                "MetalworkMag1", 0.5,
+                "MetalworkMag2", 0.5,
+                "MetalworkMag3", 0.5,
+                "MetalworkMag4", 0.5,
+            }
+        }
+    },
+    
+    restaurant = {
+        counter = {
+            rolls = 2,
+            items = {
+                "Book", 4,
+                "Book", 4,
+                "Pen", 4,
+                "Pencil", 4,
+                "BluePen", 3,
+                "RedPen", 3,
+                "Sparklers", 3,
+                "Aluminum", 1,
+            }
+        },
+        
+        shelves = {
+            rolls = 2,
+            items = {
+                "PopBottle", 2,
+                "Pop", 4,
+                "Pop2", 4,
+                "Pop3", 4,
+                "Crisps", 2,
+                "Crisps2", 2,
+                "Crisps3", 2,
+                "Crisps4", 2,
+                "WhiskeyFull", 3,
+            }
+        }
+    },
+    
+    restaurantkitchen = {
+        isShop = true,
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="RestaurantKitchenFreezer", min=1, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="RestaurantKitchenFridge", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=2},
+                {name="StoreKitchenButcher", min=1, max=1},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPotatoes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenSauce", min=1, max=2},
+            }
+        }
+    },
+    
+    security = {
+        locker = {
+            rolls = 3,
+            items = {
+                "DumbBell", 0.5,
+                "BarBell", 0.5,
+                "HuntingRifle", 3,
+                "VarmintRifle", 3,
+                "Shotgun", 3,
+                "DoubleBarrelShotgun", 2,
+                "ShotgunShellsBox", 10,
+                "ShotgunShellsBox", 10,
+                "Pistol", 1.5,
+                "Pistol2", 1.5,
+                "Pistol3", 0.5,
+                "Revolver_Short", 1.5,
+                "Revolver", 1,
+                "Revolver_Long", 0.5,
+                "HuntingKnife", 5,
+                "Bullets9mmBox", 10,
+                "Bullets9mmBox", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "Bullets38Box", 10,
+                "Bullets44Box", 10,
+                "Bullets45Box", 10,
+                "GunPowder", 10,
+                "GunPowder", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "223Box", 10,
+                "308Box", 10,
+                "Axe", 3,
+                "Radio.WalkieTalkie4",5,
+                "Radio.WalkieTalkie5",3,
+                "Radio.HamRadio1",5,
+                "Radio.HamRadio2",3,
+                "Glasses_Shooting", 2,
+            },
+            dontSpawnAmmo = true,
+        }
+    },
+    
+    sewingstorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="SewingStoreTools", min=0, max=99},
+                {name="SewingStoreFabric", min=0, max=99},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="SewingStoreTools", min=0, max=99},
+                {name="SewingStoreFabric", min=0, max=99},
+            }
+        }
+    },
+    
+    sewingstore = {
+        isShop = true,
+        counter ={
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="BookstoreTailoring", min=1, max=2},
+                {name="SewingStoreTools", min=1, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="SewingStoreTools", min=1, max=99},
+                {name="SewingStoreFabric", min=1, max=99},
+            }
+        }
+    },
+    
+    shed = {
+        other = {
+            rolls = 2,
+            items = {
+                "HuntingRifle", 0.5,
+                "VarmintRifle", 0.5,
+                "Shotgun", 0.8,
+                "DoubleBarrelShotgun", 1,
+                "ShotgunShellsBox", 2,
+                "223Box", 2,
+                "308Box", 2,
+                "NailsBox", 1,
+                "FishingRod", 2,
+                "FishingMag1", 0.5,
+                "FishingMag2", 0.5,
+                "HuntingMag1", 0.5,
+                "HuntingMag2", 0.5,
+                "HuntingMag3", 0.5,
+                "HerbalistMag", 0.5,
+                "ElectronicsMag1", 0.5,
+                "ElectronicsMag2", 0.5,
+                "ElectronicsMag3", 0.5,
+                "ElectronicsMag4", 0.5,
+                "ElectronicsMag5", 0.5,
+                "MechanicMag1", 0.5,
+                "MechanicMag2", 0.4,
+                "MechanicMag3", 0.3,
+                "EngineerMagazine1", 0.5,
+                "EngineerMagazine2", 0.5,
+                "MetalworkMag1", 0.5,
+                "MetalworkMag2", 0.5,
+                "MetalworkMag3", 0.5,
+                "MetalworkMag4", 0.5,
+                "HuntingKnife", 1,
+                "FishingNet", 1,
+                "FishingTackle", 1,
+                "FishingTackle2", 1,
+                "FishingLine", 1.5,
+                "PaperclipBox", 0.5,
+                "DuctTape", 2,
+                "Glue", 2,
+                "Scotchtape", 2,
+                "Twine", 2,
+                "Thread", 4,
+                "Woodglue", 2,
+                "Rope", 2,
+                "NailsBox", 1,
+                "NailsBox", 1,
+                "Nails", 3,
+                "Hammer", 2,
+                "Wire", 7,
+                "Saw", 2,
+                "GardenSaw", 2,
+                "Plank", 1,
+                "Plank", 1,
+                "Screwdriver", 2,
+                "Toolbox", 1,
+                "Radio.ElectricWire", 2,
+                "Charcoal", 6,
+                "Charcoal", 6,
+                --                "BallPeenHammer", 0.5,
+                --                "Tongs", 0.5,
+                "PropaneTank", 3,
+                "Extinguisher", 0.5,
+                "Radio.RadioMag1", 0.2,
+                "Radio.RadioMag2", 0.1,
+                "Radio.RadioMag3", 0.05,
+                "EmptyPetrolCan", 4,
+                "PetrolCan", 3,
+                "ElectronicsScrap", 2,
+                "ElectronicsScrap", 2,
+                "ScrapMetal", 2,
+                "ScrapMetal", 2,
+                "Radio.RadioBlack",4,
+                "Radio.RadioRed",2,
+                "Radio.WalkieTalkie1",1,
+                "Radio.WalkieTalkie2",0.8,
+                "Radio.WalkieTalkie3",0.6,
+                "Radio.WalkieTalkie4",0.1,
+                "Radio.WalkieTalkie5",0.02,
+                "Radio.HamRadio1",0.1,
+                "Radio.HamRadio2",0.01,
+                "BlowTorch", 2,
+                "WeldingRods", 5,
+                "SmallSheetMetal", 5,
+                "SheetMetal", 4,
+                "MetalPipe", 4,
+                "MetalBar", 4,
+                "WeldingMask",2,
+                "Wrench", 1,
+                "LugWrench",1,
+                "Jack", 1,
+                "TirePump", 1,
+                "OldTire1", 0.7,
+                "NormalTire1", 0.5,
+                "OldTire2", 0.7,
+                "NormalTire2", 0.5,
+                "OldTire3", 0.7,
+                "NormalTire3", 0.5,
+                "OldBrake1", 0.5,
+                "NormalBrake1", 0.2,
+                "OldBrake2", 0.5,
+                "NormalBrake2", 0.2,
+                "OldBrake3", 0.5,
+                "NormalBrake3", 0.2,
+                "NormalSuspension1", 0.2,
+                "NormalSuspension2", 0.2,
+                "NormalSuspension3", 0.2,
+                "SmallGasTank1", 0.5,
+                "NormalGasTank1", 0.2,
+                "SmallGasTank2", 0.5,
+                "NormalGasTank2", 0.2,
+                "SmallGasTank3", 0.5,
+                "NormalGasTank3", 0.2,
+                "Windshield1", 0.2,
+                "RearWindshield1", 0.2,
+                "FrontWindow1", 0.2,
+                "RearWindow1", 0.2,
+                "Windshield2", 0.2,
+                "RearWindshield2", 0.2,
+                "FrontWindow2", 0.2,
+                "RearWindow2", 0.2,
+                "Windshield3", 0.2,
+                "RearWindshield3", 0.2,
+                "FrontWindow3", 0.2,
+                "RearWindow3", 0.2,
+                "FrontCarDoor1", 0.2,
+                "RearCarDoor1", 0.2,
+                "RearCarDoorDouble1", 0.2,
+                "FrontCarDoor2", 0.2,
+                "RearCarDoor2", 0.2,
+                "RearCarDoorDouble2", 0.2,
+                "FrontCarDoor3", 0.2,
+                "RearCarDoor3", 0.2,
+                "RearCarDoorDouble3", 0.2,
+                "EngineDoor1", 0.2,
+                "EngineDoor2", 0.2,
+                "EngineDoor3", 0.2,
+                "TrunkDoor1", 0.2,
+                "TrunkDoor2", 0.2,
+                "TrunkDoor3", 0.2,
+                "OldCarMuffler1", 0.5,
+                "NormalCarMuffler1", 0.2,
+                "OldCarMuffler2", 0.5,
+                "NormalCarMuffler2", 0.2,
+                "OldCarMuffler3", 0.5,
+                "NormalCarMuffler3", 0.2,
+                "CarBatteryCharger", 1,
+                "CarBattery1", 0.3,
+                "CarBattery2", 0.3,
+                "CarBattery3", 0.3,
+                "BarbedWire", 1,
+                "EmptySandbag", 2,
+                "Cigarettes", 5,
+                "Lighter", 2,
+                "LeadPipe", 1,
+                "HandAxe", 0.8,
+                "PipeWrench", 1,
+                "Plunger", 2,
+                "ClubHammer", 1,
+                "WoodenMallet", 1,
+                "farming.GardeningSprayEmpty", 0.4,
+            },
+            
+            junk = {
+                rolls = 5,
+                items = {
+                    "EmptySandbag", 2,
+                    "Cigarettes", 5,
+                    "Lighter", 2,
+                    "farming.GardeningSprayEmpty", 2,
+                    "BarbedWire", 1,
+                    "LightBulb", 1,
+                    "LightBulbRed", 0.01,
+                    "LightBulbGreen", 0.01,
+                    "LightBulbBlue", 0.01,
+                    "LightBulbYellow", 0.06,
+                    "LightBulbCyan", 0.03,
+                    "LightBulbMagenta", 0.01,
+                    "LightBulbOrange", 0.006,
+                    "LightBulbPurple", 0.003,
+                    "LightBulbPink", 0.001,
+                },
+            },
+        },
+        
+        logs = {
+            rolls = 4,
+            items = {
+                "Log", 7,
+                "Log", 7,
+                "Log", 7,
+            }
+        },
+    },
+    
+    shoestore = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresBoots", min=1, max=12},
+                {name="ClothingStoresShoes", min=1, max=24},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="ClothingStoresSocks", min=0, max=12},
+            }
+        }
+    },
+    
+    spiffoskitchen = {
+        isShop = true,
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="SpiffosKitchenFreezer", min=1, max=99},
+            }
+        },
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="SpiffosKitchenFridge", min=1, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenBaking", min=1, max=1},
+                {name="BurgerKitchenButcher", min=1, max=1},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPotatoes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+                {name="StoreKitchenSauce", min=1, max=2},
+            }
+        }
+    },
+    
+    spiffosstorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenDishes", min=0, max=2},
+                {name="StoreKitchenPots", min=0, max=2},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="StoreKitchenBaking", min=0, max=12},
+                {name="StoreKitchenSauce", min=0, max=12},
+            }
+        }
+    },
+    
+    sportstorage = {
+        isShop = true,
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="SportStorageBats", min=0, max=99},
+                {name="SportStorageHelmets", min=0, max=99},
+                {name="SportStoragePaddles", min=0, max=99},
+                {name="SportStorageRacquets", min=0, max=99},
+                {name="SportStorageSticks", min=0, max=99},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="SportsStoreSneakers", min=0, max=99},
+                {name="SportStorageBats", min=0, max=99},
+                {name="SportStorageHelmets", min=0, max=99},
+                {name="SportStoragePaddles", min=0, max=99},
+                {name="SportStorageRacquets", min=0, max=99},
+                {name="SportStorageSticks", min=0, max=99},
+            }
+        },
+        crate = {
+            procedural = true,
+            procList = {
+                {name="SportStorageBats", min=0, max=99},
+                {name="SportStorageBalls", min=0, max=99},
+                {name="SportStorageHelmets", min=0, max=99},
+                {name="SportStoragePaddles", min=0, max=99},
+                {name="SportStorageRacquets", min=0, max=99},
+                {name="SportStorageSticks", min=0, max=99},
+            }
+        },
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresSport", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="ClothingStoresEyewear", min=0, max=2},
+                {name="ClothingStoresHatsSport", min=0, max=4},
+                {name="SportsStoreSneakers", min=0, max=99},
+            }
+        }
+    },
+    
+    sportstore = {
+        isShop = true,
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="SportsStoreSneakers", min=0, max=99},
+                {name="SportStorageBats", min=0, max=99},
+                {name="SportStoragePaddles", min=0, max=99},
+                {name="SportStorageRacquets", min=0, max=99},
+                {name="SportStorageSticks", min=0, max=99},
+            }
+        },
+        clothingrack = {
+            procedural = true,
+            procList = {
+                {name="ClothingStoresSport", min=0, max=99},
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBagsFancy", min=1, max=1},
+                {name="ClothingStoresEyewear", min=0, max=2},
+                {name="ClothingStoresHatsSport", min=0, max=4},
+                {name="SportsStoreSneakers", min=0, max=99},
+            }
+        }
+    },
+    
+    storageunit = {
+        all = {
+            rolls = 3,
+            items = {
+                "Magazine", 2,
+                "Newspaper", 2,
+                "Lighter", 2,
+                "BaseballBat", 5,
+                "Cigarettes", 5,
+                "Cigarettes", 5,
+                "farming.HandShovel", 3,
+                "HandScythe", 1,
+                "HandFork", 1,
+                "LeafRake", 2,
+                "GardenFork", 1,
+                "Rake", 2,
+                "Tshirt_DefaultTEXTURE_TINT", 2,
+                "Extinguisher", 0.5,
+                "Trousers", 2,
+                "Skirt_Knees", 0.3,
+                "Skirt_Long", 0.3,
+                "Skirt_Normal", 0.3,
+                "Shoes_Random", 2,
+                "camping.CampingTentKit", 0.2,
+                "DishCloth", 2,
+                "Kettle", 3,
+                "farming.HandShovel", 2,
+                "Shovel", 0.5,
+                "Shovel2", 0.5,
+                "SnowShovel", 0.5,
+                "farming.WateredCan", 1,
+                "Paintbrush", 1,
+                "PaintBlue", 0.8,
+                "PaintBrown", 0.8,
+                "PaintBlack", 0.8,
+                "PaintRed", 0.8,
+                "PaintCyan", 0.8,
+                "PaintGreen", 0.8,
+                "PaintGrey", 0.8,
+                "PaintLightBlue", 0.8,
+                "PaintLightBrown", 0.8,
+                "PaintOrange", 0.8,
+                "PaintPink", 0.8,
+                "PaintPurple", 0.8,
+                "PaintTurquoise",0.8,
+                "PaintWhite", 0.8,
+                "PaintYellow", 0.8,
+                "PlasterPowder", 0.8,
+                "BucketEmpty", 1,
+                "EmptyPetrolCan", 4,
+                "PetrolCan", 3,
+                "ElectronicsScrap", 2,
+                "ElectronicsScrap", 2,
+                "ScrapMetal", 2,
+                "ScrapMetal", 2,
+                "Radio.RadioBlack",2,
+                "Radio.RadioRed",1,
+                "Radio.WalkieTalkie1",0.05,
+                "Radio.WalkieTalkie2",0.03,
+                "Radio.WalkieTalkie3",0.01,
+                "Radio.HamRadio1",0.05,
+                "BlowTorch", 2,
+                "BlowTorch", 2,
+                "WeldingRods", 5,
+                "SmallSheetMetal", 5,
+                "SheetMetal", 4,
+                "MetalPipe", 4,
+                "MetalBar", 4,
+                "WeldingMask",2,
+                "Wrench", 1,
+                "LugWrench",0.7,
+                "Jack", 0.5,
+                "TirePump", 0.5,
+                "EmptySandbag", 2,
+                "Shovel", 0.5,
+                "Shovel2", 0.5,
+                "SnowShovel", 0.5,
+                "farming.HandShovel", 1,
+                "LeadPipe", 1,
+                "HandAxe", 0.8,
+                "PipeWrench", 1,
+                "Plunger", 2,
+                "ClubHammer", 1,
+                "WoodenMallet", 1,
+            }
+        }
+    },
+    
+    theatre = {
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="RandomFiller", min=0, max=99},
+            }
+        }
+    },
+    
+    theatrekitchen = {
+        isShop = true,
+        freezer = {
+            procedural = true,
+            procList = {
+                {name="TheatreKitchenFreezer", min=1, max=99},
+            }
+        },
+        fridge = {
+            rolls = 0,
+            items = {
+
+            }
+        },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterCleaning", min=1, max=2},
+                {name="StoreKitchenDishes", min=1, max=2},
+                {name="StoreKitchenPots", min=1, max=2},
+            }
+        }
+    },
+    
+    theatrestorage = {
+        crate = {
+            procedural = true,
+            procList = {
+                {name="TheatrePopcorn", min=1, max=99},
+                {name="TheatreSnacks", min=0, max=99},
+                {name="TheatreDrinks", min=0, max=99},
+            }
+        }
+    },
+    
+    toolstore = {
+        isShop = true,
+        shelves = {
             rolls = 3,
             items = {
                 "NailsBox", 3,
@@ -3663,7 +5312,7 @@ local distributionTable = {
             }
         },
         
-        counter ={
+        counter = {
             rolls = 2,
             items = {
                 "NailsBox", 3,
@@ -3740,4242 +5389,93 @@ local distributionTable = {
         },
     },
     
-    bar =
-    {
-        shelves ={
-            rolls = 4,
-            items = {
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "Wine2", 3,
-                "Wine2", 3,
-                "Wine", 3,
-                "Wine", 3,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Poolcue", 4,
-                "BaseballBat", 2,
-                "Lighter", 3,
-                "Cigarettes", 3,
-                "Cigarettes", 3,
-                "WaterBottleFull", 4,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "PopBottle", 4,
-                "Peanuts", 4,
-                "PoolBall", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "BeerCan", 5,
-                "BeerCan", 5,
-                "BeerBottle", 5,
-                "BeerBottle", 5,
-            },
-            
-            junk = {
-                rolls = 5,
-                items = {
-                    "WhiskeyFull", 3,
-                    "Wine2", 3,
-                    "Wine", 3,
-                    "BeerCan", 3,
-                    "BeerBottle", 3,
-                },
-            }
-        },
-        
-        counter ={
-            rolls = 2,
-            items = {
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "Wine2", 3,
-                "Wine2", 3,
-                "Wine", 3,
-                "Wine", 3,
-                "Poolcue", 4,
-                "BaseballBat", 2,
-                "Lighter", 3,
-                "Cigarettes", 3,
-                "Cigarettes", 3,
-                "WaterBottleFull", 4,
-                "PopBottle", 4,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "PopBottle", 4,
-                "Peanuts", 4,
-                "Peanuts", 4,
-                "PoolBall", 4,
-                "PoolBall", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "Dart", 4,
-                "Pickles", 4,
-                "Radio.RadioBlack",1,
-                "Radio.RadioRed",0.5,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.001,
-                "BeerCan", 5,
-                "BeerCan", 5,
-                "BeerBottle", 5,
-                "BeerBottle", 5,
-            },
-            
-            junk = {
-                rolls = 5,
-                items = {
-                    "WhiskeyFull", 3,
-                    "BeerCan", 3,
-                    "BeerBottle", 3,
-                    "Wine2", 3,
-                    "Wine", 3,
-                    "JarLid", 1,
-                    "EmptyJar", 1,
-                },
-            }
-        },
-        
-        bin = {
-            rolls = 1,
-            items = {
-                "SmashedBottle", 4,
-                "SmashedBottle", 4,
-                "SmashedBottle", 4,
-                "WhiskeyEmpty", 2,
-                "WhiskeyEmpty", 2,
-                "WhiskeyEmpty", 2,
-                "PopBottleEmpty", 2,
-                "PopBottleEmpty", 2,
-                "Tissue", 2,
-                "Lighter", 2,
-                "Battery", 2,
-                "Pen", 0.3,
-                "BluePen", 0.3,
-                "RedPen", 0.3,
-                "Pencil", 0.2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Socks_Ankle", 1.5,
-                "Socks_Long", 1.5,
-                "Lollipop", 3,
-                "MintCandy", 3,
-                "Cigarettes", 3,
-                "SheetPaper2", 3,
-                "WaterBottleEmpty", 3,
-                "BeerEmpty",4,
-                "BeerEmpty",4,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-            }
-        },
-    },
-    
-    barkitchen =
-    {
-        shelves ={
-            rolls = 3,
-            items = {
-                "Base.WhiskeyFull", 3,
-                "Base.WhiskeyFull", 3,
-                "Base.WhiskeyFull", 3,
-                "Base.Wine2", 3,
-                "Base.Wine2", 3,
-                "Base.Wine", 3,
-                "Base.Wine", 3,
-                "Base.Cigarettes", 3,
-                "Base.Cigarettes", 3,
-                "Base.WaterBottleFull", 4,
-                "Base.Pop", 4,
-                "Base.Pop2", 4,
-                "Base.Pop3", 4,
-                "Base.PopBottle", 4,
-                "Base.Peanuts", 4,
-                "BeerCan", 5,
-                "BeerCan", 5,
-                "BeerBottle", 5,
-                "BeerBottle", 5,
-            },
-            
-            junk = {
-                rolls = 5,
-                items = {
-                    "WhiskeyFull", 3,
-                    "Wine2", 3,
-                    "Wine", 3,
-                },
-            }
-        },
-    
-        counter ={
-            rolls = 3,
-            items = {
-                "Base.WhiskeyFull", 3,
-                "Base.WhiskeyFull", 3,
-                "Base.WhiskeyFull", 3,
-                "Base.Wine2", 3,
-                "Base.Wine2", 3,
-                "Base.Wine", 3,
-                "Base.Wine", 3,
-                "Base.Cigarettes", 3,
-                "Base.Cigarettes", 3,
-                "Base.WaterBottleFull", 4,
-                "Base.Pop", 4,
-                "Base.Pop2", 4,
-                "Base.Pop3", 4,
-                "Base.PopBottle", 4,
-                "Base.Peanuts", 4,
-                "BeerCan", 5,
-                "BeerCan", 5,
-                "BeerBottle", 5,
-                "BeerBottle", 5,
-            },
-        
-            junk = {
-                rolls = 5,
-                items = {
-                    "WhiskeyFull", 3,
-                    "Wine2", 3,
-                    "Wine", 3,
-                },
-            }
-        },
-    },
-    
-    policestorage = {
-        locker ={
-            rolls = 4,
-            items = {
-                "DumbBell", 0.3,
-                "BarBell", 0.3,
-                "HolsterSimple", 3,
-                "HolsterDouble", 0.8,
-                "Nightstick", 4,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "GunPowder", 3,
-                "ShotgunShellsBox", 3,
-                "223Box", 3,
-                "308Box", 3,
-                "Bullets9mmBox", 3,
-                "ShotgunShellsBox", 3,
-                "Bullets38Box", 3,
-                "Bullets44Box", 3,
-                "Bullets45Box", 3,
-                "Bag_NormalHikingBag", 1,
-                "HuntingKnife", 3,
-                "Radio.WalkieTalkie4",10,
-                "Radio.WalkieTalkie5",1,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",1,
-            },
-        },
-        
-        metal_shelves =
-        {
-            rolls = 4,
-            items = {
-                "HolsterSimple", 3,
-                "HolsterDouble", 0.8,
-                "Nightstick", 4,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "Bullets9mmBox", 3,
-                "GunPowder", 2,
-                "ShotgunShellsBox", 3,
-                "Bullets38Box", 3,
-                "Bullets44Box", 3,
-                "Bullets45Box", 3,
-                "223Box", 3,
-                "308Box", 3,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "Radio.WalkieTalkie4",10,
-                "Radio.WalkieTalkie5",2,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",2,
-            }
-        },
-    },
-    
-    armystorage = {
-        locker ={
-            rolls = 2,
-            items = {
-                "HolsterSimple", 3,
-                "HolsterDouble", 0.8,
-                "Nightstick", 4,
-                "Shotgun", 3,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "GunPowder", 3,
-                "ShotgunShellsBox", 3,
-                "223Box", 3,
-                "308Box", 3,
-                "Bullets9mmBox", 3,
-                "ShotgunShellsBox", 3,
-                "Bullets38Box", 3,
-                "Bullets44Box", 3,
-                "Bullets45Box", 3,
-                "Bag_ALICEpack_Army", 1,
-                "HuntingKnife", 3,
-                "Radio.WalkieTalkie4",10,
-                "Radio.WalkieTalkie5",1,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",1,
-                "AssaultRifle", 0.5,
-                "AssaultRifle2", 0.8,
-                "556Box", 2,
-                "556Clip", 0.7,
-                "Ghillie_Top", 0.1,
-                "Ghillie_Trousers", 0.1,
-                "Vest_BulletArmy", 0.5,
-            },
-        },
-        
-        metal_shelves =
-        {
-            rolls = 2,
-            items = {
-                "HolsterSimple", 3,
-                "HolsterDouble", 0.8,
-                "Nightstick", 4,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "Bullets9mmBox", 3,
-                "GunPowder", 2,
-                "ShotgunShellsBox", 3,
-                "Bullets38Box", 3,
-                "Bullets44Box", 3,
-                "Bullets45Box", 3,
-                "223Box", 3,
-                "308Box", 3,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "Radio.WalkieTalkie4",10,
-                "Radio.WalkieTalkie5",2,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",2,
-            }
-        },
-    },
-    
-    pharmacy = {
-        isShop = true,
-        fridge =
-        {
-            procedural = true,
-            procList = {
-                {name="FridgeOther", min=1, max=10},
-                {name="FridgeBottles", min=1, max=10},
-            }
-        },
-        freezer =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="StoreShelfSnacks", min=1, max=10},
-                {name="StoreShelfMedical", min=1, max=10},
-            }
-        },
-    },
-    
-    pharmacystorage = {
-        isShop = true,
-        metal_shelves ={
-            rolls = 5,
-            items = {
-                "Pills", 50,
-                "PillsBeta", 50,
-                "PillsAntiDep", 50,
-                "PillsSleepingTablets", 50,
-                "PillsVitamins", 50,
-                "Antibiotics", 50,
-                "Bandage",50,
-                "Bandage", 50,
-                "Bandaid", 50,
-                "Bandaid", 50,
-                "Scissors", 20,
-                "FirstAidKit", 20,
-                "Tweezers", 20,
-                "Tweezers", 20,
-                "Disinfectant", 50,
-                "Disinfectant", 50,
-                "AlcoholWipes", 50,
-                "AlcoholWipes", 50,
-                "SutureNeedle", 20,
-                "SutureNeedleHolder", 20,
-                "Scalpel", 2,
-            }
-        },
-        
-        fridge = {
-            rolls = 1,
-            items = {
-            }
-        },
-        
-        freezer =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        
-        counter ={
-            rolls = 4,
-            items = {
-                "PillsVitamins", 50,
-                "Pills", 50,
-                "PillsBeta", 50,
-                "PillsAntiDep", 50,
-                "PillsSleepingTablets", 50,
-                "Antibiotics", 50,
-                "Disinfectant", 50,
-            }
-        },
-    },
-    
-    gunstore = {
-        isShop = true,
-        counter ={
-            rolls = 3,
-            items = {
-                "x2Scope", 3,
-                "x4Scope", 2,
-                "x8Scope", 1,
-                "AmmoStraps", 3,
-                "Sling", 4,
-                "FiberglassStock", 3,
-                "RecoilPad",  4,
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "HuntingKnife", 5,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Axe", 2,
-                "WoodAxe", 3,
-                "HuntingKnife", 3,
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "Radio.WalkieTalkie4",10,
-                "Radio.WalkieTalkie5",5,
-                "Radio.HamRadio1",10,
-                "Radio.HamRadio2",5,
-                "Glasses_Shooting", 2,
-                "9mmClip", 2,
-                "45Clip", 2,
-                "44Clip", 2,
-                "223Clip", 2,
-                "308Clip", 2,
-                "M14Clip", 2,
-                "556Clip", 2,
-            },
-            dontSpawnAmmo = true,
-        },
-        
-        displaycase ={
-            rolls = 3,
-            items = {
-                "x2Scope", 3,
-                "x4Scope", 2,
-                "x8Scope", 1,
-                "AmmoStrap_Bullets", 3,
-                "AmmoStrap_Shells", 3,
-                "Sling", 4,
-                "FiberglassStock", 3,
-                "RecoilPad",  4,
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "HuntingKnife", 5,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Axe", 3,
-                "Glasses_Shooting", 2,
-                "9mmClip", 2,
-                "45Clip", 2,
-                "44Clip", 2,
-                "223Clip", 2,
-                "308Clip", 2,
-                "M14Clip", 2,
-                "556Clip", 2,
-            },
-            dontSpawnAmmo = true,
-        },
-        
-        locker ={
-            rolls = 3,
-            items = {
-                "x2Scope", 3,
-                "x4Scope", 2,
-                "x8Scope", 1,
-                "AmmoStrap_Bullets", 3,
-                "AmmoStrap_Shells", 3,
-                "Sling", 4,
-                "FiberglassStock", 3,
-                "RecoilPad",  4,
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "HuntingKnife", 5,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Axe", 2,
-                "WoodAxe", 2,
-                "Machete", 1,
-                "Katana", 0.5,
-                "Radio.WalkieTalkie4",5,
-                "Radio.WalkieTalkie5",3,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",3,
-                "Glasses_Shooting", 2,
-                "Vest_Hunting_Grey", 1,
-                "Vest_Hunting_Orange", 1,
-                "Vest_Hunting_Camo", 1,
-                "Vest_Hunting_CamoGreen", 1,
-            },
-            dontSpawnAmmo = true,
-        },
-        
-        metal_shelves ={
-            rolls = 3,
-            items = {
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 1.5,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "HuntingKnife", 3,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Axe", 3,
-                "Katana", 0.5,
-                "Machete", 1,
-                "Radio.WalkieTalkie4",5,
-                "Radio.WalkieTalkie5",3,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",3,
-                "Glasses_Shooting", 2,
-            },
-            dontSpawnAmmo = true,
-        },
-    },
-    
-    gunstorestorage ={
-        isShop = true,
-        all={
-            rolls = 3,
-            items = {
-                "x2Scope", 3,
-                "x4Scope", 2,
-                "x8Scope", 1,
-                "AmmoStrap_Bullets", 3,
-                "AmmoStrap_Shells", 3,
-                "Sling", 4,
-                "FiberglassStock", 3,
-                "RecoilPad",  4,
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "PistolCase1", 1.5,
-                "PistolCase2", 1.5,
-                "PistolCase3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Axe", 2,
-                "WoodAxe", 2,
-                "Katana", 0.5,
-                "Machete", 1,
-                "Radio.WalkieTalkie4",5,
-                "Radio.WalkieTalkie5",3,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",3,
-            },
-            
-            dontSpawnAmmo = true,
-        },
-    },
-    
-    mechanic = {
-        wardrobe ={
-            rolls = 3,
-            items = {
-                "Shoes_Random", 1.5,
-                "Shorts_LongDenim", 0.5,
-                "Shorts_ShortDenim", 0.5,
-                "TrousersMesh_DenimLight", 0.5,
-                "Trousers_DefaultTEXTURE_TINT", 1,
-                "Trousers_Denim", 0.5,
-                "Tshirt_DefaultTEXTURE_TINT",1,
-                "Tshirt_WhiteLongSleeveTINT",0.5,
-                "Tshirt_WhiteTINT", 1,
-                "Shirt_Lumberjack", 0.5,
-                "Shirt_Denim", 0.5,
-                "Vest_DefaultTEXTURE_TINT", 0.5,
-                "JacketLong_Random", 0.2,
-                "Jacket_Black", 0.2,
-                "Jacket_Padded", 0.2,
-                "Jacket_WhiteTINT", 0.2,
-                "Jumper_RandomTEXTURE", 1,
-                "Jumper_TankTopTINT", 0.5,
-                "Bag_Schoolbag", 1,
-                "Wallet", 1,
-                "Wallet2", 1,
-                "Wallet3", 1,
-                "Wallet4", 1,
-                "Cigarettes", 3,
-                "Lighter", 3,
-                "PillsAntiDep", 0.5,
-                "ElectronicsMag1", 0.3,
-                "ElectronicsMag2", 0.3,
-                "ElectronicsMag3", 0.3,
-                "ElectronicsMag4", 0.1,
-                "ElectronicsMag5", 0.3,
-                "MechanicMag1", 1,
-                "MechanicMag2", 1,
-                "MechanicMag3", 1,
-                "BookMechanic1",1,
-                "BookMechanic2",0.8,
-                "BookMechanic3",0.7,
-                "BookMechanic4",0.5,
-                "BookMechanic5",0.3,
-                "EngineerMagazine1", 0.3,
-                "EngineerMagazine2", 0.3,
-                --                "SmithingMag1", 0.3,
-                --                "SmithingMag2", 0.3,
-                --                "SmithingMag3", 0.2,
-                --                "SmithingMag4", 0.2,
-                "MetalworkMag1", 0.3,
-                "MetalworkMag2", 0.3,
-                "MetalworkMag3", 0.2,
-                "MetalworkMag4", 0.2,
-                "Radio.RadioMag1", 0.3,
-                "Radio.RadioMag2", 0.15,
-                "Radio.RadioMag3", 0.1,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-                "Radio.HamRadio1",0.05,
-                "Wrench", 1,
-                "LeadPipe", 1,
-                "PipeWrench", 1,
-                "LugWrench",0.7,
-                "Jack", 0.5,
-                "TirePump", 0.5,
-            }
-        },
-        
-        metal_shelves ={
-            rolls = 3,
-            items = {
-                "Hammer", 4,
-                "Wire", 2,
-                "Saw", 4,
-                "GardenSaw", 4,
-                "NailsBox", 2,
-                "PaperclipBox", 1,
-                "NailsBox", 2,
-                "NailsBox", 2,
-                "Nails", 4,
-                "Screwdriver", 4,
-                "Toolbox", 2,
-                "Radio.ElectricWire", 2,
-                "Sledgehammer", 0.25,
-                "Sledgehammer2", 0.25,
-                "Sheet", 4,
-                "Sheet", 4,
-                "BarbedWire", 3,
-                "PetrolCan", 1,
-                "EmptyPetrolCan", 3,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-                "Radio.HamRadio1",0.05,
-                "MechanicMag1", 0.3,
-                "MechanicMag2", 0.3,
-                "MechanicMag3", 0.3,
-                "BookMechanic1",0.5,
-                "BookMechanic2",0.4,
-                "BookMechanic3",0.3,
-                "BookMechanic4",0.2,
-                "BookMechanic5",0.1,
-                "MetalworkMag1", 0.2,
-                "MetalworkMag2", 0.2,
-                "MetalworkMag3", 0.2,
-                "MetalworkMag4", 0.2,
-                "Wrench", 1,
-                "LeadPipe", 1,
-                "PipeWrench", 1,
-                "LugWrench",0.8,
-                "Jack", 0.5,
-                "TirePump", 0.5,
-                "NormalBrake1", 1.2,
-                "ModernBrake1", 1.1,
-                "NormalBrake2", 1.2,
-                "ModernBrake2", 1.1,
-                "NormalBrake3", 1.2,
-                "ModernBrake3", 1.1,
-                "NormalSuspension1", 1.2,
-                "ModernSuspension1", 1.1,
-                "NormalSuspension2", 1.2,
-                "ModernSuspension2", 1.1,
-                "NormalSuspension3", 1.2,
-                "ModernSuspension3", 1.1,
-                "SmallGasTank1", 1.3,
-                "NormalGasTank1", 1.2,
-                "BigGasTank1", 1.1,
-                "SmallGasTank2", 1.3,
-                "NormalGasTank2", 1.2,
-                "BigGasTank2", 1.1,
-                "SmallGasTank3", 1.3,
-                "NormalGasTank3", 1.2,
-                "BigGasTank3", 1.1,
-                "CarBatteryCharger", 2,
-                "CarBattery1", 1.5,
-                "CarBattery2", 1.5,
-                "CarBattery3", 1.5,
-                "FrontCarDoor1", 1.2,
-                "RearCarDoor1", 1.2,
-                "FrontCarDoor2", 1.2,
-                "RearCarDoor2", 1.2,
-                "FrontCarDoor3", 1.2,
-                "RearCarDoor3", 1.2,
-                "NormalCarSeat1", 1.3,
-                "BigCarSeat1", 1.2,
-                "SportCarSeat1", 1.1,
-                "NormalCarSeat2", 1.3,
-                "BigCarSeat2", 1.2,
-                "SportCarSeat2", 1.1,
-                "NormalCarSeat3", 1.3,
-                "BigCarSeat3", 1.2,
-                "SportCarSeat3", 1.1,
-                "Wrench", 1,
-                "LeadPipe", 1,
-                "PipeWrench", 1,
-                "LugWrench",0.7,
-                "Jack", 0.5,
-                "TirePump", 0.5,
-            }
-        },
-    },
-    
-    bakery = {
-        displaycase ={
-            procedural = true,
-            procList = {
-                {name="Bakery", min=1, max=99},
-            },
-        },
-    
-        displaycasebakery ={
-            procedural = true,
-            procList = {
-                {name="Bakery", min=1, max=99},
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Pancakes", 4,
-                "Pancakes", 4,
-                "Waffles", 4,
-                "Waffles", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "CheeseSandwich", 4,
-                "CheeseSandwich", 4,
-                "PeanutButterSandwich", 4,
-                "PeanutButterSandwich", 4,
-                "Pie", 3,
-                "PiePumpkin", 3,
-                "PiePumpkin", 3,
-                "Pie", 3,
-                "CakeSlice", 3,
-                "CakeSlice", 3,
-                "Extinguisher", 1,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-            }
-        },
-        
-        grocerstand ={
-            rolls = 3,
-            items = {
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Pancakes", 4,
-                "Pancakes", 4,
-                "Waffles", 4,
-                "Waffles", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "CheeseSandwich", 4,
-                "CheeseSandwich", 4,
-                "PeanutButterSandwich", 4,
-                "PeanutButterSandwich", 4,
-                "Pie", 3,
-                "PiePumpkin", 3,
-                "PiePumpkin", 3,
-                "Pie", 3,
-                "CakeSlice", 3,
-                "CakeSlice", 3,
-                "Extinguisher", 1,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-            }
-        },
-    },
-    
-    aesthetic = {
-        isShop = true,
-        counter ={
-            rolls = 3,
-            items = {
-                "HairDyeBlue", 3,
-                "HairDyeGreen", 3,
-                "HairDyeRed", 3,
-                "HairDyeYellow", 3,
-                "HairDyeBlonde", 4,
-                "HairDyeBlack", 4,
-                "HairDyeWhite", 4,
-                "HairDyeGinger", 4,
-                "HairDyeLightBrown", 4,
-                "MakeupEyeshadow", 1,
-                "MakeupFoundation", 1,
-            },
-            
-            junk = {
-                rolls = 4,
-                items = {
-                    "Razor", 4,
-                    "Razor", 4,
-                    "Scissors", 7,
-                    "Scissors", 7,
-                    "Scissors", 7,
-                    "BathTowel", 7,
-                    "BathTowel", 7,
-                    "Comb", 7,
-                    "Comb", 7,
-                    "Hairspray", 6,
-                    "Hairspray", 6,
-                },
-            },
-        },
-    },
-    
-    clothesstore = {
-        isShop = true,
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="ClothingStoresShirts", min=0, max=3},
-                {name="ClothingStoresPants", min=0, max=2},
-                {name="ClothingStoresJumpers", min=0, max=2},
-                {name="ClothingStoresLeather", min=0, max=1},
-                {name="ClothingStoresShoes", min=0, max=1},
-                {name="ClothingPoor", min=0, max=20, forceForZones="Poor"},
-            }
-        },
-        
-        clothingrack={
-            procedural = true,
-            procList = {
-                {name="ClothingStoresDress", min=0, max=1},
-                {name="ClothingStoresMan", min=0, max=3},
-                {name="ClothingStoresWoman", min=0, max=10},
-                {name="ClothingStoresShirts", min=0, max=3},
-                {name="ClothingStoresPants", min=0, max=2},
-                {name="ClothingStoresJumpers", min=0, max=2},
-                {name="ClothingStoresJackets", min=0, max=1},
-                {name="ClothingPoor", min=0, max=20, forceForZones="Poor"},
-            }
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 2,
-                "RedPen", 2,
-                "Pencil", 5,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Belt2", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "BookTailoring1", 2,
-                "BookTailoring2", 1.5,
-                "BookTailoring3", 1,
-                "BookTailoring4", 0.7,
-                "BookTailoring5", 0.5,
-                "Thread", 5,
-                "Thread", 5,
-                "Button", 2,
-                "Button", 2,
-                "Needle", 2,
-            },
-        },
-    },
-    
-    motelroom = {
-        freezer =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        microwave =
-        {
-            rolls = 1,
-            items = {
-            }
-        },
-        fridge ={
-            rolls = 4,
-            items = {
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "Wine2", 3,
-                "Wine", 3,
-                "Peanuts", 4,
-                "Lollipop", 4,
-                "MintCandy", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "Chocolate", 4,
-            },
-        },
-        bin = {
-            rolls = 1,
-            items = {
-            }
-        },
-        other ={
-            rolls = 1,
-            items = {
-                "BathTowel", 80,
-                "Sheet", 80,
-                "Sheet", 40,
-                "Pillow", 80,
-                "Pillow", 80,
-                "Bell", 2,
-                "AlarmClock2", 1,
-            },
-        },
-    },
-    
-    motelroomoccupied = {
-        
-        freezer =
-        {
-            rolls = 1,
-            items = {
-                "IcePick", 0.01,
-            }
-        },
-        
-        fridge ={
-            rolls = 4,
-            items = {
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "WhiskeyFull", 3,
-                "WhiskeyFull", 3,
-                "Wine2", 3,
-                "Wine", 3,
-                "Peanuts", 4,
-                "Lollipop", 4,
-                "MintCandy", 4,
-                "CookieJelly", 4,
-                "CookieChocolateChip", 4,
-                "Chocolate", 4,
-                "Cologne", 2,
-                "Perfume", 2,
-                "Milk", 1,
-            },
-        },
-        
-        bin = {
-            rolls = 1,
-            items = {
-                "SmashedBottle", 2,
-                "Tissue", 2,
-                "Lighter", 2,
-                "Battery", 2,
-                "Pen", 0.2,
-                "BluePen", 0.1,
-                "RedPen", 0.1,
-                "Pencil", 0.2,
-                "Eraser", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Paperclip", 1,
-                "Lollipop", 3,
-                "MintCandy", 3,
-                "Cigarettes", 3,
-                "SheetPaper2", 3,
-                "WaterBottleEmpty", 3,
-            }
-        },
-        
-        other ={
-            rolls = 2,
-            items = {
-                "BathTowel", 30,
-                "Sheet", 30,
-                "Sheet", 20,
-                "Pillow", 30,
-                "Pillow", 30,
-                "Earbuds", 2,
-                "Wallet", 2,
-                "Wallet2", 2,
-                "Wallet3", 2,
-                "Wallet4", 2,
-                "Locket", 1,
-                "Earbuds", 1,
-                "Ring", 1,
-                "Earrings", 1,
-                "Necklacepearl", 1,
-                "Comb", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Notebook", 2,
-                "ComicBook", 2,
-                "Pencil", 2,
-                "Pen", 2,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pills", 1,
-                "PillsBeta", 1,
-                "PillsAntiDep", 1,
-                "PillsVitamins", 1,
-                "Pistol", 0.2,
-                "Pistol2", 0.2,
-                "Plasticbag", 0.5,
-                "Bag_DuffelBagTINT", 0.3,
-                "Bag_Schoolbag", 0.3,
-                "Bag_NormalHikingBag", 0.1,
-                "Bag_BigHikingBag", 0.1,
-            },
-        },
-    },
-    
-    empty = {
-        all ={
-            rolls = 1,
-            items = {
-                "Sheet", 0.5,
-                "Magazine", 0.3,
-                "Newspaper", 0.3,
-                "Pencil", 0.3,
-                "Pen", 0.3,
-                "BluePen", 0.2,
-                "RedPen", 0.2,
-            },
-        },
-    },
-    
-    cafe = {
-        counter = {
-            rolls = 3,
-            items = {
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "Pie", 3,
-                "Kettle", 7,
-                "Coffee2", 7,
-                "Sugar", 7,
-                "Teabag2", 7,
-                "Mugl", 7,
-                "Mugl", 7,
-                "Mugl", 7,
-                "CakeSlice", 3,
-                "Extinguisher", 0.5,
-                "EmptyJar", 1,
-                "JarLid", 1,
-                "Vinegar", 1,
-            },
-        },
-        
-        displaycase = {
-            rolls = 3,
-            items = {
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "Pie", 3,
-                "Kettle", 7,
-                "Coffee2", 7,
-                "Sugar", 7,
-                "Teabag2", 7,
-                "Mugl", 7,
-                "Mugl", 7,
-                "Mugl", 7,
-                "CakeSlice", 3,
-            },
-        },
-        
-        bin = {
-            rolls = 1,
-            items = {
-                "Teabag2", 7,
-                "Teabag2", 7,
-                "Teabag2", 7,
-                "Teabag2", 7,
-                "Tissue", 7,
-                "Tissue", 7,
-                "Lollipop", 7,
-                "MintCandy", 7,
-                "Garbagebag", 20,
-                "Garbagebag", 20,
-                "Cigarettes", 1,
-            },
-        },
-    },
-    
-    cafekitchen = {
-        all = {
-            rolls = 3,
-            items = {
-                "Cupcake", 4,
-                "Cupcake", 4,
-                "Bread", 4,
-                "Bread", 4,
-                "Pie", 3,
-                "CakeSlice", 3,
-                "Kettle", 7,
-                "Coffee2", 7,
-                "Sugar", 7,
-                "Teabag2", 7,
-                "Mugl", 7,
-            },
-        },
-    },
-    
-    pizzakitchen = {
-        stove = {
-            rolls = 1,
-            items = {
-                "DeadRat", 10,
-            }
-        },
-        
-        freezer =
-        {
-            rolls = 3,
-            items = {
-                "Steak", 1,
-                "Pizza", 1,
-                "Pizza", 1,
-                "Pizza", 1,
-                "Chicken", 1,
-            }
-        },
-        
-        fridge = {
-            rolls = 3,
-            items = {
-                "Milk", 4,
-                "Bread", 4,
-                "Pie", 3,
-                "EggCarton", 6,
-                "EggCarton", 3,
-                "Steak", 3,
-                "Pizza", 5,
-                "Pizza", 5,
-                "Pizza", 5,
-                "Pizza", 5,
-                "Pizza", 5,
-                "Worm", 0.5,
-                "Chicken", 3,
-                "Ham", 3,
-                "farming.Bacon", 3,
-                "Cheese", 4,
-                "farming.MayonnaiseFull", 3,
-                "farming.Ketchup", 3,
-                "farming.Mustard", 3,
-                "farming.Tomato", 4,
-                "BellPepper", 5,
-                "farming.Cabbage", 4,
-                "Eggplant", 4,
-                "Butter", 3,
-                "Worm", 0.5,
-                "Vinegar", 0.5,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-                "Dough", 2,
-            },
-        },
-        
-        counter = {
-            rolls = 3,
-            items = {
-                "Flour", 6,
-                "RollingPin", 2,
-                "KitchenKnife", 2,
-                "MeatCleaver", 1,
-                "ButterKnife", 2,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "EmptyJar", 0.5,
-                "JarLid", 0.5,
-            },
-        },
-        
-        displaycase ={
-            rolls = 3,
-            items = {
-                "Pizza", 5,
-            },
-        },
-    },
-    
-    dining = {
-        counter = {
-            rolls = 2,
-            items = {
-                "Book", 4,
-                "Book", 4,
-                "Pen", 4,
-                "Pencil", 4,
-                "BluePen", 3,
-                "RedPen", 3,
-                "Sparklers", 3,
-                "Aluminum", 1,
-            },
-        },
-        
-        shelves = {
-            rolls = 2,
-            items = {
-                "PopBottle", 2,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "Crisps", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "WhiskeyFull", 3,
-            },
-        },
-    },
-    
-    restaurant = {
-        counter = {
-            rolls = 2,
-            items = {
-                "Book", 4,
-                "Book", 4,
-                "Pen", 4,
-                "Pencil", 4,
-                "BluePen", 3,
-                "RedPen", 3,
-                "Sparklers", 3,
-                "Aluminum", 1,
-            },
-        },
-        
-        shelves = {
-            rolls = 2,
-            items = {
-                "PopBottle", 2,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "Crisps", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "WhiskeyFull", 3,
-            },
-        },
-    },
-    
-    post = {
-        counter = {
-            rolls = 2,
-            items = {
-                "DoubleBarrelShotgun", 2,
-                "Pistol", 1,
-                "Book", 4,
-                "Book", 4,
-                "Pen", 4,
-                "Pen", 4,
-                "Pencil", 4,
-                "Pencil", 4,
-                "BluePen", 3,
-                "RedPen", 3,
-                "BluePen", 3,
-                "RedPen", 3,
-                "Scissors", 3,
-                "Cigarettes", 1,
-                "Lighter", 1,
-            },
-        },
-    },
-    
-    poststorage = {
-        all = {
-            rolls = 3,
-            items = {
-                "Book", 10,
-                "Newspaper", 30,
-                "Newspaper", 20,
-                "Newspaper", 20,
-                "Newspaper", 20,
-                "Magazine", 30,
-                "Magazine", 20,
-                "Magazine", 20,
-                "Magazine", 20,
-                "Journal", 20,
-                "Journal", 20,
-                "Journal", 20,
-                "ComicBook", 10,
-                "BookCarpentry1", 1,
-                "BookFarming1", 1,
-                "BookForaging1", 1,
-                "BookCooking1", 1,
-                "BookFishing1", 1,
-                "BookTrapping1", 1,
-                "BookTailoring1", 1,
-                "BookCarpentry2", 0.5,
-                "BookFarming2", 0.5,
-                "BookForaging2", 0.5,
-                "BookCooking2", 0.5,
-                "BookFishing2", 0.5,
-                "BookTrapping2", 0.5,
-                "BookTailoring2", 0.5,
-                "BookCarpentry3", 0.3,
-                "BookFarming3", 0.3,
-                "BookForaging3", 0.3,
-                "BookCooking3", 0.3,
-                "BookFishing3", 0.3,
-                "BookTrapping3", 0.3,
-                "BookTailoring3", 0.3,
-                --                "BookBlacksmith1", 1,
-                --                "BookBlacksmith2", 0.5,
-                --                "BookBlacksmith3", 0.3,
-                "BookFirstAid1", 1,
-                "BookFirstAid2", 0.5,
-                "BookFirstAid3", 0.3,
-                "BookMetalWelding1", 1,
-                "BookMetalWelding2", 0.5,
-                "BookMetalWelding3", 0.3,
-                "BookElectrician1", 1,
-                "BookElectrician2", 0.5,
-                "BookElectrician3", 0.3,
-                "BookMechanic1", 1,
-                "BookMechanic2", 0.5,
-                "BookMechanic3", 0.3,
-                "FishingMag1", 0.5,
-                "FishingMag2", 0.5,
-                "HuntingMag1", 0.5,
-                "HuntingMag2", 0.5,
-                "HuntingMag3", 0.5,
-                "HerbalistMag", 0.5,
-                "CookingMag1", 0.5,
-                "CookingMag2", 0.5,
-                "ElectronicsMag1", 0.5,
-                "ElectronicsMag2", 0.5,
-                "ElectronicsMag3", 0.5,
-                "ElectronicsMag4", 0.5,
-                "ElectronicsMag5", 0.5,
-                "MechanicMag1", 0.5,
-                "MechanicMag2", 0.5,
-                "MechanicMag3", 0.5,
-                "EngineerMagazine1", 0.5,
-                "EngineerMagazine2", 0.5,
-                "MetalworkMag1", 0.5,
-                "MetalworkMag2", 0.5,
-                "MetalworkMag3", 0.5,
-                "MetalworkMag4", 0.5,
-            },
-        },
-    },
-    
-    dinnerkitchen = {
-        stove = {
-            rolls = 1,
-            items = {
-                "DeadRat", 10,
-            }
-        },
-        
-        counter = {
-            rolls = 3,
-            items = {
-                "Mugl", 10,
-                "Cereal", 3,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-                "KitchenKnife", 5,
-                "MeatCleaver", 2,
-                "WhiskeyFull", 3,
-                "TinnedBeans", 3,
-                "CannedCornedBeef", 2,
-                "Macandcheese", 2,
-                "CannedChili", 2,
-                "CannedBolognese", 2,
-                "CannedCarrots2", 2,
-                "CannedCorn", 2,
-                "CannedPeas", 2,
-                "CannedPotato2", 2,
-                "CannedSardines", 2,
-                "CannedTomato2", 2,
-                "RollingPin", 7,
-                "Dogfood", 1,
-                "Chocolate", 4,
-                "TinOpener", 15,
-                "Pot", 10,
-                "Pot", 10,
-                "Saucepan", 10,
-                "Saucepan", 10,
-                "ButterKnife", 10,
-                "BreadKnife", 10,
-                "Spoon", 20,
-                "Spoon", 20,
-                "Fork", 20,
-                "Fork", 20,
-                "Bowl", 10,
-                "Bowl", 10,
-                "DishCloth", 5,
-                "Corkscrew", 1,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 3,
-                "Teabag2", 3,
-                "TunaTin", 3,
-                "Flour", 3,
-                "PeanutButter", 3,
-                "Pan", 9,
-                "GridlePan", 5,
-                "BakingPan", 3,
-                "RoastingPan", 3,
-                "Yeast", 2,
-                "Popcorn", 3,
-                "Ketchup", 2,
-                "Mustard", 2,
-                "Wine2", 2,
-                "EmptyJar", 2,
-                "JarLid", 2,
-                "Vinegar", 2,
-                "Sparklers", 2,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "Extinguisher", 0.8,
-            },
-        },
-    },
-    
-    restaurantkitchen = {
-        stove = {
-            rolls = 1,
-            items = {
-                "DeadRat", 10,
-            }
-        },
-        
-        counter = {
-            rolls = 3,
-            items = {
-                "Mugl", 10,
-                "Cereal", 3,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-                "KitchenKnife", 5,
-                "MeatCleaver", 2,
-                "WhiskeyFull", 3,
-                "TinnedBeans", 3,
-                "CannedCornedBeef", 2,
-                "Macandcheese", 2,
-                "CannedChili", 2,
-                "CannedBolognese", 2,
-                "CannedCarrots2", 2,
-                "CannedCorn", 2,
-                "CannedPeas", 2,
-                "CannedPotato2", 2,
-                "CannedSardines", 2,
-                "CannedTomato2", 2,
-                "RollingPin", 7,
-                "Dogfood", 1,
-                "Chocolate", 4,
-                "TinOpener", 15,
-                "Pot", 10,
-                "Pot", 10,
-                "Saucepan", 10,
-                "Saucepan", 10,
-                "ButterKnife", 10,
-                "BreadKnife", 10,
-                "Spoon", 20,
-                "Spoon", 20,
-                "Fork", 20,
-                "Fork", 20,
-                "Bowl", 10,
-                "Bowl", 10,
-                "DishCloth", 5,
-                "Corkscrew", 1,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 3,
-                "Teabag2", 3,
-                "TunaTin", 3,
-                "Flour", 3,
-                "PeanutButter", 3,
-                "Pan", 9,
-                "GridlePan", 5,
-                "BakingPan", 3,
-                "RoastingPan", 3,
-                "Yeast", 2,
-                "Popcorn", 3,
-                "Ketchup", 2,
-                "Mustard", 2,
-                "Wine2", 2,
-                "EmptyJar", 2,
-                "JarLid", 2,
-                "Vinegar", 2,
-                "Sparklers", 2,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "Extinguisher", 0.8,
-            },
-        },
-    },
-    
-    jayschicken = {
-        restaurantdisplay ={
-            rolls = 3,
-            items = {
-                "Carrots", 6,
-                "farming.Tomato", 6,
-                "farming.Cabbage", 6,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 6,
-                "Pineapple", 6,
-                "Zucchini", 6,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-            }
-        },
-    
-        fridge ={
-            rolls = 3,
-            items = {
-                "Carrots", 6,
-                "farming.Tomato", 6,
-                "farming.Cabbage", 6,
-                "farming.Tomato", 4,
-                "farming.Cabbage", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Lettuce", 4,
-                "Pickles", 4,
-                "BellPepper", 4,
-                "Corn", 4,
-                "Eggplant", 4,
-                "Leek", 4,
-                "Grapes", 4,
-                "Avocado", 6,
-                "Pineapple", 6,
-                "Zucchini", 6,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-                "Chicken", 10,
-            }
-        },
-        
-        stove = {
-            rolls = 1,
-            items = {
-                "DeadRat", 5,
-            }
-        },
-        
-        counter = {
-            rolls = 3,
-            items = {
-                "Mugl", 10,
-                "Cereal", 3,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-                "KitchenKnife", 5,
-                "MeatCleaver", 2,
-                "WhiskeyFull", 3,
-                "CannedTomato2", 2,
-                "RollingPin", 7,
-                "Chocolate", 4,
-                "TinOpener", 15,
-                "Pot", 10,
-                "Pot", 10,
-                "Saucepan", 10,
-                "Saucepan", 10,
-                "ButterKnife", 10,
-                "BreadKnife", 10,
-                "Spoon", 20,
-                "Spoon", 20,
-                "Fork", 20,
-                "Fork", 20,
-                "Bowl", 10,
-                "Bowl", 10,
-                "DishCloth", 5,
-                "Corkscrew", 1,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 3,
-                "Teabag2", 3,
-                "TunaTin", 3,
-                "Flour", 3,
-                "PeanutButter", 3,
-                "Pan", 9,
-                "GridlePan", 5,
-                "BakingPan", 3,
-                "RoastingPan", 3,
-                "Yeast", 2,
-                "Popcorn", 3,
-                "Ketchup", 2,
-                "Mustard", 2,
-                "Wine2", 2,
-                "EmptyJar", 2,
-                "JarLid", 2,
-                "Vinegar", 2,
-                "Sparklers", 2,
-                "CleaningLiquid2", 2,
-                "Aluminum", 1,
-                "Extinguisher", 0.8,
-            },
-        },
-    },
-    
-    generalstorestorage = {
-        isShop = true,
-        other = {
-            rolls = 5,
-            items = {
-                "Mugl", 2,
-                "KitchenKnife", 1,
-                "MeatCleaver", 1,
-                "TinnedSoup", 1,
-                "TinnedBeans", 1,
-                "CannedCornedBeef", 1,
-                "Macandcheese", 1,
-                "CannedChili", 1,
-                "CannedBolognese", 1,
-                "CannedCarrots2", 1,
-                "CannedCorn", 1,
-                "CannedMushroomSoup", 1,
-                "CannedPeas", 1,
-                "CannedPotato2", 1,
-                "CannedSardines", 1,
-                "CannedTomato2", 1,
-                "Corkscrew", 1,
-                "Disc", 1,
-                "CDplayer", 0.7,
-                "RollingPin", 1,
-                "Dogfood", 1,
-                "TinOpener", 2,
-                "Pot", 1,
-                "Saucepan", 1,
-                "ButterKnife", 2,
-                "BreadKnife", 2,
-                "Spoon", 2,
-                "Spoon", 2,
-                "Fork", 2,
-                "Fork", 2,
-                "Bowl", 2,
-                "Bowl", 2,
-                "DishCloth", 2,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 1,
-                "Teabag2", 2,
-                "TunaTin", 1,
-                "Flour", 1,
-                "PeanutButter", 2,
-                "Pan", 2,
-                "GridlePan", 2,
-                "RoastingPan", 2,
-                "BakingPan", 2,
-                "Yeast", 2,
-                "Popcorn", 2,
-                "Scissors", 2,
-                "Cigarettes", 2,
-                "Lighter", 1,
-                "Pen", 2,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 2,
-                "CleaningLiquid2", 2,
-                "Charcoal", 6,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "OatsRaw", 2,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "SnowShovel", 0.5,
-                "farming.HandShovel", 1,
-                "HandScythe", 0.5,
-                "HandFork", 0.5,
-                "LeafRake", 0.5,
-                "Rake", 0.5,
-                "Broom", 0.5,
-                "GardenFork", 0.5,
-                "BoxOfJars", 0.1,
-            },
-        },
-    },
-    
-    generalstore = {
-        isShop = true,
-        other = {
-            rolls = 5,
-            items = {
-                "Mugl", 2,
-                "KitchenKnife", 1,
-                "MeatCleaver", 1,
-                "TinnedSoup", 1,
-                "TinnedBeans", 1,
-                "CannedCornedBeef", 1,
-                "Macandcheese", 1,
-                "CannedChili", 1,
-                "CannedBolognese", 1,
-                "CannedCarrots2", 1,
-                "CannedCorn", 1,
-                "CannedMushroomSoup", 1,
-                "CannedPeas", 1,
-                "CannedPotato2", 1,
-                "CannedSardines", 1,
-                "CannedTomato2", 1,
-                "Corkscrew", 1,
-                "Disc", 1,
-                "CDplayer", 0.7,
-                "RollingPin", 1,
-                "Dogfood", 1,
-                "TinOpener", 2,
-                "Pot", 1,
-                "Saucepan", 1,
-                "ButterKnife", 2,
-                "BreadKnife", 2,
-                "Spoon", 2,
-                "Spoon", 2,
-                "Fork", 2,
-                "Fork", 2,
-                "Bowl", 2,
-                "Bowl", 2,
-                "DishCloth", 2,
-                "Kettle", 3,
-                "Coffee2", 3,
-                "Sugar", 1,
-                "Teabag2", 2,
-                "TunaTin", 1,
-                "Flour", 1,
-                "PeanutButter", 2,
-                "Pan", 2,
-                "GridlePan", 2,
-                "RoastingPan", 2,
-                "BakingPan", 2,
-                "Yeast", 2,
-                "Popcorn", 2,
-                "Scissors", 2,
-                "Cigarettes", 2,
-                "Lighter", 1,
-                "Pen", 2,
-                "BluePen", 1,
-                "RedPen", 1,
-                "Pencil", 2,
-                "CleaningLiquid2", 2,
-                "Charcoal", 6,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "OatsRaw", 2,
-                "Cigarettes", 5,
-                "Broom", 0.5,
-                "BoxOfJars", 0.1,
-            },
-        },
-    },
-    
-    freezer =
-    {
-        rolls = 1,
-        items = {
-        }
-    },
-    
-    fridge = {
-        rolls = 5,
-        items = {
-            "Pop", 3,
-            "Pop2", 3,
-            "Pop3", 3,
-            "PopBottle", 3,
-            "WaterBottleFull", 3,
-        }
-    },
-    
-    laundry = {
-        counter ={
-            rolls = 3,
-            items = {
-                "Tshirt_DefaultTEXTURE_TINT", 3,
-                "Jumper_RoundNeck", 1,
-                "Jumper_PoloNeck", 1,
-                "TrousersMesh_DenimLight", 1,
-                "Trousers_DefaultTEXTURE_TINT", 2,
-                "Belt2", 3,
-                "Bag_Schoolbag", 2,
-                "Purse", 3,
-                "Handbag", 3,
-                "Bleach", 5,
-                "Bleach", 5,
-                "Bleach", 5,
-                "Bleach", 5,
-            },
-        },
-    },
-    
-    furniturestore = {
-        isShop = true,
-        freezer =
-        {
-            rolls = 0,
-            items = {
-            }
-        },
-        
-        fridge ={
-            rolls = 0,
-            items = {
-            }
-        },
-        
-        wardrobe ={
-            rolls = 0,
-            items = {
-            }
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 3,
-                "RedPen", 3,
-                "Pencil", 5,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-            },
-        },
-    },
-    
-    furniturestorage = {
-        wardrobe ={
-            rolls = 0,
-            items = {
-            }
-        },
-    },
-    
-    storageunit = {
-        all ={
-            rolls = 3,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Lighter", 2,
-                "BaseballBat", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "farming.HandShovel", 3,
-                "HandScythe", 1,
-                "HandFork", 1,
-                "LeafRake", 2,
-                "GardenFork", 1,
-                "Rake", 2,
-                "Tshirt_DefaultTEXTURE_TINT", 2,
-                "Extinguisher", 0.5,
-                "Trousers", 2,
-                "Skirt_Knees", 0.3,
-                "Skirt_Long", 0.3,
-                "Skirt_Normal", 0.3,
-                "Shoes_Random", 2,
-                "camping.CampingTentKit", 0.2,
-                "DishCloth", 2,
-                "Kettle", 3,
-                "farming.HandShovel", 2,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "SnowShovel", 0.5,
-                "farming.WateredCan", 1,
-                "Paintbrush", 1,
-                "PaintBlue", 0.8,
-                "PaintBrown", 0.8,
-                "PaintBlack", 0.8,
-                "PaintRed", 0.8,
-                "PaintCyan", 0.8,
-                "PaintGreen", 0.8,
-                "PaintGrey", 0.8,
-                "PaintLightBlue", 0.8,
-                "PaintLightBrown", 0.8,
-                "PaintOrange", 0.8,
-                "PaintPink", 0.8,
-                "PaintPurple", 0.8,
-                "PaintTurquoise",0.8,
-                "PaintWhite", 0.8,
-                "PaintYellow", 0.8,
-                "PlasterPowder", 0.8,
-                "BucketEmpty", 1,
-                "EmptyPetrolCan", 4,
-                "PetrolCan", 3,
-                "ElectronicsScrap", 2,
-                "ElectronicsScrap", 2,
-                "ScrapMetal", 2,
-                "ScrapMetal", 2,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-                "Radio.HamRadio1",0.05,
-                "BlowTorch", 2,
-                "BlowTorch", 2,
-                "WeldingRods", 5,
-                "SmallSheetMetal", 5,
-                "SheetMetal", 4,
-                "MetalPipe", 4,
-                "MetalBar", 4,
-                "WeldingMask",2,
-                "Wrench", 1,
-                "LugWrench",0.7,
-                "Jack", 0.5,
-                "TirePump", 0.5,
-                "EmptySandbag", 2,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "SnowShovel", 0.5,
-                "farming.HandShovel", 1,
-                "LeadPipe", 1,
-                "HandAxe", 0.8,
-                "PipeWrench", 1,
-                "Plunger", 2,
-                "ClubHammer", 1,
-                "WoodenMallet", 1,
-            },
-        },
-    },
-    
-    fishingstorage= {
-        isShop = true,
-        counter ={
-            rolls = 10,
-            items = {
-                "Magazine", 2,
-                "Spoon", 10,
-                "Fork", 10,
-                "Bowl", 5,
-                "DishCloth", 3,
-                "Kettle", 2,
-                "Coffee2", 2,
-                "Sugar", 2,
-                "Teabag2", 2,
-                "DeadRat", 0.5,
-                "DeadMouse", 0.5,
-                "HuntingKnife", 0.5,
-                "FishingMag1", 0.5,
-                "FishingMag2", 0.5,
-                "EmptyJar", 1,
-                "JarLid", 1,
-            }
-        },
-        
-        crate ={
-            rolls = 10,
-            items = {
-                "BookTrapping1", 3,
-                "BookTrapping2", 2,
-                "BookTrapping3", 1,
-                "BookTrapping4", 0.5,
-                "BookTrapping5", 0.3,
-                "BookFishing1", 3,
-                "BookFishing2", 2,
-                "BookFishing3", 1,
-                "BookFishing4", 0.5,
-                "BookFishing5", 0.3,
-                "FishingRod", 5,
-                "FishingNet", 3,
-                "FishingTackle", 2,
-                "FishingTackle2", 2,
-                "FishingLine", 3,
-                "FishingMag1", 0.5,
-                "FishingMag2", 0.5,
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "HerbalistMag", 0.2,
-                "EmptySandbag", 1,
-            }
-        },
-    },
-    
-    theatre = {
-        counter ={
-            rolls = 3,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Pen", 3,
-                "BluePen", 2,
-                "RedPen", 2,
-                "Paperclip", 2,
-                "Pencil", 3,
-                "Scissors", 3,
-            },
-        },
-    },
-    
-    theatrekitchen = {
-        counter ={
-            rolls = 2,
-            items = {
-                "Popcorn", 4,
-                "Icecream", 3,
-                "PopBottle", 2,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "Crisps", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Hotdog", 2,
-                "Corndog", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Extinguisher", 0.8,
-                "EmptyJar", 1,
-                "JarLid", 1,
-                "Vinegar", 1,
-            },
-        },
-    },
-    
-    theatrestorage = {
-        crate ={
-            rolls = 2,
-            items = {
-                "Popcorn", 4,
-                "Icecream", 3,
-                "PopBottle", 2,
-                "Pop", 4,
-                "Pop2", 4,
-                "Pop3", 4,
-                "Crisps", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Hotdog", 2,
-                "Corndog", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Screwdriver", 1,
-                "Toolbox", 0.5,
-                "Radio.ElectricWire", 2,
-                "NailsBox", 1,
-                "PaperclipBox", 0.5,
-                "DuctTape", 0.8,
-                "Glue", 0.8,
-                "Scotchtape", 0.8,
-                "Twine", 0.8,
-                "Thread", 2,
-                "Button", 0.8,
-                "Needle", 0.8,
-                "Woodglue", 0.8,
-                "Battery", 2,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-            },
-        },
-    },
-    
-    cornerstore = {
-        isShop = true,
-        shelves = {
-            procedural = true,
-            procList = {
-                {name="StoreShelfSnacks", min=1, max=99},
-            }
-        },
-        
-        counter ={
-            rolls = 2,
-            items = {
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Lighter", 2,
-                "Shotgun", 2,
-                "DoubleBarrelShotgun", 1,
-                "ShotgunShells", 4,
-                "ShotgunShells", 4,
-                "ShotgunShells", 4,
-                "BaseballBat", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Cigarettes", 5,
-                "Charcoal", 6,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "SunflowerSeeds", 2,
-                "Cigarettes", 5,
-                "Lighter", 2,
-            }
-        },
-        
-        shelvesmag ={
-            rolls = 2,
-            items = {
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "HerbalistMag", 0.2,
-                "CookingMag1", 0.2,
-                "CookingMag2", 0.2,
-                "ElectronicsMag1", 0.2,
-                "ElectronicsMag2", 0.2,
-                "ElectronicsMag3", 0.2,
-                "ElectronicsMag4", 0.2,
-                "ElectronicsMag5", 0.2,
-                "MechanicMag1", 0.2,
-                "MechanicMag2", 0.2,
-                "MechanicMag3", 0.2,
-                "EngineerMagazine1", 0.2,
-                "EngineerMagazine2", 0.2,
-                "MetalworkMag1", 0.2,
-                "MetalworkMag2", 0.2,
-                "MetalworkMag3", 0.2,
-                "MetalworkMag4", 0.2,
-                "BookMechanic1",0.2,
-                "BookMechanic2",0.1,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "MuldraughMap", 2,
-                "WestpointMap", 2,
-                "MarchRidgeMap",1,
-                "RosewoodMap",1,
-                "RiversideMap",1,
-            },
-        },
-    },
-    
-    housewarestore = {
-        isShop = true,
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="GigamartBakingMisc", min=1, max=4},
-                {name="GigamartHousewares", min=1, max=4},
-                {name="GigamartToys", min=0, max=2},
-                {name="GigamartTools", min=1, max=2},
-                {name="GigamartBedding", min=0, max=2},
-                {name="GigamartPots", min=1, max=3},
-                {name="GigamartFarming", min=1, max=3},
-                {name="GigamartLightbulb", min=1, max=1},
-                {name="GigamartHouseElectronics", min=1, max=2},
-            },
-        },
-    },
-    
-    shoestore = {
-        isShop = true,
-        shelves ={
-            rolls = 3,
-            items = {
-                "Shoes", 7,
-                "Shoes", 7,
-                "Shoes", 7,
-                "Shoes", 7,
-                "Shoes", 7,
-                "Shoes", 7,
-                "Purse", 3,
-                "Handbag", 3,
-                "Belt2", 3,
-                "Wallet", 3,
-                "Wallet2", 3,
-                "Wallet3", 3,
-                "Wallet4", 3,
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 5,
-                "RedPen", 5,
-                "Pencil", 5,
-                "RubberBand", 1,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Shoes", 5,
-                "Socks_Ankle", 4,
-                "Socks_Long", 4,
-                "Thread", 5,
-                "Thread", 5,
-                "Button", 2,
-                "Needle", 2,
-            },
-        },
-    },
-    
-    sportstore = {
-        isShop = true,
-        shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Sweatband",1,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "Bag_BigHikingBag", 0.5,
-                "Glasses_SwimmingGoggles", 0.5,
-                "Glasses_SkiGoggles", 0.5,
-            },
-        },
-        
-        clothingrack = {
-            rolls = 3,
-            items = {
-                "Hat_Sweatband",1,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "Bag_BigHikingBag", 0.5,
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 5,
-                "RedPen", 5,
-                "Pencil", 5,
-                "RubberBand", 1,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-            },
-        },
-    },
-    
-    sportstorage = {
-        isShop = true,
-        metal_shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Sweatband",1,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "Bag_BigHikingBag", 0.5,
-                "Socks_Ankle", 2,
-                "Socks_Long", 1,
-                "Hat_BaseballCap", 1,
-                "Hat_BicycleHelmet", 0.7,
-                "Hat_GolfHatTINT", 0.7,
-                "Hat_HockeyHelmet", 0.5,
-                "BaseballBat", 0.3,
-                "HockeyStick", 0.5,
-                "IceHockeyStick", 0.5,
-                "LaCrosseStick", 0.5,
-                "CanoePadel", 0.5,
-                "CanoePadelX2", 0.5,
-                "BadmintonRacket", 0.5,
-                "TennisRacket", 0.5,
-                "Golfclub", 0.3,
-                "Glasses_SwimmingGoggles", 0.5,
-                "Glasses_SkiGoggles", 0.5,
-            },
-        },
-        
-        shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Sweatband",1,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "Bag_BigHikingBag", 0.5,
-                "Socks_Ankle", 2,
-                "Socks_Long", 1,
-                "Hat_BaseballCap", 1,
-                "Hat_BicycleHelmet", 0.7,
-                "Hat_GolfHatTINT", 0.7,
-                "Hat_HockeyHelmet", 0.5,
-                "Hat_RidingHelmet", 0.5,
-                "BaseballBat", 0.3,
-                "HockeyStick", 0.5,
-                "IceHockeyStick", 0.5,
-                "LaCrosseStick", 0.5,
-                "CanoePadel", 0.5,
-                "CanoePadelX2", 0.5,
-                "BadmintonRacket", 0.5,
-                "TennisRacket", 0.5,
-                "Golfclub", 0.3,
-                "Glasses_SwimmingGoggles", 0.5,
-                "Glasses_SkiGoggles", 0.5,
-            },
-        },
-        
-        crate = {
-            rolls = 3,
-            items = {
-                "Hat_Sweatband",1,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "Bag_BigHikingBag", 0.5,
-                "Socks_Ankle", 2,
-                "Socks_Long", 1,
-                "Hat_BaseballCap", 1,
-                "Hat_BicycleHelmet", 0.7,
-                "Hat_GolfHatTINT", 0.7,
-                "Hat_HockeyHelmet", 0.5,
-                "Hat_RidingHelmet", 0.5,
-                "BaseballBat", 0.3,
-                "HockeyStick", 0.5,
-                "IceHockeyStick", 0.5,
-                "LaCrosseStick", 0.5,
-                "CanoePadel", 0.5,
-                "CanoePadelX2", 0.5,
-                "BadmintonRacket", 0.5,
-                "TennisRacket", 0.5,
-                "Golfclub", 0.3,
-                "Glasses_SwimmingGoggles", 0.5,
-                "Glasses_SkiGoggles", 0.5,
-            },
-        },
-        
-        clothingrack = {
-            rolls = 5,
-            items = {
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-                "Tshirt_Sport", 3,
-                "Shorts_LongSport",3,
-                "Shorts_ShortSport",3,
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 5,
-                "RedPen", 5,
-                "Pencil", 5,
-                "RubberBand", 1,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-            },
-        },
-    },
-    
-    giftstorage = {
-        isShop = true,
-        crate ={
-            rolls = 3,
-            items = {
-                "Magazine", 3,
-                "Newspaper", 3,
-                "Magazine", 2,
-                "Newspaper", 2,
-                "Doll", 0.5,
-                "Disc", 0.5,
-                "CDplayer", 0.3,
-                "Sparklers", 2,
-                "Sheet", 2,
-                "Pen", 7,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 7,
-                "Pencil", 7,
-                "Scissors", 3,
-                "Cube", 1,
-                "Book", 7,
-            },
-        },
-    },
-    
-    giftstore = {
-        isShop = true,
-        shelves ={
-            rolls = 3,
-            items = {
-                "Magazine", 4,
-                "Doll", 4,
-                "Disc", 4,
-                "CDplayer", 0.7,
-                "Pen", 7,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 7,
-                "Pencil", 7,
-                "Cube", 1,
-                "Book", 7,
-                "ToyBear", 7,
-                "ChessBlack", 4,
-                "ChessWhite", 4,
-                "CatToy", 3,
-                "ToyCar", 3,
-                "Crayons", 7,
-                "BathTowel", 4,
-                "Chocolate", 4,
-                "WristWatch_Left_DigitalRed", 1,
-                "WristWatch_Left_DigitalBlack", 1,
-                "WristWatch_Left_ClassicBlack", 1,
-                "WristWatch_Left_ClassicBrown", 1,
-                "Purse", 4,
-                "Handbag", 4,
-                "Belt2", 4,
-                "Wallet", 4,
-                "Wallet2", 4,
-                "Wallet3", 4,
-                "Wallet4", 4,
-                "Yoyo", 4,
-                "Tote", 4,
-                "Modjeska", 4,
-                "Mirror", 4,
-                "Frame", 4,
-                "Rubberducky", 4,
-                "Soap2", 10,
-                "Soap2", 5,
-                "Sparklers", 5,
-                "VideoGame", 2,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-            },
-        },
-        
-        displaycase ={
-            rolls = 3,
-            items = {
-                "Magazine", 4,
-                "Doll", 4,
-                "Disc", 4,
-                "CDplayer", 0.7,
-                "Pen", 7,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 7,
-                "Pencil", 7,
-                "Cube", 1,
-                "Book", 7,
-                "ToyBear", 7,
-                "CatToy", 7,
-                "ToyCar", 7,
-                "BathTowel", 4,
-                "Chocolate", 4,
-                "WristWatch_Left_DigitalRed", 1,
-                "WristWatch_Left_DigitalBlack", 1,
-                "WristWatch_Left_ClassicBlack", 1,
-                "WristWatch_Left_ClassicBrown", 1,
-                "Purse", 4,
-                "Handbag", 4,
-                "Belt2", 4,
-                "Wallet", 4,
-                "Wallet2", 4,
-                "Wallet3", 4,
-                "Wallet4", 4,
-                "Yoyo", 4,
-                "Tote", 4,
-                "Modjeska", 4,
-                "Mirror", 4,
-                "Frame", 4,
-                "Rubberducky", 4,
-                "Soap2", 8,
-                "Sparklers", 5,
-                "VideoGame", 2,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-                "Candle", 10,
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "Pen", 5,
-                "BluePen", 5,
-                "RedPen", 5,
-                "Pencil", 5,
-                "RubberBand", 1,
-                "Book", 5,
-                "Magazine", 1,
-                "Newspaper", 1,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Tote", 5,
-                "Mugl", 5,
-            },
-        },
-    },
-    
-    candystore = {
-        isShop = true,
-        displaycase ={
-            rolls = 4,
-            items = {
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "CandyPackage", 4,
-                "CandyPackage", 4,
-                "Cupcake", 3,
-                "Cupcake", 3,
-                "Cupcake", 3,
-                "Cupcake", 3,
-                "Cupcake", 3,
-                "Waffles", 3,
-                "Waffles", 3,
-                "Waffles", 3,
-                "CakeSlice", 3,
-                "CakeSlice", 3,
-                "CakeSlice", 3,
-                "CakeSlice", 3,
-                "Modjeska", 3,
-                "Chocolate", 3,
-                "Chocolate", 3,
-                "CookieJelly", 3,
-                "CookieChocolateChip", 3,
-                "Candycane", 3,
-                "CookieJelly", 3,
-                "CookieChocolateChip", 3,
-                "Candycane", 3,
-            },
-        },
-        
-        counter ={
-            rolls = 3,
-            items = {
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "CandyPackage", 4,
-                "CandyPackage", 4,
-                "Crisps", 3,
-                "Crisps2", 3,
-                "Crisps3", 3,
-                "Crisps4", 3,
-                "Cupcake", 3,
-                "CakeSlice", 3,
-                "CookieJelly", 3,
-                "CookieChocolateChip", 3,
-                "Candycane", 3,
-            },
-        },
-    },
-    
     toystore = {
         isShop = true,
-        shelves ={
-            rolls = 3,
-            items = {
-                "Doll", 7,
-                "ToyBear", 7,
-                "ChessBlack", 4,
-                "ChessWhite", 4,
-                "CatToy", 7,
-                "ToyCar", 7,
-                "Doll", 7,
-                "Spiffo", 0.001,
-                "Pen", 7,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 7,
-                "Cube", 3,
-                "Magazine", 2,
-                "Yoyo", 3,
-                "Yoyo", 3,
-                "CardDeck", 3,
-                "CardDeck", 3,
-                "Bricktoys", 3,
-                "CatToy", 3,
-                "ToyCar", 3,
-                "Crayons", 3,
-                "VideoGame", 3,
-            }
-        },
-    },
-    
-    electronicsstore = {
-        isShop = true,
-        counter ={
-            rolls = 3,
-            items = {
-                "Battery", 4,
-                "Battery", 4,
-                "Battery", 4,
-                "Battery", 4,
-                "Glue", 1,
-                "Scotchtape", 1,
-                "Magazine", 2,
-                "Screwdriver", 1,
-                "Toolbox", 0.5,
-                "Radio.ElectricWire", 2,
-                "Radio.ElectricWire", 2,
-                "WristWatch_Left_DigitalRed", 2,
-                "WristWatch_Left_DigitalBlack", 2,
-                "Mov_Lamp1", 0.8,
-                "Mov_Lamp2", 0.8,
-                "Mov_Lamp3", 0.8,
-                "Mov_Lamp4", 0.8,
-                "Mov_Lamp5", 0.8,
-                "Mov_Lamp6", 0.8,
-                "Remote", 5,
-                "Remote", 5,
-                "Headphones", 3,
-                "CordlessPhone", 3,
-                "Earbuds", 3,
-                "CombinationPadlock", 2,
-                "Speaker", 3,
-                "HomeAlarm", 2,
-                "CDplayer", 1,
-                "ElectronicsMag1", 1,
-                "ElectronicsMag2", 1,
-                "ElectronicsMag3", 1,
-                "ElectronicsMag4", 0.5,
-                "ElectronicsMag5", 1,
-                "EngineerMagazine1", 1,
-                "EngineerMagazine2", 1,
-                "Radio.RadioMag1", 1,
-                "Radio.RadioMag2", 0.5,
-                "Radio.RadioMag3", 0.1,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-            }
-        },
-        
-        shelves ={
-            rolls = 3,
-            items = {
-                "Battery", 4,
-                "Battery", 4,
-                "Battery", 4,
-                "Battery", 4,
-                "Glue", 1,
-                "Scotchtape", 1,
-                "Magazine", 2,
-                "ElectronicsMag1", 1,
-                "ElectronicsMag2", 1,
-                "ElectronicsMag3", 1,
-                "ElectronicsMag4", 0.5,
-                "ElectronicsMag5", 1,
-                "EngineerMagazine1", 1,
-                "EngineerMagazine2", 1,
-                "Radio.RadioMag1", 1,
-                "Radio.RadioMag2", 0.5,
-                "Radio.RadioMag3", 0.1,
-                "Screwdriver", 1,
-                "Toolbox", 0.5,
-                "Radio.ElectricWire", 2,
-                "WristWatch_Left_DigitalRed", 2,
-                "WristWatch_Left_DigitalBlack", 2,
-                "Mov_Lamp1", 0.8,
-                "Mov_Lamp2", 0.8,
-                "Mov_Lamp3", 0.8,
-                "Mov_Lamp4", 0.8,
-                "Mov_Lamp5", 0.8,
-                "Mov_Lamp6", 0.8,
-                "Remote", 5,
-                "Remote", 5,
-                "Headphones", 3,
-                "CordlessPhone", 3,
-                "Earbuds", 3,
-                "CombinationPadlock", 2,
-                "Speaker", 3,
-                "HomeAlarm", 2,
-                "CDplayer", 1,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-                "Radio.HamRadio1",0.05,
-            }
-        },
-    },
-    
-    sewingstore = {
-        isShop = true,
-        counter ={
-            rolls = 3,
-            items = {
-                "Twine", 8,
-                "Twine", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Button", 8,
-                "Button", 8,
-                "Needle", 8,
-                "KnittingNeedles", 8,
-                "KnittingNeedles", 8,
-                "Needle", 8,
-                "Sheet", 4,
-                "Glue", 1,
-                "Magazine", 2,
-                "Tote", 5,
-                "Tote", 5,
-                "Pen", 5,
-                "BluePen", 4,
-                "RedPen", 4,
-                "Pencil", 5,
-                "Mugl", 5,
-                "Scissors", 5,
-                "Scissors", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-            }
-        },
-        
-        shelves ={
-            rolls = 3,
-            items = {
-                "Twine", 8,
-                "Twine", 8,
-                "Twine", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Thread", 8,
-                "Button", 8,
-                "Button", 8,
-                "Button", 8,
-                "Needle", 8,
-                "KnittingNeedles", 8,
-                "KnittingNeedles", 8,
-                "Needle", 8,
-                "Sheet", 4,
-                "Sheet", 4,
-                "Sheet", 4,
-                "Glue", 1,
-                "Magazine", 2,
-                "Vest_DefaultTEXTURE_TINT", 5,
-                "Tshirt_DefaultTEXTURE_TINT", 4,
-                "Trousers_DefaultTEXTURE_TINT", 5,
-                "Skirt_Knees", 0.3,
-                "Skirt_Long", 0.3,
-                "Skirt_Normal", 0.3,
-                "Scissors", 5,
-                "Scissors", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-                "Yarn", 5,
-            }
-        },
-    },
-    
-    medical = {
-        isShop = true,
-        counter ={
-            rolls = 3,
-            items = {
-                "Magazine", 3,
-                "Pen", 5,
-                "BluePen", 4,
-                "RedPen", 4,
-                "Mugl", 5,
-                "Pencil", 5,
-                "RubberBand", 1,
-                "Bandage", 5,
-                "Bandaid", 5,
-                "Antibiotics", 5,
-                "CottonBalls", 5,
-                "FirstAidKit", 1,
-                "Tweezers", 5,
-                "Disinfectant", 5,
-                "AlcoholWipes", 5,
-                "SutureNeedle", 3,
-                "SutureNeedleHolder", 3,
-                "Scalpel", 0.5,
-                "Radio.WalkieTalkie2",2,
-                "Radio.WalkieTalkie3",1,
-            }
-        },
-        metal_shelves = {
-            rolls = 3,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Antibiotics", 5,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "Scissors", 10,
-                "Radio.WalkieTalkie2",2,
-                "Radio.WalkieTalkie3",1,
-                "Radio.HamRadio1",0.5,
-                "Scalpel", 0.5,
-            }
-        }
-    },
-    
-    medicaloffice = {
-        isShop = true,
-        counter = {
-            rolls = 3,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Antibiotics", 5,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "Scissors", 10,
-                "Radio.WalkieTalkie2",2,
-                "Radio.WalkieTalkie3",1,
-                "Radio.HamRadio1",0.5,
-                "Scalpel", 0.5,
-            }
-        },
-        metal_shelves = {
-            rolls = 3,
-            items = {
-                "Pills", 20,
-                "PillsBeta", 20,
-                "PillsAntiDep", 20,
-                "PillsSleepingTablets", 20,
-                "PillsVitamins", 20,
-                "Antibiotics", 5,
-                "Bandage", 20,
-                "Bandage", 20,
-                "Bandaid", 20,
-                "Bandaid", 20,
-                "Scissors", 10,
-                "Radio.WalkieTalkie2",2,
-                "Radio.WalkieTalkie3",1,
-                "Radio.HamRadio1",0.5,
-                "Scalpel", 0.5,
-            }
-        }
-    },
-    
-    jewelrystore = {
-        isShop = true,
-        displaycase = {
-            procedural = true,
-            procList = {
-                {name="JewellerySilver", min=1, max=7},
-                {name="JewelleryGold", min=1, max=3},
-                {name="JewelleryGems", min=1, max=2},
-                {name="JewelleryWeddingRings", min=1, max=2},
-                {name="JewelleryWrist", min=1, max=3},
-                {name="JewelleryOthers", min=1, max=50},
-            }
-        }
-    },
-    
-    musicstore = {
-        isShop = true,
         shelves = {
             procedural = true,
             procList = {
-                {name="MusicStoreCDs", min=1, max=50},
-                {name="MusicStoreGuitar", min=1, max=50},
-                {name="MusicStoreBass", min=1, max=50},
-                {name="MusicStoreOthers", min=1, max=50},
-                {name="MusicStoreSpeaker", min=1, max=50},
+                {name="GigamartToys", min=1, max=99},
             }
         }
     },
     
-    departmentstore = {
-        isShop = true,
-        counter = {
-            rolls = 7,
-            items = {
-                "Necklace_Silver", 1,
-                "NecklaceLong_Silver", 1,
-                "Earring_LoopLrg_Silver", 1,
-                "Earring_LoopMed_Silver", 1,
-                "Earring_LoopSmall_Silver_Both", 1,
-                "Earring_Stud_Silver", 1,
-                "Ring_Left_RingFinger_Silver", 1,
-                "Necklace_SilverCrucifix", 1,
-                "Necklace_Gold", 0.5,
-                "NecklaceLong_Gold", 0.5,
-                "NoseStud_Gold", 0.5,
-                "Earring_LoopLrg_Gold", 0.5,
-                "Earring_LoopMed_Gold", 0.5,
-                "Earring_LoopSmall_Gold_Both", 0.5,
-                "Earring_Stud_Gold", 0.5,
-                "Ring_Left_RingFinger_Gold", 0.5,
-                "WristWatch_Left_DigitalRed", 2,
-                "WristWatch_Left_DigitalBlack", 2,
-                "WristWatch_Left_ClassicBlack", 2,
-                "WristWatch_Left_ClassicBrown", 2,
-                "Locket", 10,
-                "Earbuds", 10,
-            },
-        },
-        
-        displaycase = {
-            rolls = 7,
-            items = {
-                "Necklace_Silver", 1,
-                "NecklaceLong_Silver", 1,
-                "Earring_LoopLrg_Silver", 1,
-                "Earring_LoopMed_Silver", 1,
-                "Earring_LoopSmall_Silver_Both", 1,
-                "Earring_Stud_Silver", 1,
-                "Ring_Left_RingFinger_Silver", 1,
-                "Necklace_SilverCrucifix", 1,
-                "Necklace_Gold", 0.5,
-                "NecklaceLong_Gold", 0.5,
-                "NoseStud_Gold", 0.5,
-                "Earring_LoopLrg_Gold", 0.5,
-                "Earring_LoopMed_Gold", 0.5,
-                "Earring_LoopSmall_Gold_Both", 0.5,
-                "Earring_Stud_Gold", 0.5,
-                "Ring_Left_RingFinger_Gold", 0.5,
-                "WristWatch_Left_DigitalRed", 2,
-                "WristWatch_Left_DigitalBlack", 2,
-                "WristWatch_Left_ClassicBlack", 2,
-                "WristWatch_Left_ClassicBrown", 2,
-                "Locket", 10,
-                "Earbuds", 10,
-            },
-        },
-        
-        shelves ={
-            procedural = true,
-            procList = {
-                {name="ClothingStoresDress", min=0, max=1},
-                {name="ClothingStoresMan", min=0, max=3},
-                {name="ClothingStoresWoman", min=0, max=20},
-                {name="ClothingStoresShirts", min=0, max=3},
-                {name="ClothingStoresPants", min=0, max=2},
-                {name="ClothingStoresJumpers", min=0, max=2},
-                {name="ClothingStoresJackets", min=0, max=1},
-            }
-        },
-    },
-    
-    hall = {
-        counter = {
-            rolls = 3,
-            items = {
-                "Pen", 10,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 10,
-                "RubberBand", 2,
-                "Magazine", 8,
-                "Magazine", 8,
-                "Magazine", 8,
-                "Tote", 6,
-                "Tote", 6,
-                "Tote", 6,
-                "Tote", 6,
-            },
-        },
-    },
-    
-    icecreamkitchen = {
-        counter = {
-            rolls = 7,
-            items = {
-                "Icecream", 5,
-                "Icecream", 5,
-            }
-        },
-        
-        displaycase = {
-            rolls = 7,
-            items = {
-                "Icecream", 5,
-                "Icecream", 5,
-            }
-        },
-        
-        freezer =
-        {
-            rolls = 4,
-            items = {
-                "Icecream", 5,
-                "Icecream", 5,
-                "Icecream", 5,
-                "Icecream", 5,
-            }
-        },
-        
-        fridge = {
-            rolls = 5,
-            items = {
-                "Apple", 4,
-                "Orange", 4,
-                "Banana", 4,
-                "farming.Strewberrie", 4,
-                "Cherry", 4,
-                "Peach", 4,
-            }
-        },
-    },
-    
-    gasstore = {
-        isShop = true,
-        fridge =
-        {
-            rolls = 3,
-            items = {
-                "Milk", 6,
-                "Milk", 6,
-                "Steak", 3,
-                "Burger", 3,
-                "MeatPatty", 3,
-                "Chicken", 3,
-                "Ham", 3,
-                "farming.Bacon", 3,
-                "Pie", 3,
-                "Cheese", 4,
-                "PorkChop", 3,
-                "MuttonChop", 3,
-                "Hotdog", 3,
-                "Corndog", 3,
-                "OatsRaw", 2,
-                "farming.MayonnaiseFull", 3,
-                "farming.RemouladeFull", 1,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-            }
-        },
-        freezer =
-        {
-            rolls = 3,
-            items = {
-                "Steak", 1,
-                "Burger", 1,
-                "MeatPatty", 1,
-                "Chicken", 1,
-                "PorkChop", 1,
-                "MuttonChop", 1,
-                "Hotdog", 1,
-                "Corndog", 1,
-            }
-        },
-        
-        shelves = {
-            rolls = 5,
-            items = {
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Disc", 2,
-                "Charcoal", 6,
-                "PropaneTank", 5,
-                "PetrolCan", 10,
-                "EmptyPetrolCan", 15,
-                "OldTire1", 0.4,
-                "NormalTire1", 0.2,
-                "OldTire2", 0.4,
-                "NormalTire2", 0.2,
-                "OldTire3", 0.4,
-                "NormalTire3", 0.2,
-                "CarBatteryCharger", 1.5,
-                "CarBattery1", 0.8,
-                "CarBattery2", 0.8,
-                "CarBattery3", 0.8,
-                "Wrench", 1,
-                "LugWrench",0.9,
-                "Jack", 0.8,
-                "TirePump", 0.8,
-                "LeadPipe", 1,
-                "PipeWrench", 1,
-            }
-        },
-        
-        counter = {
-            rolls = 2,
-            items = {
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Disc", 2,
-                "EmptyPetrolCan", 2,
-                "Extinguisher", 1,
-                "Wrench", 1,
-                "LugWrench",0.8,
-                "Jack", 0.5,
-                "TirePump", 0.5,
-                "OldTire1", 0.3,
-                "NormalTire1", 0.2,
-                "ModernTire1", 0.1,
-                "OldTire2", 0.3,
-                "NormalTire2", 0.2,
-                "ModernTire2", 0.1,
-                "OldTire3", 0.3,
-                "NormalTire3", 0.2,
-                "ModernTire3", 0.1,
-                "LeadPipe", 1,
-                "PipeWrench", 1,
-            }
-        }
-    },
-    
-    gasstorage = {
-        isShop = true,
-        metal_shelves = {
-            rolls = 5,
-            items = {
-                "Crisps", 2,
-                "Crisps", 2,
-                "Cupcake", 2,
-                "Cupcake", 2,
-                "CookieJelly", 2,
-                "CookieJelly", 2,
-                "CookieChocolateChip", 2,
-                "CookieChocolateChip", 2,
-                "PopBottle", 2,
-                "PopBottle", 2,
-                "Pop", 2,
-                "Pop", 2,
-                "Pop2", 2,
-                "Pop2", 2,
-                "Pop3", 2,
-                "Pop3", 2,
-                "Crisps2", 2,
-                "Crisps2", 2,
-                "Crisps3", 2,
-                "Crisps3", 2,
-                "Crisps4", 2,
-                "Crisps4", 2,
-                "Lighter", 2,
-                "Disc", 2,
-                "Charcoal", 6,
-                "BallPeenHammer", 2,
-                --                "Tongs", 1,
-                "PropaneTank", 5,
-                "PetrolCan", 6,
-                "Radio.RadioBlack",2,
-                "Radio.RadioRed",1,
-                "Radio.WalkieTalkie1",0.05,
-                "Radio.WalkieTalkie2",0.03,
-                "Radio.WalkieTalkie3",0.01,
-                "Radio.HamRadio1",0.05,
-                "OldTire1", 0.3,
-                "NormalTire1", 0.2,
-                "ModernTire1", 0.1,
-                "OldTire2", 0.3,
-                "NormalTire2", 0.2,
-                "ModernTire2", 0.1,
-                "OldTire3", 0.3,
-                "NormalTire3", 0.2,
-                "ModernTire3", 0.1,
-            }
-        },
-    },
-    
-    gardenstore = {
-        isShop = true,
-        shelves = {
-            rolls = 3,
-            items = {
-                "Axe", 0.3,
-                "WoodAxe", 0.3,
-                "farming.CarrotBagSeed", 1.5,
-                "farming.BroccoliBagSeed", 1.5,
-                "farming.RedRadishBagSeed", 1.5,
-                "farming.StrewberrieBagSeed", 1.5,
-                "farming.TomatoBagSeed", 1.5,
-                "farming.PotatoBagSeed", 1.5,
-                "farming.CabbageBagSeed", 1.5,
-                "farming.HandShovel", 3,
-                "HandScythe", 2,
-                "HandFork", 2,
-                "LeafRake", 3,
-                "GardenFork", 3,
-                "Rake", 3,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "farming.WateredCan", 0.7,
-                "BookFarming1", 2,
-                "BookFarming2", 1.3,
-                "BookFarming3", 0.9,
-                "BookFarming4", 0.6,
-                "BookFarming5", 0.3,
-                "BookForaging1", 2,
-                "BookForaging2", 1.3,
-                "BookForaging3", 0.9,
-                "BookForaging4", 0.6,
-                "BookForaging5", 0.3,
-                "FarmingMag1", 3,
-            }
-        },
-        
+    warehouse = {
         crate = {
-            rolls = 3,
-            items = {
-                "Axe", 0.3,
-                "WoodAxe", 0.3,
-                "farming.CarrotBagSeed", 1.5,
-                "farming.BroccoliBagSeed", 1.5,
-                "farming.RedRadishBagSeed", 1.5,
-                "farming.StrewberrieBagSeed", 1.5,
-                "farming.TomatoBagSeed", 1.5,
-                "farming.PotatoBagSeed", 1.5,
-                "farming.CabbageBagSeed", 1.5,
-                "farming.HandShovel", 3,
-                "HandScythe", 2,
-                "HandFork", 2,
-                "LeafRake", 3,
-                "GardenFork", 3,
-                "Rake", 3,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "farming.WateredCan", 0.7,
-                "BookTailoring1", 2,
-                "BookTailoring2", 1.3,
-                "BookTailoring3", 0.9,
-                "BookTailoring4", 0.6,
-                "BookTailoring5", 0.3,
-                "BookFarming1", 2,
-                "BookFarming2", 1.3,
-                "BookFarming3", 0.9,
-                "BookFarming4", 0.6,
-                "BookFarming5", 0.3,
-                "BookForaging1", 2,
-                "BookForaging2", 1.3,
-                "BookForaging3", 0.9,
-                "BookForaging4", 0.6,
-                "BookForaging5", 0.3,
-                "FarmingMag1", 3,
-                "Paintbrush", 1.5,
-                "PaintBlue", 0.8,
-                "PaintBlack", 0.8,
-                "PaintRed", 0.8,
-                "PaintBrown", 0.8,
-                "PaintCyan", 0.8,
-                "PaintGreen", 0.8,
-                "PaintGrey", 0.8,
-                "PaintLightBlue", 0.8,
-                "PaintLightBrown", 0.8,
-                "PaintOrange", 0.8,
-                "PaintPink", 0.8,
-                "PaintPurple", 0.8,
-                "PaintTurquoise",0.8,
-                "PaintWhite", 0.8,
-                "PaintYellow", 0.8,
-                "PlasterPowder", 2,
-                "ConcretePowder", 0.8,
-                "BucketEmpty", 2,
+            procedural = true,
+            procList = {
+                {name="CratePaint", min=0, max=50},
+                {name="CrateFarming", min=0, max=50},
+                {name="CrateWoods", min=0, max=50},
+                {name="CrateHardware", min=0, max=50},
+                {name="CrateTools", min=0, max=50},
+                {name="CrateMetal", min=0, max=50},
+                {name="CrateAntiqueStove", min=0, max=2},
             }
         },
     },
     
-    farmstorage = {
-        all = {
-            rolls = 3,
-            items = {
-                "Axe", 0.3,
-                "WoodAxe", 0.3,
-                "farming.CarrotBagSeed", 1.5,
-                "farming.BroccoliBagSeed", 1.5,
-                "farming.RedRadishBagSeed", 1.5,
-                "farming.StrewberrieBagSeed", 1.5,
-                "farming.TomatoBagSeed", 1.5,
-                "farming.PotatoBagSeed", 1.5,
-                "farming.CabbageBagSeed", 1.5,
-                "farming.HandShovel", 4,
-                "HandScythe", 3,
-                "HandFork", 3,
-                "LeafRake", 2,
-                "GardenFork", 3,
-                "Rake", 2,
-                "Shovel", 0.5,
-                "Shovel2", 0.5,
-                "farming.WateredCan", 0.7,
-                "BookFarming1", 2,
-                "BookFarming2", 1.3,
-                "BookFarming3", 0.9,
-                "BookFarming4", 0.6,
-                "BookFarming5", 0.3,
-                "BookForaging1", 2,
-                "BookForaging2", 1.3,
-                "BookForaging3", 0.9,
-                "BookForaging4", 0.6,
-                "BookForaging5", 0.3,
-                "FarmingMag1", 3,
-                "Paintbrush", 1.5,
-                "PaintBlue", 0.8,
-                "PaintBlack", 0.8,
-                "PaintRed", 0.8,
-                "PaintBrown", 0.8,
-                "PaintCyan", 0.8,
-                "PaintGreen", 0.8,
-                "PaintGrey", 0.8,
-                "PaintLightBlue", 0.8,
-                "PaintLightBrown", 0.8,
-                "PaintOrange", 0.8,
-                "PaintPink", 0.8,
-                "PaintPurple", 0.8,
-                "PaintTurquoise",0.8,
-                "PaintWhite", 0.8,
-                "PaintYellow", 0.8,
-                "PlasterPowder", 2,
-                "ConcretePowder", 0.8,
-                "BucketEmpty", 2,
-                "EmptySandbag", 3,
-            }
-        },
-    },
-    
-    security =
-    {
-        locker =
-        {
-            rolls = 3,
-            items = {
-                "DumbBell", 0.5,
-                "BarBell", 0.5,
-                "HuntingRifle", 3,
-                "VarmintRifle", 3,
-                "Shotgun", 3,
-                "DoubleBarrelShotgun", 2,
-                "ShotgunShellsBox", 10,
-                "ShotgunShellsBox", 10,
-                "Pistol", 1.5,
-                "Pistol2", 1.5,
-                "Pistol3", 0.5,
-                "Revolver_Short", 1.5,
-                "Revolver", 1,
-                "Revolver_Long", 0.5,
-                "HuntingKnife", 5,
-                "Bullets9mmBox", 10,
-                "Bullets9mmBox", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "Bullets38Box", 10,
-                "Bullets44Box", 10,
-                "Bullets45Box", 10,
-                "GunPowder", 10,
-                "GunPowder", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "223Box", 10,
-                "308Box", 10,
-                "Axe", 3,
-                "Radio.WalkieTalkie4",5,
-                "Radio.WalkieTalkie5",3,
-                "Radio.HamRadio1",5,
-                "Radio.HamRadio2",3,
-                "Glasses_Shooting", 2,
-            },
-            dontSpawnAmmo = true,
-        },
-    },
-    
-    armysurplus = {
+    zippeestorage = {
         isShop = true,
-        shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Army", 4,
-                "Hat_BeretArmy", 4,
-                "Hat_PeakedCapArmy", 2,
-                "Hat_SPHhelmet", 1,
-                "Hat_BonnieHat", 3,
-                "Hat_BonnieHat_CamoGreen", 3,
-                "Hat_BalaclavaFull", 1,
-                "Hat_BalaclavaFace", 1,
-                "Hat_GasMask", 1,
-                "Hat_Beany", 2,
-                "Ghillie_Trousers", 1,
-                "Ghillie_Top", 1,
-                "Boilersuit_Flying", 2,
-                "camping.CampingTentKit", 3,
-                "Radio.WalkieTalkie5", 2,
-                "Radio.HamRadio2", 1,
-                "HuntingKnife", 4,
-                "Machete", 4,
-                "Bag_ALICEpack", 1,
-                "Bag_ALICEpack_Army", 1,
-                "Lighter", 2,
-                "Matches", 2,
-            },
-        },
-        
-        metal_shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Army", 4,
-                "Hat_BeretArmy", 4,
-                "Hat_PeakedCapArmy", 2,
-                "Hat_SPHhelmet", 1,
-                "Hat_BonnieHat", 3,
-                "Hat_BonnieHat_CamoGreen", 3,
-                "Hat_BalaclavaFull", 1,
-                "Hat_BalaclavaFace", 1,
-                "Hat_GasMask", 1,
-                "Hat_Beany", 2,
-                "Ghillie_Trousers", 1,
-                "Ghillie_Top", 1,
-                "Boilersuit_Flying", 2,
-                "camping.CampingTentKit", 3,
-                "Radio.WalkieTalkie5", 2,
-                "Radio.HamRadio2", 1,
-                "HuntingKnife", 4,
-                "Machete", 4,
-                "Bag_ALICEpack", 1,
-                "Bag_ALICEpack_Army", 1,
-                "Lighter", 2,
-                "Matches", 2,
-            },
-        },
-        
-        
-        clothingrack = {
-            rolls = 3,
-            items = {
-                "Ghillie_Trousers", 1,
-                "Ghillie_Top", 1,
-                "Boilersuit_Flying", 2,
-                "Shirt_CamoDesert", 4,
-                "Shirt_CamoGreen", 4,
-                "Shirt_CamoUrban", 4,
-                "Tshirt_ArmyGreen", 4,
-                "Tshirt_CamoDesert", 4,
-                "Tshirt_CamoGreen", 4,
-                "Tshirt_CamoUrban", 4,
-                "Vest_BulletArmy", 1,
-            },
-        },
-    },
-    
-    armyhanger = {
-        metal_shelves = {
-            rolls = 3,
-            items = {
-                "Hat_Army", 3,
-                "Hat_SPHhelmet", 3,
-                "Boilersuit_Flying", 2,
-                "Radio.WalkieTalkie5", 2,
-                "Glasses_Aviators", 2,
-                "Glasses_SafetyGoggles", 3,
-                "Glasses_Sun", 2,
-                "Hat_DustMask", 4,
-                "WeldingMask", 3,
-                "Hat_EarMuff_Protectors", 3,
-                "Hat_HardHat", 3,
-                "Vest_HighViz", 3,
-                "Extinguisher", 3,
-                "Torch", 2,
-                "HandTorch", 3,
-                "Hammer", 3,
-                "BlowTorch", 4,
-                "Screwdriver", 3,
-                "Toolbox", 1.5,
-                "Wrench", 3,
-                "Battery", 2,
-                "Radio.ElectricWire", 2,
-                "ElectronicsScrap", 2,
-                "LightBulb", 2,
-                "Screws", 3,
-                "MetalPipe", 3,
-                "ScrapMetal", 3,
-                "WeldingRods", 3,
-                "Wire", 3,
-                "DuctTape", 3,
-                "PetrolCan", 2,
-                "PropaneTank", 3,
-                "Tarp", 3,
-                "Crowbar", 3,
-                "PipeWrench", 3,
-                "ClubHammer", 3,
-                "BallPeenHammer", 3,
-                "Sledgehammer", 3,
-                "LeadPipe", 2,
-            },
-        },
-        
-        counter = {
-            rolls = 3,
-            items = {
-                "Hat_Army", 3,
-                "Hat_SPHhelmet", 3,
-                "Boilersuit_Flying", 2,
-                "Radio.WalkieTalkie5", 2,
-                "Glasses_Aviators", 2,
-                "Glasses_SafetyGoggles", 3,
-                "Glasses_Sun", 2,
-                "Hat_DustMask", 4,
-                "WeldingMask", 3,
-                "Hat_EarMuff_Protectors", 3,
-                "Hat_HardHat", 3,
-                "Vest_HighViz", 3,
-                "Extinguisher", 3,
-                "Torch", 2,
-                "HandTorch", 2,
-                "Hammer", 3,
-                "BlowTorch", 4,
-                "Screwdriver", 3,
-                "Toolbox", 1.5,
-                "Wrench", 3,
-                "Battery", 2,
-                "Radio.ElectricWire", 2,
-                "ElectronicsScrap", 2,
-                "LightBulb", 2,
-                "Screws", 3,
-                "MetalPipe", 3,
-                "ScrapMetal", 3,
-                "WeldingRods", 3,
-                "Wire", 3,
-                "DuctTape", 3,
-                "PetrolCan", 2,
-                "PropaneTank", 3,
-                "Tarp", 3,
-                "Crowbar", 3,
-                "PipeWrench", 3,
-                "ClubHammer", 3,
-                "BallPeenHammer", 3,
-                "Sledgehammer", 3,
-                "LeadPipe", 2,
-            },
-        },
-        
-        locker = {
-            rolls = 3,
-            items = {
-                "Hat_Army", 3,
-                "Hat_SPHhelmet", 3,
-                "Boilersuit_Flying", 2,
-                "Radio.WalkieTalkie5", 2,
-                "Glasses_Aviators", 2,
-                "Glasses_SafetyGoggles", 3,
-                "Glasses_Sun", 2,
-                "Hat_DustMask", 4,
-                "WeldingMask", 3,
-                "Hat_EarMuff_Protectors", 3,
-                "Hat_HardHat", 3,
-                "Vest_HighViz", 3,
-                "Extinguisher", 3,
-                "Torch", 2,
-                "HandTorch", 2,
-                "Hammer", 3,
-                "BlowTorch", 4,
-                "Screwdriver", 3,
-                "Toolbox", 1,
-                "Wrench", 3,
-                "Battery", 2,
-                "Radio.ElectricWire", 2,
-                "ElectronicsScrap", 2,
-                "LightBulb", 2,
-                "Screws", 3,
-                "MetalPipe", 3,
-                "ScrapMetal", 3,
-                "WeldingRods", 3,
-                "Wire", 3,
-                "DuctTape", 3,
-                "PetrolCan", 2,
-                "PropaneTank", 3,
-                "Tarp", 3,
-                "Crowbar", 3,
-                "PipeWrench", 3,
-                "ClubHammer", 3,
-                "BallPeenHammer", 3,
-                "Sledgehammer", 3,
-                "LeadPipe", 2,
-            },
-        },
-    },
-    
-    knoxbutcher = {
-        displaycasebutcher =
-        {
-            procedural = true,
-            procList = {
-                {name="Meat", min=0, max=99},
-            }
-        },
-        
-        fridge =
-        {
-            procedural = true,
-            procList = {
-                {name="Meat", min=1, max=12},
-            },
-        },
-        
-        shelves ={
-            rolls = 4,
-            items = {
-                "Pepper", 3,
-                "Salt", 4,
-                "KitchenKnife", 2,
-                "Charcoal", 1,
-                "Twine", 2,
-                "BakingTray", 2,
-                "Pan", 2,
-                "MeatCleaver", 3,
-                "WoodenMallet", 3,
-                "GridlePan", 2,
-                "Apron_White", 2,
-                "Apron_WhiteTEXTURE", 2,
-                "Apron_Black", 2,
-                "Gloves_LeatherGloves", 2,
-                "Gloves_LeatherGlovesBlack", 2,
-            },
-        },
-        counter ={
-            rolls = 4,
-            items = {
-                "Pepper", 3,
-                "Salt", 4,
-                "KitchenKnife", 2,
-                "Twine", 2,
-                "MeatCleaver", 5,
-                "WoodenMallet", 4,
-                "Apron_White", 2,
-                "Apron_WhiteTEXTURE", 2,
-                "Apron_Black", 2,
-                "Gloves_LeatherGloves", 2,
-                "Gloves_LeatherGlovesBlack", 2,
-            },
-        },
-    },
-    
-    changeroom = {
-        locker = {
-            rolls = 2,
-            items = {
-                "DumbBell", 0.3,
-                "BarBell", 0.3,
-                "Tshirt_DefaultTEXTURE_TINT", 3,
-                "Jumper_RoundNeck", 1,
-                "TrousersMesh_DenimLight", 1,
-                "Trousers_DefaultTEXTURE_TINT", 2,
-                "Vest_DefaultTEXTURE_TINT", 1,
-                "Skirt_Knees", 0.3,
-                "Skirt_Long", 0.3,
-                "Skirt_Normal", 0.3,
-                "Socks_Ankle", 4,
-                "Sheet", 9,
-                "Pillow", 9,
-                "Paperclip", 0.5,
-                "Belt2", 5,
-                "BaseballBat", 2,
-                "Pistol", 0.2,
-                "Revolver_Short", 0.2,
-                "Doll", 0.5,
-                "Disc", 0.5,
-                "CDplayer", 0.5,
-                "Earbuds", 0.5,
-                "Headphones", 0.5,
-                "VideoGame", 0.5,
-                "Bag_DuffelBagTINT", 1,
-                "Bag_Schoolbag", 3,
-                "Bag_NormalHikingBag", 0.8,
-                "ClosedUmbrellaRed", 0.3,
-                "ClosedUmbrellaBlue", 0.3,
-                "ClosedUmbrellaBlack", 0.3,
-                "ClosedUmbrellaWhite", 0.3,
-                "Bag_BigHikingBag", 0.5,
-            }
-        },
-        
-        counter = {
-            rolls = 2,
-            items = {
-                "Sheet", 4,
-                "Sheet", 4,
-                "Mirror", 3,
-                "Soap2", 10,
-                "FirstAidKit", 0.5,
-            }
-        },
-    },
-    
-    hunting = {
-        locker = {
-            rolls = 2,
-            items = {
-                "HuntingRifle", 2,
-                "VarmintRifle", 2,
-                "Shotgun", 2,
-                "DoubleBarrelShotgun", 3,
-                "ShotgunShellsBox", 5,
-                "223Box", 5,
-                "308Box", 5,
-                "ShotgunShellsBox", 5,
-                "223Box", 5,
-                "308Box", 5,
-                "Vest_Hunting_Grey", 2,
-                "Vest_Hunting_Orange", 2,
-                "Vest_Hunting_Camo", 2,
-                "Vest_Hunting_CamoGreen", 2,
-            }
-        },
-        
-        metal_shelves ={
-            rolls = 3,
-            items = {
-                "Bullets9mmBox", 4,
-                "ShotgunShellsBox", 4,
-                "223Box", 4,
-                "308Box", 4,
-                "GunPowder", 1,
-            },
-        },
-        
-        other = {
-            rolls = 1,
-            items = {
-                "Pen", 10,
-                "BluePen", 7,
-                "RedPen", 7,
-                "Pencil", 10,
-                "RubberBand", 2,
-            }
-        },
-    },
-    
-    camping = {
-        clothingrack={
-            rolls = 3,
-            items = {
-                "Vest_DefaultTEXTURE_TINT", 2,
-                "Tshirt_DefaultTEXTURE_TINT", 2,
-                "Trousers_DefaultTEXTURE_TINT", 2,
-                "Skirt_Knees", 0.6,
-                "Skirt_Long", 0.6,
-                "Skirt_Normal", 0.6,
-                "Socks_Ankle", 2,
-                "Belt2", 5,
-                "Bag_Schoolbag", 3,
-                "Purse", 7,
-                "Handbag", 7,
-            },
-        },
-        
-        fridge = {
-            rolls = 3,
-            items = {
-                "Milk", 3,
-                "Milk", 3,
-                "Steak", 3,
-                "Burger", 3,
-                "MeatPatty", 3,
-                "Chicken", 3,
-                "Ham", 3,
-                "farming.Bacon", 3,
-                "Pie", 3,
-                "Cheese", 4,
-                "PorkChop", 3,
-                "MuttonChop", 3,
-                "Hotdog", 3,
-                "Corndog", 3,
-                "OatsRaw", 2,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-                "JuiceBox", 2,
-            },
-        },
-        counter = {
-            rolls = 3,
-            items = {
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "FishingMag1", 0.1,
-                "FishingMag2", 0.1,
-                "HuntingKnife", 0.5,
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "BookFishing1", 2,
-                "BookFishing2", 1.5,
-                "BookFishing3", 1,
-                "BookFishing4", 0.7,
-                "BookFishing5", 0.3,
-                "BookTrapping1", 2,
-                "BookTrapping2", 1.5,
-                "BookTrapping3", 1,
-                "BookTrapping4", 0.7,
-                "BookTrapping5", 0.3,
-                "FishingRod", 4,
-                "FishingNet", 2,
-                "FishingTackle", 2,
-                "FishingTackle2", 2,
-                "FishingTackle", 2,
-                "FishingTackle2", 2,
-                "FishingTackle",2 ,
-                "FishingTackle2", 2,
-                "FishingLine", 7,
-                "Tarp", 3,
-                "camping.TentPeg", 7,
-            }
-        },
-        shelves = {
-            rolls = 3,
-            items = {
-                "HuntingMag1", 0.2,
-                "HuntingMag2", 0.2,
-                "HuntingMag3", 0.2,
-                "FishingMag1", 0.1,
-                "FishingMag2", 0.1,
-                "HuntingKnife", 0.5,
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "BookFishing1", 2,
-                "BookFishing2", 1.5,
-                "BookFishing3", 1,
-                "BookFishing4", 0.7,
-                "BookFishing5", 0.3,
-                "BookTrapping1", 2,
-                "BookTrapping2", 1.5,
-                "BookTrapping3", 1,
-                "BookTrapping4", 0.7,
-                "BookTrapping5", 0.3,
-                "FishingRod", 4,
-                "FishingNet", 2,
-                "FishingTackle", 2,
-                "FishingTackle2", 2,
-                "FishingTackle", 2,
-                "FishingTackle2", 2,
-                "FishingTackle",2 ,
-                "FishingTackle2", 2,
-                "FishingLine", 7,
-                "Tarp", 3,
-                "camping.TentPeg", 7,
-            }
-        },
-    },
-    
-    campingstorage = {
         crate = {
-            rolls = 5,
-            items = {
-                "HuntingMag1", 0.4,
-                "HuntingMag2", 0.4,
-                "HuntingMag3", 0.4,
-                "FishingMag1", 0.2,
-                "FishingMag2", 0.2,
-                "HuntingKnife", 1,
-                "FishingMag1", 0.4,
-                "FishingMag2", 0.4,
-                "BookFishing1", 4,
-                "BookFishing2", 3.0,
-                "BookFishing3", 2,
-                "BookFishing4", 1.4,
-                "BookFishing5", 0.6,
-                "BookTrapping1", 4,
-                "BookTrapping2", 3,
-                "BookTrapping3", 2,
-                "BookTrapping4", 1.4,
-                "BookTrapping5", 0.6,
-                "FishingRod", 8,
-                "FishingNet", 4,
-                "FishingTackle", 4,
-                "FishingTackle2", 4,
-                "FishingTackle", 4,
-                "FishingTackle2", 4,
-                "FishingTackle", 4,
-                "FishingTackle2", 4,
-                "FishingLine", 4,
-                "Tarp", 6,
-                "camping.TentPeg", 14,
-            }
-        },
-    },
-    
-    butcher = {
-        displaycasebutcher = {
             procedural = true,
             procList = {
-                {name="Meat", min=0, max=99},
+                {name="StoreShelfSnacks", min=1, max=12},
+                {name="StoreShelfDrinks", min=1, max=12},
+                {name="StoreShelfMechanics", min=0, max=1},
+                {name="StoreShelfMedical", min=0, max=1},
             }
         },
+        metal_shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfSnacks", min=1, max=12},
+                {name="StoreShelfDrinks", min=1, max=12},
+                {name="StoreShelfMechanics", min=0, max=1},
+                {name="StoreShelfMedical", min=0, max=1},
+            }
+        }
     },
     
-    optometrist = {
-        counter = {
-            rolls = 5,
+    zippeestore = {
+        isShop = true,
+        fridge = {
+            procedural = true,
+            procList = {
+                {name="FridgeSnacks", min=1, max=2},
+                {name="FridgeSoda", min=1, max=4},
+                {name="FridgeWater", min=1, max=4},
+                {name="FridgeOther", min=1, max=2},
+            }
+        },
+        freezer = {
+            rolls = 0,
             items = {
-                "Mirror", 1,
-                "Glasses", 5,
-                "Glasses_Aviators", 3,
-                "Glasses_Normal", 5,
-                "Glasses_Reading", 5,
-                "Glasses_Sun", 3,
+
             }
         },
+        counter = {
+            procedural = true,
+            procList = {
+                {name="StoreCounterTobacco", min=1, max=2},
+                {name="StoreCounterCleaning", min=1, max=1},
+                {name="StoreCounterBags", min=1, max=1},
+            }
+        },
+        shelves = {
+            procedural = true,
+            procList = {
+                {name="StoreShelfDrinks", min=1, max=4},
+                {name="StoreShelfSnacks", min=1, max=4},
+                {name="StoreShelfMedical", min=0, max=1},
+                {name="StoreShelfMechanics", min=0, max=1},
+            }
+        }
     },
-    
+
+-- =====================    
+--    Bags/Containers   
+-- =====================    
+
     Bag_WeaponBag = {
         rolls = 3,
         items = {
@@ -8120,7 +5620,7 @@ local distributionTable = {
     },
     
     SewingKit = {
-        rolls = 4,
+        rolls = 5,
         items = {
             "Thread", 10,
             "Thread", 10,
@@ -8136,18 +5636,14 @@ local distributionTable = {
     },
     
     Plasticbag = {
-        rolls = 3,
+        rolls = 0,
         items = {
-            "Plasticbag", 5,
-            "Plasticbag", 5,
-            "Plasticbag", 5,
-            "Plasticbag", 5,
-        },
-        fillRand = 3,
+
+        }
     },
     
     Suitcase = {
-        rolls = 3,
+        rolls = 4,
         items = {
             "Tshirt_DefaultTEXTURE_TINT", 3,
             "Jumper_RoundNeck", 1,
@@ -8162,7 +5658,7 @@ local distributionTable = {
     },
     
     Briefcase = {
-        rolls = 3,
+        rolls = 4,
         items = {
             "Tshirt_DefaultTEXTURE_TINT", 3,
             "Jumper_RoundNeck", 1,
@@ -8248,7 +5744,7 @@ local distributionTable = {
     },
     
     Bag_Schoolbag = {
-        rolls = 2,
+        rolls = 3,
         items = {
             "Pen", 3,
             "BluePen", 3,
@@ -8270,7 +5766,7 @@ local distributionTable = {
     },
     
     Bag_WorkerBag = {
-        rolls = 2,
+        rolls = 3,
         items = {
             "Pen", 3,
             "BluePen", 3,
@@ -8290,7 +5786,7 @@ local distributionTable = {
     },
     
     Toolbox = {
-        rolls = 2,
+        rolls = 3,
         items = {
             "NailsBox", 1,
             "PaperclipBox", 0.8,
@@ -8316,7 +5812,7 @@ local distributionTable = {
     },
     
     Purse = {
-        rolls = 1,
+        rolls = 2,
         items = {
             "Lipstick", 3,
             "Perfume", 2,
@@ -8469,43 +5965,17 @@ local distributionTable = {
     },
     
     Garbagebag = {
-        rolls = 1,
+        rolls = 0,
         items = {
-            "Tissue", 2,
-            "Lighter", 1,
-            "Battery", 1,
-            "Pen", 1,
-            "BluePen", 1,
-            "RedPen", 1,
-            "Pencil", 1,
-            "Magazine", 1,
-            "Newspaper", 2,
-            "Socks_Ankle", 1,
-            "Socks_Long", 1,
-            "Lollipop", 1,
-            "MintCandy", 1,
-            "Cigarettes", 1,
-            "SheetPaper2", 1,
-            "PopBottleEmpty", 1,
-            "WaterBottleEmpty", 1,
-            "WhiskeyEmpty", 0.5,
-        },
-        fillRand = 2,
+
+        }
     },
     
     Tote = {
-        rolls = 10,
+        rolls = 0,
         items = {
-            "Plasticbag", 55,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-            "Plasticbag", 50,
-        },
-        fillRand = 3,
+
+        }
     },
     
     FirstAidKit = {
@@ -8534,6 +6004,122 @@ local distributionTable = {
             "Scissors", 5,
         },
         fillRand = 0,
+    },
+    
+    Bag_JanitorToolbox = {
+        rolls = 1,
+        items = {
+            "PipeWrench", 50,
+            "Wrench", 50,
+            "HandTorch", 50,
+            "Hammer", 50,
+            "Saw", 50,
+            "Screwdriver", 50,
+            "Crowbar", 25,
+            "DuctTape", 10,
+            "Scotchtape", 10,
+            "RippedSheets", 10,
+            "RippedSheets", 10,
+            "RippedSheetsDirty", 25,
+            "RippedSheetsDirty", 25,
+        },
+        fillRand = 0,
+    },
+    
+    Bag_ShotgunBag = {
+        rolls = 1,
+        items = {
+            "Shotgun", 100,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+        },
+        fillRand = 0,
+    },
+    
+    Bag_ShotgunSawnoffBag = {
+        rolls = 1,
+        items = {
+            "ShotgunSawnoff", 100,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+        },
+        fillRand = 0,
+    },
+    
+    Bag_ShotgunDblBag = {
+        rolls = 1,
+        items = {
+            "DoubleBarrelShotgun", 100,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+        },
+        fillRand = 0,
+    },
+    
+    Bag_ShotgunDblSawnoffBag = {
+        rolls = 1,
+        items = {
+            "DoubleBarrelShotgunSawnoff", 100,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+            "ShotgunShellsBox", 25,
+        },
+        fillRand = 0,
+    },
+
+-- ===================
+--  Profession Houses 
+-- ===================    
+
+    BandPractice = {
+        crate = {
+            rolls = 5,
+            items = {
+                "Disc", 10,
+                "Disc", 10,
+                "CDplayer", 2,
+                "Earbuds", 4,
+                "Speaker", 7,
+                "Speaker", 7,
+                "Headphones", 10,
+                "Keytar", 2,
+                "GuitarAcoustic", 2,
+                "GuitarElectricBlack", 2,
+                "GuitarElectricBlue", 2,
+                "GuitarElectricRed", 2,
+                "GuitarElectricBassBlue", 2,
+                "GuitarElectricBassBlack", 2,
+                "GuitarElectricBassRed", 2,
+            }
+        },
+        
+        metal_shelves = {
+            rolls = 2,
+            items = {
+                "Disc", 10,
+                "Disc", 10,
+                "CDplayer", 2,
+                "Earbuds", 4,
+                "Speaker", 7,
+                "Speaker", 7,
+                "Headphones", 10,
+                "Keytar", 2,
+                "GuitarAcoustic", 2,
+                "GuitarElectricBlack", 2,
+                "GuitarElectricBlue", 2,
+                "GuitarElectricRed", 2,
+                "GuitarElectricBassBlue", 2,
+                "GuitarElectricBassBlack", 2,
+                "GuitarElectricBassRed", 2,
+            }
+        },
     },
     
     Carpenter = {
@@ -8565,6 +6151,19 @@ local distributionTable = {
                 "BookCarpentry3", 2,
                 "BookCarpentry4", 1,
                 "BookCarpentry5", 0.6,
+            }
+        },
+    },
+    
+    Chef = {
+        counter = {
+            rolls = 4,
+            items = {
+                "BookCooking1", 4,
+                "BookCooking2", 3,
+                "BookCooking3", 2,
+                "BookCooking4", 1,
+                "BookCooking5", 0.6,
             }
         },
     },
@@ -8607,7 +6206,6 @@ local distributionTable = {
             }
         },
     },
-    
     
     Farmer = {
         counter = {
@@ -8692,51 +6290,11 @@ local distributionTable = {
             }
         },
     },
-    
-    BandPractice = {
-        crate = {
-            rolls = 5,
-            items = {
-                "Disc", 10,
-                "Disc", 10,
-                "CDplayer", 2,
-                "Earbuds", 4,
-                "Speaker", 7,
-                "Speaker", 7,
-                "Headphones", 10,
-                "Keytar", 2,
-                "GuitarAcoustic", 2,
-                "GuitarElectricBlack", 2,
-                "GuitarElectricBlue", 2,
-                "GuitarElectricRed", 2,
-                "GuitarElectricBassBlue", 2,
-                "GuitarElectricBassBlack", 2,
-                "GuitarElectricBassRed", 2,
-            }
-        },
-        
-        metal_shelves = {
-            rolls = 2,
-            items = {
-                "Disc", 10,
-                "Disc", 10,
-                "CDplayer", 2,
-                "Earbuds", 4,
-                "Speaker", 7,
-                "Speaker", 7,
-                "Headphones", 10,
-                "Keytar", 2,
-                "GuitarAcoustic", 2,
-                "GuitarElectricBlack", 2,
-                "GuitarElectricBlue", 2,
-                "GuitarElectricRed", 2,
-                "GuitarElectricBassBlue", 2,
-                "GuitarElectricBassBlack", 2,
-                "GuitarElectricBassRed", 2,
-            }
-        },
-    },
-    
+
+-- ================
+--      Caches     
+-- ================
+
     SafehouseLoot = {
         counter = {
             procedural = true,
@@ -8768,19 +6326,6 @@ local distributionTable = {
                 "SutureNeedleHolder", 5,
                 "Antibiotics", 5,
                 "Scalpel", 5,
-            }
-        },
-    },
-    
-    Chef = {
-        counter = {
-            rolls = 4,
-            items = {
-                "BookCooking1", 4,
-                "BookCooking2", 3,
-                "BookCooking3", 2,
-                "BookCooking4", 1,
-                "BookCooking5", 0.6,
             }
         },
     },

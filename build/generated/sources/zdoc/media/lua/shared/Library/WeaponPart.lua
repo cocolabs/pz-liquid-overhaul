@@ -21,26 +21,19 @@
 WeaponPart = {}
 
 ---@public
----@param recoilDelay float
----@return void
-function WeaponPart:setRecoilDelay(recoilDelay) end
+---@return int
+function WeaponPart:getReloadTime() end
 
+---Overrides:
+---
+---getCategory in class InventoryItem
 ---@public
----@param mountOn ArrayList|String
----@return void
-function WeaponPart:setMountOn(mountOn) end
-
----@public
----@return float
-function WeaponPart:getDamage() end
+---@return String
+function WeaponPart:getCategory() end
 
 ---@public
 ---@return int
-function WeaponPart:getClipSize() end
-
----@public
----@return int
-function WeaponPart:getHitChance() end
+function WeaponPart:getSaveType() end
 
 ---@public
 ---@param angle float
@@ -48,40 +41,17 @@ function WeaponPart:getHitChance() end
 function WeaponPart:setAngle(angle) end
 
 ---@public
----@return ArrayList|String
-function WeaponPart:getMountOn() end
-
----@public
----@param clipSize int
----@return void
-function WeaponPart:setClipSize(clipSize) end
-
----@public
 ---@return int
 function WeaponPart:getAimingTime() end
 
 ---@public
 ---@return float
-function WeaponPart:getMinRangeRanged() end
+function WeaponPart:getWeightModifier() end
 
 ---@public
----@param aimingTime int
+---@param recoilDelay float
 ---@return void
-function WeaponPart:setAimingTime(aimingTime) end
-
----@public
----@return float
-function WeaponPart:getAngle() end
-
----@public
----@param hitChance int
----@return void
-function WeaponPart:setHitChance(hitChance) end
-
----@public
----@param minRangeRanged float
----@return void
-function WeaponPart:setMinRangeRanged(minRangeRanged) end
+function WeaponPart:setRecoilDelay(recoilDelay) end
 
 ---@public
 ---@param maxRange float
@@ -89,40 +59,35 @@ function WeaponPart:setMinRangeRanged(minRangeRanged) end
 function WeaponPart:setMaxRange(maxRange) end
 
 ---@public
----@return int
-function WeaponPart:getReloadTime() end
-
----@public
----@param reloadTime int
----@return void
-function WeaponPart:setReloadTime(reloadTime) end
-
----@public
----@return float
-function WeaponPart:getWeightModifier() end
-
----@public
----@return String
-function WeaponPart:getPartType() end
-
----@public
----@return int
-function WeaponPart:getSaveType() end
-
----@public
----@param damage float
----@return void
-function WeaponPart:setDamage(damage) end
-
----@public
 ---@param partType String
 ---@return void
 function WeaponPart:setPartType(partType) end
 
 ---@public
+---@return float
+function WeaponPart:getMaxRange() end
+
+---@public
+---@return float
+function WeaponPart:getRecoilDelay() end
+
+---@public
+---@return float
+function WeaponPart:getMinRangeRanged() end
+
+---@public
 ---@param weightModifier float
 ---@return void
 function WeaponPart:setWeightModifier(weightModifier) end
+
+---@public
+---@return int
+function WeaponPart:getClipSize() end
+
+---@public
+---@param mountOn ArrayList|String
+---@return void
+function WeaponPart:setMountOn(mountOn) end
 
 ---Overrides:
 ---
@@ -133,17 +98,52 @@ function WeaponPart:setWeightModifier(weightModifier) end
 ---@return void
 function WeaponPart:DoTooltip(tooltipUI, layout) end
 
----Overrides:
----
----getCategory in class InventoryItem
+---@public
+---@param clipSize int
+---@return void
+function WeaponPart:setClipSize(clipSize) end
+
+---@public
+---@param aimingTime int
+---@return void
+function WeaponPart:setAimingTime(aimingTime) end
+
+---@public
+---@return int
+function WeaponPart:getHitChance() end
+
+---@public
+---@param reloadTime int
+---@return void
+function WeaponPart:setReloadTime(reloadTime) end
+
+---@public
+---@return float
+function WeaponPart:getAngle() end
+
 ---@public
 ---@return String
-function WeaponPart:getCategory() end
+function WeaponPart:getPartType() end
+
+---@public
+---@param hitChance int
+---@return void
+function WeaponPart:setHitChance(hitChance) end
+
+---@public
+---@return ArrayList|String
+function WeaponPart:getMountOn() end
+
+---@public
+---@param damage float
+---@return void
+function WeaponPart:setDamage(damage) end
 
 ---@public
 ---@return float
-function WeaponPart:getRecoilDelay() end
+function WeaponPart:getDamage() end
 
 ---@public
----@return float
-function WeaponPart:getMaxRange() end
+---@param minRangeRanged float
+---@return void
+function WeaponPart:setMinRangeRanged(minRangeRanged) end

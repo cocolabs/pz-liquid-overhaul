@@ -21,12 +21,8 @@
 IsoRoom = {}
 
 ---@public
----@return void
-function IsoRoom:onSee() end
-
----@public
----@return IsoGridSquare
-function IsoRoom:getRandomSquare() end
+---@return ArrayList|Unknown
+function IsoRoom:getLightSwitches() end
 
 ---@private
 ---@param arg0 IsoGridSquare
@@ -35,78 +31,12 @@ function IsoRoom:getRandomSquare() end
 function IsoRoom:addExitTo(arg0, arg1) end
 
 ---@public
----@param sq IsoGridSquare
----@return void
-function IsoRoom:addSquare(sq) end
-
----@private
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return IsoRoomExit
-function IsoRoom:getExitAt(arg0, arg1, arg2) end
-
----@public
----@return ArrayList|IsoWindow
-function IsoRoom:getWindows() end
-
----@public
----@param cell IsoCell
----@return IsoBuilding
-function IsoRoom:CreateBuilding(cell) end
-
----@public
----@param arg0 int
----@param arg1 int
----@param arg2 int
----@return boolean
-function IsoRoom:isInside(arg0, arg1, arg2) end
-
----@public
----@param WaterSources ArrayList|IsoObject @the WaterSources to set
----@return void
-function IsoRoom:setWaterSources(WaterSources) end
-
----@public
----@return Vector|IsoGridSquare
-function IsoRoom:getTileList() end
-
----@public
----@return IsoBuilding
-function IsoRoom:getBuilding() end
-
----@public
----@return void
-function IsoRoom:refreshSquares() end
-
----@public
----@return RoomDef
-function IsoRoom:getRoomDef() end
-
----@public
----@return boolean
-function IsoRoom:hasLightSwitches() end
-
----@public
----@param active boolean
----@return void
-function IsoRoom:createLights(active) end
-
----@public
----@return void
-function IsoRoom:spawnZombies() end
+---@return IsoGridSquare
+function IsoRoom:getFreeTile() end
 
 ---@public
 ---@return String
 function IsoRoom:getName() end
-
----@public
----@return ArrayList|Unknown
-function IsoRoom:getLightSwitches() end
-
----@public
----@return IsoGridSquare
-function IsoRoom:getRandomFreeSquare() end
 
 ---@public
 ---@param sq IsoGridSquare
@@ -114,16 +44,8 @@ function IsoRoom:getRandomFreeSquare() end
 function IsoRoom:removeSquare(sq) end
 
 ---@public
----@return ArrayList|IsoGridSquare
-function IsoRoom:getSquares() end
-
----@public
----@return boolean
-function IsoRoom:hasWater() end
-
----@param arg0 IsoBuilding
----@return void
-function IsoRoom:AddToBuilding(arg0) end
+---@return ArrayList|ItemContainer
+function IsoRoom:getContainer() end
 
 ---@public
 ---@return void
@@ -134,9 +56,87 @@ function IsoRoom:useWater() end
 function IsoRoom:getWaterSources() end
 
 ---@public
----@return ArrayList|ItemContainer
-function IsoRoom:getContainer() end
+---@return ArrayList|IsoGridSquare
+function IsoRoom:getSquares() end
+
+---@public
+---@return void
+function IsoRoom:onSee() end
+
+---@public
+---@param active boolean
+---@return void
+function IsoRoom:createLights(active) end
+
+---@public
+---@return boolean
+function IsoRoom:hasWater() end
+
+---@public
+---@param WaterSources ArrayList|IsoObject @the WaterSources to set
+---@return void
+function IsoRoom:setWaterSources(WaterSources) end
 
 ---@public
 ---@return IsoGridSquare
-function IsoRoom:getFreeTile() end
+function IsoRoom:getRandomSquare() end
+
+---@public
+---@return IsoGridSquare
+function IsoRoom:getRandomFreeSquare() end
+
+---@public
+---@param cell IsoCell
+---@return IsoBuilding
+function IsoRoom:CreateBuilding(cell) end
+
+---@public
+---@param sq IsoGridSquare
+---@return void
+function IsoRoom:addSquare(sq) end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return boolean
+function IsoRoom:isInside(arg0, arg1, arg2) end
+
+---@public
+---@return boolean
+function IsoRoom:hasLightSwitches() end
+
+---@public
+---@return void
+function IsoRoom:refreshSquares() end
+
+---@public
+---@return Vector|IsoGridSquare
+function IsoRoom:getTileList() end
+
+---@public
+---@return void
+function IsoRoom:spawnZombies() end
+
+---@public
+---@return IsoBuilding
+function IsoRoom:getBuilding() end
+
+---@private
+---@param arg0 int
+---@param arg1 int
+---@param arg2 int
+---@return IsoRoomExit
+function IsoRoom:getExitAt(arg0, arg1, arg2) end
+
+---@param arg0 IsoBuilding
+---@return void
+function IsoRoom:AddToBuilding(arg0) end
+
+---@public
+---@return ArrayList|IsoWindow
+function IsoRoom:getWindows() end
+
+---@public
+---@return RoomDef
+function IsoRoom:getRoomDef() end

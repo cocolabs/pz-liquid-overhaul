@@ -16,8 +16,8 @@ function CCampfireSystem:isValidIsoObject(isoObject)
 	return instanceof(isoObject, "IsoObject") and isoObject:getName() == "Campfire"
 end
 
-function CCampfireSystem:newLuaObject(isoObject)
-	return CCampfireGlobalObject:new(self, isoObject)
+function CCampfireSystem:newLuaObject(globalObject)
+	return CCampfireGlobalObject:new(self, globalObject)
 end
 
 CGlobalObjectSystem.RegisterSystemClass(CCampfireSystem)

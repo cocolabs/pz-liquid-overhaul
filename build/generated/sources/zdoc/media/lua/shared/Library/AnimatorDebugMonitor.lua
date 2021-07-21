@@ -37,82 +37,34 @@
 ---@field private logFlags boolean[]
 AnimatorDebugMonitor = {}
 
----@private
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 AnimLayer[]
+---@return void
+function AnimatorDebugMonitor:update(arg0, arg1) end
+
+---@public
 ---@param arg0 String
 ---@return void
-function AnimatorDebugMonitor:updateCurrentState(arg0) end
+function AnimatorDebugMonitor:removeCustomVariable(arg0) end
+
+---@private
+---@return void
+function AnimatorDebugMonitor:buildLogString() end
+
+---@public
+---@return String
+function AnimatorDebugMonitor:getSelectedVarMaxFloat() end
 
 ---@private
 ---@param arg0 AnimatorDebugMonitor.MonitorLogLine
 ---@return void
 function AnimatorDebugMonitor:log(arg0) end
 
----@public
----@return boolean
-function AnimatorDebugMonitor:isKnownVarsDirty() end
-
----@private
----@return void
-function AnimatorDebugMonitor:buildLogString() end
-
----@private
----@return void
-function AnimatorDebugMonitor:initCustomVars() end
-
----@public
----@return String
-function AnimatorDebugMonitor:getSelectedVariable() end
-
----@private
----@return void
-function AnimatorDebugMonitor:preUpdate() end
-
----@public
----@return boolean
-function AnimatorDebugMonitor:isDoTickStamps() end
-
----@public
----@param arg0 int
----@param arg1 boolean
----@return void
-function AnimatorDebugMonitor:setFilter(arg0, arg1) end
-
----@public
----@param arg0 String
----@return void
-function AnimatorDebugMonitor:setSelectedVariable(arg0) end
-
----@public
----@return float
-function AnimatorDebugMonitor:getSelectedVariableFloat() end
-
 ---@private
 ---@param arg0 String
 ---@return void
----@overload fun(arg0:String, arg1:Color)
----@overload fun(arg0:AnimatorDebugMonitor.LogType, arg1:String, arg2:Color)
-function AnimatorDebugMonitor:queueLogLine(arg0) end
-
----@private
----@param arg0 String
----@param arg1 Color
----@return void
-function AnimatorDebugMonitor:queueLogLine(arg0, arg1) end
-
----@private
----@param arg0 AnimatorDebugMonitor.LogType
----@param arg1 String
----@param arg2 Color
----@return void
-function AnimatorDebugMonitor:queueLogLine(arg0, arg1, arg2) end
-
----@private
----@return void
-function AnimatorDebugMonitor:processQueue() end
-
----@public
----@return ArrayList|Unknown
-function AnimatorDebugMonitor:getSelectedVarFloatList() end
+function AnimatorDebugMonitor:updateCurrentState(arg0) end
 
 ---@public
 ---@param arg0 boolean
@@ -122,6 +74,69 @@ function AnimatorDebugMonitor:setDoTickStamps(arg0) end
 ---@public
 ---@return String
 function AnimatorDebugMonitor:getSelectedVarMinFloat() end
+
+---@public
+---@param arg0 String
+---@return void
+function AnimatorDebugMonitor:registerVariable(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function AnimatorDebugMonitor:setSelectedVariable(arg0) end
+
+---@public
+---@param arg0 String
+---@return void
+function AnimatorDebugMonitor:addCustomVariable(arg0) end
+
+---@private
+---@return void
+function AnimatorDebugMonitor:processQueue() end
+
+---@private
+---@param arg0 AnimatorDebugMonitor.MonitoredLayer
+---@param arg1 String
+---@param arg2 float
+---@return void
+function AnimatorDebugMonitor:updateAnimTrack(arg0, arg1, arg2) end
+
+---@public
+---@return String
+function AnimatorDebugMonitor:getLogString() end
+
+---@private
+---@param arg0 AnimatorDebugMonitor.MonitoredLayer
+---@param arg1 String
+---@return void
+function AnimatorDebugMonitor:updateActiveNode(arg0, arg1) end
+
+---@private
+---@param arg0 int
+---@param arg1 AnimLayer
+---@return void
+function AnimatorDebugMonitor:updateLayer(arg0, arg1) end
+
+---@private
+---@return void
+function AnimatorDebugMonitor:initCustomVars() end
+
+---@public
+---@return boolean
+function AnimatorDebugMonitor:IsDirty() end
+
+---@private
+---@return void
+function AnimatorDebugMonitor:postUpdate() end
+
+---@public
+---@return ArrayList|Unknown
+function AnimatorDebugMonitor:getFloatNames() end
+
+---@public
+---@param arg0 int
+---@return boolean
+function AnimatorDebugMonitor:getFilter(arg0) end
 
 ---@private
 ---@param arg0 String
@@ -161,12 +176,20 @@ function AnimatorDebugMonitor:addLogLine(arg0, arg1, arg2) end
 function AnimatorDebugMonitor:addLogLine(arg0, arg1, arg2, arg3) end
 
 ---@public
----@return ArrayList|Unknown
-function AnimatorDebugMonitor:getFloatNames() end
+---@return List|Unknown
+function AnimatorDebugMonitor:getKnownVariables() end
 
 ---@public
 ---@return String
-function AnimatorDebugMonitor:getLogString() end
+function AnimatorDebugMonitor:getSelectedVariable() end
+
+---@public
+---@return boolean
+function AnimatorDebugMonitor:isKnownVarsDirty() end
+
+---@public
+---@return ArrayList|Unknown
+function AnimatorDebugMonitor:getSelectedVarFloatList() end
 
 ---@private
 ---@param arg0 String
@@ -174,16 +197,43 @@ function AnimatorDebugMonitor:getLogString() end
 ---@return void
 function AnimatorDebugMonitor:updateVariable(arg0, arg1) end
 
----@public
----@param arg0 IsoGameCharacter
----@param arg1 AnimLayer[]
----@return void
-function AnimatorDebugMonitor:update(arg0, arg1) end
-
----@public
+---@private
 ---@param arg0 String
 ---@return void
-function AnimatorDebugMonitor:removeCustomVariable(arg0) end
+---@overload fun(arg0:String, arg1:Color)
+---@overload fun(arg0:AnimatorDebugMonitor.LogType, arg1:String, arg2:Color)
+function AnimatorDebugMonitor:queueLogLine(arg0) end
+
+---@private
+---@param arg0 String
+---@param arg1 Color
+---@return void
+function AnimatorDebugMonitor:queueLogLine(arg0, arg1) end
+
+---@private
+---@param arg0 AnimatorDebugMonitor.LogType
+---@param arg1 String
+---@param arg2 Color
+---@return void
+function AnimatorDebugMonitor:queueLogLine(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 int
+---@param arg1 boolean
+---@return void
+function AnimatorDebugMonitor:setFilter(arg0, arg1) end
+
+---@public
+---@return boolean
+function AnimatorDebugMonitor:isDoTickStamps() end
+
+---@public
+---@return boolean
+function AnimatorDebugMonitor:IsDirtyFloatList() end
+
+---@public
+---@return float
+function AnimatorDebugMonitor:getSelectedVariableFloat() end
 
 ---@private
 ---@param arg0 AnimLayer[]
@@ -191,55 +241,5 @@ function AnimatorDebugMonitor:removeCustomVariable(arg0) end
 function AnimatorDebugMonitor:ensureLayers(arg0) end
 
 ---@private
----@param arg0 AnimatorDebugMonitor.MonitoredLayer
----@param arg1 String
 ---@return void
-function AnimatorDebugMonitor:updateActiveNode(arg0, arg1) end
-
----@public
----@param arg0 String
----@return void
-function AnimatorDebugMonitor:addCustomVariable(arg0) end
-
----@public
----@param arg0 String
----@return void
-function AnimatorDebugMonitor:registerVariable(arg0) end
-
----@private
----@return void
-function AnimatorDebugMonitor:postUpdate() end
-
----@public
----@return String
-function AnimatorDebugMonitor:getSelectedVarMaxFloat() end
-
----@public
----@param arg0 int
----@return boolean
-function AnimatorDebugMonitor:getFilter(arg0) end
-
----@private
----@param arg0 int
----@param arg1 AnimLayer
----@return void
-function AnimatorDebugMonitor:updateLayer(arg0, arg1) end
-
----@public
----@return boolean
-function AnimatorDebugMonitor:IsDirtyFloatList() end
-
----@private
----@param arg0 AnimatorDebugMonitor.MonitoredLayer
----@param arg1 String
----@param arg2 float
----@return void
-function AnimatorDebugMonitor:updateAnimTrack(arg0, arg1, arg2) end
-
----@public
----@return boolean
-function AnimatorDebugMonitor:IsDirty() end
-
----@public
----@return List|Unknown
-function AnimatorDebugMonitor:getKnownVariables() end
+function AnimatorDebugMonitor:preUpdate() end

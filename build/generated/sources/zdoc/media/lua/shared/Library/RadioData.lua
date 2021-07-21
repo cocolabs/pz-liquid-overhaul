@@ -20,52 +20,6 @@ RadioData = {}
 function RadioData:loadRadioScripts() end
 
 ---@private
----@param arg0 String
----@return String
-function RadioData:toLowerLocaleSafe(arg0) end
-
----@private
----@param arg0 boolean
----@return ArrayList|Unknown
----@overload fun(arg0:boolean, arg1:boolean)
-function RadioData:fetchRadioData(arg0) end
-
----@private
----@param arg0 boolean
----@param arg1 boolean
----@return ArrayList|Unknown
-function RadioData:fetchRadioData(arg0, arg1) end
-
----@private
----@param arg0 File
----@param arg1 String
----@param arg2 ArrayList|Unknown
----@return void
-function RadioData:searchForFiles(arg0, arg1, arg2) end
-
----@public
----@return ArrayList|Unknown
-function RadioData:fetchAllRadioData() end
-
----@private
----@param arg0 Node
----@param arg1 ArrayList|Unknown
----@param arg2 boolean
----@return ArrayList|Unknown
-function RadioData:loadScripts(arg0, arg1, arg2) end
-
----@private
----@param arg0 String
----@return void
-function RadioData:print(arg0) end
-
----@private
----@param arg0 String
----@param arg1 String
----@return String
-function RadioData:checkForTranslation(arg0, arg1) end
-
----@private
 ---@param arg0 Node
 ---@param arg1 String
 ---@return String
@@ -89,6 +43,76 @@ function RadioData:getAttrib(arg0, arg1, arg2) end
 function RadioData:getAttrib(arg0, arg1, arg2, arg3) end
 
 ---@private
+---@param arg0 String
+---@return String
+function RadioData:toLowerLocaleSafe(arg0) end
+
+---@public
+---@return boolean
+function RadioData:isVanilla() end
+
+---@private
+---@param arg0 String
+---@return void
+function RadioData:print(arg0) end
+
+---@private
+---@param arg0 Node
+---@param arg1 ArrayList|Unknown
+---@param arg2 boolean
+---@return ArrayList|Unknown
+function RadioData:loadScripts(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 Node
+---@param arg1 RadioScript
+---@return RadioBroadCast
+function RadioData:loadBroadcast(arg0, arg1) end
+
+---@private
+---@param arg0 String
+---@param arg1 RadioLine
+---@return String
+function RadioData:checkForCustomAirTimer(arg0, arg1) end
+
+---@private
+---@param arg0 File
+---@param arg1 String
+---@param arg2 ArrayList|Unknown
+---@return void
+function RadioData:searchForFiles(arg0, arg1, arg2) end
+
+---@private
+---@param arg0 Node
+---@return void
+function RadioData:loadChannels(arg0) end
+
+---@public
+---@param arg0 Language
+---@return ArrayList|Unknown
+function RadioData:getTranslatorNames(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function RadioData:getRadioChannels() end
+
+---@private
+---@param arg0 boolean
+---@return ArrayList|Unknown
+---@overload fun(arg0:boolean, arg1:boolean)
+function RadioData:fetchRadioData(arg0) end
+
+---@private
+---@param arg0 boolean
+---@param arg1 boolean
+---@return ArrayList|Unknown
+function RadioData:fetchRadioData(arg0, arg1) end
+
+---@public
+---@return ArrayList|Unknown
+function RadioData:fetchAllRadioData() end
+
+---@private
 ---@param arg0 Node
 ---@return ArrayList|Unknown
 function RadioData:getChildNodes(arg0) end
@@ -100,26 +124,19 @@ function RadioData:getChildNodes(arg0) end
 function RadioData:nodeNameIs(arg0, arg1) end
 
 ---@private
----@param arg0 String
----@return RadioData
-function RadioData:ReadFile(arg0) end
-
----@public
----@param arg0 Language
----@return ArrayList|Unknown
-function RadioData:getTranslatorNames(arg0) end
-
----@private
 ---@return boolean
 function RadioData:loadRootInfo() end
 
----@public
----@return ArrayList|Unknown
-function RadioData:getRadioChannels() end
+---@private
+---@param arg0 String
+---@param arg1 String
+---@return String
+function RadioData:checkForTranslation(arg0, arg1) end
 
----@public
----@return boolean
-function RadioData:isVanilla() end
+---@private
+---@param arg0 Node
+---@return void
+function RadioData:loadAdverts(arg0) end
 
 ---@private
 ---@param arg0 Node
@@ -129,22 +146,5 @@ function RadioData:loadExitOptions(arg0, arg1) end
 
 ---@private
 ---@param arg0 String
----@param arg1 RadioLine
----@return String
-function RadioData:checkForCustomAirTimer(arg0, arg1) end
-
----@private
----@param arg0 Node
----@return void
-function RadioData:loadAdverts(arg0) end
-
----@private
----@param arg0 Node
----@return void
-function RadioData:loadChannels(arg0) end
-
----@private
----@param arg0 Node
----@param arg1 RadioScript
----@return RadioBroadCast
-function RadioData:loadBroadcast(arg0, arg1) end
+---@return RadioData
+function RadioData:ReadFile(arg0) end

@@ -193,6 +193,53 @@ function buildUtil.consumeMaterial(ISItem)
 	return consumedItems
 end
 
+function buildUtil.openNailsBox(ISItem)
+	if not ISItem or not ISItem.player then return {}; end
+	if ISBuildMenu.cheat then
+		return {};
+	end
+	local playerObj = getSpecificPlayer(ISItem.player)
+	local consumedItems = {}
+	local playerInv = playerObj:getInventory()
+	local itemFullType = "Base.NailsBox"
+	local itemCount = 1
+	local items = playerInv:getSomeTypeEvalRecurse(itemFullType, buildUtil.predicateMaterial, itemCount)
+	for i=1,items:size() do
+		local item = items:get(i-1)
+		playerObj:removeFromHands(item)
+		if item:getContainer() then
+			item:getContainer():Remove(item);
+		else
+			playerInv:Remove(item)
+		end
+		itemCount = itemCount - 1
+		table.insert(consumedItems, item)
+	end
+	-- if we didn't have all the required material inside our inventory, it's because the missing materials are on the ground, we gonna check them
+	-- for each missing material in inventory
+	if itemCount > 0 then
+		-- check a 3x3 square around the building
+		local groundItems = buildUtil.getMaterialOnGround(ISItem.square)
+		local items = groundItems[itemFullType]
+		if items then
+			if itemCount < #items then
+				print('ERROR: consumeMaterial() did not find all required materials on the ground!')
+			end
+			local count = math.min(itemCount, #items)
+			for i=1,count do
+				local item = items[i]
+				local worldObj = item:getWorldItem()
+				table.insert(consumedItems, item)
+				worldObj:getSquare():transmitRemoveItemFromSquare(worldObj)
+			end
+			itemCount = itemCount - count
+			removedFromGround = true
+		end
+	end
+	local nail = InventoryItemFactory.CreateItem("Base.Nails")
+	playerObj:getInventory():AddItems(nail, 20)
+end
+
 function buildUtil.removeFromGround(square)
 	for i = 0, square:getSpecialObjects():size()-1 do
 		local thump = square:getSpecialObjects():get(i);
@@ -269,6 +316,9 @@ function buildUtil.setInfo(javaObject, ISItem)
 	javaObject:setIsHoppable(ISItem.hoppable);
 	javaObject:setModData(copyTable(ISItem.modData));
     javaObject:setIsThumpable(ISItem.isThumpable);
+	if ISItem.isCorner then
+		javaObject:setCorner(ISItem.isCorner);
+	end
     if ISItem.containerType and javaObject:getContainer() then
        javaObject:getContainer():setType(ISItem.containerType);
     end

@@ -35,37 +35,18 @@
 Temperature = {}
 
 ---@public
----@param arg0 float
----@return float
-function Temperature:getTrueWindresistanceValue(arg0) end
-
----@public
 ---@param arg0 IsoPlayer
 ---@return float
 function Temperature:getWindChillAmountForPlayer(arg0) end
 
 ---@public
----@return String
-function Temperature:getTemperaturePostfix() end
-
----@public
----@return String
-function Temperature:getFahrenheitPostfix() end
+---@return void
+function Temperature:reset() end
 
 ---@public
 ---@param arg0 float
----@return float
-function Temperature:getFractionForRealTimeRatePerMin(arg0) end
-
----@public
----@param arg0 float
----@param arg1 float
----@return float
-function Temperature:WindchillCelsiusKph(arg0, arg1) end
-
----@public
 ---@return String
-function Temperature:getCelsiusPostfix() end
+function Temperature:getTemperatureString(arg0) end
 
 ---@public
 ---@param arg0 float
@@ -78,8 +59,8 @@ function Temperature:CelsiusToFahrenheit(arg0) end
 function Temperature:getValueColor(arg0) end
 
 ---@public
----@return void
-function Temperature:reset() end
+---@return String
+function Temperature:getCelsiusPostfix() end
 
 ---@public
 ---@param arg0 float
@@ -88,10 +69,29 @@ function Temperature:FahrenheitToCelsius(arg0) end
 
 ---@public
 ---@param arg0 float
----@return String
-function Temperature:getTemperatureString(arg0) end
+---@return float
+function Temperature:getFractionForRealTimeRatePerMin(arg0) end
 
 ---@public
 ---@param arg0 float
 ---@return float
 function Temperature:getTrueInsulationValue(arg0) end
+
+---@public
+---@param arg0 float
+---@param arg1 float
+---@return float
+function Temperature:WindchillCelsiusKph(arg0, arg1) end
+
+---@public
+---@return String
+function Temperature:getFahrenheitPostfix() end
+
+---@public
+---@param arg0 float
+---@return float
+function Temperature:getTrueWindresistanceValue(arg0) end
+
+---@public
+---@return String
+function Temperature:getTemperaturePostfix() end

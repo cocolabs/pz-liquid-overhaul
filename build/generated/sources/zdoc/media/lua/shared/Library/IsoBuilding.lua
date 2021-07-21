@@ -23,104 +23,6 @@
 IsoBuilding = {}
 
 ---@public
----@param desc SurvivorDesc
----@param bFarGood boolean
----@return float
-function IsoBuilding:ScoreBuildingPersonSpecific(desc, bFarGood) end
-
----@public
----@return int
-function IsoBuilding:getID() end
-
----@public
----@param isToxic boolean
----@return void
-function IsoBuilding:setToxic(isToxic) end
-
----@public
----@return void
-function IsoBuilding:CalculateWindows() end
-
----@public
----@return IsoRoom
----@overload fun(room:String)
-function IsoBuilding:getRandomRoom() end
-
----@public
----@param room String
----@return IsoRoom
-function IsoBuilding:getRandomRoom(room) end
-
----@public
----@return boolean
-function IsoBuilding:hasWater() end
-
----@public
----@param b boolean
----@return void
-function IsoBuilding:setAllExplored(b) end
-
----@public
----@return IsoGridSquare
-function IsoBuilding:getFreeTile() end
-
----@public
----@return void
-function IsoBuilding:update() end
-
----@public
----@return int
-function IsoBuilding:getRoomsNumber() end
-
----@public
----@return void
-function IsoBuilding:forceAwake() end
-
----@public
----@return BuildingDef
-function IsoBuilding:getDef() end
-
----@public
----@return IsoWindow
-function IsoBuilding:getRandomFirstFloorWindow() end
-
----@public
----@return boolean
-function IsoBuilding:isAllExplored() end
-
----@public
----@return void
-function IsoBuilding:FillContainers() end
-
----@public
----@param type String
----@return ItemContainer
-function IsoBuilding:getRandomContainer(type) end
-
----@public
----@param room IsoRoom
----@return void
-function IsoBuilding:AddRoom(room) end
-
----@public
----@param items Stack|String
----@return boolean
-function IsoBuilding:ContainsAllItems(items) end
-
----@public
----@return boolean
-function IsoBuilding:isResidential() end
-
----@public
----@return void
-function IsoBuilding:TriggerAlarm() end
-
----@public
----@param room String
----@return boolean
-function IsoBuilding:containsRoom(room) end
-
----@public
 ---@param obj IsoDoor
 ---@param bOtherTile boolean
 ---@return void
@@ -134,6 +36,25 @@ function IsoBuilding:addDoor(obj, bOtherTile) end
 ---@param building IsoBuilding
 ---@return void
 function IsoBuilding:addDoor(obj, bOtherTile, from, building) end
+
+---@public
+---@param itemType ItemType
+---@return ItemContainer
+function IsoBuilding:getContainerWith(itemType) end
+
+---@public
+---@return boolean
+function IsoBuilding:hasWater() end
+
+---@public
+---@param type String
+---@return ItemContainer
+function IsoBuilding:getRandomContainer(type) end
+
+---@public
+---@param b boolean
+---@return void
+function IsoBuilding:setAllExplored(b) end
 
 ---@public
 ---@param obj IsoWindow
@@ -151,13 +72,12 @@ function IsoBuilding:addWindow(obj, bOtherTile) end
 function IsoBuilding:addWindow(obj, bOtherTile, from, building) end
 
 ---@public
----@param itemType ItemType
----@return ItemContainer
-function IsoBuilding:getContainerWith(itemType) end
+---@return boolean
+function IsoBuilding:isToxic() end
 
 ---@public
----@return void
-function IsoBuilding:CalculateExits() end
+---@return boolean
+function IsoBuilding:isAllExplored() end
 
 ---@private
 ---@param arg0 BuildingScore
@@ -165,11 +85,91 @@ function IsoBuilding:CalculateExits() end
 function IsoBuilding:ScoreBuildingGeneral(arg0) end
 
 ---@public
----@return boolean
-function IsoBuilding:isToxic() end
+---@return BuildingDef
+function IsoBuilding:getDef() end
+
+---@public
+---@param desc SurvivorDesc
+---@param bFarGood boolean
+---@return float
+function IsoBuilding:ScoreBuildingPersonSpecific(desc, bFarGood) end
+
+---@public
+---@return void
+function IsoBuilding:CalculateExits() end
 
 ---@public
 ---@param building BuildingDef
 ---@param info LotHeader
 ---@return void
 function IsoBuilding:CreateFrom(building, info) end
+
+---@public
+---@param items Stack|String
+---@return boolean
+function IsoBuilding:ContainsAllItems(items) end
+
+---@public
+---@return IsoWindow
+function IsoBuilding:getRandomFirstFloorWindow() end
+
+---@public
+---@return boolean
+function IsoBuilding:isResidential() end
+
+---@public
+---@return IsoGridSquare
+function IsoBuilding:getFreeTile() end
+
+---@public
+---@return void
+function IsoBuilding:TriggerAlarm() end
+
+---@public
+---@return int
+function IsoBuilding:getID() end
+
+---@public
+---@return int
+function IsoBuilding:getRoomsNumber() end
+
+---@public
+---@return void
+function IsoBuilding:CalculateWindows() end
+
+---@public
+---@return void
+function IsoBuilding:update() end
+
+---@public
+---@return IsoRoom
+---@overload fun(room:String)
+function IsoBuilding:getRandomRoom() end
+
+---@public
+---@param room String
+---@return IsoRoom
+function IsoBuilding:getRandomRoom(room) end
+
+---@public
+---@param room String
+---@return boolean
+function IsoBuilding:containsRoom(room) end
+
+---@public
+---@param room IsoRoom
+---@return void
+function IsoBuilding:AddRoom(room) end
+
+---@public
+---@param isToxic boolean
+---@return void
+function IsoBuilding:setToxic(isToxic) end
+
+---@public
+---@return void
+function IsoBuilding:FillContainers() end
+
+---@public
+---@return void
+function IsoBuilding:forceAwake() end

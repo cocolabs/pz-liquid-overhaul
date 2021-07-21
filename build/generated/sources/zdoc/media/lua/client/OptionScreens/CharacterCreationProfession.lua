@@ -49,6 +49,10 @@ function CharacterCreationProfessionListBox:onJoypadDirRight(joypadData)
     updateJoypadFocus(joypadData)
 end
 
+function CharacterCreationProfessionListBox:onJoypadBeforeDeactivate(joypadData)
+	self.parent.parent:onJoypadBeforeDeactivate(joypadData)
+end
+
 -- -- -- -- --
 -- -- -- -- --
 -- -- -- -- --
@@ -866,7 +870,7 @@ function CharacterCreationProfession:render()
 
 	if self.tooltipLabel and self.tooltipLabel ~= "" then
 		local width = getTextManager():MeasureStringX(UIFont.Small, self.tooltipLabel)
-		local y = self.mainPanel:getBottom() - 58
+		local y = pointsY
 		self:drawRect(self.mainPanel:getX() + 16, y, width + 6, self.smallFontHgt, 0.8, 0.0, 0.0, 0.0)
 		self:drawText(self.tooltipLabel, self.mainPanel:getX() + 16 + 3, y, self.tooltipColor.r, self.tooltipColor.g, self.tooltipColor.b, 1, UIFont.Small)
 	end
@@ -1102,13 +1106,15 @@ function CharacterCreationProfession:onGainJoypadFocus(joypadData)
 end
 
 function CharacterCreationProfession:onLoseJoypadFocus(joypadData)
-	self.ISButtonA = nil
-	self.playButton.isJoypad = false
-	self.ISButtonB = nil
-	self.backButton.isJoypad = false
-	self.ISButtonY = nil
-	self.randomButton.isJoypad = false
-	ISPanelJoypad.onLoseJoypadFocus(joypadData)
+	self.playButton:clearJoypadButton()
+	self.backButton:clearJoypadButton()
+	self.randomButton:clearJoypadButton()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function CharacterCreationProfession:onJoypadBeforeDeactivate(joypadData)
+	-- Focus could be on one of the lists
+	self.joyfocus = nil
 end
 
 function CharacterCreationProfession:onJoypadDirUp(joypadData)

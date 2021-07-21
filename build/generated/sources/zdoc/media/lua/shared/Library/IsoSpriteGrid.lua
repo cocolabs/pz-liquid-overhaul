@@ -5,27 +5,6 @@
 IsoSpriteGrid = {}
 
 ---@public
----@return boolean
-function IsoSpriteGrid:validate() end
-
----@public
----@return int
-function IsoSpriteGrid:getHeight() end
-
----@public
----@param arg0 IsoSprite
----@return int
-function IsoSpriteGrid:getSpriteIndex(arg0) end
-
----@public
----@return int
-function IsoSpriteGrid:getWidth() end
-
----@public
----@return IsoSprite
-function IsoSpriteGrid:getAnchorSprite() end
-
----@public
 ---@param arg0 IsoSprite
 ---@return int
 function IsoSpriteGrid:getSpriteGridPosX(arg0) end
@@ -38,17 +17,17 @@ function IsoSpriteGrid:getSpriteGridPosX(arg0) end
 function IsoSpriteGrid:setSprite(arg0, arg1, arg2) end
 
 ---@public
----@param arg0 IsoSprite
----@return int
-function IsoSpriteGrid:getSpriteGridPosY(arg0) end
-
----@public
----@return int
-function IsoSpriteGrid:getSpriteCount() end
-
----@public
 ---@return IsoSprite[]
 function IsoSpriteGrid:getSprites() end
+
+---@public
+---@return boolean
+function IsoSpriteGrid:validate() end
+
+---@public
+---@param arg0 int
+---@return IsoSprite
+function IsoSpriteGrid:getSpriteFromIndex(arg0) end
 
 ---@public
 ---@param arg0 int
@@ -57,6 +36,27 @@ function IsoSpriteGrid:getSprites() end
 function IsoSpriteGrid:getSprite(arg0, arg1) end
 
 ---@public
----@param arg0 int
+---@return int
+function IsoSpriteGrid:getHeight() end
+
+---@public
 ---@return IsoSprite
-function IsoSpriteGrid:getSpriteFromIndex(arg0) end
+function IsoSpriteGrid:getAnchorSprite() end
+
+---@public
+---@return int
+function IsoSpriteGrid:getWidth() end
+
+---@public
+---@return int
+function IsoSpriteGrid:getSpriteCount() end
+
+---@public
+---@param arg0 IsoSprite
+---@return int
+function IsoSpriteGrid:getSpriteIndex(arg0) end
+
+---@public
+---@param arg0 IsoSprite
+---@return int
+function IsoSpriteGrid:getSpriteGridPosY(arg0) end

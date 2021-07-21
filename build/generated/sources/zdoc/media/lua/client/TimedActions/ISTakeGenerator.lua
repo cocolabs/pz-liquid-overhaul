@@ -26,6 +26,7 @@ end
 function ISTakeGenerator:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	self.character:reportEvent("EventLootItem")
 end
 
 function ISTakeGenerator:stop()
@@ -57,5 +58,6 @@ function ISTakeGenerator:new(character, generator, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	return o;
 end

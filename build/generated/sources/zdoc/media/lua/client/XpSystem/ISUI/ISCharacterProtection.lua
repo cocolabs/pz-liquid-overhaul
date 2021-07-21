@@ -78,8 +78,8 @@ function ISCharacterProtection:render()
 	for i=0, BodyPartType.ToIndex(BodyPartType.MAX) do
 		local string = BodyPartType.ToString(BodyPartType.FromIndex(i));
 		if self.bparts[string] then
-			local biteDefense = luautils.round(self.char:getBodyPartClothingDefense(i, true));
-			local scratchDefense = luautils.round(self.char:getBodyPartClothingDefense(i, false));
+			local biteDefense = luautils.round(self.char:getBodyPartClothingDefense(i, true, false));
+			local scratchDefense = luautils.round(self.char:getBodyPartClothingDefense(i, false, false));
 			biteDefense = math.floor(biteDefense);
 			scratchDefense = math.floor(scratchDefense);
 			-- COMMENT MERGE:

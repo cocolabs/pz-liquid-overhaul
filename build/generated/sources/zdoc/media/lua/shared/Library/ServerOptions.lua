@@ -15,6 +15,7 @@
 ---@field public LogLocalChat ServerOptions.BooleanServerOption
 ---@field public AutoCreateUserInWhiteList ServerOptions.BooleanServerOption
 ---@field public DisplayUserName ServerOptions.BooleanServerOption
+---@field public ShowFirstAndLastName ServerOptions.BooleanServerOption
 ---@field public SpawnPoint ServerOptions.StringServerOption
 ---@field public SafetySystem ServerOptions.BooleanServerOption
 ---@field public ShowSafety ServerOptions.BooleanServerOption
@@ -26,6 +27,7 @@
 ---@field public Mods ServerOptions.StringServerOption
 ---@field public Map ServerOptions.StringServerOption
 ---@field public DoLuaChecksum ServerOptions.BooleanServerOption
+---@field public DenyLoginOnOverloadedServer ServerOptions.BooleanServerOption
 ---@field public Public ServerOptions.BooleanServerOption
 ---@field public PublicName ServerOptions.StringServerOption
 ---@field public PublicDescription ServerOptions.TextServerOption
@@ -94,9 +96,6 @@
 ---@field public FactionDaySurvivedToCreate ServerOptions.IntegerServerOption
 ---@field public FactionPlayersRequiredForTag ServerOptions.IntegerServerOption
 ---@field public AllowTradeUI ServerOptions.BooleanServerOption
----@field public HoursForWorldItemRemoval ServerOptions.DoubleServerOption
----@field public WorldItemRemovalList ServerOptions.StringServerOption
----@field public ItemRemovalListBlacklistToggle ServerOptions.BooleanServerOption
 ---@field public DisableRadioStaff ServerOptions.BooleanServerOption
 ---@field public DisableRadioAdmin ServerOptions.BooleanServerOption
 ---@field public DisableRadioGM ServerOptions.BooleanServerOption
@@ -113,56 +112,22 @@
 ---@field public ZombieUpdateDelta ServerOptions.DoubleServerOption
 ---@field public ZombieUpdateRadiusLowPriority ServerOptions.DoubleServerOption
 ---@field public ZombieUpdateRadiusHighPriority ServerOptions.DoubleServerOption
+---@field public TrashDeleteAll ServerOptions.BooleanServerOption
+---@field public PVPMeleeWhileHitReaction ServerOptions.BooleanServerOption
+---@field public MouseOverToSeeDisplayName ServerOptions.BooleanServerOption
+---@field public HidePlayersBehindYou ServerOptions.BooleanServerOption
 ---@field public cardList ArrayList|String
 ServerOptions = {}
 
 ---@public
----@return ArrayList|Unknown
-function ServerOptions:getPublicOptions() end
-
----@public
----@param doLine boolean
----@return ArrayList|String
-function ServerOptions:getClientCommandList(doLine) end
-
----@public
----@return ServerOptions
-function ServerOptions:getInstance() end
-
----@public
----@param arg0 String
----@param arg1 String
----@return String
-function ServerOptions:changeOption(arg0, arg1) end
-
----@public
----@param arg0 String
----@return Integer
-function ServerOptions:getInteger(arg0) end
-
----@public
----@return void
-function ServerOptions:init() end
-
----@public
----@return int
-function ServerOptions:getNumOptions() end
-
----@public
----@param arg0 String
----@param arg1 String
----@return void
-function ServerOptions:putSaveOption(arg0, arg1) end
-
----@public
 ---@param arg0 String
 ---@return boolean
-function ServerOptions:loadServerTextFile(arg0) end
+function ServerOptions:saveServerTextFile(arg0) end
 
----@private
----@param arg0 File
+---@public
+---@param arg0 ServerOptions.ServerOption
 ---@return void
-function ServerOptions:initSpawnRegionsFile(arg0) end
+function ServerOptions:addOption(arg0) end
 
 ---@public
 ---@param arg0 int
@@ -175,30 +140,6 @@ function ServerOptions:resetRegionFile() end
 
 ---@public
 ---@param arg0 String
----@return ServerOptions.ServerOption
-function ServerOptions:getOptionByName(arg0) end
-
----@public
----@return String
-function ServerOptions:getRandomCard() end
-
----@public
----@return void
-function ServerOptions:initClientCommandsHelp() end
-
----@public
----@param arg0 String
----@return Boolean
-function ServerOptions:getBoolean(arg0) end
-
----@public
----@param arg0 String
----@param arg1 String
----@return void
-function ServerOptions:putOption(arg0, arg1) end
-
----@public
----@param arg0 String
 ---@return Float
 function ServerOptions:getFloat(arg0) end
 
@@ -207,14 +148,40 @@ function ServerOptions:getFloat(arg0) end
 function ServerOptions:getOptions() end
 
 ---@public
----@param arg0 String
----@return Double
-function ServerOptions:getDouble(arg0) end
+---@return String
+function ServerOptions:getRandomCard() end
+
+---@public
+---@return ArrayList|Unknown
+function ServerOptions:getPublicOptions() end
+
+---@public
+---@return ServerOptions
+function ServerOptions:getInstance() end
 
 ---@public
 ---@param arg0 String
 ---@return boolean
-function ServerOptions:saveServerTextFile(arg0) end
+function ServerOptions:loadServerTextFile(arg0) end
+
+---@private
+---@return void
+function ServerOptions:initOptions() end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function ServerOptions:putOption(arg0, arg1) end
+
+---@public
+---@return void
+function ServerOptions:init() end
+
+---@public
+---@param doLine boolean
+---@return ArrayList|String
+function ServerOptions:getClientCommandList(doLine) end
 
 ---@public
 ---@param arg0 String
@@ -222,10 +189,46 @@ function ServerOptions:saveServerTextFile(arg0) end
 function ServerOptions:getOption(arg0) end
 
 ---@public
----@param arg0 ServerOptions.ServerOption
+---@param arg0 String
+---@return Integer
+function ServerOptions:getInteger(arg0) end
+
+---@public
 ---@return void
-function ServerOptions:addOption(arg0) end
+function ServerOptions:initClientCommandsHelp() end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return String
+function ServerOptions:changeOption(arg0, arg1) end
+
+---@public
+---@param arg0 String
+---@return ServerOptions.ServerOption
+function ServerOptions:getOptionByName(arg0) end
+
+---@public
+---@param arg0 String
+---@param arg1 String
+---@return void
+function ServerOptions:putSaveOption(arg0, arg1) end
 
 ---@private
+---@param arg0 File
 ---@return void
-function ServerOptions:initOptions() end
+function ServerOptions:initSpawnRegionsFile(arg0) end
+
+---@public
+---@param arg0 String
+---@return Boolean
+function ServerOptions:getBoolean(arg0) end
+
+---@public
+---@return int
+function ServerOptions:getNumOptions() end
+
+---@public
+---@param arg0 String
+---@return Double
+function ServerOptions:getDouble(arg0) end

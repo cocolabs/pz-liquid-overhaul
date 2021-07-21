@@ -323,7 +323,7 @@ function ISFishingAction:animEvent(event, parameter)
     end
 end
 
--- Controls ratio of fish caught and trash caught using player level
+-- Visual ratio of fish caught and trash caught using player level
 function ISFishingAction:getFishByLure()
     local item = 0;
     local MaxTrashRate = 0.4;

@@ -24,6 +24,7 @@ end
 function ISPlugGenerator:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	self.character:reportEvent("EventLootItem")
 end
 
 function ISPlugGenerator:stop()

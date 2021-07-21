@@ -67,6 +67,7 @@ function SPH_misc:setSquare(square, x, y, z)
 	self.squareY = y
 	self.squareZ = z
 	self.zones = getZones(x, y, z)
+	self.vehicleZone = getVehicleZoneAt(x, y, z)
 	return true
 end
 
@@ -83,6 +84,10 @@ function SPH_misc:render1()
 		end
 	else
 		self:addLine("zone = nil")
+	end
+	if self.vehicleZone then
+		local zone = self.vehicleZone
+		self:addLine("vehicle zone = %s / %s", zone:getName(), zone:getType())
 	end
 --[[
 	local zone = square and square:getZone() or nil

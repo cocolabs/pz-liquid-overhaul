@@ -4,6 +4,18 @@ FakeDeadZombieState = {}
 
 ---Overrides:
 ---
+---exit in class State
+---@public
+---@param owner IsoGameCharacter
+---@return void
+function FakeDeadZombieState:exit(owner) end
+
+---@public
+---@return FakeDeadZombieState
+function FakeDeadZombieState:instance() end
+
+---Overrides:
+---
 ---enter in class State
 ---@public
 ---@param owner IsoGameCharacter
@@ -17,15 +29,3 @@ function FakeDeadZombieState:enter(owner) end
 ---@param owner IsoGameCharacter
 ---@return void
 function FakeDeadZombieState:execute(owner) end
-
----@public
----@return FakeDeadZombieState
-function FakeDeadZombieState:instance() end
-
----Overrides:
----
----exit in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function FakeDeadZombieState:exit(owner) end

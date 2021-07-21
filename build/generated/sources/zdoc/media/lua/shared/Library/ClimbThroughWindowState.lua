@@ -16,13 +16,32 @@
 ---@field PARAM_END_Y Integer
 ClimbThroughWindowState = {}
 
+---@private
+---@param arg0 IsoZombie
+---@return void
+function ClimbThroughWindowState:setLungeXVars(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return boolean
+function ClimbThroughWindowState:isObstacleSquare(arg0) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@param arg1 IsoDirections
+---@return IsoGridSquare
+function ClimbThroughWindowState:getFreeSquareAfterObstacles(arg0, arg1) end
+
+---@private
+---@param arg0 IsoGridSquare
+---@return boolean
+function ClimbThroughWindowState:isFreeSquare(arg0) end
+
 ---@public
 ---@param arg0 IsoGameCharacter
----@param arg1 int
----@param arg2 int
----@param arg3 IsoDirections
----@return boolean
-function ClimbThroughWindowState:isPastInnerEdgeOfSquare(arg0, arg1, arg2, arg3) end
+---@param arg1 float
+---@return void
+function ClimbThroughWindowState:slideX(arg0, arg1) end
 
 ---Overrides:
 ---
@@ -33,13 +52,18 @@ function ClimbThroughWindowState:isPastInnerEdgeOfSquare(arg0, arg1, arg2, arg3)
 function ClimbThroughWindowState:enter(owner) end
 
 ---@public
----@return ClimbThroughWindowState
-function ClimbThroughWindowState:instance() end
+---@param arg0 IsoGameCharacter
+---@param arg1 MoveDeltaModifiers
+---@return void
+function ClimbThroughWindowState:getDeltaModifiers(arg0, arg1) end
 
----@private
----@param arg0 IsoGridSquare
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 int
+---@param arg2 int
+---@param arg3 IsoDirections
 ---@return boolean
-function ClimbThroughWindowState:isObstacleSquare(arg0) end
+function ClimbThroughWindowState:isPastInnerEdgeOfSquare(arg0, arg1, arg2, arg3) end
 
 ---Overrides:
 ---
@@ -48,31 +72,6 @@ function ClimbThroughWindowState:isObstacleSquare(arg0) end
 ---@param owner IsoGameCharacter
 ---@return void
 function ClimbThroughWindowState:execute(owner) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 float
----@return void
-function ClimbThroughWindowState:slideY(arg0, arg1) end
-
----@public
----@param arg0 IsoGameCharacter
----@return IsoObject
-function ClimbThroughWindowState:getWindow(arg0) end
-
----@public
----@param arg0 IsoGameCharacter
----@param arg1 MoveDeltaModifiers
----@return void
-function ClimbThroughWindowState:getDeltaModifiers(arg0, arg1) end
-
----Overrides:
----
----exit in class State
----@public
----@param owner IsoGameCharacter
----@return void
-function ClimbThroughWindowState:exit(owner) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -88,17 +87,24 @@ function ClimbThroughWindowState:isPastOuterEdgeOfSquare(arg0, arg1, arg2, arg3)
 ---@return void
 function ClimbThroughWindowState:animEvent(arg0, arg1) end
 
+---Overrides:
+---
+---exit in class State
 ---@public
----@param arg0 IsoGameCharacter
----@param arg1 float
+---@param owner IsoGameCharacter
 ---@return void
-function ClimbThroughWindowState:slideX(arg0, arg1) end
+function ClimbThroughWindowState:exit(owner) end
 
 ---@private
 ---@param arg0 IsoGridSquare
 ---@param arg1 IsoGameCharacter
 ---@return void
 function ClimbThroughWindowState:checkForFallingBack(arg0, arg1) end
+
+---@public
+---@param arg0 IsoGameCharacter
+---@return boolean
+function ClimbThroughWindowState:isWindowClosing(arg0) end
 
 ---@public
 ---@param arg0 IsoGameCharacter
@@ -113,22 +119,16 @@ function ClimbThroughWindowState:setParams(arg0, arg1) end
 function ClimbThroughWindowState:checkForFallingFront(arg0, arg1) end
 
 ---@public
+---@return ClimbThroughWindowState
+function ClimbThroughWindowState:instance() end
+
+---@public
 ---@param arg0 IsoGameCharacter
----@return boolean
-function ClimbThroughWindowState:isWindowClosing(arg0) end
+---@return IsoObject
+function ClimbThroughWindowState:getWindow(arg0) end
 
----@private
----@param arg0 IsoGridSquare
----@param arg1 IsoDirections
----@return IsoGridSquare
-function ClimbThroughWindowState:getFreeSquareAfterObstacles(arg0, arg1) end
-
----@private
----@param arg0 IsoGridSquare
----@return boolean
-function ClimbThroughWindowState:isFreeSquare(arg0) end
-
----@private
----@param arg0 IsoZombie
+---@public
+---@param arg0 IsoGameCharacter
+---@param arg1 float
 ---@return void
-function ClimbThroughWindowState:setLungeXVars(arg0) end
+function ClimbThroughWindowState:slideY(arg0, arg1) end

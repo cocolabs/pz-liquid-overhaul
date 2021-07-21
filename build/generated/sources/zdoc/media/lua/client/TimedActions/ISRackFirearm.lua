@@ -18,7 +18,6 @@ function ISRackFirearm:start()
 	end
 	
 	-- Setup IsPerformingAction & the current anim we want (check in AnimSets LoadHandgun.xml for example)
-	self:setActionAnim(CharacterActionAnims.Reload)
 	self.character:setVariable("WeaponReloadType", self.gun:getWeaponReloadType())
 
 	-- we asked to rack, we gonna remove bullets if one is chambered or load one is no one is chambered
@@ -32,6 +31,8 @@ function ISRackFirearm:start()
 	self.character:setVariable("RackAiming", self.character:isAiming())
 
 	self:setOverrideHandModels(self.gun, nil)
+	self:setActionAnim(CharacterActionAnims.Reload)
+	self.character:reportEvent("EventReloading");
 
 	self:initVars()
 end

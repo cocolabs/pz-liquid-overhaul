@@ -36,6 +36,7 @@ function ISFireplaceLightFromPetrol:start()
 	-- Don't call setOverrideHandModels() with self.petrol, the right-hand mask
 	-- will bork the animation.
 	self:setOverrideHandModels(self.petrol:getStaticModel(), nil)
+	self.character:EventTakeWater("EventTakeWater");
 end
 
 function ISFireplaceLightFromPetrol:stop()

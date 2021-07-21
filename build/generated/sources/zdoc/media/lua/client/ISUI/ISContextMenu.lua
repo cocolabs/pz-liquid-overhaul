@@ -741,14 +741,16 @@ function ISContextMenu:getIndexAt(x, y)
 end
 
 function ISContextMenu:topmostMenuWithMouse(x, y)
+	local contextMenu = getPlayerContextMenu(self.player)
+	if not contextMenu then return nil end
 	local menu = nil
-	if self == getPlayerContextMenu(self.player) then
+	if self == contextMenu then
 		if self:isVisible() and x >= self.x and x < self.x + self.width and y >= self.y and y < self.y + self.height then
 			menu = self
 		end
 	end
-	for i=1,#getPlayerContextMenu(self.player).instanceMap do
-		local m = getPlayerContextMenu(self.player).instanceMap[i]
+	for i=1,#contextMenu.instanceMap do
+		local m = contextMenu.instanceMap[i]
 		if m:isVisible() and x >= m.x and x < m.x + m.width and y >= m.y and y < m.y + m.height then
 			menu = m
 		end

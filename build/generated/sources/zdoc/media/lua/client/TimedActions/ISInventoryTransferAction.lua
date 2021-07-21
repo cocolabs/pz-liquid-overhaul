@@ -94,7 +94,7 @@ function ISInventoryTransferAction:removeItemOnCharacter()
 	self.character:removeAttachedItem(self.item)
 	if not self.character:isEquipped(self.item) then return true end
 	local addToWorld = self.character:removeFromHands(self.item)
-	self.character:removeWornItem(self.item)
+	self.character:removeWornItem(self.item, false)
 	triggerEvent("OnClothingUpdated", self.character)
 	return addToWorld;
 end
@@ -128,6 +128,7 @@ function ISInventoryTransferAction:doActionAnim(cont)
 	if cont:getContainingItem() and cont:getContainingItem():getWorldItem() then
 		self:setAnimVariable("LootPosition", "Low");
 	end
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISInventoryTransferAction:startActionAnim()
@@ -267,6 +268,10 @@ function ISInventoryTransferAction:perform()
 
 		-- needed to remove from queue / start next.
 		ISBaseTimedAction.perform(self);
+	end
+
+	if instanceof(self.item, "Radio") then
+		self.character:updateEquippedRadioFreq();
 	end
 end
 

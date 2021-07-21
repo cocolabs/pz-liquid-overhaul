@@ -203,11 +203,18 @@ function ISPanelJoypad:setJoypadFocus(child, joypadData)
                 self:clearJoypadFocus(joypadData)
                 self.joypadIndexY = indexY
                 self.joypadIndex = indexX
-                self.joypadButtons = self.joypadButtons[indexY]
+                self.joypadButtons = buttons
                 child:setJoypadFocused(true, joypadData)
                 return
             end
         end
+    end
+end
+
+function ISPanelJoypad:restoreJoypadFocus(joypadData)
+    local child = self:getJoypadFocus()
+    if child then
+        child:setJoypadFocused(true, joypadData)
     end
 end
 

@@ -25,27 +25,16 @@
 ---@field public MAX MoodleType
 MoodleType = {}
 
----Returns an array containing the constants of this enum type, in
----
----the order they are declared.  This method may be used to iterate
----
----over the constants as follows:
----
----
----
----for (MoodleType c : MoodleType.values())
----
----    System.out.println(c);
----
----
 ---@public
----@return MoodleType[] @an array containing the constants of this enum type, in the order they are declared
-function MoodleType:values() end
+---@param MT MoodleType
+---@param Level int
+---@return String
+function MoodleType:getDescriptionText(MT, Level) end
 
 ---@public
----@param str String
----@return MoodleType
-function MoodleType:FromString(str) end
+---@param MT MoodleType
+---@return int
+function MoodleType:GoodBadNeutral(MT) end
 
 ---@public
 ---@param MT MoodleType
@@ -64,16 +53,22 @@ function MoodleType:ToIndex(MT) end
 ---@return MoodleType @the enum constant with the specified name
 function MoodleType:valueOf(name) end
 
+---Returns an array containing the constants of this enum type, in
+---
+---the order they are declared.  This method may be used to iterate
+---
+---over the constants as follows:
+---
+---
+---
+---for (MoodleType c : MoodleType.values())
+---
+---    System.out.println(c);
+---
+---
 ---@public
----@param index int
----@return MoodleType
-function MoodleType:FromIndex(index) end
-
----@public
----@param MT MoodleType
----@param Level int
----@return String
-function MoodleType:getDescriptionText(MT, Level) end
+---@return MoodleType[] @an array containing the constants of this enum type, in the order they are declared
+function MoodleType:values() end
 
 ---@public
 ---@param MT MoodleType
@@ -82,6 +77,11 @@ function MoodleType:getDescriptionText(MT, Level) end
 function MoodleType:getDisplayName(MT, Level) end
 
 ---@public
----@param MT MoodleType
----@return int
-function MoodleType:GoodBadNeutral(MT) end
+---@param index int
+---@return MoodleType
+function MoodleType:FromIndex(index) end
+
+---@public
+---@param str String
+---@return MoodleType
+function MoodleType:FromString(str) end

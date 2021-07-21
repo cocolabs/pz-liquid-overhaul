@@ -103,19 +103,24 @@ function ISSpawnHordeUI:getRadius()
 end
 
 function ISSpawnHordeUI:onSpawn()
+	local count = self:getZombiesNumber()
 	local radius = self:getRadius();
-	for i=0, self:getZombiesNumber()-1 do
+	local outfit = self:getOutfit();
+	-- force female or male chance if you've selected a outfit that's only for male or female
+	local femaleChance = nil;
+	if self.maleOutfits:contains(outfit) and not self.femaleOutfits:contains(outfit) then
+		femaleChance = 0;
+	end
+	if self.femaleOutfits:contains(outfit) and not self.maleOutfits:contains(outfit) then
+		femaleChance = 100;
+	end
+	if isClient() then
+		SendCommandToServer(string.format("/createhorde2 -x %d -y %d -z %d -count %d -radius %d -outfit %s", self.selectX, self.selectY, self.selectZ, count, radius, outfit or ""))
+		return
+	end
+	for i=1,count do
 		local x = ZombRand(self.selectX-radius, self.selectX+radius+1);
 		local y = ZombRand(self.selectY-radius, self.selectY+radius+1);
-		-- force female or male chance if you've selected a outfit that's only for male or female
-		local outfit = self:getOutfit();
-		local femaleChance = nil;
-		if self.maleOutfits:contains(outfit) and not self.femaleOutfits:contains(outfit) then
-			femaleChance = 0;
-		end
-		if self.femaleOutfits:contains(outfit) and not self.maleOutfits:contains(outfit) then
-			femaleChance = 100;
-		end
 		addZombiesInOutfit(x, y, self.selectZ, 1, outfit, femaleChance);
 	end
 end
@@ -130,7 +135,11 @@ function ISSpawnHordeUI:getOutfit()
 end
 
 function ISSpawnHordeUI:onRemoveZombies()
-	local radius = self:getRadius();
+	local radius = self:getRadius() + 1;
+	if isClient() then
+		SendCommandToServer(string.format("/removezombies -x %d -y %d -z %d -radius %d", self.selectX, self.selectY, self.selectZ, radius))
+		return
+	end
 	for x=self.selectX-radius, self.selectX + radius do
 		for y=self.selectY-radius, self.selectY + radius do
 			local sq = getCell():getGridSquare(x,y,self.selectZ);

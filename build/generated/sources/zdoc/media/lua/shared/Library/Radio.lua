@@ -7,12 +7,13 @@
 Radio = {}
 
 ---@public
----@return float
-function Radio:getX() end
+---@param arg0 String
+---@return boolean
+function Radio:ReadFromWorldSprite(arg0) end
 
 ---@public
----@return IsoGridSquare
-function Radio:getSquare() end
+---@return DeviceData
+function Radio:getDeviceData() end
 
 ---Specified by:
 ---
@@ -21,40 +22,36 @@ function Radio:getSquare() end
 ---@return String
 function Radio:getTalkerType() end
 
+---Specified by:
+---
+---render in interface IUpdater
+---
+---Overrides:
+---
+---render in class DrainableComboItem
 ---@public
----@return boolean
-function Radio:HasPlayerInRange() end
-
----@public
----@return float
-function Radio:getY() end
+---@return void
+function Radio:render() end
 
 ---@public
 ---@param arg0 float
 ---@return void
 function Radio:setDelta(arg0) end
 
----Overrides:
----
----render in class DrainableComboItem
----
 ---Specified by:
 ---
----render in interface IUpdater
+---Say in interface Talker
 ---@public
+---@param line String
 ---@return void
-function Radio:render() end
+function Radio:Say(line) end
 
----Overrides:
----
----renderlast in class DrainableComboItem
----
 ---Specified by:
 ---
----renderlast in interface IUpdater
+---IsSpeaking in interface Talker
 ---@public
----@return void
-function Radio:renderlast() end
+---@return boolean
+function Radio:IsSpeaking() end
 
 ---Specified by:
 ---
@@ -66,19 +63,6 @@ function Radio:renderlast() end
 ---@public
 ---@return void
 function Radio:update() end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 boolean
----@return void
-function Radio:save(arg0, arg1) end
-
----@public
----@param arg0 ByteBuffer
----@param arg1 int
----@param arg2 boolean
----@return void
-function Radio:load(arg0, arg1, arg2) end
 
 ---@public
 ---@param arg0 String
@@ -102,39 +86,16 @@ function Radio:AddDeviceText(arg0, arg1, arg2, arg3, arg4, arg5) end
 function Radio:AddDeviceText(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return IsoPlayer
-function Radio:getPlayer() end
-
----@public
----@param arg0 int
----@return void
-function Radio:doReceiveSignal(arg0) end
-
----@public
----@param arg0 DeviceData
----@return void
-function Radio:setDeviceData(arg0) end
-
----@public
 ---@return float
 function Radio:getZ() end
 
 ---@public
----@param arg0 String
----@return boolean
-function Radio:ReadFromWorldSprite(arg0) end
-
----@public
----@return int
-function Radio:getSaveType() end
+---@return IsoGridSquare
+function Radio:getSquare() end
 
 ---@public
 ---@return float
-function Radio:getDelta() end
-
----@public
----@return DeviceData
-function Radio:getDeviceData() end
+function Radio:getX() end
 
 ---@public
 ---@return String
@@ -142,15 +103,53 @@ function Radio:getSayLine() end
 
 ---Specified by:
 ---
----IsSpeaking in interface Talker
+---renderlast in interface IUpdater
+---
+---Overrides:
+---
+---renderlast in class DrainableComboItem
+---@public
+---@return void
+function Radio:renderlast() end
+
 ---@public
 ---@return boolean
-function Radio:IsSpeaking() end
+function Radio:HasPlayerInRange() end
 
----Specified by:
----
----Say in interface Talker
 ---@public
----@param line String
+---@param arg0 ByteBuffer
+---@param arg1 boolean
 ---@return void
-function Radio:Say(line) end
+function Radio:save(arg0, arg1) end
+
+---@public
+---@return IsoPlayer
+function Radio:getPlayer() end
+
+---@public
+---@param arg0 DeviceData
+---@return void
+function Radio:setDeviceData(arg0) end
+
+---@public
+---@param arg0 int
+---@return void
+function Radio:doReceiveSignal(arg0) end
+
+---@public
+---@return int
+function Radio:getSaveType() end
+
+---@public
+---@return float
+function Radio:getY() end
+
+---@public
+---@param arg0 ByteBuffer
+---@param arg1 int
+---@return void
+function Radio:load(arg0, arg1) end
+
+---@public
+---@return float
+function Radio:getDelta() end

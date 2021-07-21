@@ -19,41 +19,11 @@ Mouse = {}
 
 ---@public
 ---@return int
-function Mouse:getX() end
+function Mouse:getWheelState() end
 
 ---@public
 ---@return boolean
-function Mouse:isRightUp() end
-
----@public
----@return boolean
-function Mouse:isMiddlePressed() end
-
----@public
----@return int
-function Mouse:getXA() end
-
----@public
----@param _number int
----@return boolean
-function Mouse:isButtonDownUICheck(_number) end
-
----@public
----@return boolean
-function Mouse:isMiddleDown() end
-
----@public
----@return boolean
-function Mouse:isRightReleased() end
-
----@public
----@return int
-function Mouse:getY() end
-
----@public
----@param _number int
----@return boolean
-function Mouse:isButtonDown(_number) end
+function Mouse:isLeftPressed() end
 
 ---@public
 ---@param _number int
@@ -61,20 +31,29 @@ function Mouse:isButtonDown(_number) end
 function Mouse:UIBlockButtonDown(_number) end
 
 ---@public
----@return boolean
-function Mouse:isMiddleUp() end
-
----@public
 ---@return int
-function Mouse:getYA() end
+function Mouse:getXA() end
+
+---@public
+---@return void
+function Mouse:poll() end
+
+---@public
+---@param arg0 boolean
+---@return void
+function Mouse:setGrabbed(arg0) end
 
 ---@public
 ---@return boolean
-function Mouse:isRightPressed() end
+function Mouse:isRightReleased() end
 
 ---@public
 ---@return boolean
-function Mouse:isMiddleReleased() end
+function Mouse:isRightUp() end
+
+---@public
+---@return boolean
+function Mouse:isMiddleDown() end
 
 ---@public
 ---@param arg0 int
@@ -83,9 +62,46 @@ function Mouse:isMiddleReleased() end
 function Mouse:setXY(arg0, arg1) end
 
 ---@public
----@param arg0 String
----@return Cursor
-function Mouse:loadCursor(arg0) end
+---@return boolean
+function Mouse:isMiddleUp() end
+
+---@public
+---@return void
+function Mouse:update() end
+
+---@public
+---@return boolean
+function Mouse:isMiddleReleased() end
+
+---@public
+---@param _number int
+---@return boolean
+function Mouse:isButtonDownUICheck(_number) end
+
+---@public
+---@return boolean
+function Mouse:isLeftUp() end
+
+---@public
+---@param _number int
+---@return boolean
+function Mouse:isButtonDown(_number) end
+
+---@public
+---@return boolean
+function Mouse:isRightPressed() end
+
+---@public
+---@return int
+function Mouse:getY() end
+
+---@public
+---@return int
+function Mouse:getYA() end
+
+---@public
+---@return int
+function Mouse:getX() end
 
 ---@public
 ---@return boolean
@@ -97,29 +113,13 @@ function Mouse:isLeftDown() end
 
 ---@public
 ---@return boolean
+function Mouse:isMiddlePressed() end
+
+---@public
+---@return boolean
 function Mouse:isRightDown() end
 
 ---@public
----@return void
-function Mouse:poll() end
-
----@public
----@return int
-function Mouse:getWheelState() end
-
----@public
----@return boolean
-function Mouse:isLeftUp() end
-
----@public
----@return boolean
-function Mouse:isLeftPressed() end
-
----@public
----@return void
-function Mouse:update() end
-
----@public
----@param arg0 boolean
----@return void
-function Mouse:setGrabbed(arg0) end
+---@param arg0 String
+---@return Cursor
+function Mouse:loadCursor(arg0) end

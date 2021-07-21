@@ -27,56 +27,13 @@
 WorldMarkers_GridSquareMarker = {}
 
 ---@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setSize(arg0) end
-
----@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setA(arg0) end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getY() end
-
----@public
----@return int
-function WorldMarkers_GridSquareMarker:getID() end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getAlpha() end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getAlphaMax() end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getSize() end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getA() end
-
----@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setAlpha(arg0) end
-
----@public
 ---@param arg0 boolean
 ---@return void
-function WorldMarkers_GridSquareMarker:setDoBlink(arg0) end
-
----@public
----@return boolean
-function WorldMarkers_GridSquareMarker:isDoAlpha() end
+function WorldMarkers_GridSquareMarker:setScaleCircleTexture(arg0) end
 
 ---@public
 ---@return float
-function WorldMarkers_GridSquareMarker:getZ() end
+function WorldMarkers_GridSquareMarker:getR() end
 
 ---@public
 ---@param arg0 int
@@ -88,17 +45,11 @@ function WorldMarkers_GridSquareMarker:setPosAndSize(arg0, arg1, arg2, arg3) end
 
 ---@public
 ---@return boolean
-function WorldMarkers_GridSquareMarker:isDoBlink() end
+function WorldMarkers_GridSquareMarker:isScaleCircleTexture() end
 
 ---@public
----@param arg0 boolean
----@return void
-function WorldMarkers_GridSquareMarker:setDoAlpha(arg0) end
-
----@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setAlphaMin(arg0) end
+---@return float
+function WorldMarkers_GridSquareMarker:getAlphaMin() end
 
 ---@public
 ---@param arg0 int
@@ -108,45 +59,29 @@ function WorldMarkers_GridSquareMarker:setAlphaMin(arg0) end
 function WorldMarkers_GridSquareMarker:setPos(arg0, arg1, arg2) end
 
 ---@public
----@return boolean
-function WorldMarkers_GridSquareMarker:isScaleCircleTexture() end
-
----@public
----@param arg0 boolean
----@return void
-function WorldMarkers_GridSquareMarker:setActive(arg0) end
-
----@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setAlphaMax(arg0) end
-
----@public
 ---@param arg0 float
 ---@return void
 function WorldMarkers_GridSquareMarker:setR(arg0) end
+
+---@public
+---@return boolean
+function WorldMarkers_GridSquareMarker:isDoAlpha() end
 
 ---@public
 ---@return void
 function WorldMarkers_GridSquareMarker:remove() end
 
 ---@public
----@return float
-function WorldMarkers_GridSquareMarker:getFadeSpeed() end
-
----@public
----@param arg0 float
----@return void
-function WorldMarkers_GridSquareMarker:setFadeSpeed(arg0) end
-
----@public
----@param arg0 boolean
----@return void
-function WorldMarkers_GridSquareMarker:setScaleCircleTexture(arg0) end
+---@return boolean
+function WorldMarkers_GridSquareMarker:isDoBlink() end
 
 ---@public
 ---@return float
-function WorldMarkers_GridSquareMarker:getR() end
+function WorldMarkers_GridSquareMarker:getX() end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getB() end
 
 ---@public
 ---@return boolean
@@ -154,7 +89,7 @@ function WorldMarkers_GridSquareMarker:isRemoved() end
 
 ---@public
 ---@return float
-function WorldMarkers_GridSquareMarker:getAlphaMin() end
+function WorldMarkers_GridSquareMarker:getSize() end
 
 ---@public
 ---@param arg0 float
@@ -162,9 +97,41 @@ function WorldMarkers_GridSquareMarker:getAlphaMin() end
 function WorldMarkers_GridSquareMarker:setG(arg0) end
 
 ---@public
+---@return boolean
+function WorldMarkers_GridSquareMarker:isActive() end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getA() end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setAlphaMin(arg0) end
+
+---@public
 ---@param arg0 float
 ---@return void
 function WorldMarkers_GridSquareMarker:setB(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function WorldMarkers_GridSquareMarker:setDoBlink(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setSize(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setA(arg0) end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getZ() end
 
 ---@public
 ---@param arg0 String
@@ -177,12 +144,9 @@ function WorldMarkers_GridSquareMarker:setB(arg0) end
 function WorldMarkers_GridSquareMarker:init(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return boolean
-function WorldMarkers_GridSquareMarker:isActive() end
-
----@public
----@return float
-function WorldMarkers_GridSquareMarker:getX() end
+---@param arg0 boolean
+---@return void
+function WorldMarkers_GridSquareMarker:setDoAlpha(arg0) end
 
 ---@public
 ---@return float
@@ -190,4 +154,40 @@ function WorldMarkers_GridSquareMarker:getG() end
 
 ---@public
 ---@return float
-function WorldMarkers_GridSquareMarker:getB() end
+function WorldMarkers_GridSquareMarker:getAlphaMax() end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setAlpha(arg0) end
+
+---@public
+---@param arg0 boolean
+---@return void
+function WorldMarkers_GridSquareMarker:setActive(arg0) end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setAlphaMax(arg0) end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getFadeSpeed() end
+
+---@public
+---@return int
+function WorldMarkers_GridSquareMarker:getID() end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getY() end
+
+---@public
+---@return float
+function WorldMarkers_GridSquareMarker:getAlpha() end
+
+---@public
+---@param arg0 float
+---@return void
+function WorldMarkers_GridSquareMarker:setFadeSpeed(arg0) end

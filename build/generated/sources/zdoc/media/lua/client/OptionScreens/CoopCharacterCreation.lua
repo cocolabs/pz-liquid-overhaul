@@ -72,18 +72,20 @@ function CoopCharacterCreation:accept()
 		return
 	end
 
-	self.joypadData.player = self.playerIndex
---	self.joypadData.player = 3
-	JoypadState.players[self.joypadData.player+1] = self.joypadData
+	local controller = self.joypadData.controller
+	local joypadData = JoypadState.joypads[self.playerIndex+1]
+	JoypadState.players[self.playerIndex+1] = joypadData
+	joypadData.player = self.playerIndex
+	joypadData:setController(controller)
+	joypadData:setActive(true)
 	local username = nil
 	if isClient() and self.playerIndex > 0 then
 		username = CoopUserName.instance:getUserName()
 	end
-	setPlayerJoypad(self.joypadData.player, self.joypadIndex, nil, username)
+	setPlayerJoypad(self.playerIndex, self.joypadIndex, nil, username)
 
-	self.joypadData.listBox:setVisible(false)
-	self.joypadData.listBox:removeFromUIManager()
 	self.joypadData.focus = nil
+	self.joypadData.lastfocus = nil
 	self.joypadData.prevfocus = nil
 	self.joypadData.prevprevfocus = nil
 end
@@ -100,7 +102,8 @@ function CoopCharacterCreation:cancel()
 	
 	if self.joypadData then
 		self.joypadData.activeWhilePaused = nil
-		self.joypadData.focus = self.joypadData.listBox
+		self.joypadData.focus = nil -- self.joypadData.listBox
+		self.joypadData.lastfocus = nil
 		self.joypadData.prevfocus = nil
 		self.joypadData.prevprevfocus = nil
 	end
@@ -273,6 +276,14 @@ function CoopCharacterCreation:newPlayerMouse()
 	else
 		w.mapSpawnSelect:useDefaultSpawnRegion()
 		w.charCreationProfession:setVisible(true)
+	end
+end
+
+function CoopCharacterCreation:OnJoypadBeforeDeactivate(index)
+	if self.joypadData and (self.joypadData.id == index) then
+		-- Controller disconnected, cancel creation.
+		-- Other windows are children of this ui.
+		self:cancel()
 	end
 end
 

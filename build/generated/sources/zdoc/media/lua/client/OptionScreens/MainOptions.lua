@@ -61,6 +61,16 @@ function GameOption:resetLua()
 	MainOptions.instance.resetLua = true
 end
 
+function GameOption:restartRequired(oldValue, newValue)
+	if getCore():getOptionOnStartup(self.name) == nil then
+		getCore():setOptionOnStartup(self.name, oldValue)
+	end
+	if getCore():getOptionOnStartup(self.name) == newValue then
+		return
+	end
+	MainOptions.instance.restartRequired = true
+end
+
 function GameOption:onChangeComboBox(box)
 	self.gameOptions:onChange(self)
 	if self.onChange then
@@ -307,6 +317,8 @@ function MainOptions:addPage(name)
 	
 	self.mainPanel.onJoypadDown = MainOptions.onJoypadDownCurrentTab
 	self.mainPanel.onGainJoypadFocus = MainOptions.onGainJoypadFocusCurrentTab
+	self.mainPanel.onLoseJoypadFocus = MainOptions.onLoseJoypadFocusCurrentTab
+	self.mainPanel.onJoypadBeforeDeactivate = MainOptions.onJoypadBeforeDeactivateCurrentTab
 
 	-- rerouting the main panel's pre / render functions so we can add in the stencil stuff there...
 	self.mainPanel.render = MainOptions.subPanelRender
@@ -460,6 +472,7 @@ function MainOptions:create()
 	end
 	function gameOption.apply(self)
 		local box = self.control
+		self:restartRequired(getCore():getOptionBorderlessWindow(), box:isSelected(1))
 		getCore():setOptionBorderlessWindow(box:isSelected(1))
 	end
 	self.gameOptions:add(gameOption)
@@ -495,6 +508,7 @@ function MainOptions:create()
 	end
 	function gameOption.apply(self)
 		local box = self.control
+		self:restartRequired(getCore():isMultiThread(), box:isSelected(1))
 		getCore():setMultiThread(box:isSelected(1))
 	end
 	self.gameOptions:add(gameOption)
@@ -732,6 +746,7 @@ function MainOptions:create()
 	end
 	function gameOption.apply(self)
 		local box = self.control
+		self:restartRequired(getCore():getOptionTextureCompression(), box:isSelected(1))
 		getCore():setOptionTextureCompression(box:isSelected(1))
 	end
 	self.gameOptions:add(gameOption)
@@ -747,6 +762,7 @@ function MainOptions:create()
 	end
 	function gameOption.apply(self)
 		local box = self.control
+		self:restartRequired(getCore():getOptionTexture2x(), box:isSelected(1))
 		getCore():setOptionTexture2x(box:isSelected(1))
 	end
 	self.gameOptions:add(gameOption)
@@ -755,7 +771,10 @@ function MainOptions:create()
 	local simpleClothingTex = self:addCombo(splitpoint, y, comboWidth, 20, getText("UI_optionscreen_SimpleClothingTextures"),
 		{ getText("UI_optionscreen_SimpleClothingTextures1"), getText("UI_optionscreen_SimpleClothingTextures2"), getText("UI_optionscreen_SimpleClothingTextures3") },
 		1);
-	simpleClothingTex.tooltip = getText("UI_optionscreen_SimpleClothingTextures_tt");
+
+	local map = {}
+	map["defaultTooltip"] = getText("UI_optionscreen_SimpleClothingTextures_tt")
+	simpleClothingTex:setToolTipMap(map)
 
 	gameOption = GameOption:new('simpleClothingTex', simpleClothingTex)
 	function gameOption.toUI(self)
@@ -782,6 +801,25 @@ function MainOptions:create()
 		getCore():setOptionSimpleWeaponTextures(box:isSelected(1))
 	end
 	self.gameOptions:add(gameOption)
+
+--[[
+	-- Disabled because it's too slow to create the mipmaps.
+	----- MODEL TEXTURE MIPMAPS -----
+    local modelTextureMipmaps = self:addYesNo(splitpoint, y, comboWidth, 20, getText("UI_optionscreen_ModelTextureMipmaps"));
+    modelTextureMipmaps.tooltip = getText("UI_optionscreen_ModelTextureMipmaps_tt");
+
+	gameOption = GameOption:new('modelTextureMipmaps', modelTextureMipmaps)
+	function gameOption.toUI(self)
+		local box = self.control
+		box:setSelected(1, getCore():getOptionModelTextureMipmaps())
+	end
+	function gameOption.apply(self)
+		local box = self.control
+		self:restartRequired(getCore():getOptionModelTextureMipmaps(), box:isSelected(1))
+		getCore():setOptionModelTextureMipmaps(box:isSelected(1))
+	end
+	self.gameOptions:add(gameOption)
+]]--
 
 	----- LIGHTING QUALITY -----
     local lighting = self:addCombo(splitpoint, y, comboWidth, 20, getText("UI_optionscreen_lighting"), {getText("UI_High"), getText("UI_Medium"), getText("UI_Low"), getText("UI_Lowest")}, 1);
@@ -1203,13 +1241,7 @@ function MainOptions:create()
 		if box.options[box.selected] then
             getCore():setPerfSkybox(box.selected-1)
             if getCore():getPerfSkyboxOnLoad() ~= getCore():getPerfSkybox() then
-                local player = 0
-                local modal = ISModalDialog:new(getCore():getScreenWidth() / 2 - 175,getCore():getScreenHeight() / 2 - 75, 350, 150, getText("UI_restart_game_to_apply"), false, nil, nil, player, player, bed);
-                modal:initialise()
-                modal:addToUIManager()
-                if JoypadState.players[player+1] then
-                    setJoypadFocus(player, modal)
-                end
+                self:restartRequired(getCore():getPerfSkyboxOnLoad(), getCore():getPerfSkybox())
             end
 		end
 	end
@@ -1245,13 +1277,7 @@ function MainOptions:create()
 		if box.options[box.selected] then
             getCore():setPerfPuddles(box.selected-1)
             if (getCore():getPerfPuddlesOnLoad() ~= getCore():getPerfPuddles()) and (getCore():getPerfPuddlesOnLoad() == 3) then
-                local player = 0
-                local modal = ISModalDialog:new(getCore():getScreenWidth() / 2 - 175,getCore():getScreenHeight() / 2 - 75, 350, 150, getText("UI_restart_game_to_apply"), false, nil, nil, player, player, bed);
-                modal:initialise()
-                modal:addToUIManager()
-                if JoypadState.players[player+1] then
-                    setJoypadFocus(player, modal)
-                end
+                self:restartRequired(getCore():getPerfPuddlesOnLoad(), getCore():getPerfPuddles())
             end
 		end
 	end
@@ -1286,13 +1312,7 @@ function MainOptions:create()
 		local box = self.control
 		getCore():setPerfReflections(box:isSelected(1))
 		if getCore():getPerfReflectionsOnLoad() ~= getCore():getPerfReflections() then
-			local player = 0
-			local modal = ISModalDialog:new(getCore():getScreenWidth() / 2 - 175,getCore():getScreenHeight() / 2 - 75, 350, 150, getText("UI_restart_game_to_apply"), false, nil, nil, player, player, bed);
-			modal:initialise()
-			modal:addToUIManager()
-			if JoypadState.players[player+1] then
-				setJoypadFocus(player, modal)
-			end
+			self:restartRequired(getCore():getPerfReflectionsOnLoad(), getCore():getPerfReflections())
 		end
 	end
 	self.gameOptions:add(gameOption)
@@ -1682,6 +1702,7 @@ function MainOptions:create()
 			self.mainPanel:addChild(btn);
 
 			keyTextElement.txt = label;
+			keyTextElement.keyCode = tonumber(v.key) or 0
 			keyTextElement.btn = btn;
 			keyTextElement.left = left
 			table.insert(MainOptions.keyText, keyTextElement);
@@ -2082,61 +2103,72 @@ function MainOptions:create()
     local controllerTickBox = ISTickBox:new(x + 20, label:getY() + label:getHeight() + 10, 200, 20, "HELLO?")
     controllerTickBox.choicesColor = {r=1, g=1, b=1, a=1}
     controllerTickBox:initialise();
-	self.mainPanel:insertNewLineOfButtons(controllerTickBox)
     self.mainPanel:addChild(controllerTickBox)
+
 	for i = 0, getControllerCount()-1 do
-		local name = getControllerName(i)
-		controllerTickBox:addOption(name, nil)
+		if isControllerConnected(i) then
+			local name = getControllerName(i)
+			controllerTickBox:addOption(name, nil)
+		end
 	end
 
 	gameOption = GameOption:new('controllers', controllerTickBox)
 	function gameOption.toUI(self)
 		local box = self.control
+		box:clearOptions()
 		for i = 1,getControllerCount() do
-			local name = getControllerName(i-1)
-			local active = getCore():getOptionActiveController(name)
-			box:setSelected(i, active)
+			if isControllerConnected(i-1) then
+				local name = getControllerName(i-1)
+				local guid = getControllerGUID(i-1)
+				local index = box:addOption(name, i-1)
+				local active = getCore():getOptionActiveController(guid)
+				box:setSelected(index, active)
+			end
 		end
 	end
 	function gameOption.apply(self)
 		local box = self.control
-		for i = 1,getControllerCount() do
-			getCore():setOptionActiveController(i-1, box:isSelected(i))
+		for i = 1,box:getOptionCount() do
+			local controllerIndex = box:getOptionData(i)
+			getCore():setOptionActiveController(controllerIndex, box:isSelected(i))
 		end
 	end
 	self.gameOptions:add(gameOption)
 
-    y = controllerTickBox:getY() + controllerTickBox:getHeight()
+	y = controllerTickBox:getY() + controllerTickBox:getHeight()
 
-	local btn = ISButton:new(x, y + 10, 120, fontHgtSmall + 2 * 2, getText("UI_optionscreen_controller_reload"), self, MainOptions.ControllerReload)
+	local panel = ISPanel:new(x, y, self.width / 2 - x, 100)
+	panel:noBackground()
+	self.mainPanel:addChild(panel)
+	self.stuffBelowControllerTickbox = panel
+
+	local btn = ISButton:new(0, 10, 120, fontHgtSmall + 2 * 2, getText("UI_optionscreen_controller_reload"), self, MainOptions.ControllerReload)
 	btn:initialise()
 	btn:instantiate()
-	self.mainPanel:insertNewLineOfButtons(btn)
-	self.mainPanel:addChild(btn)
+	self.stuffBelowControllerTickbox:addChild(btn)
 	
 	y = btn:getY() + btn:getHeight()
 	
-	label = ISLabel:new(x, y + 10, fontHgtSmall, getText("UI_optionscreen_gamepad_sensitivity"), 1, 1, 1, 1, UIFont.Medium, true)
+	label = ISLabel:new(0, y + 10, fontHgtSmall, getText("UI_optionscreen_gamepad_sensitivity"), 1, 1, 1, 1, UIFont.Medium, true)
 	label:initialise()
-	self.mainPanel:addChild(label)
+	self.stuffBelowControllerTickbox:addChild(label)
 	
 	y = label:getY() + label:getHeight()
 
 	local buttonSize = fontHgtSmall
-	self.btnJoypadSensitivityM = ISButton:new(x, y + 10, buttonSize, buttonSize, "-", self, MainOptions.joypadSensitivityM)
+	self.btnJoypadSensitivityM = ISButton:new(0, y + 10, buttonSize, buttonSize, "-", self, MainOptions.joypadSensitivityM)
 	self.btnJoypadSensitivityM:initialise()
 	self.btnJoypadSensitivityM:instantiate()
 	self.btnJoypadSensitivityM:setEnable(false)
-	self.mainPanel:addChild(self.btnJoypadSensitivityM)
+	self.stuffBelowControllerTickbox:addChild(self.btnJoypadSensitivityM)
 	self.labelJoypadSensitivity = ISLabel:new(self.btnJoypadSensitivityM:getX()+self.btnJoypadSensitivityM:getWidth()+10, y + 10, fontHgtSmall, getText("UI_optionscreen_select_gamepad"), 1, 1, 1, 1, UIFont.Small, true)
 	self.labelJoypadSensitivity:initialise()
-	self.mainPanel:addChild(self.labelJoypadSensitivity)
+	self.stuffBelowControllerTickbox:addChild(self.labelJoypadSensitivity)
 	self.btnJoypadSensitivityP = ISButton:new(self.labelJoypadSensitivity:getX()+self.labelJoypadSensitivity:getWidth()+10, y + 10, buttonSize, buttonSize, "+", self, MainOptions.joypadSensitivityP)
 	self.btnJoypadSensitivityP:initialise()
 	self.btnJoypadSensitivityP:instantiate()
 	self.btnJoypadSensitivityP:setEnable(false)
-	self.mainPanel:insertNewLineOfButtons(self.btnJoypadSensitivityM, self.btnJoypadSensitivityP)
-	self.mainPanel:addChild(self.btnJoypadSensitivityP)
+	self.stuffBelowControllerTickbox:addChild(self.btnJoypadSensitivityP)
 
 
 	local panel = ISControllerTestPanel:new(self.width / 2, 20, (self.width - 64 - (self.width / 2)), self.mainPanel.height - 20 - 20)
@@ -2147,7 +2179,10 @@ function MainOptions:create()
 	panel:initialise()
 	self.mainPanel:addChild(panel)
 	self.controllerTestPanel = panel
-	self.mainPanel:insertNewLineOfButtons(self.controllerTestPanel.combo)
+
+	self.mainPanel:insertNewLineOfButtons(controllerTickBox, self.controllerTestPanel.combo)
+	self.mainPanel:insertNewLineOfButtons(btn)
+	self.mainPanel:insertNewLineOfButtons(self.btnJoypadSensitivityM, self.btnJoypadSensitivityP)
 	
 --[[
 	----- GAMEPLAY PAGE -----
@@ -2267,12 +2302,12 @@ function MainOptions:create()
 		local fileOutput = getFileWriter("keys.ini", true, false)
 		fileOutput:write("VERSION="..tostring(MainOptions.KEYS_VERSION).."\r\n")
 		for i,v in ipairs(MainOptions.keyText) do
-			-- if it's a label (like [Player Controls])
+			-- if it's a label (like [Player Visual])
 			if v.value then
 				fileOutput:write(v.value .. "\r\n")
 			else
-				fileOutput:write(v.txt:getName() .. "=" .. getKeyCode(v.btn:getTitle()) .. "\r\n")
-				getCore():addKeyBinding(v.txt:getName(), getKeyCode(v.btn:getTitle()))
+				fileOutput:write(v.txt:getName() .. "=" .. v.keyCode .. "\r\n")
+				getCore():addKeyBinding(v.txt:getName(), v.keyCode)
 			end
 		end
 		fileOutput:close()
@@ -2333,10 +2368,24 @@ function MainOptions:onGameSounds()
 	ui:instantiate()
 	MainScreen.instance:addChild(ui)
 	ui:setVisible(true, self.joyfocus)
+	self.gameSounds = ui
 end
 
 function MainOptions:toUI()
+	-- Hack to handle the user switching between QWERTY and AZERTY keyboard layouts.
+	-- Hopefully GLFW will generate an event for this eventually.
+	self:onKeyboardLayoutChanged()
+
 	self.gameOptions:toUI()
+end
+
+function MainOptions:onKeyboardLayoutChanged()
+	Keyboard.initKeyNames()
+	for k,v in ipairs(MainOptions.keyText) do
+		if not v.value then
+			v.btn:setTitle(getKeyName(v.keyCode));
+		end
+	end
 end
 
 function MainOptions:showConfirmDialog()
@@ -2389,8 +2438,10 @@ function MainOptions:showConfirmMonitorSettingsDialog(closeAfter)
 	self.modal:setCapture(true)
 	self.modal:setAlwaysOnTop(true)
 	self.modal:addToUIManager()
-	if self.joyfocus then
-		self.joyfocus.focus = self.modal
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then
+		self.modal.prevFocus = joypadData.focus
+		joypadData.focus = self.modal
 		updateJoypadFocus(self.joyfocus)
 	end
 	return true
@@ -2412,6 +2463,32 @@ function MainOptions:onConfirmMonitorSettingsClick(button, closeAfter)
 	end
 	if closeAfter then
 		self:close()
+	end
+end
+
+function MainOptions:showRestartRequiredDialog(closeAfter)
+	local player = 0
+	local modal = ISModalDialog:new(getCore():getScreenWidth() / 2 - 175, getCore():getScreenHeight() / 2 - 75, 350, 150,
+		getText("UI_restart_game_to_apply"), false, self, MainOptions.onRestartRequiredClick, player, closeAfter)
+	modal:initialise()
+	modal:setCapture(true)
+	modal:setAlwaysOnTop(true)
+	modal:addToUIManager()
+	local joypadData = JoypadState.getMainMenuJoypad()
+	if joypadData then
+		modal.prevFocus = joypadData.focus
+		joypadData.focus = modal
+		updateJoypadFocus(joypadData)
+	end
+end
+
+function MainOptions:onRestartRequiredClick(button, closeAfter)
+	if closeAfter then
+		self:close()
+	end
+
+	if self.resetLua and not MainScreen.instance.inGame then
+		getCore():DelayResetLua("default", closeAfter and "optionsChangedAccepted" or "optionsChangedApplied")
 	end
 end
 
@@ -2577,6 +2654,8 @@ end
 function MainOptions:prerender()
 	ISPanelJoypad.prerender(self);
 
+	MainOptions.instance = self;
+
 --	self.mainPanel:setY(self:getYScroll());
 --~ 	self.mainPanel:setStencilRect(0,self:getYScroll() + self.mainPanel:getY(),600,300);
 --~ 	self:drawRect(0, -self.mainPanel:getYScroll(), self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
@@ -2638,7 +2717,7 @@ function MainOptions:onOptionMouseDown(button, x, y)
 		for o,l in ipairs(MainOptions.keyText) do
 			-- text
 			if not l.value then
-				l.btn:setTitle(getKeyName(tonumber(MainOptions.keys[o].key)));
+				l.btn:setTitle(getKeyName(l.keyCode));
 			end
 		end
 		self:close()
@@ -2655,12 +2734,12 @@ MainOptions.saveKeys = function()
 	local fileOutput = getFileWriter("keys.ini", true, false)
 	fileOutput:write("VERSION="..tostring(MainOptions.KEYS_VERSION).."\r\n")
 	for i,v in ipairs(MainOptions.keyText) do
-		-- if it's a label (like [Player Controls])
+		-- if it's a label (like [Player Visual])
 		if v.value then
 			fileOutput:write(v.value .. "\r\n")
 		else
-			fileOutput:write(v.txt:getName() .. "=" .. getKeyCode(v.btn:getTitle()) .. "\r\n")
-			getCore():addKeyBinding(v.txt:getName(), getKeyCode(v.btn:getTitle()))
+			fileOutput:write(v.txt:getName() .. "=" .. v.keyCode .. "\r\n")
+			getCore():addKeyBinding(v.txt:getName(), v.keyCode)
 		end
 	end
 	fileOutput:close()
@@ -2677,6 +2756,7 @@ function MainOptions:apply(closeAfter)
 	self.monitorSettings.vsync = getCore():getOptionVSync()
 
 	self.resetLua = false
+	self.restartRequired = false
 
 	self.gameOptions:apply()
 	getCore():saveOptions()
@@ -2684,6 +2764,11 @@ function MainOptions:apply(closeAfter)
 
 	if self.monitorSettings.changed then
 		self:showConfirmMonitorSettingsDialog(closeAfter)
+		return false
+	end
+
+	if self.restartRequired then
+		self:showRestartRequiredDialog(closeAfter)
 		return false
 	end
 
@@ -2717,10 +2802,8 @@ function MainOptions.keyPressHandler(key)
 			-- we ignore label (like [Player Control])
 			if not v.value then
 				if v.txt:getName() == keybindName then -- get our current btn pressed
-					keyBinded = v.btn;
-				elseif getKeyName(key) == v.btn:getTitle() then -- if the key you pressed is the same as another
-					MainOptions.alreadySetKeyName = v.txt:getName();
-					MainOptions.alreadySetKeyValue = v.btn:getTitle();
+					keyBinded = v;
+				elseif key == v.keyCode then -- if the key you pressed is the same as another
 					local modal = ISDuplicateKeybindDialog:new(key, keybindName, v.txt:getName())
 					modal:initialise();
 					modal:addToUIManager();
@@ -2732,7 +2815,8 @@ function MainOptions.keyPressHandler(key)
 			end
 		end
 		if not error then
-			keyBinded:setTitle(getKeyName(key));
+			keyBinded.keyCode = key;
+			keyBinded.btn:setTitle(getKeyName(key));
 			MainOptions.instance:onKeybindChanged(keybindName, key)
 			MainOptions.instance.gameOptions.changed = true
 		end
@@ -2928,9 +3012,20 @@ function MainOptions:onGainJoypadFocusCurrentTab(joypadData)
 			if self.joypadIndex > #self.joypadButtons then
 				self.joypadIndex = #self.joypadButtons
 			end
-			self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
 		end
 	end
+	if self.joypadButtons and self.joypadButtons[self.joypadIndex] then
+		self.joypadButtons[self.joypadIndex]:setJoypadFocused(true, joypadData)
+	end
+end
+
+function MainOptions:onLoseJoypadFocusCurrentTab(joypadData)
+	self:clearJoypadFocus()
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+end
+
+function MainOptions:onJoypadBeforeDeactivateCurrentTab(joypadData)
+	self.parent.parent:onJoypadBeforeDeactivate(joypadData)
 end
 
 function MainOptions:onJoypadDownCurrentTab(button, joypadData)
@@ -2959,6 +3054,42 @@ function MainOptions:onJoypadDownCurrentTab(button, joypadData)
 	end
 end
 
+function MainOptions.OnGamepadConnect(index)
+	if not MainOptions.instance then return end
+	local gameOption = MainOptions.instance.gameOptions:get("controllers")
+	if gameOption then
+		gameOption:toUI()
+		if MainOptions.instance.stuffBelowControllerTickbox then
+			MainOptions.instance.stuffBelowControllerTickbox:setY(gameOption.control:getBottom())
+		end
+	end
+	if MainOptions.instance.controllerTestPanel then
+		MainOptions.instance.controllerTestPanel:OnGamepadConnect(index)
+	end
+end
+
+function MainOptions.OnGamepadDisconnect(index)
+	if not MainOptions.instance then return end
+	local gameOption = MainOptions.instance.gameOptions:get("controllers")
+	if gameOption then
+		gameOption:toUI()
+		gameOption:toUI()
+		if MainOptions.instance.stuffBelowControllerTickbox then
+			MainOptions.instance.stuffBelowControllerTickbox:setY(gameOption.control:getBottom())
+		end
+	end
+	if MainOptions.instance.controllerTestPanel then
+		MainOptions.instance.controllerTestPanel:OnGamepadDisconnect(index)
+	end
+end
+
+function MainOptions:onJoypadBeforeDeactivate(joypadData)
+	self.acceptButton:clearJoypadButton()
+	self.backButton:clearJoypadButton()
+	self.saveButton:clearJoypadButton()
+	self.joyfocus = nil
+end
+
 function MainOptions:new (x, y, width, height)
 	local o = {}
 	--o.data = {}
@@ -2984,3 +3115,6 @@ end
 --Events.OnCustomUIKey.Add(MainOptions.keyPressHandler);
 
 --Events.OnMainMenuEnter.Add(testWorldPanel);
+
+Events.OnGamepadConnect.Add(MainOptions.OnGamepadConnect)
+Events.OnGamepadDisconnect.Add(MainOptions.OnGamepadDisconnect)

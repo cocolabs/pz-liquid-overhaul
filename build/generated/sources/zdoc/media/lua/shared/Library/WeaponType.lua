@@ -16,21 +16,13 @@
 WeaponType = {}
 
 ---@public
----@return WeaponType[]
-function WeaponType:values() end
-
----@public
----@return String
-function WeaponType:getType() end
-
----@public
----@param arg0 HandWeapon
+---@param arg0 IsoGameCharacter
 ---@return WeaponType
----@overload fun(arg0:IsoGameCharacter)
+---@overload fun(arg0:HandWeapon)
 function WeaponType:getWeaponType(arg0) end
 
 ---@public
----@param arg0 IsoGameCharacter
+---@param arg0 HandWeapon
 ---@return WeaponType
 function WeaponType:getWeaponType(arg0) end
 
@@ -38,3 +30,11 @@ function WeaponType:getWeaponType(arg0) end
 ---@param arg0 String
 ---@return WeaponType
 function WeaponType:valueOf(arg0) end
+
+---@public
+---@return String
+function WeaponType:getType() end
+
+---@public
+---@return WeaponType[]
+function WeaponType:values() end

@@ -29,14 +29,24 @@ GameLoadingState = {}
 
 ---Overrides:
 ---
+---enter in class GameState
+---@public
+---@return void
+function GameLoadingState:enter() end
+
+---Overrides:
+---
 ---update in class GameState
 ---@public
 ---@return GameStateMachine.StateAction
 function GameLoadingState:update() end
 
+---Overrides:
+---
+---render in class GameState
 ---@public
 ---@return void
-function GameLoadingState:Done() end
+function GameLoadingState:render() end
 
 ---Overrides:
 ---
@@ -52,16 +62,6 @@ function GameLoadingState:exit() end
 ---@return GameState
 function GameLoadingState:redirectState() end
 
----Overrides:
----
----render in class GameState
 ---@public
 ---@return void
-function GameLoadingState:render() end
-
----Overrides:
----
----enter in class GameState
----@public
----@return void
-function GameLoadingState:enter() end
+function GameLoadingState:Done() end

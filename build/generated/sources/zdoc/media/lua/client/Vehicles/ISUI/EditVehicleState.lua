@@ -801,6 +801,8 @@ function EditChassis:toUI()
 	self.list:addItem("centerOfMassOffset", "centerOfMassOffset")
 	self.list:addItem("extents", "extents")
 	self.list:addItem("physicsChassisShape", "physicsChassisShape")
+	self.list:addItem("shadowExtents", "shadowExtents")
+	self.list:addItem("shadowOffset", "shadowOffset")
 end
 
 function EditChassis:doDrawItem(y, item, alt)
@@ -821,6 +823,7 @@ function EditChassis:doDrawItem(y, item, alt)
 
 	local scale = self.parent:isScaleVehicle() and 1 or (1 / self.parent.script:getModelScale())
 	local offset = nil
+	local offset2 = nil
 	if which == "model.offset" then
 		offset = self.parent.script:getModel():getOffset()
 	elseif which == "model.scale" then
@@ -832,9 +835,16 @@ function EditChassis:doDrawItem(y, item, alt)
 		offset = self.parent.script:getExtents()
 	elseif which == "physicsChassisShape" then
 		offset = self.parent.script:getPhysicsChassisShape()
+	elseif which == "shadowExtents" then
+		offset2 = self.parent.script:getShadowExtents()
+	elseif which == "shadowOffset" then
+		offset2 = self.parent.script:getShadowOffset()
 	end
 	if offset then
 		drawVector(self, "", x + indent, y, offset:x() * scale, offset:y() * scale, offset:z() * scale)
+	end
+	if offset2 then
+		drawVector(self, "", x + indent, y, offset2:x() * scale, 0.0, offset2:y() * scale)
 	end
 	y = y + FONT_HGT_SMALL
 
@@ -902,6 +912,28 @@ function EditChassis:prerenderEditor()
 				end
 			end
 		end
+		if which == "shadowExtents" then
+			local offset = self.script:getShadowOffset()
+			local extents = self.script:getShadowExtents()
+			local ox,oy,oz = offset:x() / scale, 0.0, offset:y() / scale
+			self:java3("setGizmoXYZ", ox, oy, oz)
+			self:java1("setGizmoVisible", "scale")
+			self:java2("setGizmoOrigin", "none")
+			self.tempVector3f_1:set(offset:x(), 0.0, offset:y())
+			self.tempVector3f_2:set(extents:x(), 0.2, extents:y())
+			self:addAABB(self.tempVector3f_2, self.tempVector3f_1, 0, 1, 0)
+		end
+		if which == "shadowOffset" then
+			local offset = self.script:getShadowOffset()
+			local extents = self.script:getShadowExtents()
+			local ox,oy,oz = offset:x() / scale, 0.0, offset:y() / scale
+			self:java3("setGizmoXYZ", ox, oy, oz)
+			self:java1("setGizmoVisible", "translate")
+			self:java2("setGizmoOrigin", "none")
+			self.tempVector3f_1:set(offset:x(), 0.0, offset:y())
+			self.tempVector3f_2:set(extents:x(), 0.2, extents:y())
+			self:addAABB(self.tempVector3f_2, self.tempVector3f_1, 0, 1, 0)
+		end
 	end
 end
 
@@ -948,6 +980,12 @@ function EditChassis:onGizmoStart()
 		if which == "physicsChassisShape" then
 			self.originalChassisExtents = Vector3f.new(self.script:getPhysicsChassisShape())
 		end
+		if which == "shadowExtents" then
+			self.originalShadowExtents = Vector2f.new(self.script:getShadowExtents())
+		end
+		if which == "shadowOffset" then
+			self.originalShadowOffset = Vector2f.new(self.script:getShadowOffset())
+		end
 	end
 end
 
@@ -990,6 +1028,12 @@ function EditChassis:onGizmoChanged(delta)
 			if extents:z() < 0.1 then extents:setComponent(2, 0.1) end
 			self.script:getPhysicsChassisShape():set(extents)
 		end
+		if which == "shadowExtents" then
+			self.script:getShadowExtents():set(self.originalShadowExtents):add(delta:x(), delta:z())
+		end
+		if which == "shadowOffset" then
+			self.script:getShadowOffset():set(self.originalShadowOffset):add(delta:x(), delta:z())
+		end
 	end
 end
 
@@ -1012,11 +1056,19 @@ function EditChassis:onGizmoCancel()
 		if which == "physicsChassisShape" then
 			self.script:getPhysicsChassisShape():set(self.originalChassisExtents)
 		end
+		if which == "shadowExtents" then
+			self.script:getShadowExtents():set(self.originalShadowExtents)
+		end
+		if which == "shadowOffset" then
+			self.script:getShadowOffset():set(self.originalShadowOffset)
+		end
 	end
 end
 
 function EditChassis:new(x, y, width, height)
 	local o = EditPanel.new(self, x, y, width, height)
+	o.tempVector3f_1 = Vector3f:new()
+	o.tempVector3f_2 = Vector3f:new()
 	return o
 end
 

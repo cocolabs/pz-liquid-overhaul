@@ -1,5 +1,4 @@
----@class Keyboard : org.lwjgl.input.Keyboard
----@field public EVENT_SIZE int
+---@class Keyboard : org.lwjglx.input.Keyboard
 ---@field public CHAR_NONE int
 ---@field public KEY_NONE int
 ---@field public KEY_ESCAPE int
@@ -134,63 +133,24 @@
 ---@field public KEY_APPS int
 ---@field public KEY_POWER int
 ---@field public KEY_SLEEP int
+---@field private queue EventQueue
+---@field private keyEvents int[]
+---@field private keyEventStates boolean[]
+---@field private nanoTimeEvents long[]
+---@field private keyEventChars char[]
+---@field private repeatEvents boolean
 ---@field public KEYBOARD_SIZE int
----@field private BUFFER_SIZE int
 ---@field private keyName String[]
 ---@field private keyMap Map|Unknown|Unknown
----@field private counter int
----@field private keyCount int
----@field private created boolean
----@field private repeat_enabled boolean
----@field private keyDownBuffer ByteBuffer
----@field private readBuffer ByteBuffer
----@field private current_event Keyboard.KeyEvent
----@field private tmp_event Keyboard.KeyEvent
----@field private initialized boolean
----@field private implementation InputImplementation
 Keyboard = {}
 
----@private
----@return void
-function Keyboard:reset() end
+---@public
+---@return boolean
+function Keyboard:next() end
 
 ---@public
 ---@return boolean
-function Keyboard:isCreated() end
-
----@public
----@return int
-function Keyboard:getEventKey() end
-
----@public
----@return void
-function Keyboard:poll() end
-
----@public
----@return void
----@overload fun(arg0:InputImplementation)
-function Keyboard:create() end
-
----@private
----@param arg0 InputImplementation
----@return void
-function Keyboard:create(arg0) end
-
----@public
----@return int
-function Keyboard:getNumKeyboardEvents() end
-
----@public
----@return boolean
-function Keyboard:areRepeatEventsEnabled() end
-
----@public
----@return void
-function Keyboard:destroy() end
-
----@private
----@return void
-function Keyboard:initialize() end
+function Keyboard:isRepeatEvent() end
 
 ---@public
 ---@param arg0 int
@@ -198,42 +158,27 @@ function Keyboard:initialize() end
 function Keyboard:isKeyDown(arg0) end
 
 ---@public
----@return char
-function Keyboard:getEventCharacter() end
-
----@public
----@return boolean
-function Keyboard:isRepeatEvent() end
-
----@public
----@return boolean
-function Keyboard:next() end
-
----@private
----@param arg0 Keyboard.KeyEvent
----@return boolean
-function Keyboard:readNext(arg0) end
-
----@public
----@param arg0 int
----@return String
-function Keyboard:getKeyName(arg0) end
-
----@public
----@return long
-function Keyboard:getEventNanoseconds() end
-
----@public
 ---@return boolean
 function Keyboard:getEventKeyState() end
 
----@private
+---@public
 ---@return void
-function Keyboard:read() end
+function Keyboard:create() end
 
 ---@public
----@return int
-function Keyboard:getKeyCount() end
+---@param arg0 boolean
+---@return void
+function Keyboard:enableRepeatEvents(arg0) end
+
+---@public
+---@return void
+function Keyboard:poll() end
+
+---@public
+---@param arg0 int
+---@param arg1 int
+---@return void
+function Keyboard:addKeyEvent(arg0, arg1) end
 
 ---@public
 ---@param arg0 String
@@ -241,6 +186,40 @@ function Keyboard:getKeyCount() end
 function Keyboard:getKeyIndex(arg0) end
 
 ---@public
----@param arg0 boolean
+---@return char
+function Keyboard:getEventCharacter() end
+
+---@public
+---@return long
+function Keyboard:getEventNanoseconds() end
+
+---@public
+---@return boolean
+function Keyboard:isCreated() end
+
+---@public
 ---@return void
-function Keyboard:enableRepeatEvents(arg0) end
+function Keyboard:destroy() end
+
+---@public
+---@param arg0 int
+---@return String
+function Keyboard:getKeyName(arg0) end
+
+---@public
+---@return boolean
+function Keyboard:areRepeatEventsEnabled() end
+
+---@public
+---@return int
+function Keyboard:getEventKey() end
+
+---@public
+---@return void
+function Keyboard:initKeyNames() end
+
+---@public
+---@param arg0 int
+---@param arg1 char
+---@return void
+function Keyboard:addCharEvent(arg0, arg1) end

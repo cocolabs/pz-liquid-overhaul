@@ -20,15 +20,15 @@ function CFarmingSystem:isValidIsoObject(isoObject)
 	return false
 end
 
-function CFarmingSystem:newLuaObject(isoObject)
-	return CPlantGlobalObject:new(self, isoObject)
+function CFarmingSystem:newLuaObject(globalObject)
+	return CPlantGlobalObject:new(self, globalObject)
 end
 
 function CFarmingSystem:OnServerCommand(command, args)
 	if command == "hoursElapsed" then
 		self.hoursElapsed = args.hoursElapsed
 	else
-		error("unknown server command '"..command.."'")
+		CGlobalObjectSystem.OnServerCommand(self, command, args)
 	end
 end
 
@@ -63,6 +63,8 @@ end
 CGlobalObjectSystem.RegisterSystemClass(CFarmingSystem)
 
 local function DoSpecialTooltip1(tooltip, square)
+	if ISFarmingCursorMouse.IsVisible() then return end
+	
 	local playerObj = getSpecificPlayer(0)
 	if not playerObj or CFarmingSystem.instance:getXp(playerObj) < 4 then return end
 

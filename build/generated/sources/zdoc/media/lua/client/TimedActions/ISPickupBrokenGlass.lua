@@ -25,6 +25,7 @@ function ISPickupBrokenGlass:start()
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
 	self:setOverrideHandModels(nil, nil)
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISPickupBrokenGlass:stop()

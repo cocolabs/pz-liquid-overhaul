@@ -24,6 +24,7 @@ function ISWashClothing:start()
 	self:setActionAnim("Loot")
 	self:setAnimVariable("LootPosition", "");
 	self:setOverrideHandModels(nil, nil)
+	self.character:reportEvent("EventWashClothing");
 end
 
 function ISWashClothing:stop()

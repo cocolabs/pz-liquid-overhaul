@@ -21,56 +21,11 @@
 ---@field private visualDamagesList ArrayList|Unknown
 ---@field private Base String
 ---@field private checksum String
+---@field private tempFileToModMap HashMap|Unknown|Unknown
+---@field private currentLoadFileMod String
+---@field private currentLoadFileAbsPath String
+---@field public VanillaID String
 ScriptManager = {}
-
----@public
----@return ArrayList|Unknown
-function ScriptManager:getAllModelScripts() end
-
----@public
----@return Stack|UniqueRecipe
-function ScriptManager:getAllUniqueRecipes() end
-
----Specified by:
----
----getItem in interface IScriptObjectStore
----@public
----@param name String
----@return Item
-function ScriptManager:getItem(name) end
-
----@public
----@return ArrayList|Unknown
-function ScriptManager:getZedDmgMap() end
-
----@public
----@param arg0 URI
----@param arg1 File
----@param arg2 ArrayList|Unknown
----@return void
-function ScriptManager:searchFolders(arg0, arg1, arg2) end
-
----@public
----@return Stack|EvolvedRecipe
-function ScriptManager:getAllEvolvedRecipes() end
-
----@private
----@param arg0 String
----@return void
-function ScriptManager:CreateFromToken(arg0) end
-
----@public
----@return void
-function ScriptManager:Reset() end
-
----@public
----@param arg0 String
----@return ArrayList|Unknown
-function ScriptManager:getAllRecipesFor(arg0) end
-
----@public
----@return void
-function ScriptManager:Load() end
 
 ---@public
 ---@return void
@@ -78,38 +33,56 @@ function ScriptManager:update() end
 
 ---@public
 ---@param arg0 String
----@return boolean
-function ScriptManager:isDrainableItemType(arg0) end
+---@return ArrayList|Unknown
+function ScriptManager:getItemsTag(arg0) end
 
 ---@public
----@return ArrayList|Unknown
-function ScriptManager:getAllVehicleScripts() end
+---@return void
+function ScriptManager:Load() end
+
+---@private
+---@return void
+function ScriptManager:resolveItemTypes() end
+
+---@public
+---@param arg0 String
+---@return ModelScript
+function ScriptManager:getModelScript(arg0) end
 
 ---@public
 ---@return ArrayList|Unknown
 function ScriptManager:getAllGameSounds() end
 
 ---@public
----@param arg0 String
----@return VehicleScript
-function ScriptManager:getVehicle(arg0) end
+---@param totalFile String
+---@return void
+function ScriptManager:ParseScript(totalFile) end
 
 ---@private
 ---@return void
 function ScriptManager:debugItems() end
 
 ---@public
----@return void
-function ScriptManager:CheckExitPoints() end
-
----@public
----@param totalFile String
----@return void
-function ScriptManager:ParseScript(totalFile) end
+---@return ArrayList|Unknown
+function ScriptManager:getAllRuntimeAnimationScripts() end
 
 ---@public
 ---@return ArrayList|Unknown
-function ScriptManager:getAllRecipes() end
+function ScriptManager:getAllItems() end
+
+---@public
+---@param arg0 String
+---@return boolean
+function ScriptManager:isDrainableItemType(arg0) end
+
+---@public
+---@return String
+function ScriptManager:getCurrentLoadFileAbsPath() end
+
+---@public
+---@param name String
+---@return Item
+function ScriptManager:FindItem(name) end
 
 ---Specified by:
 ---
@@ -120,75 +93,21 @@ function ScriptManager:getAllRecipes() end
 function ScriptManager:getRecipe(name) end
 
 ---@public
----@param arg0 String
----@return Item
-function ScriptManager:getItemForClothingItem(arg0) end
-
----@public
----@param name String
----@return ScriptModule
-function ScriptManager:getModuleNoDisableCheck(name) end
-
----@public
----@param name String
----@return Item
-function ScriptManager:FindItem(name) end
-
----@public
----@param name String
----@return ScriptModule
-function ScriptManager:getModule(name) end
-
----@public
----@param arg0 String
 ---@return ArrayList|Unknown
-function ScriptManager:getItemsTag(arg0) end
+function ScriptManager:getAllRecipes() end
 
----@private
+---@public
 ---@return void
-function ScriptManager:createZedDmgMap() end
+function ScriptManager:Reset() end
+
+---@public
+---@return ArrayList|Unknown
+function ScriptManager:getZedDmgMap() end
 
 ---@public
 ---@param name String
 ---@return String
 function ScriptManager:getItemName(name) end
-
----@private
----@return void
-function ScriptManager:createClothingItemMap() end
-
----@public
----@param arg0 String
----@return ModelScript
-function ScriptManager:getModelScript(arg0) end
-
----@public
----@param arg0 List|Unknown
----@return List|Unknown
-function ScriptManager:getAllFixing(arg0) end
-
----@public
----@return ArrayList|Unknown
-function ScriptManager:getAllRuntimeAnimationScripts() end
-
----@public
----@param arg0 ScriptModule
----@param arg1 String
----@return String
-function ScriptManager:resolveItemType(arg0, arg1) end
-
----@public
----@return String
-function ScriptManager:getChecksum() end
-
----@public
----@param arg0 String
----@return String
-function ScriptManager:getItemTypeForClothingItem(arg0) end
-
----@public
----@return ArrayList|Unknown
-function ScriptManager:getAllItems() end
 
 ---throws java.io.FileNotFoundException
 ---@public
@@ -197,11 +116,109 @@ function ScriptManager:getAllItems() end
 ---@return void
 function ScriptManager:LoadFile(filename, bLoadJar) end
 
----@private
----@return void
-function ScriptManager:resolveItemTypes() end
-
 ---@public
 ---@param arg0 String
 ---@return VehicleTemplate
 function ScriptManager:getVehicleTemplate(arg0) end
+
+---@public
+---@param name String
+---@return ScriptModule
+function ScriptManager:getModuleNoDisableCheck(name) end
+
+---@public
+---@return Stack|EvolvedRecipe
+function ScriptManager:getAllEvolvedRecipes() end
+
+---@public
+---@param arg0 String
+---@return Item
+function ScriptManager:getItemForClothingItem(arg0) end
+
+---@private
+---@param arg0 String
+---@return void
+function ScriptManager:CreateFromToken(arg0) end
+
+---@public
+---@return String
+function ScriptManager:getChecksum() end
+
+---@public
+---@return String
+function ScriptManager:getCurrentLoadFileMod() end
+
+---@public
+---@param arg0 String
+---@return String
+function ScriptManager:getItemTypeForClothingItem(arg0) end
+
+---@public
+---@param name String
+---@return ScriptModule
+function ScriptManager:getModule(name) end
+
+---@public
+---@param arg0 String
+---@return VehicleScript
+function ScriptManager:getVehicle(arg0) end
+
+---@public
+---@param arg0 URI
+---@param arg1 File
+---@param arg2 ArrayList|Unknown
+---@return void
+function ScriptManager:searchFolders(arg0, arg1, arg2) end
+
+---@public
+---@param arg0 String
+---@return ArrayList|Unknown
+function ScriptManager:getAllRecipesFor(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function ScriptManager:getAllModelScripts() end
+
+---@public
+---@param arg0 ScriptModule
+---@param arg1 String
+---@return String
+function ScriptManager:resolveItemType(arg0, arg1) end
+
+---@public
+---@param arg0 List|Unknown
+---@return List|Unknown
+function ScriptManager:getAllFixing(arg0) end
+
+---@public
+---@return ArrayList|Unknown
+function ScriptManager:getAllVehicleScripts() end
+
+---@public
+---@return void
+function ScriptManager:CheckExitPoints() end
+
+---@public
+---@return Stack|UniqueRecipe
+function ScriptManager:getAllUniqueRecipes() end
+
+---@public
+---@param arg0 String
+---@return VehicleEngineRPM
+function ScriptManager:getVehicleEngineRPM(arg0) end
+
+---@private
+---@return void
+function ScriptManager:createZedDmgMap() end
+
+---Specified by:
+---
+---getItem in interface IScriptObjectStore
+---@public
+---@param name String
+---@return Item
+function ScriptManager:getItem(name) end
+
+---@private
+---@return void
+function ScriptManager:createClothingItemMap() end

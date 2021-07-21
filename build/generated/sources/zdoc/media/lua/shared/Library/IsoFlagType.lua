@@ -101,10 +101,17 @@
 ---@field private fromStringMap HashMap|Unknown|Unknown
 IsoFlagType = {}
 
+---Returns the enum constant of this type with the specified name.
+---
+---The string must match exactly an identifier used to declare an
+---
+---enum constant in this type.  (Extraneous whitespace characters are
+---
+---not permitted.)
 ---@public
----@param value int
----@return IsoFlagType
-function IsoFlagType:fromIndex(value) end
+---@param name String @the name of the enum constant to be returned.
+---@return IsoFlagType @the enum constant with the specified name
+function IsoFlagType:valueOf(name) end
 
 ---Returns an array containing the constants of this enum type, in
 ---
@@ -132,14 +139,7 @@ function IsoFlagType:FromString(str) end
 ---@return int
 function IsoFlagType:index() end
 
----Returns the enum constant of this type with the specified name.
----
----The string must match exactly an identifier used to declare an
----
----enum constant in this type.  (Extraneous whitespace characters are
----
----not permitted.)
 ---@public
----@param name String @the name of the enum constant to be returned.
----@return IsoFlagType @the enum constant with the specified name
-function IsoFlagType:valueOf(name) end
+---@param value int
+---@return IsoFlagType
+function IsoFlagType:fromIndex(value) end

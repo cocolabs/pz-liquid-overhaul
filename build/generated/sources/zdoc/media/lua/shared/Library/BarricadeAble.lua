@@ -3,11 +3,23 @@ BarricadeAble = {}
 
 ---@public
 ---@return IsoBarricade
+function BarricadeAble:getBarricadeOnSameSquare() end
+
+---@public
+---@return boolean
+function BarricadeAble:getNorth() end
+
+---@public
+---@return IsoBarricade
 function BarricadeAble:getBarricadeOnOppositeSquare() end
 
 ---@public
 ---@return IsoGridSquare
 function BarricadeAble:getOppositeSquare() end
+
+---@public
+---@return boolean
+function BarricadeAble:isBarricadeAllowed() end
 
 ---@public
 ---@return boolean
@@ -19,18 +31,10 @@ function BarricadeAble:isBarricaded() end
 function BarricadeAble:getBarricadeForCharacter(arg0) end
 
 ---@public
----@return IsoBarricade
-function BarricadeAble:getBarricadeOnSameSquare() end
+---@return IsoGridSquare
+function BarricadeAble:getSquare() end
 
 ---@public
 ---@param arg0 IsoGameCharacter
 ---@return IsoBarricade
 function BarricadeAble:getBarricadeOppositeCharacter(arg0) end
-
----@public
----@return IsoGridSquare
-function BarricadeAble:getSquare() end
-
----@public
----@return boolean
-function BarricadeAble:getNorth() end

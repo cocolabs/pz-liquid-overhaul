@@ -40,34 +40,45 @@ function ISEatFoodAction:start()
 	if self.item:getEatType() and self.item:getEatType() ~= "" then
 		-- for can or 2handed, add a fork or a spoon if we have them otherwise we'll use default eat action
 		-- use 2handforced if you don't want this to happen (like eating a burger..)
-		if self.item:getEatType() == "can" or self.item:getEatType() == "candrink" or self.item:getEatType() == "2hand" or self.item:getEatType() == "plate" then
-			secondItem = self.character:getInventory():getItemFromType("Base.Fork") or self.character:getInventory():getItemFromType("Base.Spoon");
-			if secondItem then
-				if self.item:getEatType() == "plate" then
-					self:setAnimVariable("FoodType", "plate");
-				else
-					self:setAnimVariable("FoodType", "can");
-				end
-			elseif self.item:getEatType() == "2hand" then
-				self:setAnimVariable("FoodType", "2hand");
-			elseif self.item:getEatType() == "plate" then
-				self:setAnimVariable("FoodType", "plate");
-			elseif self.item:getEatType() == "candrink" then
+		if self.item:getEatType() == "can" or self.item:getEatType() == "candrink" or self.item:getEatType() == "2hand" or self.item:getEatType() == "plate" or self.item:getEatType() == "2handbowl" then
+			local spoon  = self.character:getInventory():getItemFromType("Base.Spoon");
+			local fork = self.character:getInventory():getItemFromType("Base.Fork");
+
+			if self.item:getEatType() == "2handbowl" and spoon then
+				self:setAnimVariable("FoodType", "2handbowl");
+				secondItem = spoon;
+			elseif self.item:getEatType() == "2handbowl" then
 				self:setAnimVariable("FoodType", "drink");
+			else
+				secondItem = spoon or fork;
+				if secondItem then
+					if self.item:getEatType() == "plate" then
+						self:setAnimVariable("FoodType", "plate");
+					else
+						self:setAnimVariable("FoodType", "can");
+					end
+				elseif self.item:getEatType() == "2hand" then
+					self:setAnimVariable("FoodType", "2hand");
+				elseif self.item:getEatType() == "plate" then
+					self:setAnimVariable("FoodType", "plate");
+				elseif self.item:getEatType() == "candrink" then
+					self:setAnimVariable("FoodType", "drink");
+				end
 			end
 		else
 			self:setAnimVariable("FoodType", self.item:getEatType());
 		end
 	end
-	if self.item:getCustomMenuOption() == getText("ContextMenu_Drink") then
-		self:setActionAnim(CharacterActionAnims.Drink);
-	else
-		self:setActionAnim(CharacterActionAnims.Eat);
-	end
 	self:setOverrideHandModels(secondItem, self.item);
 	if self.item:getEatType() == "Pot" then
 		self:setOverrideHandModels(self.item, nil);
 	end
+	if self.item:getCustomMenuOption() == getText("ContextMenu_Drink") and self.item:getEatType() ~= "2handbowl" then
+		self:setActionAnim(CharacterActionAnims.Drink);
+	else
+		self:setActionAnim(CharacterActionAnims.Eat);
+	end
+	self.character:reportEvent("EventEating");
 end
 
 function ISEatFoodAction:stop()

@@ -46,6 +46,7 @@ function ISDryMyself:new(character, item, time)
 	o.stopOnWalk = true;
 	o.stopOnRun = true;
 	o.maxTime = time;
+	if o.character:isTimedActionInstant() then o.maxTime = 1; end
 	o.timer = time / 20;
 	o.tick = 0;
     o.caloriesModifier = 4;

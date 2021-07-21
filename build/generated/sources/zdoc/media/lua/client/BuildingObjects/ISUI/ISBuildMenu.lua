@@ -7,6 +7,7 @@
 ISBuildMenu = {};
 ISBuildMenu.planks = 0;
 ISBuildMenu.nails = 0;
+ISBuildMenu.nailsBox = 0;
 ISBuildMenu.hinge = 0;
 ISBuildMenu.doorknob = 0;
 ISBuildMenu.cheat = false;
@@ -264,6 +265,7 @@ function haveSomethingtoBuildWood(player)
 	end
 	ISBuildMenu.planks = 0;
 	ISBuildMenu.nails = 0;
+	ISBuildMenu.nailsBox = 0;
 	ISBuildMenu.hinge = 0;
 	ISBuildMenu.doorknob = 0;
 	ISBuildMenu.hasHammer = playerInv:containsTagEvalRecurse("Hammer", predicateNotBroken)
@@ -277,10 +279,18 @@ function haveSomethingtoBuildWood(player)
 		return false
 	end
 	ISBuildMenu.planks = ISBuildMenu.countMaterial(player, "Base.Plank")
-	ISBuildMenu.nails = ISBuildMenu.countMaterial(player, "Base.Nails")
+	--nails boxes have 100 nails in them, these are added to the nails count to allow for automatic opening of nails boxes when building objects
+	ISBuildMenu.nailsBox = ISBuildMenu.countMaterial(player, "Base.NailsBox")
+	ISBuildMenu.nails = ISBuildMenu.countMaterial(player, "Base.Nails") + (ISBuildMenu.nailsBox * 100)
 	ISBuildMenu.hinge = ISBuildMenu.countMaterial(player, "Base.Hinge")
 	ISBuildMenu.doorknob = ISBuildMenu.countMaterial(player, "Base.Doorknob")
 	return true;
+end
+
+ISBuildMenu.isNailsBoxNeededOpening = function(nailsRequired)
+	if ISBuildMenu.nails - (ISBuildMenu.nailsBox * 100) < nailsRequired then
+		return true;
+	end
 end
 
 ISBuildMenu.onMultiStageBuild = function(worldobjects, stage, item, player)
@@ -429,7 +439,7 @@ ISBuildMenu.buildMiscMenu = function(subMenu, option, player)
 end
 
 ISBuildMenu.onWoodenCross = function(worldobjects, square, player)
-	local cross = ISSimpleFurniture:new("Wooden Cross", "location_community_cemetary_01_22", "location_community_cemetary_01_23");
+	local cross = ISSimpleFurniture:new("Wooden Cross", "location_community_cemetary_01_22", "location_community_cemetary_01_23", ISBuildMenu.isNailsBoxNeededOpening(2));
 	cross.canPassThrough = true;
 	cross.canBarricade = false;
 	cross.ignoreNorth = true;
@@ -502,7 +512,7 @@ end
 
 ISBuildMenu.onBarElement = function(worldobjects, sprite, player)
 	-- sprite, northSprite
-	local bar = ISWoodenContainer:new(sprite.sprite, sprite.northSprite);
+	local bar = ISWoodenContainer:new(sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
 	bar.name = "Bar";
 	bar:setEastSprite(sprite.eastSprite);
 	bar:setSouthSprite(sprite.southSprite);
@@ -610,7 +620,7 @@ end
 
 ISBuildMenu.onWoodenFenceStake = function(worldobjects, square, player)
 	-- sprite, northSprite, corner
-	local fence = ISWoodenWall:new("fencing_01_19", "fencing_01_19", nil);
+	local fence = ISWoodenWall:new("fencing_01_19", "fencing_01_19", nil, ISBuildMenu.isNailsBoxNeededOpening(2));
 	fence.canPassThrough = true;
 	fence.isThumpable = false;
 	fence.canBarricade = false
@@ -664,7 +674,7 @@ end
 
 ISBuildMenu.onWoodenFence = function(worldobjects, square, sprite, player)
 	-- sprite, northSprite, corner
-	local fence = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner);
+	local fence = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner, ISBuildMenu.isNailsBoxNeededOpening(3));
 	-- you can hopp a fence
 	fence.hoppable = true;
 	fence.isThumpable = false;
@@ -718,7 +728,7 @@ end
 
 ISBuildMenu.onPillarLamp = function(worldobjects, square, sprite, player)
 -- sprite, northSprite
-    local lamp = ISLightSource:new(sprite.sprite, sprite.northSprite, getSpecificPlayer(player));
+    local lamp = ISLightSource:new(sprite.sprite, sprite.northSprite, getSpecificPlayer(player), ISBuildMenu.isNailsBoxNeededOpening(4));
     lamp.offsetX = 5;
     lamp.offsetY = 5;
     lamp.modData["need:Base.Plank"] = "2";
@@ -803,7 +813,7 @@ ISBuildMenu.buildWallMenu = function(subMenu, option, player)
 end
 
 ISBuildMenu.onWoodenPillar = function(worldobjects, player)
-	local wall = ISWoodenWall:new("walls_exterior_wooden_01_27", "walls_exterior_wooden_01_27", nil);
+	local wall = ISWoodenWall:new("walls_exterior_wooden_01_27", "walls_exterior_wooden_01_27", nil, ISBuildMenu.isNailsBoxNeededOpening(3));
 	wall.modData["need:Base.Plank"] = "2";
 	wall.modData["need:Base.Nails"] = "3";
     wall.modData["xp:Woodwork"] = 3;
@@ -812,6 +822,7 @@ ISBuildMenu.onWoodenPillar = function(worldobjects, player)
 	wall.canPassThrough = true;
 	wall.canBarricade = false
     wall.player = player;
+	wall.isCorner = true;
     wall.name = "Wooden Pillar"
 	getCell():setDrag(wall, player);
 end
@@ -850,7 +861,7 @@ end
 
 ISBuildMenu.onWoodenWall = function(worldobjects, sprite, player)
 	-- sprite, northSprite, corner
-	local wall = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner);
+	local wall = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner, ISBuildMenu.isNailsBoxNeededOpening(3));
     if getSpecificPlayer(player):getPerkLevel(Perks.Woodwork) >= 8 then
 	    wall.canBePlastered = true;
     end
@@ -866,7 +877,7 @@ end
 
 ISBuildMenu.onWoodenWallFrame = function(worldobjects, sprite, player)
 -- sprite, northSprite, corner
-    local wall = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner);
+    local wall = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner, ISBuildMenu.isNailsBoxNeededOpening(2));
     wall.canBarricade = false
     wall.name = "WoodenWallFrame";
     -- set up the required material
@@ -893,7 +904,7 @@ end
 
 ISBuildMenu.onWoodenWindowsFrame = function(worldobjects, square, sprite, player)
 	-- sprite, northSprite, corner
-	local frame = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner);
+	local frame = ISWoodenWall:new(sprite.sprite, sprite.northSprite, sprite.corner, ISBuildMenu.isNailsBoxNeededOpening(4));
     if getSpecificPlayer(player):getPerkLevel(Perks.Woodwork) >= 8 then
 	    frame.canBePlastered = true;
     end
@@ -926,7 +937,7 @@ end
 
 ISBuildMenu.onWoodenFloor = function(worldobjects, square, sprite, player)
 	-- sprite, northSprite
-	local foor = ISWoodenFloor:new(sprite.sprite, sprite.northSprite)
+	local foor = ISWoodenFloor:new(sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(1))
 	foor.modData["need:Base.Plank"] = "1";
     foor.modData["xp:Woodwork"] = 3;
 	foor.modData["need:Base.Nails"] = "1";
@@ -936,7 +947,7 @@ end
 
 ISBuildMenu.onWoodenBrownFloor = function(worldobjects, square, player)
 	-- sprite, northSprite
-	local foor = ISWoodenFloor:new("TileFloorInt_24", "TileFloorInt_24")
+	local foor = ISWoodenFloor:new("TileFloorInt_24", "TileFloorInt_24", ISBuildMenu.isNailsBoxNeededOpening(1))
 	foor.modData["need:Base.Plank"] = "1";
     foor.modData["xp:Woodwork"] = 3;
 	foor.modData["need:Base.Nails"] = "1";
@@ -945,7 +956,7 @@ end
 
 ISBuildMenu.onWoodenLightBrownFloor = function(worldobjects, square, player)
 	-- sprite, northSprite
-	local foor = ISWoodenFloor:new("TileFloorInt_6", "TileFloorInt_6")
+	local foor = ISWoodenFloor:new("TileFloorInt_6", "TileFloorInt_6", ISBuildMenu.isNailsBoxNeededOpening(1))
 	foor.modData["need:Base.Plank"] = "1";
     foor.modData["xp:Woodwork"] = 3;
 	foor.modData["need:Base.Nails"] = "1";
@@ -969,7 +980,7 @@ end
 
 ISBuildMenu.onWoodenCrate = function(worldobjects, square, crateSprite, player)
 	-- sprite, northSprite
-	local crate = ISWoodenContainer:new(crateSprite.sprite, crateSprite.northSprite);
+	local crate = ISWoodenContainer:new(crateSprite.sprite, crateSprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(3));
 	crate.renderFloorHelper = true
 	crate.canBeAlwaysPlaced = true;
     crate.modData["xp:Woodwork"] = 3;
@@ -1153,7 +1164,7 @@ end
 
 -- create a new barrel to drag a ghost render of the barrel under the mouse
 ISBuildMenu.onCreateBarrel = function(worldobjects, player, sprite, waterMax)
-	local barrel = RainCollectorBarrel:new(player, sprite, waterMax);
+	local barrel = RainCollectorBarrel:new(player, sprite, waterMax, ISBuildMenu.isNailsBoxNeededOpening(4));
 	-- we now set his the mod data the needed material
 	-- by doing this, all will be automatically consummed, drop on the ground if destoryed etc.
 	barrel.modData["need:Base.Plank"] = "4";
@@ -1166,7 +1177,7 @@ ISBuildMenu.onCreateBarrel = function(worldobjects, player, sprite, waterMax)
 end
 
 ISBuildMenu.onCompost = function(worldobjects, player, sprite)
-    local compost = ISCompost:new(player, sprite);
+    local compost = ISCompost:new(player, sprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     compost.modData["need:Base.Plank"] = "5";
     compost.modData["need:Base.Nails"] = "4";
     compost.modData["xp:Woodwork"] = 5;
@@ -1176,7 +1187,7 @@ ISBuildMenu.onCompost = function(worldobjects, player, sprite)
 end
 
 ISBuildMenu.onBed = function(worldobjects, square, sprite, player)
-    local furniture = ISDoubleTileFurniture:new("Bed", sprite.sprite1, sprite.sprite2, sprite.northSprite1, sprite.northSprite2);
+    local furniture = ISDoubleTileFurniture:new("Bed", sprite.sprite1, sprite.sprite2, sprite.northSprite1, sprite.northSprite2, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.modData["xp:Woodwork"] = 5;
     furniture.modData["need:Base.Plank"] = "6";
     furniture.modData["need:Base.Nails"] = "4";
@@ -1187,7 +1198,7 @@ end
 
 ISBuildMenu.onSmallWoodTable = function(worldobjects, square, sprite, player)
 	-- name, sprite, northSprite
-	local furniture = ISSimpleFurniture:new("Small Table", sprite.sprite, sprite.sprite);
+	local furniture = ISSimpleFurniture:new("Small Table", sprite.sprite, sprite.sprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.modData["xp:Woodwork"] = 3;
 	furniture.modData["need:Base.Plank"] = "5";
 	furniture.modData["need:Base.Nails"] = "4";
@@ -1197,7 +1208,7 @@ end
 
 ISBuildMenu.onSmallWoodTableWithDrawer = function(worldobjects, square, sprite, player)
 	-- name, sprite, northSprite
-	local furniture = ISSimpleFurniture:new("Small Table with Drawer", sprite.sprite, sprite.northSprite);
+	local furniture = ISSimpleFurniture:new("Small Table with Drawer", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.modData["xp:Woodwork"] = 5;
 	furniture.modData["need:Base.Plank"] = "5";
 	furniture.modData["need:Base.Nails"] = "4";
@@ -1211,7 +1222,7 @@ end
 
 ISBuildMenu.onLargeWoodTable = function(worldobjects, square, sprite, player)
 	-- name, sprite, northSprite
-	local furniture = ISDoubleTileFurniture:new("Large Table", sprite.sprite1, sprite.sprite2, sprite.northSprite1, sprite.northSprite2);
+	local furniture = ISDoubleTileFurniture:new("Large Table", sprite.sprite1, sprite.sprite2, sprite.northSprite1, sprite.northSprite2, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.modData["xp:Woodwork"] = 5;
 	furniture.modData["need:Base.Plank"] = "6";
 	furniture.modData["need:Base.Nails"] = "4";
@@ -1221,7 +1232,7 @@ end
 
 ISBuildMenu.onWoodChair = function(worldobjects, square, sprite, player)
 	-- name, sprite, northSprite
-	local furniture = ISSimpleFurniture:new("Wooden Chair", sprite.sprite, sprite.northSprite);
+	local furniture = ISSimpleFurniture:new("Wooden Chair", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.modData["xp:Woodwork"] = 3;
 	furniture.modData["need:Base.Plank"] = "5";
 	furniture.modData["need:Base.Nails"] = "4";
@@ -1236,7 +1247,7 @@ end
 
 ISBuildMenu.onBookcase = function(worldobjects, square, sprite, player)
     -- name, sprite, northSprite
-    local furniture = ISSimpleFurniture:new("Bookcase", sprite.sprite, sprite.northSprite);
+    local furniture = ISSimpleFurniture:new("Bookcase", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.canBeAlwaysPlaced = true;
     furniture.isContainer = true;
     furniture.containerType = "shelves";
@@ -1253,7 +1264,7 @@ end
 
 ISBuildMenu.onSmallBookcase = function(worldobjects, square, sprite, player)
 -- name, sprite, northSprite
-    local furniture = ISSimpleFurniture:new("Small Bookcase", sprite.sprite, sprite.northSprite);
+    local furniture = ISSimpleFurniture:new("Small Bookcase", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(3));
     furniture.canBeAlwaysPlaced = true;
     furniture.isContainer = true;
     furniture.containerType = "shelves";
@@ -1270,7 +1281,7 @@ end
 
 ISBuildMenu.onShelve = function(worldobjects, square, sprite, player)
     -- name, sprite, northSprite
-    local furniture = ISSimpleFurniture:new("Shelves", sprite.sprite, sprite.northSprite);
+    local furniture = ISSimpleFurniture:new("Shelves", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(2));
     furniture.isContainer = true;
     furniture.needToBeAgainstWall = true;
     furniture.blockAllTheSquare = false;
@@ -1285,7 +1296,7 @@ end
 
 ISBuildMenu.onSign = function(worldobjects, square, sprite, player)
 -- name, sprite, northSprite
-    local furniture = ISSimpleFurniture:new("Wooden Sign", sprite.sprite, sprite.northSprite);
+    local furniture = ISSimpleFurniture:new("Wooden Sign", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(3));
     furniture.blockAllTheSquare = false;
     furniture.isWallLike = true
     furniture.modData["xp:Woodwork"] = 3;
@@ -1297,7 +1308,7 @@ end
 
 ISBuildMenu.onDoubleShelve = function(worldobjects, square, sprite, player)
 -- name, sprite, northSprite
-    local furniture = ISSimpleFurniture:new("Double Shelves", sprite.sprite, sprite.northSprite);
+    local furniture = ISSimpleFurniture:new("Double Shelves", sprite.sprite, sprite.northSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     furniture.isContainer = true;
     furniture.needToBeAgainstWall = true;
     furniture.blockAllTheSquare = false;
@@ -1340,7 +1351,7 @@ ISBuildMenu.buildStairsMenu = function(subMenu, player)
 end
 
 ISBuildMenu.onDarkWoodenStairs = function(worldobjects, square, player)
-	local stairs = ISWoodenStairs:new("fixtures_stairs_01_16", "fixtures_stairs_01_17", "fixtures_stairs_01_18", "fixtures_stairs_01_24", "fixtures_stairs_01_25", "fixtures_stairs_01_26", "fixtures_stairs_01_22", "fixtures_stairs_01_23");
+	local stairs = ISWoodenStairs:new("fixtures_stairs_01_16", "fixtures_stairs_01_17", "fixtures_stairs_01_18", "fixtures_stairs_01_24", "fixtures_stairs_01_25", "fixtures_stairs_01_26", "fixtures_stairs_01_22", "fixtures_stairs_01_23", ISBuildMenu.isNailsBoxNeededOpening(8));
     stairs.modData["xp:Woodwork"] = 5;
 	stairs.modData["need:Base.Plank"] = "8";
 	stairs.modData["need:Base.Nails"] = "8";
@@ -1350,7 +1361,7 @@ ISBuildMenu.onDarkWoodenStairs = function(worldobjects, square, player)
 end
 
 ISBuildMenu.onBrownWoodenStairs = function(worldobjects, square, player)
-    local stairs = ISWoodenStairs:new("carpentry_02_88", "carpentry_02_89", "carpentry_02_90", "carpentry_02_96", "carpentry_02_97", "carpentry_02_98", "carpentry_02_94", "carpentry_02_95");
+    local stairs = ISWoodenStairs:new("carpentry_02_88", "carpentry_02_89", "carpentry_02_90", "carpentry_02_96", "carpentry_02_97", "carpentry_02_98", "carpentry_02_94", "carpentry_02_95", ISBuildMenu.isNailsBoxNeededOpening(15));
     stairs.modData["xp:Woodwork"] = 5;
     stairs.modData["need:Base.Plank"] = "15";
     stairs.modData["need:Base.Nails"] = "15";
@@ -1359,7 +1370,7 @@ ISBuildMenu.onBrownWoodenStairs = function(worldobjects, square, player)
 end
 
 ISBuildMenu.onLightBrownWoodenStairs = function(worldobjects, square, player)
-    local stairs = ISWoodenStairs:new("fixtures_stairs_01_32", "fixtures_stairs_01_33", "fixtures_stairs_01_34", "fixtures_stairs_01_40", "fixtures_stairs_01_41", "fixtures_stairs_01_42", "fixtures_stairs_01_38", "fixtures_stairs_01_39");
+    local stairs = ISWoodenStairs:new("fixtures_stairs_01_32", "fixtures_stairs_01_33", "fixtures_stairs_01_34", "fixtures_stairs_01_40", "fixtures_stairs_01_41", "fixtures_stairs_01_42", "fixtures_stairs_01_38", "fixtures_stairs_01_39", ISBuildMenu.isNailsBoxNeededOpening(8));
     stairs.modData["xp:Woodwork"] = 5;
     stairs.modData["need:Base.Plank"] = "8";
 	stairs.modData["need:Base.Nails"] = "8";
@@ -1404,7 +1415,7 @@ ISBuildMenu.buildDoorMenu = function(subMenu, option, player)
 end
 
 ISBuildMenu.onDoubleWoodenDoor = function(worldobjects, square, sprite, spriteIndex, player)
-	local door = ISDoubleDoor:new(sprite.sprite, spriteIndex);
+	local door = ISDoubleDoor:new(sprite.sprite, spriteIndex, ISBuildMenu.isNailsBoxNeededOpening(4));
 	door.modData["xp:Woodwork"] = 6;
 	door.modData["need:Base.Plank"] = "12";
 	door.modData["need:Base.Nails"] = "12";
@@ -1416,7 +1427,7 @@ end
 
 ISBuildMenu.onWoodenDoor = function(worldobjects, square, sprite, player)
 	-- sprite, northsprite, openSprite, openNorthSprite
-	local door = ISWoodenDoor:new(sprite.sprite, sprite.northSprite, sprite.openSprite, sprite.openNorthSprite);
+	local door = ISWoodenDoor:new(sprite.sprite, sprite.northSprite, sprite.openSprite, sprite.openNorthSprite, ISBuildMenu.isNailsBoxNeededOpening(4));
     door.modData["xp:Woodwork"] = 3;
 	door.modData["need:Base.Plank"] = "4";
 	door.modData["need:Base.Nails"] = "4";
@@ -1447,8 +1458,8 @@ end
 
 ISBuildMenu.onWoodenDoorFrame = function(worldobjects, square, sprite, player)
 	-- sprite, northSprite, corner
-	local doorFrame = ISWoodenDoorFrame:new(sprite.sprite, sprite.northSprite, sprite.corner)
-    if getSpecificPlayer(player):getPerkLevel(Perks.Woodwork) >= 8 then
+	local doorFrame = ISWoodenDoorFrame:new(sprite.sprite, sprite.northSprite, sprite.corner, ISBuildMenu.isNailsBoxNeededOpening(4))
+    if getSpecificPlayer(player):getPerkLevel(Perks.Woodwork) >= 7 then
 	    doorFrame.canBePlastered = true;
     end
     doorFrame.modData["xp:Woodwork"] = 5;

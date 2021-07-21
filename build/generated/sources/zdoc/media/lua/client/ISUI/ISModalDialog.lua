@@ -149,19 +149,37 @@ function ISModalDialog:onGainJoypadFocus(joypadData)
 	self.joypadButtons = {}
 end
 
-function ISModalDialog:onJoypadDown(button)
-	if button == Joypad.AButton then
-       if self.yesno then
-			self.yes.player = self.player;
-			self.yes.onclick(self.yes.target, self.yes);
-       else
-			self.ok.onclick(self.ok.target, self.ok);
-       end
+function ISModalDialog:onLoseJoypadFocus(joypadData)
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	if self.yesno then
+		self.yes:clearJoypadButton()
+		self.no:clearJoypadButton()
+	else
+		self.ok:clearJoypadButton()
+	end
+end
 
-       if(self.player ~= nil) then
+function ISModalDialog:onJoypadBeforeDeactivate(joypadData)
+	if self.removeIfJoypadDeactivated then -- ugh
+		self:destroy()
+	end
+end
+
+function ISModalDialog:onJoypadDown(button)
+    if button == Joypad.AButton then
+        if self.yesno then
+            self.yes.player = self.player;
+            self.yes.onclick(self.yes.target, self.yes);
+        else
+            self.ok.onclick(self.ok.target, self.ok);
+        end
+        if self.player ~= nil then
             setJoypadFocus(self.player, self.prevFocus);
-       end
-       self:destroy();
+        elseif self.joyfocus and self.joyfocus.focus == self then
+            self.joyfocus.focus = self.prevFocus
+            updateJoypadFocus(self.joyfocus)
+        end
+        self:destroy();
     end
     if button == Joypad.BButton then
         if self.yesno then
@@ -170,8 +188,11 @@ function ISModalDialog:onJoypadDown(button)
         else
             self.ok.onclick(self.ok.target, self.ok);
         end
-       if(self.player ~= nil) then
+       if self.player ~= nil then
             setJoypadFocus(self.player, self.prevFocus);
+        elseif self.joyfocus and self.joyfocus.focus == self then
+            self.joyfocus.focus = self.prevFocus
+            updateJoypadFocus(self.joyfocus)
        end
         self:destroy();
     end
@@ -184,15 +205,36 @@ end
 function ISModalDialog:render()
 
 end
+
+function ISModalDialog.CalcSize(width, height, text)
+	local fontHgt = getTextManager():getFontHeight(UIFont.Small)
+	local textWid = 0
+	local textHgt = 0
+	local lines = text:split("\\n")
+	for _,line in ipairs(lines) do
+		textWid = math.max(textWid, getTextManager():MeasureStringX(UIFont.Small, line))
+		textHgt = textHgt + fontHgt
+	end
+	local buttonWid = 100
+	if width < math.max(textWid + 20, buttonWid * 2 + 10) then
+		width = math.max(textWid + 20, buttonWid * 2 + 10)
+	end
+	local buttonHgt = 25
+	local padBottom = 10
+	if height < 20 + textHgt + 20 + buttonHgt + padBottom then
+		height = 20 + textHgt + 20 + buttonHgt + padBottom
+	end
+	return width,height
+end
+
 --************************************************************************--
 --** ISModalDialog:new
 --**
 --************************************************************************--
 function ISModalDialog:new(x, y, width, height, text, yesno, target, onclick, player, param1, param2)
-	local o = {}
-	o = ISPanelJoypad:new(x, y, width, height);
-	setmetatable(o, self)
-    self.__index = self
+	text = text:gsub("\\n", "\n")
+	width,height = ISModalDialog.CalcSize(width, height, text)
+	local o = ISPanelJoypad.new(self, x, y, width, height);
 	local playerObj = player and getSpecificPlayer(player) or nil
 	if y == 0 then
 		if playerObj and playerObj:getJoypadBind() ~= -1 then
@@ -213,26 +255,6 @@ function ISModalDialog:new(x, y, width, height, text, yesno, target, onclick, pl
 	o.name = nil;
     o.backgroundColor = {r=0, g=0, b=0, a=0.8};
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
-	o.width = width;
-	o.height = height;
-	local fontHgt = getTextManager():getFontFromEnum(UIFont.Small):getLineHeight()
-	local textWid = 0
-	local textHgt = 0
-	text = text:gsub("\\n", "\n")
-	local lines = text:split("\\n")
-	for _,line in ipairs(lines) do
-		textWid = math.max(textWid, getTextManager():MeasureStringX(UIFont.Small, line))
-		textHgt = textHgt + fontHgt
-	end
-	local buttonWid = 100
-	if width < math.max(textWid + 20, buttonWid * 2 + 10) then
-		o:setWidth(math.max(textWid + 20, buttonWid * 2 + 10))
-	end
-	local buttonHgt = 25
-	local padBottom = 10
-	if height < 20 + textHgt + 20 + buttonHgt + padBottom then
-		o:setHeight(20 + textHgt + 20 + buttonHgt + padBottom)
-	end
 	o.anchorLeft = true;
 	o.anchorRight = true;
 	o.anchorTop = true;

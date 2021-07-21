@@ -4,6 +4,10 @@
 StorySound = {}
 
 ---@public
+---@return StorySound
+function StorySound:getClone() end
+
+---@public
 ---@return long
 ---@overload fun(arg0:float)
 ---@overload fun(arg0:float, arg1:float, arg2:float, arg3:float, arg4:float)
@@ -35,23 +39,19 @@ function StorySound:playSound(arg0, arg1, arg2, arg3, arg4) end
 function StorySound:playSound(arg0, arg1, arg2, arg3, arg4, arg5) end
 
 ---@public
----@return String
-function StorySound:getName() end
-
----@public
----@return float
-function StorySound:getBaseVolume() end
-
----@public
 ---@param arg0 float
 ---@return void
 function StorySound:setBaseVolume(arg0) end
 
 ---@public
----@return StorySound
-function StorySound:getClone() end
+---@return String
+function StorySound:getName() end
 
 ---@public
 ---@param arg0 String
 ---@return void
 function StorySound:setName(arg0) end
+
+---@public
+---@return float
+function StorySound:getBaseVolume() end

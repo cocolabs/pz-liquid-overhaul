@@ -51,6 +51,14 @@ function ISCutHair:perform()
 	self.character:getHumanVisual():setHairModel(self.hairStyle);
 	self.character:resetModel();
 	self.character:resetHairGrowingTime();
+
+	-- reduce hairgel for mohawk
+	if newHairStyle:getName():contains("Mohawk") and newHairStyle:getName() ~= "MohawkFlat" then
+		local hairgel = self.character:getInventory():getItemFromType("Hairgel", true, true);
+		if hairgel then
+			hairgel:Use();
+		end
+	end
 	triggerEvent("OnClothingUpdated", self.character)
 
     -- needed to remove from queue / start next.

@@ -754,6 +754,14 @@ function ISVehicleMechanics:doMenuTooltip(part, option, lua, name)
 		end
 		tooltip.description = tooltip.description .. colorSuccess .. getText("Tooltip_chanceSuccess") .. " " .. success .. "% <LINE> " .. colorFailure .. getText("Tooltip_chanceFailure") .. " " .. failure .. "%";
 	end
+	if part:getItemType() and not part:getItemType():isEmpty() then
+		if part:getInventoryItem() then
+			local fixingList = FixingManager.getFixes(part:getInventoryItem());
+			if not part:getScriptPart():isRepairMechanic() and not fixingList:isEmpty() then
+				tooltip.description = tooltip.description .. " <LINE> <RGB:1,1,1>" .. getText("Tooltip_RepairableUninstalled");
+			end
+		end
+	end
 end
 
 function ISVehicleMechanics:doDrawItem(y, item, alt)

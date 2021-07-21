@@ -166,27 +166,16 @@ function createPlayerData(id)
     local numPlayers = getNumActivePlayers();
     print(numPlayers.." players found")
 
-    if id > 0 then
-        for i=0, numPlayers-1 do
-
-            removeInventoryUI(i);
-
-        end
-    else
-        removeInventoryUI(0);
-
+    for i=0,numPlayers-1 do
+        removeInventoryUI(i);
     end
+
     ISPlayerData[id+1] = ISPlayerDataObject:new(id);
 
-    if id > 0 then
-        for i=0, numPlayers-1 do
-            if ISPlayerData[i+1] then
-                ISPlayerData[i+1]:createInventoryInterface();
-            end
+    for i=0,numPlayers-1 do
+        if ISPlayerData[i+1] then
+            ISPlayerData[i+1]:createInventoryInterface();
         end
-    else
-
-        ISPlayerData[1]:createInventoryInterface();
     end
 end
 

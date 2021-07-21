@@ -30,6 +30,7 @@ function ISLightFromLiterature:start()
 	self.item:setJobDelta(0.0);
 	self:setActionAnim("Loot")
 	self.character:SetVariable("LootPosition", "Low")
+	self.character:reportEvent("EventLootItem");
 end
 
 function ISLightFromLiterature:stop()

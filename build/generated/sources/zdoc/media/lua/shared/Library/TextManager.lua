@@ -22,6 +22,86 @@
 TextManager = {}
 
 ---@public
+---@return void
+function TextManager:DrawTextFromGameWorld() end
+
+---@public
+---@param x double
+---@param y double
+---@param str String
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+---@overload fun(font:UIFont, x:double, y:double, str:String, r:double, g:double, b:double, a:double)
+function TextManager:DrawStringCentre(x, y, str, r, g, b, a) end
+
+---@public
+---@param font UIFont
+---@param x double
+---@param y double
+---@param str String
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+function TextManager:DrawStringCentre(font, x, y, str, r, g, b, a) end
+
+---@public
+---@param font UIFont
+---@param str String
+---@return int
+function TextManager:MeasureStringX(font, str) end
+
+---@public
+---@param font UIFont
+---@param x double
+---@param y double
+---@param str String
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+function TextManager:DrawStringCentreDefered(font, x, y, str, r, g, b, a) end
+
+---throws java.io.FileNotFoundException
+---@public
+---@return void
+function TextManager:Init() end
+
+---@public
+---@param font UIFont
+---@return AngelCodeFont
+function TextManager:getFontFromEnum(font) end
+
+---@public
+---@param x double
+---@param y double
+---@param str String
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+---@overload fun(font:UIFont, x:double, y:double, str:String, r:double, g:double, b:double, a:double)
+function TextManager:DrawStringRight(x, y, str, r, g, b, a) end
+
+---@public
+---@param font UIFont
+---@param x double
+---@param y double
+---@param str String
+---@param r double
+---@param g double
+---@param b double
+---@param a double
+---@return void
+function TextManager:DrawStringRight(font, x, y, str, r, g, b, a) end
+
+---@public
 ---@param arg0 UIFont
 ---@param arg1 double
 ---@param arg2 double
@@ -79,39 +159,18 @@ function TextManager:DrawString(font, x, y, str, r, g, b, a) end
 ---@return void
 function TextManager:DrawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) end
 
+---@private
+---@param arg0 String
+---@param arg1 String
+---@param arg2 String
+---@return String
+function TextManager:getFontFilePath(arg0, arg1, arg2) end
+
 ---@public
 ---@param font UIFont
 ---@param str String
 ---@return int
-function TextManager:MeasureStringX(font, str) end
-
----@public
----@return void
-function TextManager:DrawTextFromGameWorld() end
-
----@public
----@param x double
----@param y double
----@param str String
----@param r double
----@param g double
----@param b double
----@param a double
----@return void
----@overload fun(font:UIFont, x:double, y:double, str:String, r:double, g:double, b:double, a:double)
-function TextManager:DrawStringCentre(x, y, str, r, g, b, a) end
-
----@public
----@param font UIFont
----@param x double
----@param y double
----@param str String
----@param r double
----@param g double
----@param b double
----@param a double
----@return void
-function TextManager:DrawStringCentre(font, x, y, str, r, g, b, a) end
+function TextManager:MeasureStringY(font, str) end
 
 ---@public
 ---@param points int
@@ -138,47 +197,6 @@ function TextManager:DrawStringUntrimmed(font, x, y, str, r, g, b, a) end
 function TextManager:DrawTextObject(arg0, arg1, arg2) end
 
 ---@public
----@param x double
----@param y double
----@param str String
----@param r double
----@param g double
----@param b double
----@param a double
----@return void
----@overload fun(font:UIFont, x:double, y:double, str:String, r:double, g:double, b:double, a:double)
-function TextManager:DrawStringRight(x, y, str, r, g, b, a) end
-
----@public
----@param font UIFont
----@param x double
----@param y double
----@param str String
----@param r double
----@param g double
----@param b double
----@param a double
----@return void
-function TextManager:DrawStringRight(font, x, y, str, r, g, b, a) end
-
----@public
----@param font UIFont
----@param x double
----@param y double
----@param str String
----@param r double
----@param g double
----@param b double
----@param a double
----@return void
-function TextManager:DrawStringCentreDefered(font, x, y, str, r, g, b, a) end
-
----@public
----@param font UIFont
----@return int
-function TextManager:MeasureFont(font) end
-
----@public
 ---@param arg0 String
 ---@param arg1 int
 ---@param arg2 boolean
@@ -186,29 +204,11 @@ function TextManager:MeasureFont(font) end
 function TextManager:GetDrawTextObject(arg0, arg1, arg2) end
 
 ---@public
+---@param font UIFont
+---@return int
+function TextManager:MeasureFont(font) end
+
+---@public
 ---@param arg0 UIFont
 ---@return int
 function TextManager:getFontHeight(arg0) end
-
----@private
----@param arg0 String
----@param arg1 String
----@param arg2 String
----@return String
-function TextManager:getFontFilePath(arg0, arg1, arg2) end
-
----@public
----@param font UIFont
----@param str String
----@return int
-function TextManager:MeasureStringY(font, str) end
-
----@public
----@param font UIFont
----@return AngelCodeFont
-function TextManager:getFontFromEnum(font) end
-
----throws java.io.FileNotFoundException
----@public
----@return void
-function TextManager:Init() end

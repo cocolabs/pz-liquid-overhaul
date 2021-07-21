@@ -10,6 +10,9 @@ ISDoubleDoor = ISBuildingObject:derive("ISDoubleDoor");
 --**
 --************************************************************************--
 function ISDoubleDoor:create(x, y, z, north, sprite)
+	if self.openNailsBox then
+		buildUtil.openNailsBox(self);
+	end
 	local cell = getWorld():getCell();
 	local square = cell:getGridSquare(x, y, z);
 	local xa, ya = self:getSquare2Pos(square, north)
@@ -90,7 +93,7 @@ function ISDoubleDoor:overrideModData(spriteIndex)
 	end
 end
 
-function ISDoubleDoor:new(sprite, spriteIndex)
+function ISDoubleDoor:new(sprite, spriteIndex, openNailsBox)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -107,6 +110,11 @@ function ISDoubleDoor:new(sprite, spriteIndex)
 	o.thumpDmg = 5;
 	o.name = "Double Door";
 	o.isWallLike = true
+	if openNailsBox == nil then
+		o:setOpenNailsBox(false)
+	else
+		o:setOpenNailsBox(openNailsBox);
+	end
 	return o;
 end
 

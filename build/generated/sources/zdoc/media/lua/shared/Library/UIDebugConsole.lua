@@ -20,20 +20,27 @@
 ---@field private outputChanged boolean
 ---@field private outputDecoder CharsetDecoder
 ---@field private outputChars char[]
+---@field private outputCharBuf CharBuffer
 UIDebugConsole = {}
-
----@public
----@param arg0 CharSequence
----@param arg1 CharSequence
----@return int
-function UIDebugConsole:levenshteinDistance(arg0, arg1) end
 
 ---@return void
 function UIDebugConsole:ClearConsole() end
 
+---@public
+---@param arg0 int
+---@return void
+function UIDebugConsole:onOtherKey(arg0) end
+
+---@public
+---@return void
+function UIDebugConsole:ProcessCommand() end
+
 ---@param arg0 int
 ---@return void
 function UIDebugConsole:setSuggestWidth(arg0) end
+
+---@return void
+function UIDebugConsole:historyPrev() end
 
 ---@param arg0 String
 ---@return Method
@@ -46,36 +53,7 @@ function UIDebugConsole:SuggestionEngine(arg0) end
 function UIDebugConsole:SuggestionEngine(arg0, arg1) end
 
 ---@return void
-function UIDebugConsole:historyPrev() end
-
----@public
----@param arg0 int
----@return void
-function UIDebugConsole:onOtherKey(arg0) end
-
----@return void
-function UIDebugConsole:InitSuggestionEngine() end
-
----@private
----@return void
-function UIDebugConsole:handleOutput() end
-
----Overrides:
----
----update in class NewWindow
----@public
----@return void
-function UIDebugConsole:update() end
-
----@return void
 function UIDebugConsole:historyNext() end
-
----Overrides:
----
----render in class NewWindow
----@public
----@return void
-function UIDebugConsole:render() end
 
 ---@public
 ---@param arg0 byte[]
@@ -84,13 +62,36 @@ function UIDebugConsole:render() end
 ---@return void
 function UIDebugConsole:addOutput(arg0, arg1, arg2) end
 
----@param arg0 String
+---@private
 ---@return void
-function UIDebugConsole:SpoolText(arg0) end
+function UIDebugConsole:handleOutput() end
 
 ---@return void
 function UIDebugConsole:UpdateViewPos() end
 
+---@return void
+function UIDebugConsole:InitSuggestionEngine() end
+
+---@public
+---@param arg0 CharSequence
+---@param arg1 CharSequence
+---@return int
+function UIDebugConsole:levenshteinDistance(arg0, arg1) end
+
+---Overrides:
+---
+---update in class NewWindow
 ---@public
 ---@return void
-function UIDebugConsole:ProcessCommand() end
+function UIDebugConsole:update() end
+
+---@param arg0 String
+---@return void
+function UIDebugConsole:SpoolText(arg0) end
+
+---Overrides:
+---
+---render in class NewWindow
+---@public
+---@return void
+function UIDebugConsole:render() end

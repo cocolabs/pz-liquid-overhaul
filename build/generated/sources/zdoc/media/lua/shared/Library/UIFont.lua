@@ -22,6 +22,18 @@
 ---@field public Title UIFont
 UIFont = {}
 
+---Returns the enum constant of this type with the specified name.
+---
+---The string must match exactly an identifier used to declare an
+---
+---enum constant in this type.  (Extraneous whitespace characters are
+---
+---not permitted.)
+---@public
+---@param name String @the name of the enum constant to be returned.
+---@return UIFont @the enum constant with the specified name
+function UIFont:valueOf(name) end
+
 ---@public
 ---@param str String
 ---@return UIFont
@@ -43,15 +55,3 @@ function UIFont:FromString(str) end
 ---@public
 ---@return UIFont[] @an array containing the constants of this enum type, in the order they are declared
 function UIFont:values() end
-
----Returns the enum constant of this type with the specified name.
----
----The string must match exactly an identifier used to declare an
----
----enum constant in this type.  (Extraneous whitespace characters are
----
----not permitted.)
----@public
----@param name String @the name of the enum constant to be returned.
----@return UIFont @the enum constant with the specified name
-function UIFont:valueOf(name) end

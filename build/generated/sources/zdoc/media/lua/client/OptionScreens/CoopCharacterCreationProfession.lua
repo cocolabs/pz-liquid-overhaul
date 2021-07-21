@@ -31,9 +31,7 @@ function CoopCharacterCreationProfession:onOptionMouseDown(button, x, y)
 end
 
 function CoopCharacterCreationProfession:new(x, y, width, height)
-	local o = CharacterCreationProfession:new(x, y, width, height)
-	setmetatable(o, self)
-	self.__index = self
+	local o = CharacterCreationProfession.new(self, x, y, width, height)
 	o:setUIName("CoopCharacterCreationProfession")
 	return o
 end

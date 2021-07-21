@@ -15,7 +15,7 @@ end
 
 ItemBindingHandler.onKeyPressed = function(key)
 	local playerObj = getSpecificPlayer(0)
-	if not playerObj or playerObj:IsAiming() then
+	if not playerObj then
 		return
 	end
 	if key == getCore():getKey("Equip/Turn On/Off Light Source") then
