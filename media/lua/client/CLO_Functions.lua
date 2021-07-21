@@ -500,8 +500,7 @@ function CLO_Funcs.GetFirstNotEmptyDrainableItemOfTypeInInventory(_inventory, _i
     if not instanceof(_inventory, "ItemContainer") then return end
     local result
     local items = CLO_Funcs.GetAllItemOfTypeInInventory(_inventory, _itemType)
-    for i = 1, #items do
-        local item = items:get(i)
+    for _, item in pairs(items) do
         if item:IsDrainable() and item:getUsedDelta() > 0 then
             result = item
             break
@@ -541,9 +540,8 @@ function CLO_Funcs.GetAllNotEmptyDrainableItemOfTypeInInventory(_inventory, _ite
     if not instanceof(_inventory, "ItemContainer") then return {} end
     local result = {}
     local items = CLO_Funcs.GetAllItemOfTypeInInventory(_inventory, _itemType)
-    for i = 1, #items do
-        local item = items:get(i)
-        if item:IsDrainable() and item:getUsedDelta() > 0 then
+    for _, item in pairs(items) do
+        if item and item:IsDrainable() and item:getUsedDelta() > 0 then
             table.insert(result, item)
         end
     end
@@ -558,8 +556,7 @@ function CLO_Funcs.GetFirstFullDrainableItemOfTypeInInventory(_inventory, _itemT
     if not instanceof(_inventory, "ItemContainer") then return end
     local result
     local items = CLO_Funcs.GetAllItemOfTypeInInventory(_inventory, _itemType)
-    for i = 1, #items do
-        local item = items:get(i)
+    for _, item in pairs(items) do
         if item:IsDrainable() and item:getUsedDelta() >= 1 then
             result = item
             break
@@ -576,8 +573,7 @@ function CLO_Funcs.GetAllFullDrainableItemOfTypeInInventory(_inventory, _itemTyp
     if not instanceof(_inventory, "ItemContainer") then return {} end
     local result = {}
     local items = CLO_Funcs.GetAllItemOfTypeInInventory(_inventory, _itemType)
-    for i = 1, #items do
-        local item = items:get(i)
+    for _, item in pairs(items) do
         if item:IsDrainable() and item:getUsedDelta() >= 1 then
             table.insert(result, item)
         end
@@ -741,6 +737,20 @@ function CLO_Funcs.ConvertInventoryItemsToArray(_items)
     return result
 end
 
+function CLO_Funcs.GetMoveableDisplayName(obj)
+    if not obj then return nil end
+    if not obj:getSprite() then return nil end
+    local props = obj:getSprite():getProperties()
+    if props:Is("CustomName") then
+        local name = props:Val("CustomName")
+        if props:Is("GroupName") then
+            name = props:Val("GroupName") .. " " .. name
+        end
+        return Translator.getMoveableDisplayName(name)
+    end
+    return nil
+end
+
 -------------------------------------------------------------------------
 
 CLO_Math = {
@@ -806,4 +816,5 @@ CLO_Context = {
     CreateSubMenu = CLO_Funcs.CreateSubMenu,
     CreateOptionTooltip = CLO_Funcs.CreateOptionTooltip,
     ConvertInventoryItemsToArray = CLO_Funcs.ConvertInventoryItemsToArray,
+    GetMoveableDisplayName = CLO_Funcs.GetMoveableDisplayName,
 }
