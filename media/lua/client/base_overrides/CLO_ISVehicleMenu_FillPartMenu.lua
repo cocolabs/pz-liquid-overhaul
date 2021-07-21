@@ -30,13 +30,16 @@ function CLO_Override_ISVehicleMenu_FillPartMenu()
                         context:addOption(getText("ContextMenu_VehicleSiphonGas"), playerObj, ISVehiclePartMenu.onTakeGasoline, part)
                     end
                 end
-                local square = ISVehiclePartMenu.getNearbyFuelPump(vehicle)
-                if square and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
-                    if square and part:getContainerContentAmount() < part:getContainerCapacity() then
-                        if slice then
-                            slice:addSlice(getText("ContextMenu_VehicleRefuelFromPump"), getTexture("media/ui/vehicles/vehicle_refuel_from_pump.png"), ISVehiclePartMenu.onPumpGasoline, playerObj, part)
-                        else
-                            context:addOption(getText("ContextMenu_VehicleRefuelFromPump"), playerObj, ISVehiclePartMenu.onPumpGasoline, part)
+                local fuelStation = ISVehiclePartMenu.getNearbyFuelPump(vehicle)
+                if fuelStation then
+                    local square = fuelStation:getSquare();
+                    if square and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
+                        if square and part:getContainerContentAmount() < part:getContainerCapacity() then
+                            if slice then
+                                slice:addSlice(getText("ContextMenu_VehicleRefuelFromPump"), getTexture("media/ui/vehicles/vehicle_refuel_from_pump.png"), ISVehiclePartMenu.onPumpGasoline, playerObj, part)
+                            else
+                                context:addOption(getText("ContextMenu_VehicleRefuelFromPump"), playerObj, ISVehiclePartMenu.onPumpGasoline, part)
+                            end
                         end
                     end
                 end
