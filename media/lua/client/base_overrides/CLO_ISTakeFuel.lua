@@ -36,7 +36,7 @@ function CLO_Override_ISTakeFuel()
             self.character:getInventory():Remove(emptyCan)
         end
 
-        local pumpCurrent = 1000 + tonumber(self.square:getProperties():Val("fuelAmount"))
+        local pumpCurrent = tonumber(self.fuelStation:getPipedFuelAmount())
         local itemCurrent = math.floor(self.petrolCan:getUsedDelta() / self.petrolCan:getUseDelta() + 0.001)
         local itemMax = math.floor(1 / self.petrolCan:getUseDelta() + 0.001)
         local take = math.min(pumpCurrent, itemMax - itemCurrent)
@@ -47,5 +47,4 @@ function CLO_Override_ISTakeFuel()
         self:setActionAnim("TakeGasFromPump")
         self:setOverrideHandModels(nil, self.petrolCan:getStaticModel())
     end
-
 end
