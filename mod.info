@@ -1,10 +1,10 @@
-name=Coco Liquid Overhaul (Latest 41.51-IWBUMS)
+name=Coco Liquid Overhaul (Latest 41.52-IWBUMS)
 poster=poster.png
-description=For Project Zomboid version 41.51-IWBUMS+
+description=For Project Zomboid version 41.52-IWBUMS
 author=Konijima
 id=CocoLiquidOverhaul
 url=https://github.com/cocolabs/pz-liquid-overhaul
-modversion=1.3
-pzversion=41.51-IWBUMS
+modversion=1.4
+pzversion=41.52-IWBUMS
 pack=coco_liquid_overhaul
 tiledef=coco_liquid_overhaul 853

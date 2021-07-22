@@ -1,8 +1,8 @@
-# Coco Liquid Overhaul 1.3
+# Coco Liquid Overhaul 1.4
 A mod presented by the Coco Labs community focusing on increasing the possibilities with the game liquids. Store liquid in a "Water Jug" and "Large Gas Can". Take and Place Water Jugs on any dispenser to refill them.
   
 ## New Features:
-- Updated for beta 41.51 IWBUMS.  
+- Updated for beta 41.52 IWBUMS.  
 - Added Large Gas Can.  
 - Added Generator Add Fuel submenu.  
 - Add/Siphon gasoline to/from vehicle with any fuel containers.  
