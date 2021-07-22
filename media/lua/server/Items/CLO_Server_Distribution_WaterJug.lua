@@ -15,8 +15,3 @@ table.insert(ProceduralDistributions["list"]["GigamartBottles"].items, 4)
 table.insert(ProceduralDistributions["list"]["KitchenBottles"].items, "CocoLiquidOverhaulItems.Coco_WaterGallonFull")
 table.insert(ProceduralDistributions["list"]["KitchenBottles"].items, 2)
 
---- SuburbsDistributions
-
--- generalstorestorage
-table.insert(SuburbsDistributions["generalstorestorage"]["other"].items, "CocoLiquidOverhaulItems.Coco_WaterGallonEmpty")
-table.insert(SuburbsDistributions["generalstorestorage"]["other"].items, 1.5)
