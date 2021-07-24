@@ -591,7 +591,8 @@ end
 function CLO_Funcs.GetDispenserType(_isoObject)
     if not instanceof(_isoObject, "IsoObject") then return end
     local customName = CLO_Funcs.GetObjectCustomName(_isoObject)
-    if customName == CLO_DispenserTypes.DefaultDispenser.CustomName then
+    local groupName = _isoObject:getProperties():Val("GroupName")
+    if customName == CLO_DispenserTypes.DefaultDispenser.CustomName and groupName == "Water" then
         return CLO_DispenserTypes.DefaultDispenser
     elseif customName == CLO_DispenserTypes.WaterDispenser.CustomName then
         return CLO_DispenserTypes.WaterDispenser
