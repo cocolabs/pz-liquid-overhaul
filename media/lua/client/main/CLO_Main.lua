@@ -4,7 +4,6 @@ local function OnLoad()
 
     ---Do overrides
     CLO_Override_ISAddGasolineToVehicle()
-    CLO_Override_ISTakeFuel()
     CLO_Override_ISTakeGasolineFromVehicle()
     CLO_Override_ISVehicleMenu_FillPartMenu()
     CLO_Override_ISVehiclePartMenu_getGasCanNotEmpty()
