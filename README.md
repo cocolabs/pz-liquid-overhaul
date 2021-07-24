@@ -56,15 +56,32 @@ A mod presented by the Coco Labs community focusing on increasing the possibilit
   
 ## Compatibility  
 This mod overrides the following features/functions:  
-- Generator Context Menu  
 - Gas Pump Context Menu  
+- Generator Context Menu  
 - ISAddGasolineToVehicle:start  
 - ISAddGasolineToVehicle:update  
+- ISAddGasolineToVehicle:perform  
 - ISTakeGasolineFromVehicle:start  
 - ISTakeGasolineFromVehicle:update  
+- ISTakeGasolineFromVehicle:perform  
 - ISVehicleMenu.FillPartMenu  
 - ISVehiclePartMenu.getGasCanNotEmpty  
 - ISVehiclePartMenu.getGasCanNotFull  
+  
+### THINGS TO CHECK WHEN GAME UPDATES  
+- Check if Drink / WashYourself / WashClothes changed.  
+- Check if anything related to Fuel changed.  
+- Check if anything related to Water changed.  
+- Check if anything related to Dispenser changed.  
+- Check if anything related to Generator changed.  
+- Check if anything related to Vehicle Fuel changed.  
+  
+### THINGS TO DO WHEN UPDATING THE MOD  
+- Increment version number when new features added.
+- Do not increment version number when releasing Hotfix.
+- Add compatibility notes to readme if new/changed overrides.  
+- Update version number in mod.info, CLO.lua and readme.md title.  
+- Update Readme and workshop.txt descriptions.  
   
 ## Workshop
 Workshop ID: 2539452952  
