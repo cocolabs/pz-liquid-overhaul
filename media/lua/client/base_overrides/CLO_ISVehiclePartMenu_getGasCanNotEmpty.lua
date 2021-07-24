@@ -1,43 +1,45 @@
 function CLO_Override_ISVehiclePartMenu_getGasCanNotEmpty()
     CLO_Print("Overriding: 'ISVehiclePartMenu.getGasCanNotEmpty'")
 
+    ---store vanilla function
+    local ISVehiclePartMenu_getGasCanNotEmpty = ISVehiclePartMenu.getGasCanNotEmpty
+
     function ISVehiclePartMenu.getGasCanNotEmpty(playerObj, typeToItem)
-        local customFuelItem = nil
-        for i = 1, #CLO_ModSettings.CustomFuelItems do
-            local fuelItem = CLO_ModSettings.CustomFuelItems[i]
-            if typeToItem[fuelItem.module .. "." .. fuelItem.full] then
-                customFuelItem = fuelItem
-                break
-            end
-        end
+        local result = ISVehiclePartMenu_getGasCanNotEmpty(playerObj, typeToItem) -- run vanilla function first
+        if result == nil then
 
-        -- Prefer an equipped PetrolCan, then the emptiest PetrolCan.
-        local equipped = playerObj:getPrimaryHandItem()
-        if equipped and (equipped:getType() == "PetrolCan" or equipped:getType() == customFuelItem.full) and equipped:getUsedDelta() > 0 then
-            return equipped
-        end
-
-        if typeToItem["Base.PetrolCan"] or typeToItem[customFuelItem.module .. "." .. customFuelItem.full] then
-            local gasCan = nil
-            local usedDelta = 1.1
-            if typeToItem["Base.PetrolCan"] then
-                for _,item in ipairs(typeToItem["Base.PetrolCan"]) do
-                    if item:getUsedDelta() > 0 and item:getUsedDelta() < usedDelta then
-                        gasCan = item
-                        usedDelta = gasCan:getUsedDelta()
-                    end
+            local customFuelItem = nil
+            for i = 1, #CLO_ModSettings.CustomFuelItems do
+                local fuelItem = CLO_ModSettings.CustomFuelItems[i]
+                if typeToItem[fuelItem.module .. "." .. fuelItem.full] then
+                    customFuelItem = fuelItem
+                    break
                 end
             end
-            if gasCan == nil and typeToItem[customFuelItem.module .. "." .. customFuelItem.full] then
-                for _,item in ipairs(typeToItem[customFuelItem.module .. "." .. customFuelItem.full]) do
-                    if item:getUsedDelta() > 0 and item:getUsedDelta() < usedDelta then
-                        gasCan = item
-                        usedDelta = gasCan:getUsedDelta()
+
+            -- Prefer an equipped PetrolCan, then the emptiest PetrolCan.
+            local equipped = playerObj:getPrimaryHandItem()
+            if equipped and equipped:getType() == customFuelItem.full and equipped:getUsedDelta() > 0 then
+                return equipped
+            end
+
+            if typeToItem[customFuelItem.module .. "." .. customFuelItem.full] then
+                local gasCan = nil
+                local usedDelta = 1.1
+                if gasCan == nil and typeToItem[customFuelItem.module .. "." .. customFuelItem.full] then
+                    for _,item in ipairs(typeToItem[customFuelItem.module .. "." .. customFuelItem.full]) do
+                        if item:getUsedDelta() > 0 and item:getUsedDelta() < usedDelta then
+                            gasCan = item
+                            usedDelta = gasCan:getUsedDelta()
+                        end
                     end
                 end
+                if gasCan then return gasCan end
             end
-            if gasCan then return gasCan end
+            return nil
+
+        else
+            return result
         end
-        return nil
     end
 end
