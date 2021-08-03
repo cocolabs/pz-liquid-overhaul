@@ -44,14 +44,27 @@ local function Context_TakeFuelFromPump(_playerNum, _context, _, test)
         local availableFuel = CLO_World.GetAvailableFuelOnSquare(square)
         if availableFuel > 0 and ((SandboxVars.AllowExteriorGenerator and square:haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then
             local petrolCans = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "EmptyPetrolCan", "PetrolCan")
-            local petrolCans2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
-            local petrolCans3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
-            for _,v in ipairs(petrolCans2) do
-                table.insert(petrolCans, v)
+            for i = 1, #CLO_ModSettings.CustomFuelItems do
+                local fuelItem = CLO_ModSettings.CustomFuelItems[i]
+                local fuelItems = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, fuelItem.empty, fuelItem.full)
+                if fuelItems then
+                    for _,customItem in ipairs(fuelItems) do
+                        table.insert(petrolCans, customItem)
+                    end
+                end
             end
-            for _,v in ipairs(petrolCans3) do
-                table.insert(petrolCans, v)
-            end
+
+            --local petrolCans = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "EmptyPetrolCan", "PetrolCan")
+            --local petrolCans2 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_WaterGallonEmpty", "Coco_WaterGallonPetrol")
+            --local petrolCans3 = CLO_Inventory.GetAllNotFullDrainableItemOfTypeInInventory(inventory, "Coco_LargeEmptyPetrolCan", "Coco_LargePetrolCan")
+            --
+            --for _,v in ipairs(petrolCans2) do
+            --    table.insert(petrolCans, v)
+            --end
+            --for _,v in ipairs(petrolCans3) do
+            --    table.insert(petrolCans, v)
+            --end
+
             if #petrolCans > 0 then
                 local pourSubMenu = CLO_Context.CreateSubMenu(_context, getText("ContextMenu_TakeGasFromPump"))
                 for i = 1, #petrolCans do
