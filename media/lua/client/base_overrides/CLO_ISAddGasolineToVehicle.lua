@@ -2,6 +2,35 @@ function CLO_Override_ISAddGasolineToVehicle()
 
     CLO_Print("Overriding: 'ISAddGasolineToVehicle:start'")
     function ISAddGasolineToVehicle:start()
+        local itemType = self.item:getType()
+
+        local customFuelItem = nil
+        for i = 1, #CLO_ModSettings.CustomFuelItems do
+            local fuelItem = CLO_ModSettings.CustomFuelItems[i]
+            if itemType == fuelItem.empty then
+                customFuelItem = fuelItem
+                break
+            end
+        end
+
+        if itemType == "EmptyPetrolCan" or customFuelItem then
+            local wasPrimary = self.character:getPrimaryHandItem() == self.item
+            local wasSecondary = self.character:getSecondaryHandItem() == self.item
+            self.character:getInventory():DoRemoveItem(self.item)
+            if itemType == "EmptyPetrolCan" then
+                self.item = self.character:getInventory():AddItem("Base.PetrolCan")
+            elseif customFuelItem and itemType == customFuelItem.empty then
+                self.item = self.character:getInventory():AddItem(customFuelItem.module .. "." .. customFuelItem.full)
+            end
+            self.item:setUsedDelta(0)
+            if wasPrimary then
+                self.character:setPrimaryHandItem(self.item)
+            end
+            if wasSecondary then
+                self.character:setSecondaryHandItem(self.item)
+            end
+        end
+
         local tankCurrent = self.part:getContainerContentAmount()
         local tankMax = self.part:getContainerCapacity()
         local itemCurrent = math.floor(self.item:getUsedDelta() / self.item:getUseDelta() + 0.001)
